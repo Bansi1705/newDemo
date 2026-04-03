@@ -1,0 +1,70 @@
+/* Full screen black transparent background */
+.confirm-model {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3); 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+
+/* Modal box */
+.main-confirm {
+  background-color: #fff;
+  padding: 30px 40px;
+  border-radius: 12px;
+  text-align: center;
+  min-width: 320px;
+  max-width: 90%;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Confirmation message */
+.confirm-msg {
+  margin-bottom: 25px;
+  font-size: 18px;
+  color: #141313;
+  font-weight: 500;
+}
+
+/* Buttons container */
+.confirm-actions {
+  display: flex;
+  justify-content: center;
+  gap: 15px; /* space between buttons */
+}
+
+/* Buttons styling */
+.confirm-actions button {
+  padding: 10px 20px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+/* Yes button */
+.yes-btn {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.yes-btn:hover {
+  background-color: #c0392b;
+}
+
+/* No button */
+.no-btn {
+  background-color: #bdc3c7;
+  color: #333;
+}
+
+.no-btn:hover {
+  background-color: #95a5a6;
+}

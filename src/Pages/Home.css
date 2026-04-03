@@ -1,0 +1,83 @@
+.user-data {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background-color: #f5f7fa;
+  min-height: 100vh;
+}
+
+.main-title {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.table-section {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.data-table th {
+  background-color: #4a90e2;
+  color: white;
+  padding: 12px;
+  text-align: center;
+  font-size: 16px;
+}
+
+.data-table td {
+  padding: 10px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+.data-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.edit-btn,
+.delete-btn {
+  border: none;
+  padding: 6px 10px;
+  cursor: pointer;
+  border-radius: 6px;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.edit-btn {
+  background-color: #ff4d4d;
+  color: white;
+}
+
+.edit-btn:hover {
+  background-color: #e60000;
+}
+
+.delete-btn {
+  background-color: #28a745;
+  color: white;
+}
+
+.delete-btn:hover {
+  background-color: #1e7e34;
+}
