@@ -15,6 +15,13 @@ export const Home = () => {
   const [showCofirm, setShowConfirm] = useState<boolean>(false);
   const [deleteId, setDeleteId] = useState<number | null>(null);
 
+  // const [currentPage, setCurrentPage] = useState<number>(1);
+  // const itemsPerPage: number = 5;
+  // const lastIndex = currentPage * itemsPerPage;
+  // const startIndex = lastIndex - itemsPerPage;
+
+  // const currentRecords = users.slice(startIndex, lastIndex);
+
   useEffect(() => {
     fetch("http://localhost:5000/users")
       .then((res) => res.json())
@@ -25,6 +32,10 @@ export const Home = () => {
     setDeleteId(id);
     setShowConfirm(true);
   };
+
+//   const handlePageChange = (pageNumber: number) => {
+//   setCurrentPage(pageNumber);
+// };
 
   const handleConfirm = async () => {
     await fetch(`http://localhost:5000/users/${deleteId}`, {
@@ -45,7 +56,7 @@ export const Home = () => {
     navigate(`/edit-user/${id}`);
   };
 
-  const title = ["Name", "Age","BirthDate", "Operations"];
+  const title = ["Name", "Age", "BirthDate", "Operations"];
 
   return (
     <>
@@ -76,12 +87,7 @@ export const Home = () => {
                       >
                         <MdDeleteOutline />
                       </button>
-                      {showCofirm && (
-                        <Confirmation
-                          confirm={handleConfirm}
-                          cancel={handleCancel}
-                        />
-                      )}
+
                       <button
                         onClick={() => handleEdit(user.id)}
                         className="delete-btn"
@@ -94,6 +100,10 @@ export const Home = () => {
               </tbody>
             </table>
           </div>
+          {showCofirm && (
+            <Confirmation confirm={handleConfirm} cancel={handleCancel} />
+          )}
+        
         </div>
       </div>
     </>

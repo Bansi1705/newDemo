@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "./Login.css";
 import { Otp } from "./Otp";
+import { FaEye, FaEyeSlash } from "react-icons/fa6";
 
 interface LoginData {
   email: string;
@@ -21,6 +22,7 @@ export function Login() {
   const [error, setError] = useState<FormError>({});
   const [otpValue, setOtpValue] = useState("");
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -92,15 +94,25 @@ export function Login() {
           <label htmlFor="password" className="form-label">
             Password:
           </label>
-          <input
-            id="password"
-            type="password"
-            name="password"
-            value={data.password}
-            onChange={handleChange}
-            placeholder="********"
-            className="form-input"
-          />
+          <div className="password-wrapper">
+            <input
+              id="password"
+              type={showPassword ? "text" : "password"}
+              name="password"
+              value={data.password}
+              onChange={handleChange}
+              placeholder="********"
+              className="form-input"
+            />
+
+            <span
+              className="eye-icon"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </span>
+          </div>
+
           {error.password && <p className="form-error">{error.password}</p>}
         </div>
         <div className="form-group">
@@ -108,15 +120,17 @@ export function Login() {
             Otp :
           </label>
           <Otp otpValue={otpValue} setOtpValue={setOtpValue} />
-          {error.password && <p className="form-error">{error.password}</p>}
+          {error.otp && <p className="form-error">{error.otp}</p>}
         </div>
 
-        <button type="submit" className="form-button">
-          Login
-        </button>
-        <button type="button" className="form-button" onClick={handleOtp}>
-          Generate Otp
-        </button>
+        <div className="action-buttons">
+          <button type="submit" className="form-button">
+            Login
+          </button>
+          <button type="button" className="form-button" onClick={handleOtp}>
+            Generate Otp
+          </button>
+        </div>
       </form>
     </div>
   );
