@@ -23,6 +23,30 @@
       "age": 21,
       "birthdate": "2026-03-29",
       "id": "TJ5PbutgZFU"
+    },
+    {
+      "name": "bansi",
+      "age": 21,
+      "birthdate": "2026-03-29",
+      "id": "_0EaO4Jh_NQ"
+    },
+    {
+      "name": "bansi",
+      "age": 21,
+      "birthdate": "2026-03-29",
+      "id": "2oaVPKHmpyU"
+    },
+    {
+      "name": "jyot",
+      "age": 21,
+      "birthdate": "2026-03-30",
+      "id": "pnRDebb_qgY"
+    },
+    {
+      "name": "jyot",
+      "age": 21,
+      "birthdate": "2026-03-30",
+      "id": "IV6AFgdDYQA"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

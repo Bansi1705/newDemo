@@ -12,21 +12,25 @@ export const Home = () => {
   const [users, setUsers] = useState<User[]>([]);
   const navigate = useNavigate();
 
-  const [search,setSearch]=useState<string>("");
-
-  const filteredUsers = users.filter((user) =>
-  user.name.toLowerCase().includes(search.toLowerCase())
-);
+  const [search, setSearch] = useState<string>("");
 
   const [showCofirm, setShowConfirm] = useState<boolean>(false);
   const [deleteId, setDeleteId] = useState<number | null>(null);
 
-  // const [currentPage, setCurrentPage] = useState<number>(1);
-  // const itemsPerPage: number = 5;
-  // const lastIndex = currentPage * itemsPerPage;
-  // const startIndex = lastIndex - itemsPerPage;
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const itemsPerPage = 5;
+  const lastIndex = currentPage * itemsPerPage;
+  const startIndex = lastIndex - itemsPerPage;
 
-  // const currentRecords = users.slice(startIndex, lastIndex);
+  const filteredUsers = users.filter((user) => 
+    user.name.toLowerCase().includes(search.toLowerCase())
+  );
+ useEffect(()=>{
+  setCurrentPage(1)
+ },[search])
+  const currentRecords = filteredUsers.slice(startIndex, lastIndex);
+
+  const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
 
   useEffect(() => {
     fetch("http://localhost:5000/users")
@@ -38,10 +42,6 @@ export const Home = () => {
     setDeleteId(id);
     setShowConfirm(true);
   };
-
-//   const handlePageChange = (pageNumber: number) => {
-//   setCurrentPage(pageNumber);
-// };
 
   const handleConfirm = async () => {
     await fetch(`http://localhost:5000/users/${deleteId}`, {
@@ -66,7 +66,7 @@ export const Home = () => {
 
   return (
     <>
-      <Header search={search} setSearch={setSearch}/>
+      <Header search={search} setSearch={setSearch} />
 
       <div className="user-data">
         <div className="table-section">
@@ -81,7 +81,7 @@ export const Home = () => {
                 </tr>
               </thead>
               <tbody>
-                {filteredUsers.map((user) => (
+                {currentRecords.map((user) => (
                   <tr key={user.id}>
                     <td>{user.name}</td>
                     <td>{user.age}</td>
@@ -105,12 +105,34 @@ export const Home = () => {
                 ))}
               </tbody>
             </table>
+              <div className="pagination-controls">
+          <button
+            onClick={() => setCurrentPage(currentPage - 1)}
+            disabled={currentPage === 1}
+            className="pagination-button"
+          >
+            Previous
+          </button>
+
+          <span>
+            Page {currentPage} of {totalPages}
+          </span>
+
+          <button
+            onClick={() => setCurrentPage(currentPage + 1)}
+            disabled={currentPage === totalPages}
+            className="pagination-button"
+          >
+            Next
+          </button>
+        </div>
           </div>
           {showCofirm && (
             <Confirmation confirm={handleConfirm} cancel={handleCancel} />
           )}
-        
         </div>
+
+      
       </div>
     </>
   );

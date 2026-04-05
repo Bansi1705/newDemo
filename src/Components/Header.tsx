@@ -30,7 +30,9 @@ function Header({ search, setSearch }: HeaderProps) {
           LogOut
         </NavLink>
       </div>
-      <div className="search-container">
+      
+      <div className="navbar-icons">
+        <div className="search-container">
         <FaSearch className="search-icon" />
         <input
           type="text"
@@ -39,9 +41,12 @@ function Header({ search, setSearch }: HeaderProps) {
           onChange={(e) => setSearch(e.target.value)}
         />
       </div>
-      <div className="navbar-icons" onClick={toggleTheme}>
+        <div  onClick={toggleTheme}>
         {theme === "dark" ? <FaRegSun /> : <FaRegMoon />}
       </div>
+
+      </div>
+      
     </div>
   );
 }
