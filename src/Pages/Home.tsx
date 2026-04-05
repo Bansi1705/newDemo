@@ -12,6 +12,12 @@ export const Home = () => {
   const [users, setUsers] = useState<User[]>([]);
   const navigate = useNavigate();
 
+  const [search,setSearch]=useState<string>("");
+
+  const filteredUsers = users.filter((user) =>
+  user.name.toLowerCase().includes(search.toLowerCase())
+);
+
   const [showCofirm, setShowConfirm] = useState<boolean>(false);
   const [deleteId, setDeleteId] = useState<number | null>(null);
 
@@ -60,7 +66,7 @@ export const Home = () => {
 
   return (
     <>
-      <Header />
+      <Header search={search} setSearch={setSearch}/>
 
       <div className="user-data">
         <div className="table-section">
@@ -75,7 +81,7 @@ export const Home = () => {
                 </tr>
               </thead>
               <tbody>
-                {users.map((user) => (
+                {filteredUsers.map((user) => (
                   <tr key={user.id}>
                     <td>{user.name}</td>
                     <td>{user.age}</td>

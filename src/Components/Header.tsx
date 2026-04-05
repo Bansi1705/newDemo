@@ -1,12 +1,16 @@
-// src/components/Header.tsx
 import { NavLink } from "react-router-dom";
 import { FaRegSun } from "react-icons/fa6";
-import { FaRegMoon } from "react-icons/fa";
+import { FaRegMoon, FaSearch } from "react-icons/fa";
 import "./Header.css";
 import { useTheme } from "../Context/ThemeContext";
 
-function Header() {
-  const { theme, toggleTheme } = useTheme(); 
+type HeaderProps = {
+  search: string;
+  setSearch: React.Dispatch<React.SetStateAction<string>>;
+};
+
+function Header({ search, setSearch }: HeaderProps) {
+  const { theme, toggleTheme } = useTheme();
 
   return (
     <div className="navbar">
@@ -22,9 +26,18 @@ function Header() {
           Add User
         </NavLink>
 
-        <NavLink to="/" className="nav-item" >
+        <NavLink to="/" className="nav-item">
           LogOut
         </NavLink>
+      </div>
+      <div className="search-container">
+        <FaSearch className="search-icon" />
+        <input
+          type="text"
+          placeholder="Search...."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
       </div>
       <div className="navbar-icons" onClick={toggleTheme}>
         {theme === "dark" ? <FaRegSun /> : <FaRegMoon />}
