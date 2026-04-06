@@ -22,12 +22,12 @@ export const Home = () => {
   const lastIndex = currentPage * itemsPerPage;
   const startIndex = lastIndex - itemsPerPage;
 
-  const filteredUsers = users.filter((user) => 
-    user.name.toLowerCase().includes(search.toLowerCase())
+  const filteredUsers = users.filter((user) =>
+    user.name.toLowerCase().includes(search.toLowerCase()),
   );
- useEffect(()=>{
-  setCurrentPage(1)
- },[search])
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [search]);
   const currentRecords = filteredUsers.slice(startIndex, lastIndex);
 
   const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
@@ -105,34 +105,36 @@ export const Home = () => {
                 ))}
               </tbody>
             </table>
-              <div className="pagination-controls">
-          <button
-            onClick={() => setCurrentPage(currentPage - 1)}
-            disabled={currentPage === 1}
-            className="pagination-button"
-          >
-            Previous
-          </button>
+            <div className="pagination-controls">
+              <button
+                onClick={() => setCurrentPage(currentPage - 1)}
+                disabled={currentPage === 1}
+                className="pagination-button"
+              >
+                Previous
+              </button>
 
-          <span>
-            Page {currentPage} of {totalPages}
-          </span>
+              <span>
+                Page {currentPage} of {totalPages}
+              </span>
 
-          <button
-            onClick={() => setCurrentPage(currentPage + 1)}
-            disabled={currentPage === totalPages}
-            className="pagination-button"
-          >
-            Next
-          </button>
-        </div>
+              <button
+                onClick={() => setCurrentPage(currentPage + 1)}
+                disabled={currentPage === totalPages}
+                className="pagination-button"
+              >
+                Next
+              </button>
+            </div>
           </div>
           {showCofirm && (
-            <Confirmation confirm={handleConfirm} cancel={handleCancel} />
+            <Confirmation
+              confirm={handleConfirm}
+              cancel={handleCancel}
+              message=" Do You Really Want To Delete This Item ??"
+            />
           )}
         </div>
-
-      
       </div>
     </>
   );

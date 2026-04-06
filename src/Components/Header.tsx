@@ -1,8 +1,11 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { FaRegSun } from "react-icons/fa6";
 import { FaRegMoon, FaSearch } from "react-icons/fa";
 import "./Header.css";
 import { useTheme } from "../Context/ThemeContext";
+import { useState } from "react";
+import Confirmation from "./Confirmation";
+import { toast } from "react-toastify";
 
 type HeaderProps = {
   search: string;
@@ -11,6 +14,23 @@ type HeaderProps = {
 
 function Header({ search, setSearch }: HeaderProps) {
   const { theme, toggleTheme } = useTheme();
+    const [showCofirm, setShowConfirm] = useState<boolean>(false);
+    const navigate=useNavigate();
+
+    const handleLogout=()=>{
+      setShowConfirm(true)
+    }
+
+    const handleConfirm =()=>{
+      sessionStorage.removeItem("LoginUser");
+      toast.success("Logout Succesfully...");
+      navigate("/");
+    }
+
+    const handleCancel=()=>{
+      setShowConfirm(false)
+    }
+  
 
   return (
     <div className="navbar">
@@ -26,7 +46,7 @@ function Header({ search, setSearch }: HeaderProps) {
           Add User
         </NavLink>
 
-        <NavLink to="/" className="nav-item">
+        <NavLink to="" className="nav-item" onClick={handleLogout}>
           LogOut
         </NavLink>
       </div>
@@ -46,6 +66,9 @@ function Header({ search, setSearch }: HeaderProps) {
       </div>
 
       </div>
+
+      {showCofirm && (<Confirmation
+      confirm={handleConfirm} cancel={handleCancel} message="Do You Really Want To LogOut ??"/>)}
       
     </div>
   );
