@@ -51,6 +51,7 @@
   border: none;
   outline: none;
   background: transparent;
+  width: 60px;
 }
 
 .search-icon {

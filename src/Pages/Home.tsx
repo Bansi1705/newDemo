@@ -1,15 +1,21 @@
 import { useEffect, useState } from "react";
 import Header from "../Components/Header";
-import type { User } from "../types";
+import type { ExpenseData, User } from "../types";
 import { useNavigate } from "react-router-dom";
 import { MdDeleteOutline } from "react-icons/md";
 import { CiEdit } from "react-icons/ci";
 import "./Home.css";
-import Confirmation from "../Components/Confirmation";
 import { toast } from "react-toastify";
+import Confirmation from "../Components/CommonComponents/Confirmation";
+import UserExpense from "../Components/UserExpense";
 
 export const Home = () => {
   const [users, setUsers] = useState<User[]>([]);
+  const [showExpenseForm, setShowExpenseForm] = useState<boolean>(false);
+  
+  const handleOnAddExpence = () => {
+    setShowExpenseForm(!showExpenseForm);
+  };
   const navigate = useNavigate();
 
   const [search, setSearch] = useState<string>("");
@@ -25,9 +31,11 @@ export const Home = () => {
   const filteredUsers = users.filter((user) =>
     user.name.toLowerCase().includes(search.toLowerCase()),
   );
+
   useEffect(() => {
     setCurrentPage(1);
   }, [search]);
+
   const currentRecords = filteredUsers.slice(startIndex, lastIndex);
 
   const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
@@ -36,7 +44,8 @@ export const Home = () => {
     fetch("http://localhost:5000/users")
       .then((res) => res.json())
       .then((data: User[]) => setUsers(data));
-  }, []);
+
+     }, []);
 
   const handleDelete = (id: number) => {
     setDeleteId(id);
@@ -66,8 +75,16 @@ export const Home = () => {
 
   return (
     <>
-      <Header search={search} setSearch={setSearch} />
-
+      <Header
+        search={search}
+        setSearch={setSearch}
+        onAddExpense={handleOnAddExpence}
+      />
+      {showExpenseForm && (
+        <UserExpense
+          setShowExpenseForm={setShowExpenseForm}
+        />
+      )}
       <div className="user-data">
         <div className="table-section">
           <h2 className="main-title">Users List</h2>
@@ -136,6 +153,7 @@ export const Home = () => {
           )}
         </div>
       </div>
+    
     </>
   );
 };

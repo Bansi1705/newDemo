@@ -118,7 +118,6 @@ export const Form = () => {
 
           <div className="form-group">
             <label htmlFor="name" className="form-label">
-              {" "}
               Name :
             </label>
             <input
@@ -134,7 +133,6 @@ export const Form = () => {
 
           <div className="form-group">
             <label htmlFor="age" className="form-label">
-              {" "}
               Age :
             </label>
             <input

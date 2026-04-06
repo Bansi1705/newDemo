@@ -4,33 +4,33 @@ import { FaRegMoon, FaSearch } from "react-icons/fa";
 import "./Header.css";
 import { useTheme } from "../Context/ThemeContext";
 import { useState } from "react";
-import Confirmation from "./Confirmation";
+import Confirmation from "./CommonComponents/Confirmation";
 import { toast } from "react-toastify";
 
 type HeaderProps = {
   search: string;
   setSearch: React.Dispatch<React.SetStateAction<string>>;
+  onAddExpense: () => void;
 };
 
-function Header({ search, setSearch }: HeaderProps) {
+function Header({ search, setSearch, onAddExpense }: HeaderProps) {
   const { theme, toggleTheme } = useTheme();
-    const [showCofirm, setShowConfirm] = useState<boolean>(false);
-    const navigate=useNavigate();
+  const [showCofirm, setShowConfirm] = useState<boolean>(false);
+  const navigate = useNavigate();
 
-    const handleLogout=()=>{
-      setShowConfirm(true)
-    }
+  const handleLogout = () => {
+    setShowConfirm(true);
+  };
 
-    const handleConfirm =()=>{
-      sessionStorage.removeItem("LoginUser");
-      toast.success("Logout Succesfully...");
-      navigate("/");
-    }
+  const handleConfirm = () => {
+    sessionStorage.removeItem("LoginUser");
+    toast.success("Logout Succesfully...");
+    navigate("/");
+  };
 
-    const handleCancel=()=>{
-      setShowConfirm(false)
-    }
-  
+  const handleCancel = () => {
+    setShowConfirm(false);
+  };
 
   return (
     <div className="navbar">
@@ -46,30 +46,37 @@ function Header({ search, setSearch }: HeaderProps) {
           Add User
         </NavLink>
 
-        <NavLink to="" className="nav-item" onClick={handleLogout}>
+        <button className="nav-item" onClick={handleLogout}>
           LogOut
-        </NavLink>
+        </button>
+
+        <button className="nav-item" onClick={onAddExpense}>
+          + Expence
+        </button>
       </div>
-      
+
       <div className="navbar-icons">
         <div className="search-container">
-        <FaSearch className="search-icon" />
-        <input
-          type="text"
-          placeholder="Search...."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
+          <FaSearch className="search-icon" />
+          <input
+            type="text"
+            placeholder="Search...."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </div>
+        <div onClick={toggleTheme}>
+          {theme === "dark" ? <FaRegSun /> : <FaRegMoon />}
+        </div>
+      </div>
+
+      {showCofirm && (
+        <Confirmation
+          confirm={handleConfirm}
+          cancel={handleCancel}
+          message="Do You Really Want To LogOut ??"
         />
-      </div>
-        <div  onClick={toggleTheme}>
-        {theme === "dark" ? <FaRegSun /> : <FaRegMoon />}
-      </div>
-
-      </div>
-
-      {showCofirm && (<Confirmation
-      confirm={handleConfirm} cancel={handleCancel} message="Do You Really Want To LogOut ??"/>)}
-      
+      )}
     </div>
   );
 }

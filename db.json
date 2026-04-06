@@ -8,18 +8,6 @@
     },
     {
       "name": "bansi",
-      "age": 12,
-      "birthdate": "2026-03-29",
-      "id": "VVsOfpQOQls"
-    },
-    {
-      "name": "gopinath ji",
-      "age": 100,
-      "birthdate": "2026-03-30",
-      "id": "UewErKbLK5g"
-    },
-    {
-      "name": "bansi",
       "age": 21,
       "birthdate": "2026-03-29",
       "id": "TJ5PbutgZFU"
@@ -47,6 +35,44 @@
       "age": 21,
       "birthdate": "2026-03-30",
       "id": "IV6AFgdDYQA"
+    }
+  ],
+  "UserExpenses": [
+    {
+      "expenseId": 1,
+      "expenseTitle": "Food",
+      "description": "I have Spent On Food ",
+      "category": "Food",
+      "subCategory": "Lunch",
+      "amount": 100,
+      "paymentMethod": "Upi",
+      "invoiceNumber": "1232",
+      "expenseDate": "",
+      "submissionDate": "",
+      "employeeId": "214",
+      "employeeName": "Bansi",
+      "department": "Development",
+      "assignedTo": "345",
+      "status": "Pending",
+      "id": "3mW2BNsNRRw"
+    },
+    {
+      "expenseId": 1775478337381,
+      "expenseTitle": "Expence Record",
+      "description": "pkljhhvcv",
+      "category": "Travel",
+      "subCategory": "Train",
+      "amount": 399,
+      "paymentMethod": "UPI",
+      "invoiceNumber": "1232",
+      "expenseDate": "2026-03-30T18:30:00.000Z",
+      "submissionDate": "2026-03-30T18:30:00.000Z",
+      "employeeId": "214",
+      "employeeName": "Bansi",
+      "department": "Development",
+      "assignedTo": "345",
+      "status": "Pending",
+      "id": "p_Bfz9cmmNE"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

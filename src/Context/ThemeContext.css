@@ -107,3 +107,13 @@
 [data-theme="dark"] .delete-btn:hover {
   background-color: #16a34a; 
 }
+
+[data-theme="dark"] .expense-form-data {
+ background-color:  #151920;
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .expense-form {
+ background-color:#1e293b; 
+  color: #f8fafc;
+}
