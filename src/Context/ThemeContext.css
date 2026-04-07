@@ -1,11 +1,11 @@
 /* Navbar */
 [data-theme="dark"] .navbar {
-  background-color: #1e293b; 
+  background-color: #1e293b;
   color: #f8fafc;
 }
 
 [data-theme="dark"] .nav-item {
-  color: #cbd5e1; 
+  color: #cbd5e1;
 }
 
 [data-theme="dark"] .nav-item:hover {
@@ -22,11 +22,11 @@
 
 /* Form */
 [data-theme="dark"] .form-data {
-  background-color: #0f172a; 
+  background-color: #0f172a;
   color: #f8fafc;
 }
 [data-theme="dark"] .form {
-  background-color: #1e293b; 
+  background-color: #1e293b;
   color: #f8fafc;
 }
 
@@ -35,8 +35,8 @@
 }
 
 [data-theme="dark"] .input-field {
-  border: 1px solid #475569; 
-  background-color: #334155; 
+  border: 1px solid #475569;
+  background-color: #334155;
   color: #f8fafc;
 }
 
@@ -46,7 +46,7 @@
 }
 
 [data-theme="dark"] button {
-  background-color: #2563eb; 
+  background-color: #2563eb;
   color: #f8fafc;
 }
 
@@ -55,16 +55,16 @@
 }
 
 [data-theme="dark"] .form-label {
-  color: #f8fafc;           
+  color: #f8fafc;
 }
 
 [data-theme="dark"] .error {
-  color: #f87171; 
+  color: #f87171;
 }
 
 /* Home */
 [data-theme="dark"] .user-data {
-  background-color: #0f172a; 
+  background-color: #0f172a;
   color: #f8fafc;
 }
 
@@ -73,47 +73,136 @@
 }
 
 [data-theme="dark"] .data-table {
-  background-color: #1e293b; 
+  background-color: #1e293b;
   color: #f8fafc;
 }
 
 [data-theme="dark"] .data-table th {
-  background-color: #2563eb; 
+  background-color: #2563eb;
   color: #f8fafc;
 }
 
 [data-theme="dark"] .data-table td {
-  border-bottom: 1px solid #475569; 
+  border-bottom: 1px solid #475569;
 }
 
 [data-theme="dark"] .data-table tr:hover {
-  background-color: #334155; 
+  background-color: #334155;
 }
 
 [data-theme="dark"] .edit-btn {
-  background-color: #f87171; 
+  background-color: #f87171;
   color: #f8fafc;
 }
 
 [data-theme="dark"] .edit-btn:hover {
-  background-color: #ef4444; 
+  background-color: #ef4444;
 }
 
 [data-theme="dark"] .delete-btn {
-  background-color: #22c55e; 
+  background-color: #22c55e;
   color: #f8fafc;
 }
 
 [data-theme="dark"] .delete-btn:hover {
-  background-color: #16a34a; 
+  background-color: #16a34a;
 }
 
 [data-theme="dark"] .expense-form-data {
- background-color:  #151920;
+  background-color: #151920;
   color: #f8fafc;
 }
 
 [data-theme="dark"] .expense-form {
- background-color:#1e293b; 
+  background-color: #1e293b;
   color: #f8fafc;
 }
+
+[data-theme="dark"] .expense-form-title {
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .expense-input-field {
+  border: 1px solid #475569;
+  background-color: #334155;
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .expense-input-field:focus {
+  border-color: #60a5fa;
+  box-shadow: 0 0 5px rgba(96, 165, 250, 0.5);
+}
+
+[data-theme="dark"] .expense-form-label {
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .expense-form .btn {
+  background-color: #2563eb;
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .expense-form .btn:hover {
+  background-color: #1d4ed8;
+}
+
+[data-theme="dark"] .expense-error {
+  color: #f87171;
+}
+
+[data-theme="dark"] .expense-data-table {
+  background-color: #1e293b;
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .expense-data-table th {
+  background-color: #2563eb;
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .expense-data-table td {
+  border-bottom: 1px solid #475569;
+}
+
+[data-theme="dark"] .expense-data-table tbody tr:hover {
+  background-color: #334155;
+}
+
+[data-theme="dark"] .expense-data-table td button {
+  background-color: #f87171;
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .expense-data-table td button:hover {
+  background-color: #ef4444;
+}
+
+[data-theme="dark"] .pagination-controls {
+  background-color: #1e293b;
+}
+
+[data-theme="dark"] .pagination-button {
+  background-color: #2563eb;
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .pagination-button:hover {
+  background-color: #1d4ed8;
+}
+
+[data-theme="dark"] .pagination-button.active {
+  background-color: #60a5fa;
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .no-data {
+  color: #f8fafc;
+}
+[data-theme="dark"] .expense-no-data {
+  color: #f8fafc;
+}
+[data-theme="dark"] .expense-user-data {
+  background-color: #0f172a;
+  color: #f8fafc;
+}
+

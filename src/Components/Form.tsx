@@ -6,6 +6,8 @@ import "./Form.css";
 import { toast } from "react-toastify";
 import "react-datepicker/dist/react-datepicker.css";
 import { ReactDatePicker } from "./CommonComponents/DatePicker";
+import { Buttons } from "./CommonComponents/Buttons";
+import InputField from "./CommonComponents/InputFeild";
 
 export const Form = () => {
   const { id } = useParams();
@@ -67,7 +69,10 @@ export const Form = () => {
       fetch(`http://localhost:5000/users/${id}`)
         .then((res) => res.json())
         .then((data: User) => {
-          setData(data);
+          setData({
+            ...data,
+            birthdate: data.birthdate ? new Date(data.birthdate) : null,
+          });
         })
         .catch((err) => console.log(err));
     }
@@ -117,35 +122,34 @@ export const Form = () => {
           <h2 className="form-title">{id ? "Edit User" : "Add User"}</h2>
 
           <div className="form-group">
-            <label htmlFor="name" className="form-label">
+            <label htmlFor="" className="form-label">
               Name :
             </label>
-            <input
+            <InputField
+            placeholder="Enter Your Name"
               type="text"
               name="name"
-              placeholder="Enter Your Name"
               value={data.name}
               onChange={handleInputChange}
-              className="input-field"
+              error={error.name}
+              classname="input-field"
             />
-            {error.name && <span className="error">{error.name}</span>}
           </div>
 
           <div className="form-group">
-            <label htmlFor="age" className="form-label">
+            <label htmlFor="" className="form-label">
               Age :
             </label>
-            <input
+
+            <InputField
+              placeholder="Enter Your Age"
               type="number"
               name="age"
-              placeholder="Age"
               value={data.age}
-              min={1}
-              max={100}
               onChange={handleInputChange}
-              className="input-field"
+              error={error.age}
+              classname="input-field"
             />
-            {error.age && <span className="error">{error.age}</span>}
           </div>
 
           <div className="form-group">
@@ -159,7 +163,11 @@ export const Form = () => {
             />
           </div>
 
-          <button type="submit">{id ? "Update" : "Add"} User</button>
+          <Buttons
+            type="submit"
+            label={`${id ? "Update" : "Add"} User`}
+            className="submit-btn"
+          />
         </form>
       </div>
     </>

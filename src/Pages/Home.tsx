@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Header from "../Components/Header";
-import type { ExpenseData, User } from "../types";
+import type {  User } from "../types";
 import { useNavigate } from "react-router-dom";
 import { MdDeleteOutline } from "react-icons/md";
 import { CiEdit } from "react-icons/ci";
@@ -8,11 +8,12 @@ import "./Home.css";
 import { toast } from "react-toastify";
 import Confirmation from "../Components/CommonComponents/Confirmation";
 import UserExpense from "../Components/UserExpense";
+import { Buttons } from "../Components/CommonComponents/Buttons";
 
 export const Home = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [showExpenseForm, setShowExpenseForm] = useState<boolean>(false);
-  
+
   const handleOnAddExpence = () => {
     setShowExpenseForm(!showExpenseForm);
   };
@@ -44,8 +45,7 @@ export const Home = () => {
     fetch("http://localhost:5000/users")
       .then((res) => res.json())
       .then((data: User[]) => setUsers(data));
-
-     }, []);
+  }, []);
 
   const handleDelete = (id: number) => {
     setDeleteId(id);
@@ -81,9 +81,7 @@ export const Home = () => {
         onAddExpense={handleOnAddExpence}
       />
       {showExpenseForm && (
-        <UserExpense
-          setShowExpenseForm={setShowExpenseForm}
-        />
+        <UserExpense setShowExpenseForm={setShowExpenseForm} />
       )}
       <div className="user-data">
         <div className="table-section">
@@ -104,44 +102,37 @@ export const Home = () => {
                     <td>{user.age}</td>
                     <td>{user.birthdate}</td>
                     <td className="action-buttons">
-                      <button
+                      <Buttons
                         onClick={() => handleDelete(user.id)}
-                        className="edit-btn"
-                      >
-                        <MdDeleteOutline />
-                      </button>
-
-                      <button
-                        onClick={() => handleEdit(user.id)}
+                        label={<MdDeleteOutline />}
                         className="delete-btn"
-                      >
-                        <CiEdit />
-                      </button>
+                      />
+                      <Buttons
+                        onClick={() => handleEdit(user.id)}
+                        label={<CiEdit />}
+                        className="edit-btn"
+                      />
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
             <div className="pagination-controls">
-              <button
+              <Buttons
                 onClick={() => setCurrentPage(currentPage - 1)}
                 disabled={currentPage === 1}
+                label="Previous"
                 className="pagination-button"
-              >
-                Previous
-              </button>
-
+              />
               <span>
                 Page {currentPage} of {totalPages}
               </span>
-
-              <button
+              <Buttons
                 onClick={() => setCurrentPage(currentPage + 1)}
                 disabled={currentPage === totalPages}
+                label="Next"
                 className="pagination-button"
-              >
-                Next
-              </button>
+              />
             </div>
           </div>
           {showCofirm && (
@@ -153,7 +144,6 @@ export const Home = () => {
           )}
         </div>
       </div>
-    
     </>
   );
 };

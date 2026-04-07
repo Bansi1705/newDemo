@@ -10,16 +10,10 @@
       "name": "bansi",
       "age": 21,
       "birthdate": "2026-03-29",
-      "id": "TJ5PbutgZFU"
-    },
-    {
-      "name": "bansi",
-      "age": 21,
-      "birthdate": "2026-03-29",
       "id": "_0EaO4Jh_NQ"
     },
     {
-      "name": "bansi",
+      "name": "bansi78",
       "age": 21,
       "birthdate": "2026-03-29",
       "id": "2oaVPKHmpyU"
@@ -35,11 +29,16 @@
       "age": 21,
       "birthdate": "2026-03-30",
       "id": "IV6AFgdDYQA"
+    },
+    {
+      "name": "mili",
+      "age": 78,
+      "birthdate": "2026-03-28",
+      "id": "Cu0lO1TUTBQ"
     }
   ],
   "UserExpenses": [
     {
-      "expenseId": 1,
       "expenseTitle": "Food",
       "description": "I have Spent On Food ",
       "category": "Food",
@@ -53,11 +52,10 @@
       "employeeName": "Bansi",
       "department": "Development",
       "assignedTo": "345",
-      "status": "Pending",
+      "status": "Approved",
       "id": "3mW2BNsNRRw"
     },
     {
-      "expenseId": 1775478337381,
       "expenseTitle": "Expence Record",
       "description": "pkljhhvcv",
       "category": "Travel",
@@ -68,11 +66,79 @@
       "expenseDate": "2026-03-30T18:30:00.000Z",
       "submissionDate": "2026-03-30T18:30:00.000Z",
       "employeeId": "214",
+      "employeeName": "jyot",
+      "department": "Development",
+      "assignedTo": "345",
+      "status": "Rejected",
+      "id": "p_Bfz9cmmNE"
+    },
+    {
+      "expenseTitle": "wsx",
+      "description": "xcxcxc",
+      "category": "Travel",
+      "subCategory": "Train",
+      "amount": 234,
+      "paymentMethod": "Card",
+      "invoiceNumber": "1232",
+      "expenseDate": "2026-03-28T18:30:00.000Z",
+      "submissionDate": "2026-03-28T18:30:00.000Z",
+      "employeeId": "214",
       "employeeName": "Bansi",
       "department": "Development",
       "assignedTo": "345",
-      "status": "Pending",
-      "id": "p_Bfz9cmmNE"
+      "status": "Approved",
+      "id": "qmQjf0Xyn1I"
+    },
+    {
+      "expenseTitle": "vc",
+      "description": "cs c ",
+      "category": "Office",
+      "subCategory": "Stationary",
+      "amount": 566,
+      "paymentMethod": "Cash",
+      "invoiceNumber": "1232",
+      "expenseDate": "2026-03-28T18:30:00.000Z",
+      "submissionDate": "2026-03-30T18:30:00.000Z",
+      "employeeId": "214",
+      "employeeName": "nidhi",
+      "department": "Development",
+      "assignedTo": "pjhg",
+      "status": "Approved",
+      "id": "CjNr3pMeoME"
+    },
+    {
+      "expenseTitle": "lxcdx",
+      "description": "sxsc",
+      "category": "Office",
+      "subCategory": "Stationary",
+      "amount": 455,
+      "paymentMethod": "UPI",
+      "invoiceNumber": "1232",
+      "expenseDate": "2026-03-28T18:30:00.000Z",
+      "submissionDate": "2026-03-30T18:30:00.000Z",
+      "employeeId": "214",
+      "employeeName": "nidhi",
+      "department": "Development",
+      "assignedTo": "pjhg",
+      "status": "Approved",
+      "id": "ZUkIAF1J2Vo"
+    },
+    {
+      "id": "QKRV7lVizZ0",
+      "expenseTitle": "njdwcd",
+      "description": "cdcedc",
+      "category": "Travel",
+      "subCategory": "Bus",
+      "amount": 76,
+      "paymentMethod": "UPI",
+      "invoiceNumber": "9967",
+      "expenseDate": "2026-03-29T18:30:00.000Z",
+      "submissionDate": "2026-03-28T18:30:00.000Z",
+      "employeeId": "214",
+      "employeeName": "nidhi",
+      "department": "Development",
+      "assignedTo": "345",
+      "status": "Approved"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

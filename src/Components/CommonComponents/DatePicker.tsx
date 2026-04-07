@@ -4,9 +4,10 @@ import DatePicker from "react-datepicker";
     error?: string;
     selectedDate: Date | null;
     onChange: (date: Date | null) => void;
+    placeholder?: string;
   };
 
-export function ReactDatePicker({error,selectedDate,onChange}:props) {
+export function ReactDatePicker({error,selectedDate,onChange,placeholder}:props) {
  
   return (
     <div>
@@ -14,7 +15,7 @@ export function ReactDatePicker({error,selectedDate,onChange}:props) {
         selected={selectedDate}
         onChange={onChange}
         dateFormat="dd/MM/yyyy"
-        placeholderText="Select Birthdate"
+        placeholderText={placeholder || "Select Date"}
         maxDate={new Date()}
         className="input-field"
       />

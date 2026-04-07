@@ -64,7 +64,7 @@
   justify-content: center;
 }
 
-.edit-btn {
+.delete-btn {
   background-color: #ff4d4d;
   color: white;
 }
@@ -73,7 +73,7 @@
   background-color: #e60000;
 }
 
-.delete-btn {
+.edit-btn {
   background-color: #28a745;
   color: white;
 }

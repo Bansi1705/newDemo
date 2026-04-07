@@ -6,6 +6,8 @@ import { useTheme } from "../Context/ThemeContext";
 import { useState } from "react";
 import Confirmation from "./CommonComponents/Confirmation";
 import { toast } from "react-toastify";
+import { Buttons } from "./CommonComponents/Buttons";
+import { SearchBar } from "./CommonComponents/SearchComponent";
 
 type HeaderProps = {
   search: string;
@@ -46,23 +48,26 @@ function Header({ search, setSearch, onAddExpense }: HeaderProps) {
           Add User
         </NavLink>
 
-        <button className="nav-item" onClick={handleLogout}>
-          LogOut
-        </button>
+        <Buttons 
+          onClick={handleLogout}
+          label="LogOut"
+          className="nav-item"
+        />
 
-        <button className="nav-item" onClick={onAddExpense}>
-          + Expence
-        </button>
+        <Buttons
+          onClick={onAddExpense}
+          label="+ Expense"
+          className="nav-item"
+        />
       </div>
 
       <div className="navbar-icons">
         <div className="search-container">
           <FaSearch className="search-icon" />
-          <input
-            type="text"
-            placeholder="Search...."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
+          <SearchBar
+            searchTerm={search}
+            searchPlaceholder="Search...."
+            searchOnChange={(e) => setSearch(e.target.value)}
           />
         </div>
         <div onClick={toggleTheme}>

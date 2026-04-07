@@ -2,21 +2,18 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "./Login.css";
-import { Otp } from "./Otp";
+import { Otp } from "./CommonComponents/Otp";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
-
-interface LoginData {
-  email: string;
-  password: string;
-}
-
+import { Buttons } from "./CommonComponents/Buttons";
+import InputField from "./CommonComponents/InputFeild";
+import type { LoginData } from "../types";
 interface FormError {
   email?: string;
   password?: string;
   otp?: string;
 }
 
-export function Login() {
+export const Login : React.FC = () => {
   const [data, setData] = useState<LoginData>({ email: "", password: "" });
   const [error, setError] = useState<FormError>({});
   const [otpValue, setOtpValue] = useState("");
@@ -77,16 +74,14 @@ export function Login() {
           <label htmlFor="email" className="form-label">
             Email:
           </label>
-          <input
-            id="email"
+          <InputField
             type="email"
             name="email"
             value={data.email}
             onChange={handleChange}
             placeholder="bansi@gmail.com"
-            className="form-input"
+            error={error.email}
           />
-          {error.email && <p className="form-error">{error.email}</p>}
         </div>
 
         <div className="form-group">
@@ -94,16 +89,15 @@ export function Login() {
             Password:
           </label>
           <div className="password-wrapper">
-            <input
+            <InputField
               id="password"
               type={showPassword ? "text" : "password"}
               name="password"
               value={data.password}
               onChange={handleChange}
               placeholder="********"
-              className="form-input"
+              error={error.password}
             />
-
             <span
               className="eye-icon"
               onClick={() => setShowPassword(!showPassword)}
@@ -123,12 +117,17 @@ export function Login() {
         </div>
 
         <div className="action-buttons">
-          <button type="submit" className="form-button">
-            Login
-          </button>
-          <button type="button" className="form-button" onClick={handleOtp}>
-            Generate Otp
-          </button>
+          <Buttons
+            type="submit"
+            label="Login"
+            className="form-button"
+          />
+          <Buttons
+            type="button"
+            label="Generate Otp"
+            className="form-button"
+            onClick={handleOtp}
+          />
         </div>
       </form>
     </div>

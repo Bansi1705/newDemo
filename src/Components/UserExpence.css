@@ -1,5 +1,4 @@
-
-.expense-form-data{
+.expense-form-data {
   padding: 20px;
   font-family: Arial, sans-serif;
   background-color: #f5f7fa;
@@ -13,7 +12,10 @@
   background-color: #f9f9f9;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
 .input-field {
@@ -21,11 +23,14 @@
   border: 1px solid #ccc;
   border-radius: 6px;
   font-size: 14px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .input-field:focus {
   outline: none;
   border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
 .date-group {
@@ -46,14 +51,38 @@
   border-radius: 6px;
   cursor: pointer;
   margin: 5px 10px;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
 }
 
-.save-btn {
+.search-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+.search-input {
+  width: 100%;
+  max-width: 320px;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #4a90e2;
+  box-shadow: 0 0 4px rgba(74, 144, 226, 0.4);
+}
+
+.edit-btn {
   background-color: #28a745;
   color: white;
 }
 
-.cancel-btn {
+.delete-btn {
   background-color: #dc3545;
   color: white;
 }
@@ -65,4 +94,103 @@
 .error {
   color: red;
   font-size: 12px;
+  margin-top: 5px;
+}
+
+/* Table Styles */
+.expense-user-data {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background-color: #f5f7fa;
+  min-height: 100vh;
+}
+
+.expense-user-data h2 {
+  margin-bottom: 20px;
+  color: #d8d2d2;
+  text-align: center;
+}
+
+.expense-data-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.expense-data-table td {
+  padding: 10px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+.expense-data-table th {
+  background-color: #4a90e2;
+  color: white;
+  padding: 12px;
+  text-align: center;
+  font-size: 16px;
+}
+
+.expense-data-table tbody tr:hover {
+  background-color: #2b2727;
+}
+
+.expense-data-table td button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  margin-right: 5px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.expense-data-table td button:hover {
+  background-color: #e9ecef;
+}
+
+.expense-data-table td button svg {
+  width: 18px;
+  height: 18px;
+}
+
+.no-data {
+  text-align: center;
+  padding: 20px;
+  color: #888;
+}
+
+.btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin: 5px 10px;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.expense-data-table td button.edit-btn {
+  background-color: #28a745;
+  color: white;
+}
+
+.expense-data-table td button.delete-btn {
+  background-color: #dc3545;
+  color: white;
+}
+
+.status-dropdown-pending {
+  background-color: #ffc107;
+  color: #212529;
+}
+.status-dropdown-approved {
+  background-color: #28a745;
+  color: white;
+}
+.status-dropdown-rejected {
+  background-color: #dc3545;
+  color: white;
 }

@@ -1,12 +1,13 @@
+import type { JSX } from "react";
+
 export interface User {
-  id?: number; 
+  id?: number;
   name: string;
   age: number;
-  birthdate:string;
+  birthdate: string;
 }
-
 export interface ExpenseData {
-  expenseId: number;
+  id: number;
   expenseTitle: string;
   description: string;
   category: string;
@@ -21,4 +22,47 @@ export interface ExpenseData {
   department: string;
   assignedTo: string;
   status: "Pending" | "Approved" | "Rejected";
+}
+export interface LoginData {
+  email: string;
+  password: string;
+}
+export interface OtpProps {
+  otpValue: string;
+  setOtpValue: (value: string) => void;
+}
+export interface buttonProps {
+  onClick?: () => void;
+  label: string | JSX.Element;
+  className?: string;
+  disabled?: boolean;
+  type?: "button" | "submit" | "reset";
+}
+export interface inputProps {
+  type: string;
+  name: string;
+  value: string | number;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  error?: string;
+  placeholder?: string;
+  classname?: string;
+  id?: string;
+}
+
+export interface dropdownOption {
+  selectName: string;
+  selectValue: string;
+  disabled?: boolean;
+  selectClasName?: string;
+  dropDownChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  optionsLabel?: string[];
+  error?:string;
+  placeholder?: string;
+}
+
+export interface searchBarProps {
+  searchTerm: string;
+  searchPlaceholder?: string;
+  searchOnChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  searchClssName?: string;
 }
