@@ -1,6 +1,6 @@
 import type { OtpProps } from "../../types";
 
-export const Otp : React.FC<OtpProps> = ({ otpValue, setOtpValue }) => {
+export const Otp: React.FC<OtpProps> = ({ otpValue, setOtpValue }) => {
   return (
     <input
       type="text"

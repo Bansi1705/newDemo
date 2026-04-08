@@ -1,22 +1,17 @@
 import { useEffect, useState } from "react";
 import Header from "../Components/Header";
-import type {  User } from "../types";
+import type { User } from "../types";
 import { useNavigate } from "react-router-dom";
 import { MdDeleteOutline } from "react-icons/md";
 import { CiEdit } from "react-icons/ci";
-import "./Home.css";
+import "../Styles/Home.css";
 import { toast } from "react-toastify";
 import Confirmation from "../Components/CommonComponents/Confirmation";
-import UserExpense from "../Components/UserExpense";
 import { Buttons } from "../Components/CommonComponents/Buttons";
 
 export const Home = () => {
   const [users, setUsers] = useState<User[]>([]);
-  const [showExpenseForm, setShowExpenseForm] = useState<boolean>(false);
 
-  const handleOnAddExpence = () => {
-    setShowExpenseForm(!showExpenseForm);
-  };
   const navigate = useNavigate();
 
   const [search, setSearch] = useState<string>("");
@@ -78,11 +73,9 @@ export const Home = () => {
       <Header
         search={search}
         setSearch={setSearch}
-        onAddExpense={handleOnAddExpence}
+          searchShow={true}
       />
-      {showExpenseForm && (
-        <UserExpense setShowExpenseForm={setShowExpenseForm} />
-      )}
+
       <div className="user-data">
         <div className="table-section">
           <h2 className="main-title">Users List</h2>

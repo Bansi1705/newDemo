@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import "./Login.css";
+import "../Styles/Login.css";
 import { Otp } from "./CommonComponents/Otp";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
 import { Buttons } from "./CommonComponents/Buttons";
@@ -13,7 +13,7 @@ interface FormError {
   otp?: string;
 }
 
-export const Login : React.FC = () => {
+export const Login: React.FC = () => {
   const [data, setData] = useState<LoginData>({ email: "", password: "" });
   const [error, setError] = useState<FormError>({});
   const [otpValue, setOtpValue] = useState("");
@@ -81,6 +81,7 @@ export const Login : React.FC = () => {
             onChange={handleChange}
             placeholder="bansi@gmail.com"
             error={error.email}
+            classname="form-input"
           />
         </div>
 
@@ -97,6 +98,7 @@ export const Login : React.FC = () => {
               onChange={handleChange}
               placeholder="********"
               error={error.password}
+              classname="form-input"
             />
             <span
               className="eye-icon"
@@ -117,11 +119,7 @@ export const Login : React.FC = () => {
         </div>
 
         <div className="action-buttons">
-          <Buttons
-            type="submit"
-            label="Login"
-            className="form-button"
-          />
+          <Buttons type="submit" label="Login" className="form-button" />
           <Buttons
             type="button"
             label="Generate Otp"
@@ -132,4 +130,4 @@ export const Login : React.FC = () => {
       </form>
     </div>
   );
-}
+};

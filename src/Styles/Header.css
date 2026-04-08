@@ -14,13 +14,15 @@
 
 .navbar-links {
   display: flex;
-  gap: 20px;
+  align-items: center;
+  gap: 30px;
 }
 
 .nav-item {
   text-decoration: none;
   color: white;
   font-size: 16px;
+  width: max-content;
   transition: 0.3s;
 }
 
@@ -34,6 +36,7 @@
 
 .navbar-icons {
   display: flex;
+  align-items: center;
   gap: 15px;
   font-size: 20px;
   cursor: pointer;

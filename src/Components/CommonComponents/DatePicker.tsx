@@ -1,14 +1,18 @@
 import DatePicker from "react-datepicker";
 
- type props = {
-    error?: string;
-    selectedDate: Date | null;
-    onChange: (date: Date | null) => void;
-    placeholder?: string;
-  };
+type props = {
+  error?: string;
+  selectedDate: Date | null;
+  onChange: (date: Date | null) => void;
+  placeholder?: string;
+};
 
-export function ReactDatePicker({error,selectedDate,onChange,placeholder}:props) {
- 
+export function ReactDatePicker({
+  error,
+  selectedDate,
+  onChange,
+  placeholder,
+}: props) {
   return (
     <div>
       <DatePicker
@@ -23,4 +27,3 @@ export function ReactDatePicker({error,selectedDate,onChange,placeholder}:props)
     </div>
   );
 }
-

@@ -1,4 +1,4 @@
-import "./Confirmation.css";
+import "../../Styles/Confirmation.css";
 
 type props = {
   confirm: () => void;

@@ -1,7 +1,7 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { FaRegSun } from "react-icons/fa6";
 import { FaRegMoon, FaSearch } from "react-icons/fa";
-import "./Header.css";
+import "../Styles/Header.css";
 import { useTheme } from "../Context/ThemeContext";
 import { useState } from "react";
 import Confirmation from "./CommonComponents/Confirmation";
@@ -12,10 +12,10 @@ import { SearchBar } from "./CommonComponents/SearchComponent";
 type HeaderProps = {
   search: string;
   setSearch: React.Dispatch<React.SetStateAction<string>>;
-  onAddExpense: () => void;
+  searchShow?: boolean;
 };
 
-function Header({ search, setSearch, onAddExpense }: HeaderProps) {
+function Header({ search, setSearch ,searchShow }: HeaderProps) {
   const { theme, toggleTheme } = useTheme();
   const [showCofirm, setShowConfirm] = useState<boolean>(false);
   const navigate = useNavigate();
@@ -48,29 +48,25 @@ function Header({ search, setSearch, onAddExpense }: HeaderProps) {
           Add User
         </NavLink>
 
-        <Buttons 
-          onClick={handleLogout}
-          label="LogOut"
-          className="nav-item"
-        />
+        <NavLink to="/userExpense" className="nav-item">
+          User Expense
+        </NavLink>
 
-        <Buttons
-          onClick={onAddExpense}
-          label="+ Expense"
-          className="nav-item"
-        />
+        <Buttons onClick={handleLogout} label="LogOut" className="nav-item" />
       </div>
 
       <div className="navbar-icons">
-        <div className="search-container">
-          <FaSearch className="search-icon" />
-          <SearchBar
-            searchTerm={search}
-            searchPlaceholder="Search...."
+        {searchShow && (
+          <div className="search-container">
+            <FaSearch className="search-icon" />
+            <SearchBar
+              searchTerm={search}
+              searchPlaceholder="Search...."
             searchOnChange={(e) => setSearch(e.target.value)}
-          />
-        </div>
-        <div onClick={toggleTheme}>
+            />
+          </div>
+        )}
+        <div className="theme-toggle" onClick={toggleTheme}>
           {theme === "dark" ? <FaRegSun /> : <FaRegMoon />}
         </div>
       </div>

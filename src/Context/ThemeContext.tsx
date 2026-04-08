@@ -1,7 +1,12 @@
-import { createContext, useContext, useEffect, useState,type ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  type ReactNode,
+} from "react";
 
 type Theme = "light" | "dark";
-
 interface ThemeContextType {
   theme: Theme;
   toggleTheme: () => void;
@@ -9,7 +14,7 @@ interface ThemeContextType {
 
 const ThemeContext = createContext<ThemeContextType>({
   theme: "light",
-  toggleTheme: () => {}, 
+  toggleTheme: () => {},
 });
 
 export const useTheme = () => useContext(ThemeContext);

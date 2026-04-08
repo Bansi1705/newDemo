@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import type { User } from "../types";
 import Header from "./Header";
-import "./Form.css";
+import "../Styles/Form.css";
 import { toast } from "react-toastify";
 import "react-datepicker/dist/react-datepicker.css";
 import { ReactDatePicker } from "./CommonComponents/DatePicker";
@@ -114,9 +114,11 @@ export const Form = () => {
     }
   };
 
+  const searchShow = false;
+
   return (
     <>
-      <Header />
+      <Header searchShow={searchShow} />
       <div className="form-data">
         <form onSubmit={handleSubmit} className="form">
           <h2 className="form-title">{id ? "Edit User" : "Add User"}</h2>
@@ -126,7 +128,7 @@ export const Form = () => {
               Name :
             </label>
             <InputField
-            placeholder="Enter Your Name"
+              placeholder="Enter Your Name"
               type="text"
               name="name"
               value={data.name}

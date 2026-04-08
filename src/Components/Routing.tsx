@@ -3,12 +3,14 @@ import { Home } from "../Pages/Home";
 import { Form } from "./Form";
 import { Login } from "./Login";
 import { AuthGuard } from "./Auth/AuthGuard";
+import UserExpense from "../Pages/UserExpense";
 
 export const Routing = createBrowserRouter([
   {
     path: "/",
     element: (
-      <AuthGuard required={false}> {/* Login page only for non-logged-in users */}
+      <AuthGuard required={false}>
+        {/* Login page only for non-logged-in users */}
         <Login />
       </AuthGuard>
     ),
@@ -16,7 +18,8 @@ export const Routing = createBrowserRouter([
   {
     path: "/home",
     element: (
-      <AuthGuard required={true}> {/* Home page only for logged-in users */}
+      <AuthGuard required={true}>
+        {/* Home page only for logged-in users */}
         <Home />
       </AuthGuard>
     ),
@@ -33,7 +36,15 @@ export const Routing = createBrowserRouter([
     path: "/edit-user/:id",
     element: (
       <AuthGuard required={true}>
-        <Form/>
+        <Form />
+      </AuthGuard>
+    ),
+  },
+  {
+    path: "userExpense",
+    element: (
+      <AuthGuard required={true}>
+        <UserExpense />
       </AuthGuard>
     ),
   },

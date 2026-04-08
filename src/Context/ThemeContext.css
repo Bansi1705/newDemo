@@ -195,6 +195,10 @@
   color: #f8fafc;
 }
 
+[data-theme="dark"] .expense-title{
+  color: #f8fafc;
+}
+
 [data-theme="dark"] .no-data {
   color: #f8fafc;
 }
@@ -205,4 +209,3 @@
   background-color: #0f172a;
   color: #f8fafc;
 }
-
