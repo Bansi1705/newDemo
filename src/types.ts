@@ -65,5 +65,4 @@ export interface searchBarProps {
   searchPlaceholder?: string;
   searchOnChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   searchClssName?: string;
-  searchShow?: boolean;
 }
