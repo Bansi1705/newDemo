@@ -11,6 +11,7 @@ import InputField from "../Components/CommonComponents/InputFeild";
 import { DropDown } from "../Components/CommonComponents/DropDown";
 import { SearchBar } from "../Components/CommonComponents/SearchComponent";
 import Header from "../Components/Header";
+import { Apiservice } from "../Services/ApiService";
 
 type Props = {
   setShowExpenseForm: React.Dispatch<React.SetStateAction<boolean>>;
@@ -107,68 +108,30 @@ const UserExpense = ({ setShowExpenseForm }: Props) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validate()) return;
+    const payload = {
+      ...form,
+      expenseDate: form.expenseDate ? form.expenseDate.toISOString() : null,
+      submissionDate: form.submissionDate
+        ? form.submissionDate.toISOString()
+        : null,
+    };
 
-    try {
-      let res;
-      if (editExpense) {
-        res = await fetch(
-          `http://localhost:5000/UserExpenses/${editExpense.id}`,
-          {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              ...form,
-              expenseDate: form.expenseDate?.toISOString(),
-              submissionDate: form.submissionDate?.toISOString(),
-            }),
-          },
-        );
-      } else {
-        res = await fetch("http://localhost:5000/UserExpenses", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            ...form,
-            expenseDate: form.expenseDate?.toISOString(),
-            submissionDate: form.submissionDate?.toISOString(),
-          }),
-        });
-      }
+    let savedExpense;
 
-      const savedExpense = await res.json();
-
-      setExpenses((prev) =>
-        editExpense
-          ? prev.map((exp) => (exp.id === editExpense.id ? savedExpense : exp))
-          : [...prev, savedExpense],
+    if (editExpense) {
+      savedExpense = await Apiservice.put(
+        `/UserExpenses/${editExpense.id}`,
+        payload,
       );
-
-      toast.success(editExpense ? "Expense Updated ✅" : "Expense Added ✅");
-
-      setForm({
-        id: Date.now(),
-        expenseTitle: "",
-        description: "",
-        category: "",
-        subCategory: "",
-        amount: 0,
-        paymentMethod: "",
-        invoiceNumber: "",
-        expenseDate: null,
-        submissionDate: null,
-        employeeId: "",
-        employeeName: "",
-        department: "",
-        assignedTo: "",
-        status: "Pending",
-      });
-
-      setEditExpense(null);
-    } catch (error) {
-      toast.error(
-        `Error saving expense: ${error instanceof Error ? error.message : "Unknown error"} ❌`,
-      );
+    } else {
+      savedExpense = await Apiservice.post("/UserExpenses", payload);
     }
+
+    setExpenses((prev) =>
+      editExpense
+        ? prev.map((exp) => (exp.id === editExpense.id ? savedExpense : exp))
+        : [...prev, savedExpense],
+    );
   };
 
   const handleEdit = (expense: ExpenseData) => {
@@ -190,16 +153,9 @@ const UserExpense = ({ setShowExpenseForm }: Props) => {
   const confirmDelete = async () => {
     if (!deleteExpenseId) return;
     try {
-      const res = await fetch(
-        `http://localhost:5000/UserExpenses/${deleteExpenseId}`,
-        {
-          method: "DELETE",
-        },
-      );
-      if (!res.ok) throw new Error("Delete failed");
-
+      Apiservice.delete(`/UserExpenses/${deleteExpenseId}`);
       setExpenses(expenses.filter((exp) => exp.id !== deleteExpenseId));
-      toast.success("Expense Deleted ✅");
+      toast.success("Expense Deleted ");
     } catch (error) {
       toast.error(
         `Error deleting expense: ${error instanceof Error ? error.message : "Unknown error"} `,
@@ -230,28 +186,40 @@ const UserExpense = ({ setShowExpenseForm }: Props) => {
   const confirmStatusChange = async () => {
     if (!statusChangeData) return;
 
+    const currentExpense = expenses.find(
+      (exp) => exp.id === statusChangeData.id,
+    );
+
+    if (!currentExpense) return;
+
     try {
-      const res = await fetch(
-        `http://localhost:5000/UserExpenses/${statusChangeData.id}`,
+      const updatedExpense = await Apiservice.put(
+        `/UserExpenses/${statusChangeData.id}`,
         {
-          method: "PATCH",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ status: statusChangeData.newStatus }),
+          ...currentExpense,
+          status: statusChangeData.newStatus,
         },
       );
-      if (!res.ok) throw new Error("Status update failed");
-      const updated = await res.json();
+
       setExpenses((prev) =>
-        prev.map((exp) => (exp.id == statusChangeData.id ? updated : exp)),
+        prev.map((exp) =>
+          exp.id === statusChangeData.id ? updatedExpense : exp,
+        ),
       );
-      toast.success("Status Updated ✅");
     } catch (error) {
       toast.error(
-        `Error updating status: ${error instanceof Error ? error.message : "Unknown error"}`,
+        `Error updating status: ${
+          error instanceof Error ? error.message : "Unknown error"
+        }`,
       );
     }
+
     setStatusChangeData(null);
   };
+
+  useEffect(() => {
+    console.log("reload from expense page");
+  }, []);
 
   const statusChange = [
     { value: "Pending", label: "Pending", color: "#ffc107" },
@@ -275,9 +243,10 @@ const UserExpense = ({ setShowExpenseForm }: Props) => {
     <>
       <Header />
       <div className="expense-form-data">
-
         <form className="expense-form" onSubmit={handleSubmit}>
-          <h2 className="expense-title">{editExpense ? "Edit Expense" : "Add New Expense"}</h2>
+          <h2 className="expense-title">
+            {editExpense ? "Edit Expense" : "Add New Expense"}
+          </h2>
           <InputField
             type="text"
             name="expenseTitle"

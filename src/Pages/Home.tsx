@@ -8,6 +8,7 @@ import "../Styles/Home.css";
 import { toast } from "react-toastify";
 import Confirmation from "../Components/CommonComponents/Confirmation";
 import { Buttons } from "../Components/CommonComponents/Buttons";
+import { Apiservice } from "../Services/ApiService";
 
 export const Home = () => {
   const [users, setUsers] = useState<User[]>([]);
@@ -37,9 +38,15 @@ export const Home = () => {
   const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
 
   useEffect(() => {
-    fetch("http://localhost:5000/users")
-      .then((res) => res.json())
-      .then((data: User[]) => setUsers(data));
+    const fetchUsers = async () => {
+      try {
+        const data = await Apiservice.get("/users");
+        setUsers(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchUsers();
   }, []);
 
   const handleDelete = (id: number) => {
@@ -48,13 +55,19 @@ export const Home = () => {
   };
 
   const handleConfirm = async () => {
-    await fetch(`http://localhost:5000/users/${deleteId}`, {
-      method: "DELETE",
-    });
-    setUsers((prev) => prev.filter((user) => user.id !== deleteId));
-    setShowConfirm(false);
-    setDeleteId(null);
-    toast.success("Deleted .....");
+    if (deleteId === null) return;
+    try {
+      await Apiservice.delete(`/users/${deleteId}`);
+      setUsers((prev) => prev.filter((user) => user.id !== deleteId));
+      setShowConfirm(false);
+      setDeleteId(null);
+      toast.success("Deleted .....");
+    } catch (error) {
+      console.error("Error deleting user:", error);
+      toast.error("Failed to delete user");
+      setShowConfirm(false);
+      setDeleteId(null);
+    }
   };
 
   const handleCancel = () => {
@@ -70,11 +83,7 @@ export const Home = () => {
 
   return (
     <>
-      <Header
-        search={search}
-        setSearch={setSearch}
-          searchShow={true}
-      />
+      <Header search={search} setSearch={setSearch} searchShow={true} />
 
       <div className="user-data">
         <div className="table-section">

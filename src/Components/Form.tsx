@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import type { User } from "../types";
 import Header from "./Header";
-import "../Styles/Form.css";
+// import "../Styles/Form.css";
 import { toast } from "react-toastify";
 import "react-datepicker/dist/react-datepicker.css";
 import { ReactDatePicker } from "./CommonComponents/DatePicker";
 import { Buttons } from "./CommonComponents/Buttons";
 import InputField from "./CommonComponents/InputFeild";
+import { Apiservice } from "../Services/ApiService";
 
 export const Form = () => {
   const { id } = useParams();
@@ -82,36 +83,46 @@ export const Form = () => {
     e.preventDefault();
 
     if (!validate()) return;
-
-    const url = id
-      ? `http://localhost:5000/users/${id}`
-      : "http://localhost:5000/users";
-
-    const method = id ? "PUT" : "POST";
-
-    const body = {
-      ...data,
-      birthdate: data.birthdate?.toISOString().split("T")[0],
-    };
-
-    try {
-      await fetch(url, {
-        method,
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
-      });
-
-      if (id) {
-        toast.success("User Updated ....");
-      } else {
-        toast.success("User Added ....");
+      const payload = {
+        ...data,
+        birthdate: data.birthdate
+          ? data.birthdate.toISOString().split("T")[0]
+          : null,
+      };
+      try{
+        if(id){
+          await Apiservice.put(`/users/${id}`, payload);
+          toast.success("User Updated ....");
+        }else{
+          await Apiservice.post("/users", payload);
+          toast.success("User Added ....");
+        }
+        navigate("/");
       }
-      navigate("/");
-    } catch (err) {
-      console.log(err);
-    }
+      catch(error){
+        console.error("Error saving user:", error);
+        toast.error("Failed to save user");
+      }
+
+    // try {
+    //   await axios({
+    //     method: id ? "put" : "post",
+    //     url: id
+    //       ? `http://localhost:5000/users/${id}`
+    //       : "http://localhost:5000/users",
+    //     data: {
+    //       ...data,
+    //       birthdate: data.birthdate
+    //         ? data.birthdate.toISOString().split("T")[0]
+    //         : null,
+    //     },
+    //   });
+    //   toast.success(id ? "User Updated ...." : "User Added ....");
+    //   navigate("/");
+    // } catch (error) {
+    //   console.error("Error saving user:", error);
+    //   toast.error("Failed to save user");
+    // }
   };
 
   const searchShow = false;
@@ -119,12 +130,20 @@ export const Form = () => {
   return (
     <>
       <Header searchShow={searchShow} />
-      <div className="form-data">
-        <form onSubmit={handleSubmit} className="form">
-          <h2 className="form-title">{id ? "Edit User" : "Add User"}</h2>
+      <div className="form-data flex items-center justify-center h-screen bg-white-100">
+        <form
+          onSubmit={handleSubmit}
+          className="form bg-white p-6 rounded shadow-xl-30 w-full max-w-md"
+        >
+          <h2 className="form-title text-lg font-bold mb-4 text-center">
+            {id ? "Edit User" : "Add User"}
+          </h2>
 
-          <div className="form-group">
-            <label htmlFor="" className="form-label">
+          <div className="form-group mb-4">
+            <label
+              htmlFor=""
+              className="form-label block mb-1 font-medium text-gray-800"
+            >
               Name :
             </label>
             <InputField
@@ -134,12 +153,15 @@ export const Form = () => {
               value={data.name}
               onChange={handleInputChange}
               error={error.name}
-              classname="input-field"
+              classname="input-field px-3 py-2 border border-gray-300 rounded-lg text-base outline-none focus:border-blue-600 transition-colors duration-200"
             />
           </div>
 
-          <div className="form-group">
-            <label htmlFor="" className="form-label">
+          <div className="form-group mb-4">
+            <label
+              htmlFor=""
+              className="form-label block mb-1 font-medium text-gray-800"
+            >
               Age :
             </label>
 
@@ -150,12 +172,15 @@ export const Form = () => {
               value={data.age}
               onChange={handleInputChange}
               error={error.age}
-              classname="input-field"
+              classname="input-field px-3 py-2 border border-gray-300 rounded-lg text-base outline-none focus:border-blue-600 transition-colors duration-200"
             />
           </div>
 
           <div className="form-group">
-            <label htmlFor="" className="form-label">
+            <label
+              htmlFor=""
+              className="form-label block mb-1 font-medium text-gray-800"
+            >
               Birth Date :
             </label>
             <ReactDatePicker

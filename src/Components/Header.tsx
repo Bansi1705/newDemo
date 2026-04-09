@@ -1,7 +1,7 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { FaRegSun } from "react-icons/fa6";
 import { FaRegMoon, FaSearch } from "react-icons/fa";
-import "../Styles/Header.css";
+// import "../Styles/Header.css";
 import { useTheme } from "../Context/ThemeContext";
 import { useState } from "react";
 import Confirmation from "./CommonComponents/Confirmation";
@@ -15,7 +15,7 @@ type HeaderProps = {
   searchShow?: boolean;
 };
 
-function Header({ search, setSearch ,searchShow }: HeaderProps) {
+function Header({ search, setSearch, searchShow }: HeaderProps) {
   const { theme, toggleTheme } = useTheme();
   const [showCofirm, setShowConfirm] = useState<boolean>(false);
   const navigate = useNavigate();
@@ -35,38 +35,55 @@ function Header({ search, setSearch ,searchShow }: HeaderProps) {
   };
 
   return (
-    <div className="navbar">
-      <div>
+    <div className="navbar flex items-center justify-between px-[15px] py-[30px] bg-blue-500 text-white w-full">
+      <div className="text-2xl font-bold">
         <h1>UserDetail</h1>
       </div>
-      <div className="navbar-links">
-        <NavLink to="/" className="nav-item">
+      <div className="navbar-links flex items-center justify-between gap-3 flex-nowrap">
+        <NavLink
+          to="/"
+          className="nav-item text-white font-medium hover:text-gray-300 px-3 py-2 ml-2 whitespace-nowrap"
+        >
           Home
         </NavLink>
 
-        <NavLink to="/add-user" className="nav-item">
+        <NavLink
+          to="/add-user"
+          className="nav-item text-white font-medium hover:text-gray-300 px-3 py-2 ml-2 whitespace-nowrap"
+        >
           Add User
         </NavLink>
 
-        <NavLink to="/userExpense" className="nav-item">
-          User Expense
+        <NavLink
+          to="/userExpense"
+          className="nav-item text-white font-medium hover:text-gray-300 px-3 py-2 ml-2 whitespace-nowrap"
+        >
+          Add Expense
         </NavLink>
 
-        <Buttons onClick={handleLogout} label="LogOut" className="nav-item" />
+        <Buttons
+          onClick={handleLogout}
+          label="LogOut"
+          className="px-3 py-2 bg-blue-600 text-white rounded hover:bg-blue-800 transition-colors whitespace-nowrap"
+        />
       </div>
 
-      <div className="navbar-icons">
+      <div className="flex items-center gap-1">
         {searchShow && (
-          <div className="search-container">
-            <FaSearch className="search-icon" />
+          <div className="search-container flex items-center gap-2 border border-gray-300 rounded px-2 py-1 bg-white text-black">
+            <FaSearch className="search-icon text-base text-gray-500" />
             <SearchBar
               searchTerm={search}
               searchPlaceholder="Search...."
-            searchOnChange={(e) => setSearch(e.target.value)}
+              searchOnChange={(e) => setSearch(e.target.value)}
+              searchClssName="text-sm focus:outline-none border-none bg-transparent"
             />
           </div>
         )}
-        <div className="theme-toggle" onClick={toggleTheme}>
+        <div
+          className="theme-toggle ml-2 rounded-full p-2 hover:bg-white hover:bg-opacity-10 text-xl cursor-pointer transition-colors"
+          onClick={toggleTheme}
+        >
           {theme === "dark" ? <FaRegSun /> : <FaRegMoon />}
         </div>
       </div>
