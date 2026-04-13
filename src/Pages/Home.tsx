@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 import Confirmation from "../Components/CommonComponents/Confirmation";
 import { Buttons } from "../Components/CommonComponents/Buttons";
 import { Apiservice } from "../Services/ApiService";
+import Pagination from "../Components/CommonComponents/Pagination";
 
 export const Home = () => {
   const [users, setUsers] = useState<User[]>([]);
@@ -37,17 +38,18 @@ export const Home = () => {
 
   const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
 
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const data = await Apiservice.get("/users");
-        setUsers(data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchUsers();
-  }, []);
+  // useEffect(() => {
+  //   const fetchUsers = async () => {
+  //     try {
+  //       const data = await Apiservice.get("/users");
+  //       console.log(data);
+  //       setUsers(data);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
+  //   fetchUsers();
+  // }, []);
 
   const handleDelete = (id: number) => {
     setDeleteId(id);
@@ -81,12 +83,34 @@ export const Home = () => {
 
   const title = ["Name", "Age", "BirthDate", "Operations"];
 
+  const handleApiTest = async (method: string) => {
+    try {
+      let response;
+      switch (method) {
+        case "Get":
+          response = await Apiservice.get("/users");
+          setUsers(response);
+          break;
+        default:
+          console.error("Invalid method");
+      }
+    } catch (error) {
+      console.error(`Error occurred while testing ${method} API:`, error);
+    }
+  };
+
   return (
     <>
       <Header search={search} setSearch={setSearch} searchShow={true} />
 
       <div className="user-data">
         <div className="table-section">
+          <div className="apiButtons mb-4 flex gap-4 justify-center items-center">
+            <Buttons label="Get" onClick={() => handleApiTest("Get")} />
+            <Buttons label="Post" onClick={() => handleApiTest("Post")} />
+            <Buttons label="Put" onClick={() => handleApiTest("Put")} />
+            <Buttons label="Delete" onClick={() => handleApiTest("Delete")} />
+          </div>
           <h2 className="main-title">Users List</h2>
           <div className="table-wrapper">
             <table border={2} className="data-table">
@@ -120,20 +144,10 @@ export const Home = () => {
               </tbody>
             </table>
             <div className="pagination-controls">
-              <Buttons
-                onClick={() => setCurrentPage(currentPage - 1)}
-                disabled={currentPage === 1}
-                label="Previous"
-                className="pagination-button"
-              />
-              <span>
-                Page {currentPage} of {totalPages}
-              </span>
-              <Buttons
-                onClick={() => setCurrentPage(currentPage + 1)}
-                disabled={currentPage === totalPages}
-                label="Next"
-                className="pagination-button"
+              <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={setCurrentPage}
               />
             </div>
           </div>

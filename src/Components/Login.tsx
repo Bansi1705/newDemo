@@ -56,7 +56,7 @@ export const Login: React.FC = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (validate()) {
-      sessionStorage.setItem("LoginUser", JSON.stringify(data));
+      sessionStorage.setItem("LoginUser", JSON.stringify({ ...data, token: "123abc"}));
       toast.success("Login Successful!");
       navigate("/home");
     } else {

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import type { User } from "../types";
 import Header from "./Header";
 // import "../Styles/Form.css";
 import { toast } from "react-toastify";
@@ -67,15 +66,18 @@ export const Form = () => {
 
   useEffect(() => {
     if (id) {
-      fetch(`http://localhost:5000/users/${id}`)
-        .then((res) => res.json())
-        .then((data: User) => {
+      const fetchUser = async () => {
+        try {
+          const userData = await Apiservice.get(`/users/${id}`);
           setData({
-            ...data,
-            birthdate: data.birthdate ? new Date(data.birthdate) : null,
+            ...userData,
+            birthdate: userData.birthdate ? new Date(userData.birthdate) : null,
           });
-        })
-        .catch((err) => console.log(err));
+        } catch (err) {
+          console.log(err);
+        }
+      }
+      fetchUser();
     }
   }, [id]);
 
@@ -193,7 +195,7 @@ export const Form = () => {
           <Buttons
             type="submit"
             label={`${id ? "Update" : "Add"} User`}
-            className="submit-btn"
+            className="submit-btn w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-800 transition-colors mt-4"
           />
         </form>
       </div>

@@ -66,3 +66,9 @@ export interface searchBarProps {
   searchOnChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   searchClssName?: string;
 }
+
+export interface paginationProps {
+  currentPage: number;
+  totalPages: number;
+  onPageChange: (page: number) => void;
+}
