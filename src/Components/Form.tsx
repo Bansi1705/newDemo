@@ -5,9 +5,9 @@ import Header from "./Header";
 import { toast } from "react-toastify";
 import "react-datepicker/dist/react-datepicker.css";
 import { ReactDatePicker } from "./CommonComponents/DatePicker";
-import { Buttons } from "./CommonComponents/Buttons";
 import InputField from "./CommonComponents/InputFeild";
 import { Apiservice } from "../Services/ApiService";
+import { Buttons } from "./CommonComponents/Buttons";
 
 export const Form = () => {
   const { id } = useParams();
@@ -76,55 +76,46 @@ export const Form = () => {
         } catch (err) {
           console.log(err);
         }
-      }
+      };
       fetchUser();
     }
   }, [id]);
 
+  useEffect(() => {
+    console.log("add user Page Reloads");
+  }, []);
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    console.log("submit clicked");
 
     if (!validate()) return;
-      const payload = {
-        ...data,
-        birthdate: data.birthdate
-          ? data.birthdate.toISOString().split("T")[0]
-          : null,
-      };
-      try{
-        if(id){
-          await Apiservice.put(`/users/${id}`, payload);
-          toast.success("User Updated ....");
-        }else{
-          await Apiservice.post("/users", payload);
-          toast.success("User Added ....");
-        }
-        navigate("/");
-      }
-      catch(error){
-        console.error("Error saving user:", error);
-        toast.error("Failed to save user");
-      }
 
-    // try {
-    //   await axios({
-    //     method: id ? "put" : "post",
-    //     url: id
-    //       ? `http://localhost:5000/users/${id}`
-    //       : "http://localhost:5000/users",
-    //     data: {
-    //       ...data,
-    //       birthdate: data.birthdate
-    //         ? data.birthdate.toISOString().split("T")[0]
-    //         : null,
-    //     },
-    //   });
-    //   toast.success(id ? "User Updated ...." : "User Added ....");
-    //   navigate("/");
-    // } catch (error) {
-    //   console.error("Error saving user:", error);
-    //   toast.error("Failed to save user");
-    // }
+    const payload = {
+      ...data,
+      birthdate: data.birthdate
+        ? data.birthdate.toISOString().split("T")[0]
+        : null,
+    };
+
+    console.log(payload);
+    try {
+      if (id) {
+        await Apiservice.put(`/users/${id}`,payload).then((response: any) => {
+          console.log(response);
+          toast.success("user Updated...")
+        });
+      } else {
+       await Apiservice.post("/users",payload).then((response : any)=>{
+        console.log(response);
+          toast.success("user added...")
+       })
+      }
+      navigate("/home");
+    } catch (error) {
+      console.error("Error saving user:", error);
+      toast.error("Failed to save user");
+    }
   };
 
   const searchShow = false;
@@ -133,10 +124,7 @@ export const Form = () => {
     <>
       <Header searchShow={searchShow} />
       <div className="form-data flex items-center justify-center h-screen bg-white-100">
-        <form
-          onSubmit={handleSubmit}
-          className="form bg-white p-6 rounded shadow-xl-30 w-full max-w-md"
-        >
+        <form className="form bg-white p-6 rounded shadow-xl-30 w-full max-w-md">
           <h2 className="form-title text-lg font-bold mb-4 text-center">
             {id ? "Edit User" : "Add User"}
           </h2>
@@ -193,7 +181,8 @@ export const Form = () => {
           </div>
 
           <Buttons
-            type="submit"
+            type="button"
+            onClick={handleSubmit}
             label={`${id ? "Update" : "Add"} User`}
             className="submit-btn w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-800 transition-colors mt-4"
           />

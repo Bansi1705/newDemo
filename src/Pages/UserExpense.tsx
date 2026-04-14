@@ -12,6 +12,7 @@ import { DropDown } from "../Components/CommonComponents/DropDown";
 import { SearchBar } from "../Components/CommonComponents/SearchComponent";
 import Header from "../Components/Header";
 import { Apiservice } from "../Services/ApiService";
+import Pagination from "../Components/CommonComponents/Pagination";
 interface StatusChangeData {
   id: number | string;
   newStatus: string;
@@ -62,6 +63,10 @@ const UserExpense = () => {
         toast.error("No expenses found");
       });
   }, []);
+
+  useEffect(()=>{
+    console.log("expense Reloads");
+  },[])
 
   const validate = () => {
     const newError: any = {};
@@ -118,7 +123,8 @@ const UserExpense = () => {
     setError({});
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    console.log("submit clicked")
     e.preventDefault();
     if (!validate()) return;
     const payload = {
@@ -142,7 +148,7 @@ const UserExpense = () => {
         savedExpense = await Apiservice.post("/UserExpenses", payload);
         toast.success("Expense added successfully");
       }
-
+      console.log("reload user expence");
       setExpenses((prev) =>
         editExpense
           ? prev.map((exp) => (exp.id === editExpense.id ? savedExpense : exp))
@@ -187,340 +193,353 @@ const UserExpense = () => {
     setShowConfirm(false);
   };
 
-    const filteredExpenses = expenses.filter(
-      (exp) =>
-        exp.employeeName &&
-        exp.employeeName
-          .toLowerCase()
-          .includes(searchTerm.trim().toLowerCase()),
+  const filteredExpenses = expenses.filter(
+    (exp) =>
+      exp.employeeName &&
+      exp.employeeName.toLowerCase().includes(searchTerm.trim().toLowerCase()),
+  );
+
+  const totalPages = Math.ceil(filteredExpenses.length / 5);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
+  const lastIndex = currentPage * itemsPerPage;
+  const startIndex = lastIndex - itemsPerPage;
+  const currentRecords = filteredExpenses.slice(startIndex, lastIndex);
+
+  const handleStatusChange = (id: number, newStatus: string) => {
+    const current = expenses.find((exp) => exp.id === id);
+    if (
+      (current?.status === "Approved" || current?.status === "Rejected") &&
+      newStatus === "Pending"
+    ) {
+      toast.error("Cannot change back to Pending status");
+      return;
+    }
+    setStatusChangeData({ id, newStatus, showConfirm: true });
+  };
+
+  const confirmStatusChange = async () => {
+    if (!statusChangeData) return;
+
+    const currentExpense = expenses.find(
+      (exp) => exp.id === statusChangeData.id,
     );
 
-    const handleStatusChange = (id: number, newStatus: string) => {
-      const current = expenses.find((exp) => exp.id === id);
-      if (
-        (current?.status === "Approved" || current?.status === "Rejected") &&
-        newStatus === "Pending"
-      ) {
-        toast.error("Cannot change back to Pending status");
-        return;
-      }
-      setStatusChangeData({ id, newStatus, showConfirm: true });
-    };
+    if (!currentExpense) return;
 
-    const confirmStatusChange = async () => {
-      if (!statusChangeData) return;
-
-      const currentExpense = expenses.find(
-        (exp) => exp.id === statusChangeData.id,
+    try {
+      const updatedExpense = await Apiservice.put(
+        `/UserExpenses/${statusChangeData.id}`,
+        {
+          ...currentExpense,
+          status: statusChangeData.newStatus,
+        },
       );
 
-      if (!currentExpense) return;
+      setExpenses((prev) =>
+        prev.map((exp) =>
+          exp.id === statusChangeData.id ? updatedExpense : exp,
+        ),
+      );
+    } catch (error) {
+      toast.error(
+        `Error updating status: ${
+          error instanceof Error ? error.message : "Unknown error"
+        }`,
+      );
+    }
 
-      try {
-        const updatedExpense = await Apiservice.put(
-          `/UserExpenses/${statusChangeData.id}`,
-          {
-            ...currentExpense,
-            status: statusChangeData.newStatus,
-          },
-        );
+    setStatusChangeData(null);
+  };
 
-        setExpenses((prev) =>
-          prev.map((exp) =>
-            exp.id === statusChangeData.id ? updatedExpense : exp,
-          ),
-        );
-      } catch (error) {
-        toast.error(
-          `Error updating status: ${
-            error instanceof Error ? error.message : "Unknown error"
-          }`,
-        );
-      }
+  const statusChange = [
+    { value: "Pending", label: "Pending", color: "#ffc107" },
+    { value: "Approved", label: "Approved", color: "#28a745" },
+    { value: "Rejected", label: "Rejected", color: "#dc3545" },
+  ];
 
-      setStatusChangeData(null);
-    };
+  const headings = [
+    { key: "employeeName", label: "Employee Name" },
+    { key: "category", label: "Category" },
+    { key: "subCategory", label: "SubCategory" },
+    { key: "amount", label: "Amount" },
+    { key: "paymentMethod", label: "Payment Method" },
+    { key: "expenseDate", label: "Expense Date" },
+    { key: "submissionDate", label: "Submission Date" },
+    { key: "status", label: "Status" },
+    { key: "actions", label: "Actions" },
+  ];
 
-    const statusChange = [
-      { value: "Pending", label: "Pending", color: "#ffc107" },
-      { value: "Approved", label: "Approved", color: "#28a745" },
-      { value: "Rejected", label: "Rejected", color: "#dc3545" },
-    ];
+  return (
+    <>
+      <Header />
+      <div className="expense-form-data">
+        <form className="expense-form" onSubmit={handleSubmit}>
+          <h2 className="expense-title">
+            {editExpense ? "Edit Expense" : "Add New Expense"}
+          </h2>
+          <InputField
+            type="text"
+            name="expenseTitle"
+            placeholder="Title"
+            value={form.expenseTitle}
+            onChange={handleChange}
+            error={error.expenseTitle}
+            classname="input-field"
+          />
 
-    const headings = [
-      { key: "employeeName", label: "Employee Name" },
-      { key: "category", label: "Category" },
-      { key: "subCategory", label: "SubCategory" },
-      { key: "amount", label: "Amount" },
-      { key: "paymentMethod", label: "Payment Method" },
-      { key: "expenseDate", label: "Expense Date" },
-      { key: "submissionDate", label: "Submission Date" },
-      { key: "status", label: "Status" },
-      { key: "actions", label: "Actions" },
-    ];
+          <InputField
+            type="text"
+            name="description"
+            placeholder="Description"
+            value={form.description}
+            onChange={handleChange}
+            classname="input-field"
+            error={error.description}
+          />
 
-    return (
-      <>
-        <Header />
-        <div className="expense-form-data">
-          <form className="expense-form" onSubmit={handleSubmit}>
-            <h2 className="expense-title">
-              {editExpense ? "Edit Expense" : "Add New Expense"}
-            </h2>
-            <InputField
-              type="text"
-              name="expenseTitle"
-              placeholder="Title"
-              value={form.expenseTitle}
-              onChange={handleChange}
-              error={error.expenseTitle}
-              classname="input-field"
+          <DropDown
+            selectName="category"
+            selectValue={form.category}
+            dropDownChange={handleChange}
+            optionsLabel={Object.keys(categoryData)}
+            selectClasName="input-field"
+            placeholder="Select Category"
+            error={error.category}
+          />
+
+          <DropDown
+            selectName="subCategory"
+            selectValue={form.subCategory}
+            dropDownChange={handleChange}
+            optionsLabel={categoryData[form.category] || []}
+            selectClasName="input-field"
+            placeholder="Select SubCategory"
+            error={error.subCategory}
+          />
+          {error.subCategory && (
+            <span className="error">{error.subCategory}</span>
+          )}
+
+          <InputField
+            type="number"
+            name="amount"
+            placeholder="Amount"
+            value={form.amount}
+            onChange={handleChange}
+            error={error.amount}
+            classname="input-field"
+          />
+
+          <DropDown
+            selectName="paymentMethod"
+            selectValue={form.paymentMethod}
+            dropDownChange={handleChange}
+            optionsLabel={paymentMethods}
+            selectClasName="input-field"
+            placeholder="Payment Method"
+            error={error.paymentMethod}
+          />
+
+          <InputField
+            type="text"
+            name="invoiceNumber"
+            placeholder="Invoice No"
+            value={form.invoiceNumber}
+            onChange={handleChange}
+            error={error.invoiceNumber}
+            classname="input-field"
+          />
+
+          <ReactDatePicker
+            selectedDate={form.expenseDate}
+            onChange={(d) => setForm({ ...form, expenseDate: d })}
+            placeholder="Select Expense Date"
+          />
+          {error.expenseDate && (
+            <span className="error">{error.expenseDate}</span>
+          )}
+
+          <ReactDatePicker
+            selectedDate={form.submissionDate}
+            onChange={(d) => setForm({ ...form, submissionDate: d })}
+            placeholder="Select Submission Date"
+          />
+          {error.submissionDate && (
+            <span className="error">{error.submissionDate}</span>
+          )}
+
+          <InputField
+            type="text"
+            name="employeeId"
+            placeholder="Employee ID"
+            value={form.employeeId}
+            onChange={handleChange}
+            error={error.employeeId}
+            classname="input-field"
+          />
+
+          <InputField
+            type="text"
+            name="employeeName"
+            placeholder="Employee Name"
+            value={form.employeeName}
+            onChange={handleChange}
+            error={error.employeeName}
+            classname="input-field"
+          />
+          <InputField
+            type="text"
+            name="department"
+            placeholder="Department"
+            value={form.department}
+            onChange={handleChange}
+            error={error.department}
+            classname="input-field"
+          />
+          <InputField
+            type="text"
+            name="assignedTo"
+            placeholder="Assigned To"
+            value={form.assignedTo}
+            onChange={handleChange}
+            error={error.assignedTo}
+            classname="input-field"
+          />
+          <DropDown
+            selectName="status"
+            selectValue={form.status}
+            dropDownChange={handleChange}
+            optionsLabel={["Pending", "Approved", "Rejected"]}
+            selectClasName="input-field"
+            error={error.status}
+          />
+          {error.status && <span className="error">{error.status}</span>}
+          <div className="form-buttons flex gap-4 mt-4">
+            <Buttons
+              type="submit"
+              label={editExpense ? "Update" : "Save"}
+              className="submit-btn bg-blue-600 text-white py-2 rounded hover:bg-blue-800 transition-colors"
             />
+            <Buttons
+              type="button"
+              label="Cancel"
+              onClick={resetForm}
+              className="cancel-btn bg-gray-600 text-white py-2 rounded hover:bg-gray-800 transition-colors"
+            />
+          </div>
+        </form>
 
-            <InputField
-              type="text"
-              name="description"
-              placeholder="Description"
-              value={form.description}
-              onChange={handleChange}
-              classname="input-field"
-              error={error.description}
-            />
-
-            <DropDown
-              selectName="category"
-              selectValue={form.category}
-              dropDownChange={handleChange}
-              optionsLabel={Object.keys(categoryData)}
-              selectClasName="input-field"
-              placeholder="Select Category"
-              error={error.category}
-            />
-
-            <DropDown
-              selectName="subCategory"
-              selectValue={form.subCategory}
-              dropDownChange={handleChange}
-              optionsLabel={categoryData[form.category] || []}
-              selectClasName="input-field"
-              placeholder="Select SubCategory"
-              error={error.subCategory}
-            />
-            {error.subCategory && (
-              <span className="error">{error.subCategory}</span>
-            )}
-
-            <InputField
-              type="number"
-              name="amount"
-              placeholder="Amount"
-              value={form.amount}
-              onChange={handleChange}
-              error={error.amount}
-              classname="input-field"
-            />
-
-            <DropDown
-              selectName="paymentMethod"
-              selectValue={form.paymentMethod}
-              dropDownChange={handleChange}
-              optionsLabel={paymentMethods}
-              selectClasName="input-field"
-              placeholder="Payment Method"
-              error={error.paymentMethod}
-            />
-
-            <InputField
-              type="text"
-              name="invoiceNumber"
-              placeholder="Invoice No"
-              value={form.invoiceNumber}
-              onChange={handleChange}
-              error={error.invoiceNumber}
-              classname="input-field"
-            />
-
-            <ReactDatePicker
-              selectedDate={form.expenseDate}
-              onChange={(d) => setForm({ ...form, expenseDate: d })}
-              placeholder="Select Expense Date"
-            />
-            {error.expenseDate && (
-              <span className="error">{error.expenseDate}</span>
-            )}
-
-            <ReactDatePicker
-              selectedDate={form.submissionDate}
-              onChange={(d) => setForm({ ...form, submissionDate: d })}
-              placeholder="Select Submission Date"
-            />
-            {error.submissionDate && (
-              <span className="error">{error.submissionDate}</span>
-            )}
-
-            <InputField
-              type="text"
-              name="employeeId"
-              placeholder="Employee ID"
-              value={form.employeeId}
-              onChange={handleChange}
-              error={error.employeeId}
-              classname="input-field"
-            />
-
-            <InputField
-              type="text"
-              name="employeeName"
-              placeholder="Employee Name"
-              value={form.employeeName}
-              onChange={handleChange}
-              error={error.employeeName}
-              classname="input-field"
-            />
-            <InputField
-              type="text"
-              name="department"
-              placeholder="Department"
-              value={form.department}
-              onChange={handleChange}
-              error={error.department}
-              classname="input-field"
-            />
-            <InputField
-              type="text"
-              name="assignedTo"
-              placeholder="Assigned To"
-              value={form.assignedTo}
-              onChange={handleChange}
-              error={error.assignedTo}
-              classname="input-field"
-            />
-            <DropDown
-              selectName="status"
-              selectValue={form.status}
-              dropDownChange={handleChange}
-              optionsLabel={["Pending", "Approved", "Rejected"]}
-              selectClasName="input-field"
-              error={error.status}
-            />
-            {error.status && <span className="error">{error.status}</span>}
-            <div className="form-buttons flex gap-4 mt-4">
-              <Buttons
-                type="submit"
-                label={editExpense ? "Update" : "Save"}
-                className="submit-btn bg-blue-600 text-white py-2 rounded hover:bg-blue-800 transition-colors"
-              />
-              <Buttons
-                type="button"
-                label="Cancel"
-                onClick={resetForm}
-                className="cancel-btn bg-gray-600 text-white py-2 rounded hover:bg-gray-800 transition-colors"
+        {expenses.length > 0 && (
+          <div className="expense-user-data">
+            <h2>Expenses List</h2>
+            <div className="search-wrapper">
+              <SearchBar
+                searchTerm={searchTerm}
+                searchPlaceholder="Search by employee name"
+                searchOnChange={(e) => setSearchTerm(e.target.value)}
+                searchClssName="search-input"
               />
             </div>
-          </form>
+            <table className="expense-data-table">
+              <thead>
+                <tr>
+                  {headings.map((heading) => (
+                    <th key={heading.key}>{heading.label}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {currentRecords.length > 0 ? (
+                  currentRecords.map((exp) => (
+                    <tr key={exp.id}>
+                      <td>{exp.employeeName}</td>
+                      <td>{exp.category}</td>
+                      <td>{exp.subCategory}</td>
+                      <td>{exp.amount}</td>
+                      <td>{exp.paymentMethod}</td>
+                      <td>
+                        {exp.expenseDate
+                          ? new Date(exp.expenseDate).toLocaleDateString()
+                          : "-"}
+                      </td>
+                      <td>
+                        {exp.submissionDate
+                          ? new Date(exp.submissionDate).toLocaleDateString()
+                          : "-"}
+                      </td>
+                      <td>
+                        <select
+                          value={exp.status}
+                          onChange={(e) =>
+                            handleStatusChange(exp.id, e.target.value)
+                          }
+                          className={`status-dropdown-${exp.status.toLowerCase()} `}
+                        >
+                          {statusChange.map((status) => (
+                            <option
+                              key={status.value}
+                              value={status.value}
+                              style={{ backgroundColor: status.color }}
+                            >
+                              {status.label}
+                            </option>
+                          ))}
+                        </select>
+                      </td>
+                      <td>
+                        <Buttons
+                          onClick={() => handleDelete(exp.id)}
+                          label={<MdDeleteOutline />}
+                          className="delete-btn"
+                          type="button"
+                        />
 
-          {expenses.length > 0 && (
-            <div className="expense-user-data">
-              <h2>Expenses List</h2>
-              <div className="search-wrapper">
-                <SearchBar
-                  searchTerm={searchTerm}
-                  searchPlaceholder="Search by employee name"
-                  searchOnChange={(e) => setSearchTerm(e.target.value)}
-                  searchClssName="search-input"
-                />
-              </div>
-              <table className="expense-data-table">
-                <thead>
-                  <tr>
-                    {headings.map((heading) => (
-                      <th key={heading.key}>{heading.label}</th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {filteredExpenses.length > 0 ? (
-                    filteredExpenses.map((exp) => (
-                      <tr key={exp.id}>
-                        <td>{exp.employeeName}</td>
-                        <td>{exp.category}</td>
-                        <td>{exp.subCategory}</td>
-                        <td>{exp.amount}</td>
-                        <td>{exp.paymentMethod}</td>
-                        <td>
-                          {exp.expenseDate
-                            ? new Date(exp.expenseDate).toLocaleDateString()
-                            : "-"}
-                        </td>
-                        <td>
-                          {exp.submissionDate
-                            ? new Date(exp.submissionDate).toLocaleDateString()
-                            : "-"}
-                        </td>
-                        <td>
-                          <select
-                            value={exp.status}
-                            onChange={(e) =>
-                              handleStatusChange(exp.id, e.target.value)
-                            }
-                            className={`status-dropdown-${exp.status.toLowerCase()} `}
-                          >
-                            {statusChange.map((status) => (
-                              <option
-                                key={status.value}
-                                value={status.value}
-                                style={{ backgroundColor: status.color }}
-                              >
-                                {status.label}
-                              </option>
-                            ))}
-                          </select>
-                        </td>
-                        <td>
-                          <Buttons
-                            onClick={() => handleDelete(exp.id)}
-                            label={<MdDeleteOutline />}
-                            className="delete-btn"
-                          />
-
-                          <Buttons
-                            onClick={() => handleEdit(exp)}
-                            label={<CiEdit />}
-                            className="edit-btn"
-                          />
-                        </td>
-                      </tr>
-                    ))
-                  ) : (
-                    <tr>
-                      <td colSpan={9} className="no-data">
-                        `No expenses found for ${searchTerm}`
+                        <Buttons
+                          onClick={() => handleEdit(exp)}
+                          label={<CiEdit />}
+                          className="edit-btn"
+                          type="button"
+                        />
                       </td>
                     </tr>
-                  )}
-                </tbody>
-              </table>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan={9} className="no-data">
+                      `No expenses found for ${searchTerm}`
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
 
-              {showConfirm && (
-                <Confirmation
-                  confirm={confirmDelete}
-                  cancel={() => setShowConfirm(false)}
-                  message="Delete this expense?"
-                />
-              )}
+            {showConfirm && (
+              <Confirmation
+                confirm={confirmDelete}
+                cancel={() => setShowConfirm(false)}
+                message="Delete this expense?"
+              />
+            )}
 
-              {statusChangeData?.showConfirm && (
-                <Confirmation
-                  confirm={confirmStatusChange}
-                  cancel={() => setStatusChangeData(null)}
-                  message={`Change status to "${statusChangeData.newStatus}"?`}
-                />
-              )}
-            </div>
-          )}
-        </div>
-      </>
-    );
-  };
+            {statusChangeData?.showConfirm && (
+              <Confirmation
+                confirm={confirmStatusChange}
+                cancel={() => setStatusChangeData(null)}
+                message={`Change status to "${statusChangeData.newStatus}"?`}
+              />
+            )}
+          </div>
+        )}
+
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+        />
+      </div>
+    </>
+  );
+};
 
 export default UserExpense;

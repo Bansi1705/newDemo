@@ -5,7 +5,7 @@ export const Buttons: React.FC<buttonProps> = ({
   label,
   className,
   disabled,
-  type = "button",
+  type ="button",
 }) => {
   return (
     <button

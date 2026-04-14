@@ -11,14 +11,14 @@ export function AuthGuard({
   redirect = "/",
   required = true,
 }: authProps) {
-  const authData=sessionStorage.getItem("LoginUser");
-  const authorized=!!authData;
+  const authData = sessionStorage.getItem("LoginUser");
+  const authorized = !!authData;
 
-  if(required && !authorized){
-    return <Navigate to={redirect} replace />
+  if (required && !authorized) {
+    return <Navigate to={redirect} replace />;
   }
-   if(!required && authorized){
-    return <Navigate to="/home" replace />
+  if (!required && authorized) {
+    return <Navigate to="/home" replace />;
   }
   return <>{children}</>;
 }

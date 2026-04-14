@@ -27,29 +27,33 @@ export const Home = () => {
   const startIndex = lastIndex - itemsPerPage;
 
   const filteredUsers = users.filter((user) =>
-    user.name.toLowerCase().includes(search.toLowerCase()),
+    user.name?.toLowerCase().includes(search.toLowerCase()),
   );
 
   useEffect(() => {
     setCurrentPage(1);
   }, [search]);
 
+  useEffect(() => {
+    console.log("Home Page Reloads");
+  }, []);
+
   const currentRecords = filteredUsers.slice(startIndex, lastIndex);
 
   const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
 
-  // useEffect(() => {
-  //   const fetchUsers = async () => {
-  //     try {
-  //       const data = await Apiservice.get("/users");
-  //       console.log(data);
-  //       setUsers(data);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-  //   fetchUsers();
-  // }, []);
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        await Apiservice.get("/users").then((response: any) => {
+          setUsers(response);
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchUsers();
+  }, []);
 
   const handleDelete = (id: number) => {
     setDeleteId(id);
@@ -83,19 +87,40 @@ export const Home = () => {
 
   const title = ["Name", "Age", "BirthDate", "Operations"];
 
-  const handleApiTest = async (method: string) => {
+  const handleApiTest = async (method: string, url: string) => {
+    const data = {
+      name: "new user",
+      age: 20,
+      birthdate: "2026-04-12",
+    };
     try {
-      let response;
       switch (method) {
         case "Get":
-          response = await Apiservice.get("/users");
-          setUsers(response);
+          await Apiservice.get(url);
           break;
+        case "Post":
+          await Apiservice.post(url, data).then((response: any) => {
+            console.log(response);
+            toast.success("User added...");
+          });
+
+          break;
+        // case "Put":
+        //   await Apiservice.put(url, data).then((response: any) => {
+        //     toast.success("User updated...");
+        //   });
+        //   break;
+        // case "Delete":
+        //   await Apiservice.delete(url).then((response: any) => {
+        //     toast.error("user Deleted");
+        //   });
+        //   break;
         default:
-          console.error("Invalid method");
+          toast.error("Invalid method");
       }
     } catch (error) {
-      console.error(`Error occurred while testing ${method} API:`, error);
+      // toast.error(`Error occurred while testing ${method} API`);
+      console.log(error);
     }
   };
 
@@ -106,10 +131,26 @@ export const Home = () => {
       <div className="user-data">
         <div className="table-section">
           <div className="apiButtons mb-4 flex gap-4 justify-center items-center">
-            <Buttons label="Get" onClick={() => handleApiTest("Get")} />
-            <Buttons label="Post" onClick={() => handleApiTest("Post")} />
-            <Buttons label="Put" onClick={() => handleApiTest("Put")} />
-            <Buttons label="Delete" onClick={() => handleApiTest("Delete")} />
+            <Buttons
+              label="Get"
+              type="button"
+              onClick={() => handleApiTest("Get", "/users")}
+            />
+            <Buttons
+              label="Post"
+              type="button"
+              onClick={() => handleApiTest("Post", "/users")}
+            />
+            <Buttons
+              label="Put"
+              type="button"
+              onClick={() => handleApiTest("Put", "/users/7")}
+            />
+            <Buttons
+              label="Delete"
+              type="button"
+              onClick={() => handleApiTest("Delete", "/users/3")}
+            />
           </div>
           <h2 className="main-title">Users List</h2>
           <div className="table-wrapper">
@@ -132,18 +173,20 @@ export const Home = () => {
                         onClick={() => handleDelete(user.id)}
                         label={<MdDeleteOutline />}
                         className="delete-btn"
+                        type="button"
                       />
                       <Buttons
                         onClick={() => handleEdit(user.id)}
                         label={<CiEdit />}
                         className="edit-btn"
+                        type="button"
                       />
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
-            <div className="pagination-controls">
+            <div>
               <Pagination
                 currentPage={currentPage}
                 totalPages={totalPages}

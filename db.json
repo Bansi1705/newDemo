@@ -1,28 +1,316 @@
 {
   "users": [
     {
+      "name": "new user7878",
+      "age": 20,
+      "birthdate": "2026-04-11",
+      "id": "QpmhjGKYJPI"
+    },
+    {
+      "name": "new user7878",
+      "age": 20,
+      "birthdate": "2026-04-11",
+      "id": "vYkswf-iohI"
+    },
+    {
+      "name": "new user234",
+      "age": 20,
+      "birthdate": "2026-04-12",
+      "id": "of7c53jZR3U"
+    },
+    {
+      "name": "new user787832",
+      "age": 20,
+      "birthdate": "2026-04-11",
+      "id": "5TYhTPYvEPQ"
+    },
+    {
+      "name": "new user787832",
+      "age": 20,
+      "birthdate": "2026-04-11",
+      "id": "w4NYtQ1BKRQ"
+    },
+    {
+      "name": "new user787832",
+      "age": 20,
+      "birthdate": "2026-04-11",
+      "id": "SDE909MWXM8"
+    },
+    {
+      "name": "new user787832",
+      "age": 20,
+      "birthdate": "2026-04-11",
+      "id": "t_4vxqbePsE"
+    },
+    {
+      "name": "new user",
+      "age": 20,
+      "birthdate": "2026-04-12",
+      "id": "pwxY41KV8fA"
+    },
+    {
       "name": "jyot",
-      "age": 56,
+      "age": 20,
+      "birthdate": "2026-03-31",
+      "id": "b6-Py3vYoZY"
+    },
+    {
+      "name": "jyot",
+      "age": 20,
+      "birthdate": "2026-03-31",
+      "id": "imUtJDaUtBI"
+    },
+    {
+      "name": "jyot",
+      "age": 20,
+      "birthdate": "2026-03-31",
+      "id": "PTkxxQdUvfw"
+    },
+    {
+      "name": "new user",
+      "age": 20,
+      "birthdate": "2026-04-12",
+      "id": "xlG5X910xpM"
+    },
+    {
+      "name": "jyot",
+      "age": 20,
+      "birthdate": "2026-03-31",
+      "id": "0JYsSgeeycQ"
+    },
+    {
+      "name": "new user",
+      "age": 20,
+      "birthdate": "2026-04-12",
+      "id": "NukADlQrczo"
+    },
+    {
+      "name": "new user",
+      "age": 20,
+      "birthdate": "2026-04-12",
+      "id": "ZwVpdpt5LYM"
+    },
+    {
+      "name": "nidhi",
+      "age": 23,
+      "birthdate": "2026-03-29",
+      "id": "QbkSSe40W0E"
+    },
+    {
+      "name": "new user",
+      "age": 20,
+      "birthdate": "2026-04-12",
+      "id": "72cOh7TQJEE"
+    },
+    {
+      "name": "new user",
+      "age": 20,
+      "birthdate": "2026-04-12",
+      "id": "O9Fj9K6LYck"
+    },
+    {
+      "name": "new user",
+      "age": 20,
+      "birthdate": "2026-04-12",
+      "id": "j-vQCle3350"
+    },
+    {
+      "name": "new user",
+      "age": 20,
+      "birthdate": "2026-04-12",
+      "id": "MtHAlNSa5Mw"
+    },
+    {
+      "name": "jyot65767",
+      "age": 20,
+      "birthdate": "2026-03-31",
+      "id": "OfJQ6A-3iWs"
+    },
+    {
+      "name": "jyot65767",
+      "age": 20,
+      "birthdate": "2026-03-31",
+      "id": "pQqSDxEsmJw"
+    },
+    {
+      "name": "jyot65767",
+      "age": 20,
+      "birthdate": "2026-03-31",
+      "id": "hhc27drX30g"
+    },
+    {
+      "name": "jyot65767",
+      "age": 20,
+      "birthdate": "2026-03-31",
+      "id": "YQXG0eYLFrM"
+    },
+    {
+      "name": "new user",
+      "age": 20,
+      "birthdate": "2026-04-12",
+      "id": "F6VDYGY-eLk"
+    },
+    {
+      "name": "new user",
+      "age": 20,
+      "birthdate": "2026-04-12",
+      "id": "ODbCvG3fwt0"
+    },
+    {
+      "name": "jyot65767",
+      "age": 20,
+      "birthdate": "2026-03-31",
+      "id": "sGCZxgQiLYM"
+    },
+    {
+      "name": "jyot65767",
+      "age": 20,
+      "birthdate": "2026-03-31",
+      "id": "jqpGmyqE6q8"
+    },
+    {
+      "name": "jyot6",
+      "age": 20,
+      "birthdate": "2026-03-31",
+      "id": "NMPlipzMnUQ"
+    },
+    {
+      "name": "hello",
+      "age": 20,
       "birthdate": "2026-03-30",
-      "id": "YGxiZPVbTgs"
+      "id": "sPl0Z8MFCwA"
     },
     {
-      "name": "mili456",
+      "name": "test4",
+      "age": 20,
+      "birthdate": "2026-03-30",
+      "id": "TXO_3_FZy8o"
+    },
+    {
+      "name": "test6",
+      "age": 20,
+      "birthdate": "2026-03-30",
+      "id": "j_vfFLnIZmQ"
+    },
+    {
+      "name": "hello",
+      "age": 20,
+      "birthdate": "2026-03-30",
+      "id": "W0seNGtGKb0"
+    },
+    {
+      "name": "bansi",
+      "age": 20,
+      "birthdate": "2026-03-30",
+      "id": "Rh_E-NSpCYU"
+    },
+    {
+      "name": "new user",
+      "age": 20,
+      "birthdate": "2026-04-12",
+      "id": "cINKp9g5wq0"
+    },
+    {
+      "name": "hello",
+      "age": 20,
+      "birthdate": "2026-03-30",
+      "id": "h_KOnksKJy0"
+    },
+    {
+      "name": "hello3",
+      "age": 20,
+      "birthdate": "2026-04-12",
+      "id": "OHhHFJBJJFQ"
+    },
+    {
+      "name": "bansi",
+      "age": 20,
+      "birthdate": "2026-04-12",
+      "id": "DxAoU0LAjRs"
+    },
+    {
+      "name": "bansi",
+      "age": 23,
+      "birthdate": "2026-03-31",
+      "id": "uaI8wP4cajw"
+    },
+    {
+      "name": "bansi",
+      "age": 23,
+      "birthdate": "2026-03-31",
+      "id": "G9fHnvScAr0"
+    },
+    {
+      "name": "helyy",
       "age": 56,
       "birthdate": "2026-03-29",
-      "id": "0PGIigY2jVY"
+      "id": "InaIIjrXcYo"
     },
     {
-      "name": "jyot",
-      "age": 56,
-      "birthdate": "2026-03-29",
-      "id": "uBLCPkyYQII"
+      "name": "new user",
+      "age": 20,
+      "birthdate": "2026-04-12",
+      "id": "354vxgNrN3Y"
     },
     {
-      "name": "Test User",
-      "age": 30,
-      "birthdate": "1993-01-01",
-      "id": "YcbFlAeLTgM"
+      "name": "new user",
+      "age": 20,
+      "birthdate": "2026-04-12",
+      "id": "MQ9RClft6Mw"
+    },
+    {
+      "name": "new user",
+      "age": 20,
+      "birthdate": "2026-04-12",
+      "id": "ppnElfD-aBQ"
+    },
+    {
+      "name": "new user",
+      "age": 20,
+      "birthdate": "2026-04-12",
+      "id": "srE8tnp6F9k"
+    },
+    {
+      "name": "new user",
+      "age": 20,
+      "birthdate": "2026-04-12",
+      "id": "eAL_Hvi6Hxo"
+    },
+    {
+      "name": "new user",
+      "age": 20,
+      "birthdate": "2026-04-12",
+      "id": "bNGRBoeBeLM"
+    },
+    {
+      "name": "new user",
+      "age": 20,
+      "birthdate": "2026-04-12",
+      "id": "YiRNdpmJFFY"
+    },
+    {
+      "name": "new user",
+      "age": 20,
+      "birthdate": "2026-04-12",
+      "id": "Ig7e0Por56g"
+    },
+    {
+      "name": "new user",
+      "age": 20,
+      "birthdate": "2026-04-12",
+      "id": "wpDM1cv1R38"
+    },
+    {
+      "name": "new user",
+      "age": 20,
+      "birthdate": "2026-04-12",
+      "id": "SgnTYAYMAKs"
+    },
+    {
+      "name": "new user",
+      "age": 20,
+      "birthdate": "2026-04-12",
+      "id": "5MB9llaWh_8"
     }
   ],
   "UserExpenses": [
@@ -44,27 +332,6 @@
       "id": "3mW2BNsNRRw"
     },
     {
-      "status": "Approved",
-      "id": "p_Bfz9cmmNE"
-    },
-    {
-      "expenseTitle": "wsx",
-      "description": "xcxcxc",
-      "category": "Travel",
-      "subCategory": "Train",
-      "amount": 234,
-      "paymentMethod": "Card",
-      "invoiceNumber": "1232",
-      "expenseDate": "2026-03-28T18:30:00.000Z",
-      "submissionDate": "2026-03-28T18:30:00.000Z",
-      "employeeId": "214",
-      "employeeName": "Bansi",
-      "department": "Development",
-      "assignedTo": "345",
-      "status": "Approved",
-      "id": "qmQjf0Xyn1I"
-    },
-    {
       "expenseTitle": "vc",
       "description": "cs c ",
       "category": "Office",
@@ -82,27 +349,11 @@
       "id": "CjNr3pMeoME"
     },
     {
-      "status": "Rejected",
-      "id": "QKRV7lVizZ0"
-    },
-    {
-      "status": "Rejected",
-      "id": "8Tsda3to75U"
-    },
-    {
-      "status": "Rejected",
-      "id": "u0zHaw1Oua4"
-    },
-    {
-      "status": "Rejected",
-      "id": "Z2WSJgrn_2o"
-    },
-    {
       "id": "L8YchZDLw5o",
       "expenseTitle": "frx",
       "description": "fdx",
       "category": "Food",
-      "subCategory": "Snacks",
+      "subCategory": "Lunch",
       "amount": 454,
       "paymentMethod": "Cash",
       "invoiceNumber": "w323123",
@@ -111,8 +362,161 @@
       "employeeId": "214",
       "employeeName": "Bansi",
       "department": "Development",
+      "assignedTo": "34589",
+      "status": "Pending"
+    },
+    {
+      "id": "R7aEcqXLv34",
+      "expenseTitle": "refe",
+      "description": "feaf",
+      "category": "Travel",
+      "subCategory": "Bus",
+      "amount": 343,
+      "paymentMethod": "Cash",
+      "invoiceNumber": "ewfdsf",
+      "expenseDate": "2026-03-28T18:30:00.000Z",
+      "submissionDate": "2026-03-31T18:30:00.000Z",
+      "employeeId": "214",
+      "employeeName": "Bansi",
+      "department": "Development",
+      "assignedTo": "pjhg",
+      "status": "Approved"
+    },
+    {
+      "id": "t4z2IQqFEZo",
+      "expenseTitle": "[elf",
+      "description": "f['l",
+      "category": "Office",
+      "subCategory": "Software",
+      "amount": 87876,
+      "paymentMethod": "UPI",
+      "invoiceNumber": "ewfdsf",
+      "expenseDate": "2026-03-28T18:30:00.000Z",
+      "submissionDate": "2026-03-31T18:30:00.000Z",
+      "employeeId": "214",
+      "employeeName": "Bansi",
+      "department": "Development456",
+      "assignedTo": "pjhg4232",
+      "status": "Pending"
+    },
+    {
+      "id": "k9IPbNeW1J8",
+      "expenseTitle": "r3rer",
+      "description": "ferert",
+      "category": "Food",
+      "subCategory": "Lunch",
+      "amount": 434,
+      "paymentMethod": "Cash",
+      "invoiceNumber": "234",
+      "expenseDate": "2026-03-30T18:30:00.000Z",
+      "submissionDate": "2026-04-07T18:30:00.000Z",
+      "employeeId": "214",
+      "employeeName": "Bansi",
+      "department": "Development",
       "assignedTo": "345",
       "status": "Pending"
+    },
+    {
+      "id": "6g9r3jZFHLY",
+      "expenseTitle": "ed",
+      "description": "scsc",
+      "category": "Food",
+      "subCategory": "Dinner",
+      "amount": 234,
+      "paymentMethod": "Cash",
+      "invoiceNumber": "123",
+      "expenseDate": "2026-04-01T18:30:00.000Z",
+      "submissionDate": "2026-04-08T18:30:00.000Z",
+      "employeeId": "2321",
+      "employeeName": "nidhi",
+      "department": "development",
+      "assignedTo": "21312",
+      "status": "Approved"
+    },
+    {
+      "id": "y0KBBCT9JBI",
+      "expenseTitle": "ed",
+      "description": "scsc",
+      "category": "Food",
+      "subCategory": "Snacks",
+      "amount": 687,
+      "paymentMethod": "Cash",
+      "invoiceNumber": "wwdw",
+      "expenseDate": "2026-03-30T18:30:00.000Z",
+      "submissionDate": "2026-04-08T18:30:00.000Z",
+      "employeeId": "2321",
+      "employeeName": "nidhitrtrtyt",
+      "department": "2323",
+      "assignedTo": "21312",
+      "status": "Rejected"
+    },
+    {
+      "id": "g2nk5nwV05E",
+      "expenseTitle": "title",
+      "description": "I have Spent On Food ",
+      "category": "Travel",
+      "subCategory": "Train",
+      "amount": 34,
+      "paymentMethod": "Card",
+      "invoiceNumber": "231",
+      "expenseDate": "2026-03-28T18:30:00.000Z",
+      "submissionDate": "2026-04-07T18:30:00.000Z",
+      "employeeId": "214",
+      "employeeName": "Bansi",
+      "department": "Development",
+      "assignedTo": "345",
+      "status": "Approved"
+    },
+    {
+      "id": "x-0rH04VoA8",
+      "expenseTitle": "t3",
+      "description": "pkljhhvcv",
+      "category": "Office",
+      "subCategory": "Software",
+      "amount": 432,
+      "paymentMethod": "Cash",
+      "invoiceNumber": "231",
+      "expenseDate": "2026-03-28T18:30:00.000Z",
+      "submissionDate": "2026-04-07T18:30:00.000Z",
+      "employeeId": "214",
+      "employeeName": "Bansi",
+      "department": "Development",
+      "assignedTo": "345",
+      "status": "Pending"
+    },
+    {
+      "id": "EYS4IXXJslM",
+      "expenseTitle": "sdsfdsa",
+      "description": "dfdfd",
+      "category": "Food",
+      "subCategory": "Snacks",
+      "amount": 32,
+      "paymentMethod": "Card",
+      "invoiceNumber": "231",
+      "expenseDate": "2026-03-31T18:30:00.000Z",
+      "submissionDate": "2026-04-07T18:30:00.000Z",
+      "employeeId": "214",
+      "employeeName": "Bansi",
+      "department": "Development",
+      "assignedTo": "345",
+      "status": "Pending"
+    },
+    {
+      "id": "IiYefJ9V0lQ",
+      "expenseTitle": "32",
+      "description": "4234234",
+      "category": "Food",
+      "subCategory": "Lunch",
+      "amount": 457,
+      "paymentMethod": "UPI",
+      "invoiceNumber": "234",
+      "expenseDate": "2026-04-01T18:30:00.000Z",
+      "submissionDate": "2026-03-30T18:30:00.000Z",
+      "employeeId": "214",
+      "employeeName": "nidhi",
+      "department": "Development",
+      "assignedTo": "34589",
+      "status": "Approved"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

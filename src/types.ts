@@ -32,7 +32,7 @@ export interface OtpProps {
   setOtpValue: (value: string) => void;
 }
 export interface buttonProps {
-  onClick?: () => void;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
   label: string | JSX.Element;
   className?: string;
   disabled?: boolean;
@@ -56,7 +56,7 @@ export interface dropdownOption {
   selectClasName?: string;
   dropDownChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   optionsLabel?: string[];
-  error?:string;
+  error?: string;
   placeholder?: string;
 }
 

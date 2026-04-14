@@ -10,8 +10,8 @@ import { Buttons } from "./CommonComponents/Buttons";
 import { SearchBar } from "./CommonComponents/SearchComponent";
 
 type HeaderProps = {
-  search: string;
-  setSearch: React.Dispatch<React.SetStateAction<string>>;
+  search?: string;
+  setSearch?: React.Dispatch<React.SetStateAction<string>>;
   searchShow?: boolean;
 };
 
@@ -64,6 +64,7 @@ function Header({ search, setSearch, searchShow }: HeaderProps) {
         <Buttons
           onClick={handleLogout}
           label="LogOut"
+          type="button"
           className="px-3 py-2 bg-blue-600 text-white rounded hover:bg-blue-800 transition-colors whitespace-nowrap"
         />
       </div>
