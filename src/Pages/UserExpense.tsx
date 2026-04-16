@@ -57,16 +57,21 @@ const UserExpense = () => {
   const paymentMethods = ["Cash", "UPI", "Card"];
 
   useEffect(() => {
-    Apiservice.get("/UserExpenses")
-      .then((data: ExpenseData[]) => setExpenses(data))
-      .catch(() => {
-        toast.error("No expenses found");
-      });
+    const fetchUsers = async () => {
+      try {
+        await Apiservice.get("/UserExpenses").then((response: any) => {
+          setExpenses(response);
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchUsers();
   }, []);
 
-  useEffect(()=>{
+  useEffect(() => {
     console.log("expense Reloads");
-  },[])
+  }, []);
 
   const validate = () => {
     const newError: any = {};
@@ -124,8 +129,9 @@ const UserExpense = () => {
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    console.log("submit clicked")
+    console.log("submit clicked");
     e.preventDefault();
+
     if (!validate()) return;
     const payload = {
       ...form,
@@ -135,20 +141,22 @@ const UserExpense = () => {
         : null,
     };
 
-    try {
-      let savedExpense;
+    let savedExpense: Expense;
 
+    try {
       if (editExpense) {
-        savedExpense = await Apiservice.put(
+        const res = await Apiservice.put(
           `/UserExpenses/${editExpense.id}`,
           payload,
         );
+        savedExpense = res;
         toast.success("Expense updated successfully");
       } else {
-        savedExpense = await Apiservice.post("/UserExpenses", payload);
+        const res = await Apiservice.post("/UserExpenses", payload);
+        savedExpense = res;
         toast.success("Expense added successfully");
       }
-      console.log("reload user expence");
+
       setExpenses((prev) =>
         editExpense
           ? prev.map((exp) => (exp.id === editExpense.id ? savedExpense : exp))
@@ -219,39 +227,40 @@ const UserExpense = () => {
   };
 
   const confirmStatusChange = async () => {
-    if (!statusChangeData) return;
+  if (!statusChangeData) return;
 
-    const currentExpense = expenses.find(
-      (exp) => exp.id === statusChangeData.id,
+  const currentExpense = expenses.find(
+    (exp) => exp.id === statusChangeData.id,
+  );
+
+  if (!currentExpense) return;
+
+  try {
+    const res = await Apiservice.put(
+      `/UserExpenses/${statusChangeData.id}`,
+      {
+        ...currentExpense,
+        status: statusChangeData.newStatus,
+      }
     );
 
-    if (!currentExpense) return;
+    const updatedExpense = res.data; 
 
-    try {
-      const updatedExpense = await Apiservice.put(
-        `/UserExpenses/${statusChangeData.id}`,
-        {
-          ...currentExpense,
-          status: statusChangeData.newStatus,
-        },
-      );
+    setExpenses((prev) =>
+      prev.map((exp) =>
+        exp.id === statusChangeData.id ? updatedExpense : exp
+      )
+    );
+  } catch (error) {
+    toast.error(
+      `Error updating status: ${
+        error instanceof Error ? error.message : "Unknown error"
+      }`
+    );
+  }
 
-      setExpenses((prev) =>
-        prev.map((exp) =>
-          exp.id === statusChangeData.id ? updatedExpense : exp,
-        ),
-      );
-    } catch (error) {
-      toast.error(
-        `Error updating status: ${
-          error instanceof Error ? error.message : "Unknown error"
-        }`,
-      );
-    }
-
-    setStatusChangeData(null);
-  };
-
+  setStatusChangeData(null);
+};
   const statusChange = [
     { value: "Pending", label: "Pending", color: "#ffc107" },
     { value: "Approved", label: "Approved", color: "#28a745" },
@@ -281,6 +290,7 @@ const UserExpense = () => {
           <InputField
             type="text"
             name="expenseTitle"
+            id="expenseTitle"
             placeholder="Title"
             value={form.expenseTitle}
             onChange={handleChange}
@@ -291,6 +301,7 @@ const UserExpense = () => {
           <InputField
             type="text"
             name="description"
+            id="description"
             placeholder="Description"
             value={form.description}
             onChange={handleChange}
@@ -324,6 +335,7 @@ const UserExpense = () => {
           <InputField
             type="number"
             name="amount"
+            id="amount"
             placeholder="Amount"
             value={form.amount}
             onChange={handleChange}
@@ -344,6 +356,7 @@ const UserExpense = () => {
           <InputField
             type="text"
             name="invoiceNumber"
+            id="invoiceNumber"
             placeholder="Invoice No"
             value={form.invoiceNumber}
             onChange={handleChange}
@@ -372,6 +385,7 @@ const UserExpense = () => {
           <InputField
             type="text"
             name="employeeId"
+            id="employeeId"
             placeholder="Employee ID"
             value={form.employeeId}
             onChange={handleChange}
@@ -382,6 +396,7 @@ const UserExpense = () => {
           <InputField
             type="text"
             name="employeeName"
+            id="employeeName"
             placeholder="Employee Name"
             value={form.employeeName}
             onChange={handleChange}
@@ -391,6 +406,7 @@ const UserExpense = () => {
           <InputField
             type="text"
             name="department"
+            id="department"
             placeholder="Department"
             value={form.department}
             onChange={handleChange}
@@ -400,6 +416,7 @@ const UserExpense = () => {
           <InputField
             type="text"
             name="assignedTo"
+            id="assignedTo"
             placeholder="Assigned To"
             value={form.assignedTo}
             onChange={handleChange}
@@ -417,13 +434,13 @@ const UserExpense = () => {
           {error.status && <span className="error">{error.status}</span>}
           <div className="form-buttons flex gap-4 mt-4">
             <Buttons
-              type="submit"
               label={editExpense ? "Update" : "Save"}
+              type="submit"
               className="submit-btn bg-blue-600 text-white py-2 rounded hover:bg-blue-800 transition-colors"
             />
             <Buttons
-              type="button"
               label="Cancel"
+              type="button"
               onClick={resetForm}
               className="cancel-btn bg-gray-600 text-white py-2 rounded hover:bg-gray-800 transition-colors"
             />
@@ -492,14 +509,12 @@ const UserExpense = () => {
                           onClick={() => handleDelete(exp.id)}
                           label={<MdDeleteOutline />}
                           className="delete-btn"
-                          type="button"
                         />
 
                         <Buttons
                           onClick={() => handleEdit(exp)}
                           label={<CiEdit />}
                           className="edit-btn"
-                          type="button"
                         />
                       </td>
                     </tr>

@@ -9,7 +9,6 @@ function Pagination ({ currentPage, totalPages, onPageChange }: paginationProps)
                     onClick={() => onPageChange(currentPage - 1)}
                     disabled={currentPage === 1}
                     label="Previous"
-                    type='button'
                     className="pagination-button"
                 />
                 <span>
@@ -19,7 +18,6 @@ function Pagination ({ currentPage, totalPages, onPageChange }: paginationProps)
                     onClick={() => onPageChange(currentPage + 1)}
                     disabled={currentPage === totalPages}
                     label="Next"
-                    type='button'
                     className="pagination-button"
                 />
         </div>

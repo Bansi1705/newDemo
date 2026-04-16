@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import Header from "../Components/Header";
-import type { User } from "../types";
 import { useNavigate } from "react-router-dom";
 import { MdDeleteOutline } from "react-icons/md";
 import { CiEdit } from "react-icons/ci";
@@ -8,48 +7,42 @@ import "../Styles/Home.css";
 import { toast } from "react-toastify";
 import Confirmation from "../Components/CommonComponents/Confirmation";
 import { Buttons } from "../Components/CommonComponents/Buttons";
-import { Apiservice } from "../Services/ApiService";
 import Pagination from "../Components/CommonComponents/Pagination";
+import { Apiservice } from "../Services/ApiService";
+import type { ApiResponse, User } from "../types";
+import { Toast_Message } from "../Services/Toast_Message";
 
 export const Home = () => {
   const [users, setUsers] = useState<User[]>([]);
-
   const navigate = useNavigate();
 
   const [search, setSearch] = useState<string>("");
-
-  const [showCofirm, setShowConfirm] = useState<boolean>(false);
+  const [showConfirm, setShowConfirm] = useState<boolean>(false);
   const [deleteId, setDeleteId] = useState<number | null>(null);
 
   const [currentPage, setCurrentPage] = useState<number>(1);
   const itemsPerPage = 5;
-  const lastIndex = currentPage * itemsPerPage;
-  const startIndex = lastIndex - itemsPerPage;
 
   const filteredUsers = users.filter((user) =>
-    user.name?.toLowerCase().includes(search.toLowerCase()),
+    user.name.toLowerCase().includes(search.toLowerCase()),
   );
+
+  const lastIndex = currentPage * itemsPerPage;
+  const startIndex = lastIndex - itemsPerPage;
+  const currentRecords = filteredUsers.slice(startIndex, lastIndex);
+  const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
 
   useEffect(() => {
     setCurrentPage(1);
   }, [search]);
 
   useEffect(() => {
-    console.log("Home Page Reloads");
-  }, []);
-
-  const currentRecords = filteredUsers.slice(startIndex, lastIndex);
-
-  const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
-
-  useEffect(() => {
     const fetchUsers = async () => {
       try {
-        await Apiservice.get("/users").then((response: any) => {
-          setUsers(response);
-        });
-      } catch (error) {
-        console.log(error);
+        const res = await Apiservice.get<ApiResponse<User[]>>("/users");
+        setUsers(res);
+      } catch (error: any) {
+        console.error(error);
       }
     };
     fetchUsers();
@@ -62,15 +55,18 @@ export const Home = () => {
 
   const handleConfirm = async () => {
     if (deleteId === null) return;
+
     try {
-      await Apiservice.delete(`/users/${deleteId}`);
+      const res = await Apiservice.delete<ApiResponse<null>>(
+        `/users/${deleteId}`,
+      );
+
       setUsers((prev) => prev.filter((user) => user.id !== deleteId));
-      setShowConfirm(false);
-      setDeleteId(null);
-      toast.success("Deleted .....");
-    } catch (error) {
-      console.error("Error deleting user:", error);
-      toast.error("Failed to delete user");
+      toast.success(Toast_Message.SUCCESS.DELETE);
+    } catch (error: any) {
+      console.error(error);
+      toast.error(Toast_Message.ERROR.NOT_FOUND);
+    } finally {
       setShowConfirm(false);
       setDeleteId(null);
     }
@@ -87,40 +83,50 @@ export const Home = () => {
 
   const title = ["Name", "Age", "BirthDate", "Operations"];
 
-  const handleApiTest = async (method: string, url: string) => {
-    const data = {
-      name: "new user",
+  const handleApiTest = async (
+    method: "Get" | "Post" | "Put" | "Delete",
+    url: string,
+  ) => {
+    const newUser = {
+      name: "bansi",
       age: 20,
       birthdate: "2026-04-12",
     };
+
     try {
       switch (method) {
-        case "Get":
-          await Apiservice.get(url);
+        case "Get": {
+          const response = await Apiservice.get<ApiResponse<User[]>>(url);
+          console.log(response);
           break;
-        case "Post":
-          await Apiservice.post(url, data).then((response: any) => {
-            console.log(response);
-            toast.success("User added...");
-          });
+        }
 
+        case "Post": {
+          const response = await Apiservice.post<User, ApiResponse<User>>(
+            url,
+            newUser,
+          );
+          console.log(response);
           break;
-        // case "Put":
-        //   await Apiservice.put(url, data).then((response: any) => {
-        //     toast.success("User updated...");
-        //   });
-        //   break;
-        // case "Delete":
-        //   await Apiservice.delete(url).then((response: any) => {
-        //     toast.error("user Deleted");
-        //   });
-        //   break;
-        default:
-          toast.error("Invalid method");
+        }
+
+        case "Put": {
+          const response = await Apiservice.put<User, ApiResponse<User>>(
+            url,
+            newUser,
+          );
+          console.log(response);
+          break;
+        }
+
+        case "Delete": {
+          await Apiservice.delete<ApiResponse<null>>(url);
+          break;
+        }
       }
     } catch (error) {
-      // toast.error(`Error occurred while testing ${method} API`);
-      console.log(error);
+      console.error(error);
+      toast.error(Toast_Message.ERROR.GENERIC);
     }
   };
 
@@ -133,26 +139,24 @@ export const Home = () => {
           <div className="apiButtons mb-4 flex gap-4 justify-center items-center">
             <Buttons
               label="Get"
-              type="button"
               onClick={() => handleApiTest("Get", "/users")}
             />
             <Buttons
               label="Post"
-              type="button"
               onClick={() => handleApiTest("Post", "/users")}
             />
             <Buttons
               label="Put"
-              type="button"
-              onClick={() => handleApiTest("Put", "/users/7")}
+              onClick={() => handleApiTest("Put", "/users/1")}
             />
             <Buttons
               label="Delete"
-              type="button"
-              onClick={() => handleApiTest("Delete", "/users/3")}
+              onClick={() => handleApiTest("Delete", "/users/2")}
             />
           </div>
+
           <h2 className="main-title">Users List</h2>
+
           <div className="table-wrapper">
             <table border={2} className="data-table">
               <thead>
@@ -162,6 +166,7 @@ export const Home = () => {
                   ))}
                 </tr>
               </thead>
+
               <tbody>
                 {currentRecords.map((user) => (
                   <tr key={user.id}>
@@ -173,36 +178,34 @@ export const Home = () => {
                         onClick={() => handleDelete(user.id)}
                         label={<MdDeleteOutline />}
                         className="delete-btn"
-                        type="button"
                       />
                       <Buttons
                         onClick={() => handleEdit(user.id)}
                         label={<CiEdit />}
                         className="edit-btn"
-                        type="button"
                       />
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
-            <div>
-              <Pagination
-                currentPage={currentPage}
-                totalPages={totalPages}
-                onPageChange={setCurrentPage}
-              />
-            </div>
-          </div>
-          {showCofirm && (
-            <Confirmation
-              confirm={handleConfirm}
-              cancel={handleCancel}
-              message=" Do You Really Want To Delete This Item ??"
+
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={setCurrentPage}
             />
-          )}
+          </div>
         </div>
       </div>
+
+      {showConfirm && (
+        <Confirmation
+          confirm={handleConfirm}
+          cancel={handleCancel}
+          message="Do You Really Want To Delete This Item ??"
+        />
+      )}
     </>
   );
 };

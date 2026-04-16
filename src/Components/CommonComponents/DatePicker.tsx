@@ -19,9 +19,11 @@ export function ReactDatePicker({
         selected={selectedDate}
         onChange={onChange}
         dateFormat="dd/MM/yyyy"
-        placeholderText={placeholder || "Select Date"}
         maxDate={new Date()}
         className="input-field"
+        shouldCloseOnSelect={true}
+        placeholderText={placeholder}
+        name="datePicker"
       />
       {error && <span className="error">{error}</span>}
     </div>

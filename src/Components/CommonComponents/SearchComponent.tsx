@@ -5,7 +5,6 @@ export const SearchBar: React.FC<searchBarProps> = ({
   searchPlaceholder,
   searchOnChange,
   searchClssName,
-  searchDisable
 }) => {
   return (
     <div className="search-bar">
@@ -15,7 +14,8 @@ export const SearchBar: React.FC<searchBarProps> = ({
         value={searchTerm}
         onChange={searchOnChange}
         className={searchClssName}
-        disabled={searchDisable}
+        name="searchInput"
+        id="searchInput"
       />
     </div>
   );

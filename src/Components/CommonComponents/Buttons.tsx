@@ -1,18 +1,19 @@
 import type { buttonProps } from "../../types";
 
 export const Buttons: React.FC<buttonProps> = ({
+  type = "button",
   onClick,
   label,
   className,
   disabled,
-  type ="button",
 }) => {
   return (
     <button
-      type={type}
       onClick={onClick}
       className={className}
       disabled={disabled}
+      name="commonButton"
+      type={type}
     >
       {label}
     </button>

@@ -1,6 +1,7 @@
 import type { inputProps } from "../../types";
 
 const InputField: React.FC<inputProps> = ({
+  type,
   id,
   name,
   value,
@@ -12,7 +13,7 @@ const InputField: React.FC<inputProps> = ({
   return (
     <>
       <input
-        type="text"
+        type={type}
         id={id}
         name={name}
         value={value}

@@ -5,6 +5,7 @@ export const Otp: React.FC<OtpProps> = ({ otpValue, setOtpValue }) => {
     <input
       type="text"
       name="otp"
+      id="otpFeild"
       value={otpValue}
       onChange={(e) => setOtpValue(e.target.value)}
       placeholder="Enter OTP"

@@ -10,7 +10,6 @@ export const Routing = createBrowserRouter([
     path: "/",
     element: (
       <AuthGuard required={false}>
-        {/* Login page only for non-logged-in users */}
         <Login />
       </AuthGuard>
     ),
@@ -19,7 +18,6 @@ export const Routing = createBrowserRouter([
     path: "/home",
     element: (
       <AuthGuard required={true}>
-        {/* Home page only for logged-in users */}
         <Home />
       </AuthGuard>
     ),

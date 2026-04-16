@@ -16,14 +16,12 @@ function Confirmation({ confirm, cancel, message }: props) {
           <div className="confirm-actions">
             <Buttons
               label="Yes"
-              type="button"
               onClick={confirm}
               className="yes-btn"
             />
 
             <Buttons
               label="No"
-              type="button"
               onClick={cancel}
               className="no-btn"
             />

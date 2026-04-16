@@ -14,14 +14,14 @@ export const DropDown: React.FC<dropdownOption> = ({
     <>
       <select
         name={selectName}
-        id=""
+        id="selectFeild"
         value={selectValue}
         className={selectClasName}
         onChange={dropDownChange}
       >
         {placeholder && <option value="">{placeholder}</option>}
         {optionsLabel?.map((optionLabel, index) => (
-          <option key={index} value={optionLabel} disabled={disabled}>
+          <option key={index} value={optionLabel} disabled={disabled} >
             {optionLabel}
           </option>
         ))}

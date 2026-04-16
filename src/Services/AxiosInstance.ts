@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Routing } from "../Components/Routing";
 
 const axiosInstance = axios.create({
   baseURL: "http://localhost:5000",
@@ -7,12 +8,10 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use((config) => {
   const data = sessionStorage.getItem("LoginUser");
   const userData = data ? JSON.parse(data) : null;
-
   if (userData?.token) {
     config.headers = config.headers || {};
     config.headers.Authorization = `Bearer ${userData.token}`;
   }
-
   return config;
 });
 
@@ -21,7 +20,7 @@ axiosInstance.interceptors.response.use(
   (error) => {
     if (error?.response?.status === 401) {
       sessionStorage.removeItem("LoginUser");
-      // window.location.href = "/";
+      Routing.navigate("/");
     }
     return Promise.reject(error);
   }

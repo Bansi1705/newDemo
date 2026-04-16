@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Header from "./Header";
-// import "../Styles/Form.css";
 import { toast } from "react-toastify";
 import "react-datepicker/dist/react-datepicker.css";
 import { ReactDatePicker } from "./CommonComponents/DatePicker";
 import InputField from "./CommonComponents/InputFeild";
 import { Apiservice } from "../Services/ApiService";
 import { Buttons } from "./CommonComponents/Buttons";
+import type { ApiResponse, User } from "../types";
 
 export const Form = () => {
   const { id } = useParams();
@@ -65,20 +65,24 @@ export const Form = () => {
   };
 
   useEffect(() => {
-    if (id) {
-      const fetchUser = async () => {
-        try {
-          const userData = await Apiservice.get(`/users/${id}`);
-          setData({
-            ...userData,
-            birthdate: userData.birthdate ? new Date(userData.birthdate) : null,
-          });
-        } catch (err) {
-          console.log(err);
-        }
-      };
-      fetchUser();
-    }
+    if (!id) return;
+
+    const fetchUser = async () => {
+      try {
+        const response = await Apiservice.get<ApiResponse<User>>(`/users/${id}`);
+
+        setData({
+          name: response.name || "",
+          age: response.age || "",
+          birthdate: response.birthdate ? new Date(response.birthdate) : null,
+        });
+      } catch (err) {
+        console.log(err);
+        toast.error("Failed to fetch user");
+      }
+    };
+
+    fetchUser();
   }, [id]);
 
   useEffect(() => {
@@ -101,15 +105,17 @@ export const Form = () => {
     console.log(payload);
     try {
       if (id) {
-        await Apiservice.put(`/users/${id}`,payload).then((response: any) => {
-          console.log(response);
-          toast.success("user Updated...")
-        });
+        try {
+          await Apiservice.put<ApiResponse<User>>(`/users/${id}`, payload)
+        } catch (error) {
+          console.log(error);
+        }
       } else {
-       await Apiservice.post("/users",payload).then((response : any)=>{
-        console.log(response);
-          toast.success("user added...")
-       })
+        try {
+          await Apiservice.post<ApiResponse<User>>(`/users`, payload)
+        } catch (error) {
+          console.log(error);
+        }
       }
       navigate("/home");
     } catch (error) {
@@ -117,21 +123,23 @@ export const Form = () => {
       toast.error("Failed to save user");
     }
   };
-
   const searchShow = false;
 
   return (
     <>
       <Header searchShow={searchShow} />
       <div className="form-data flex items-center justify-center h-screen bg-white-100">
-        <form className="form bg-white p-6 rounded shadow-xl-30 w-full max-w-md">
+        <form
+          className="form bg-white p-6 rounded shadow-xl-30 w-full max-w-md"
+          onSubmit={handleSubmit}
+        >
           <h2 className="form-title text-lg font-bold mb-4 text-center">
             {id ? "Edit User" : "Add User"}
           </h2>
 
           <div className="form-group mb-4">
             <label
-              htmlFor=""
+              htmlFor="name"
               className="form-label block mb-1 font-medium text-gray-800"
             >
               Name :
@@ -140,6 +148,7 @@ export const Form = () => {
               placeholder="Enter Your Name"
               type="text"
               name="name"
+              id="name"
               value={data.name}
               onChange={handleInputChange}
               error={error.name}
@@ -149,7 +158,7 @@ export const Form = () => {
 
           <div className="form-group mb-4">
             <label
-              htmlFor=""
+              htmlFor="age"
               className="form-label block mb-1 font-medium text-gray-800"
             >
               Age :
@@ -159,6 +168,7 @@ export const Form = () => {
               placeholder="Enter Your Age"
               type="number"
               name="age"
+              id="age"
               value={data.age}
               onChange={handleInputChange}
               error={error.age}
@@ -168,7 +178,7 @@ export const Form = () => {
 
           <div className="form-group">
             <label
-              htmlFor=""
+              htmlFor="datePicker"
               className="form-label block mb-1 font-medium text-gray-800"
             >
               Birth Date :
@@ -181,9 +191,8 @@ export const Form = () => {
           </div>
 
           <Buttons
-            type="button"
-            onClick={handleSubmit}
             label={`${id ? "Update" : "Add"} User`}
+            type="submit"
             className="submit-btn w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-800 transition-colors mt-4"
           />
         </form>

@@ -79,6 +79,7 @@ export const Login: React.FC = () => {
             <InputField
               type="email"
               name="email"
+              id="email"
               value={data.email}
               onChange={handleChange}
               placeholder="bansi@gmail.com"
@@ -119,7 +120,7 @@ export const Login: React.FC = () => {
           </div>
           <div className="mb-4 flex flex-col">
             <label
-              htmlFor="password"
+              htmlFor="otpFeild"
               className="mb-1 font-medium text-gray-800"
             >
               Otp :
@@ -132,13 +133,13 @@ export const Login: React.FC = () => {
 
           <div className="flex gap-4">
             <Buttons
-              type="submit"
               label="Login"
+              type="submit"
               className="flex-1 px-4 py-3 bg-blue-600 text-white border-none rounded-lg text-base cursor-pointer hover:bg-blue-800 transition-colors duration-200 font-medium"
             />
             <Buttons
-              type="button"
               label="Generate Otp"
+              type="button"
               className="flex-1 px-4 py-3 bg-blue-600 text-white border-none rounded-lg text-base cursor-pointer hover:bg-blue-800 transition-colors duration-200 font-medium"
               onClick={handleOtp}
             />

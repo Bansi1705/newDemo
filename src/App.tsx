@@ -13,13 +13,10 @@ function App() {
         <ToastContainer
           position="top-right"
           autoClose={3000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          rtl={false}
-          pauseOnFocusLoss={true}
-          draggable={true}
-          pauseOnHover={true}
-          theme="colored"
+          newestOnTop
+          closeOnClick
+          pauseOnHover
+          draggable
         />
       </ThemeProvider>
     </>
