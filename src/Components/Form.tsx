@@ -7,7 +7,8 @@ import { ReactDatePicker } from "./CommonComponents/DatePicker";
 import InputField from "./CommonComponents/InputFeild";
 import { Apiservice } from "../Services/ApiService";
 import { Buttons } from "./CommonComponents/Buttons";
-import type { ApiResponse, User } from "../types";
+import type { ApiResponse } from "../types";
+import { Toast_Message } from "../Services/Toast_Message";
 
 export const Form = () => {
   const { id } = useParams();
@@ -69,25 +70,21 @@ export const Form = () => {
 
     const fetchUser = async () => {
       try {
-        const response = await Apiservice.get<ApiResponse<User>>(`/users/${id}`);
-
+        const response: ApiResponse = await Apiservice.get(`/users/${id}`);
         setData({
-          name: response.name || "",
-          age: response.age || "",
-          birthdate: response.birthdate ? new Date(response.birthdate) : null,
+          name: response.data.name || "",
+          age: response.data.age || "",
+          birthdate: response.data.birthdate
+            ? new Date(response.data.birthdate)
+            : null,
         });
       } catch (err) {
         console.log(err);
         toast.error("Failed to fetch user");
       }
     };
-
     fetchUser();
   }, [id]);
-
-  useEffect(() => {
-    console.log("add user Page Reloads");
-  }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -106,14 +103,21 @@ export const Form = () => {
     try {
       if (id) {
         try {
-          await Apiservice.put<ApiResponse<User>>(`/users/${id}`, payload)
+          const res: ApiResponse = await Apiservice.put(
+            `/users/${id}`,
+            payload,
+          );
+          toast.success(Toast_Message.SUCCESS.UPDATE);
         } catch (error) {
+          toast.error(Toast_Message.ERROR.COMMON);
           console.log(error);
         }
       } else {
         try {
-          await Apiservice.post<ApiResponse<User>>(`/users`, payload)
+          const res: ApiResponse = await Apiservice.post(`/users`, payload);
+          toast.success(Toast_Message.SUCCESS.CREATE);
         } catch (error) {
+          toast.error(Toast_Message.ERROR.COMMON);
           console.log(error);
         }
       }

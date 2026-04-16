@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import type { ExpenseData } from "../types";
+import type { ApiResponse, ExpenseData } from "../types";
 import { ReactDatePicker } from "../Components/CommonComponents/DatePicker";
 import { MdDeleteOutline } from "react-icons/md";
 import { CiEdit } from "react-icons/ci";
@@ -13,6 +13,7 @@ import { SearchBar } from "../Components/CommonComponents/SearchComponent";
 import Header from "../Components/Header";
 import { Apiservice } from "../Services/ApiService";
 import Pagination from "../Components/CommonComponents/Pagination";
+import { Toast_Message } from "../Services/Toast_Message";
 interface StatusChangeData {
   id: number | string;
   newStatus: string;
@@ -59,18 +60,14 @@ const UserExpense = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        await Apiservice.get("/UserExpenses").then((response: any) => {
-          setExpenses(response);
+        await Apiservice.get("/UserExpenses").then((response: ApiResponse) => {
+          setExpenses(response.data);
         });
       } catch (error) {
         console.log(error);
       }
     };
     fetchUsers();
-  }, []);
-
-  useEffect(() => {
-    console.log("expense Reloads");
   }, []);
 
   const validate = () => {
@@ -141,20 +138,20 @@ const UserExpense = () => {
         : null,
     };
 
-    let savedExpense: Expense;
+    let savedExpense: ExpenseData;
 
     try {
       if (editExpense) {
-        const res = await Apiservice.put(
+        const res: ApiResponse = await Apiservice.put(
           `/UserExpenses/${editExpense.id}`,
           payload,
         );
-        savedExpense = res;
-        toast.success("Expense updated successfully");
+        savedExpense = res.data;
+        toast.success(Toast_Message.SUCCESS.UPDATE);
       } else {
         const res = await Apiservice.post("/UserExpenses", payload);
         savedExpense = res;
-        toast.success("Expense added successfully");
+        toast.success(Toast_Message.SUCCESS.CREATE);
       }
 
       setExpenses((prev) =>
@@ -189,9 +186,14 @@ const UserExpense = () => {
   const confirmDelete = async () => {
     if (!deleteExpenseId) return;
     try {
-      await Apiservice.delete(`/UserExpenses/${deleteExpenseId}`);
-      setExpenses((prev) => prev.filter((exp) => exp.id !== deleteExpenseId));
-      setShowConfirm(false);
+      await Apiservice.delete(`/UserExpenses/${deleteExpenseId}`).then(
+        (response: ApiResponse) => {
+          setExpenses((prev) =>
+            prev.filter((exp) => exp.id !== deleteExpenseId),
+          );
+          setShowConfirm(false);
+        },
+      );
     } catch (error) {
       toast.error(
         `Error deleting expense: ${error instanceof Error ? error.message : "Unknown error"} `,
@@ -227,40 +229,37 @@ const UserExpense = () => {
   };
 
   const confirmStatusChange = async () => {
-  if (!statusChangeData) return;
+    if (!statusChangeData) return;
 
-  const currentExpense = expenses.find(
-    (exp) => exp.id === statusChangeData.id,
-  );
+    const currentExpense = expenses.find(
+      (exp) => exp.id === statusChangeData.id,
+    );
 
-  if (!currentExpense) return;
+    if (!currentExpense) return;
 
-  try {
-    const res = await Apiservice.put(
-      `/UserExpenses/${statusChangeData.id}`,
-      {
+    try {
+      const res : ApiResponse = await Apiservice.put(`/UserExpenses/${statusChangeData.id}`, {
         ...currentExpense,
         status: statusChangeData.newStatus,
-      }
-    );
+      });
 
-    const updatedExpense = res.data; 
+      const updatedExpense = res.data;
 
-    setExpenses((prev) =>
-      prev.map((exp) =>
-        exp.id === statusChangeData.id ? updatedExpense : exp
-      )
-    );
-  } catch (error) {
-    toast.error(
-      `Error updating status: ${
-        error instanceof Error ? error.message : "Unknown error"
-      }`
-    );
-  }
+      setExpenses((prev) =>
+        prev.map((exp) =>
+          exp.id === statusChangeData.id ? updatedExpense : exp,
+        ),
+      );
+    } catch (error) {
+      toast.error(
+        `Error updating status: ${
+          error instanceof Error ? error.message : "Unknown error"
+        }`,
+      );
+    }
 
-  setStatusChangeData(null);
-};
+    setStatusChangeData(null);
+  };
   const statusChange = [
     { value: "Pending", label: "Pending", color: "#ffc107" },
     { value: "Approved", label: "Approved", color: "#28a745" },

@@ -1,284 +1,8 @@
 {
   "users": [
     {
-      "name": "bansi",
-      "age": 20,
-      "birthdate": "2026-04-12",
-      "id": "uCKVsUYc4Sk"
-    },
-    {
-      "name": "bansi",
-      "age": 20,
-      "birthdate": "2026-04-12",
-      "id": "TC5n2Igyyko"
-    },
-    {
-      "name": "bansi",
-      "age": 20,
-      "birthdate": "2026-04-12",
-      "id": "FnbOHfyZv_s"
-    },
-    {
-      "name": "bansi",
-      "age": 20,
-      "birthdate": "2026-04-12",
-      "id": "U6PGQDoRnpQ"
-    },
-    {
-      "name": "bansi",
-      "age": 20,
-      "birthdate": "2026-04-12",
-      "id": "C7VYBO_3vlQ"
-    },
-    {
-      "name": "bansi",
-      "age": 20,
-      "birthdate": "2026-04-12",
-      "id": "ftZKRbQxNmE"
-    },
-    {
-      "name": "bansi",
-      "age": 20,
-      "birthdate": "2026-04-12",
-      "id": "GeloieagU5g"
-    },
-    {
-      "name": "bansi",
-      "age": 20,
-      "birthdate": "2026-04-12",
-      "id": "3SS83uusqNI"
-    },
-    {
-      "name": "bansi",
-      "age": 20,
-      "birthdate": "2026-04-12",
-      "id": "EhVSpO2hQ8s"
-    },
-    {
-      "name": "bansi",
-      "age": 56,
-      "birthdate": "2026-03-28",
-      "id": "c3Zj5NjSlkc"
-    },
-    {
-      "name": "bansi12",
-      "age": 20,
-      "birthdate": "2026-04-11",
-      "id": "HlB5O4ylV5I"
-    },
-    {
-      "name": "vrunda",
-      "age": 20,
-      "birthdate": "2026-04-11",
-      "id": "dXZ2L61duLo"
-    },
-    {
-      "name": "bansi",
-      "age": 20,
-      "birthdate": "2026-04-12",
-      "id": "BSDbQ801CN8"
-    },
-    {
-      "name": "bansi",
-      "age": 20,
-      "birthdate": "2026-04-12",
-      "id": "sLrIThF2KFU"
-    },
-    {
-      "name": "bansi",
-      "age": 20,
-      "birthdate": "2026-04-12",
-      "id": "HMIm2p0y3hQ"
-    },
-    {
-      "name": "bansi",
-      "age": 20,
-      "birthdate": "2026-04-12",
-      "id": "2DW6-oVP8GE"
-    },
-    {
-      "name": "bansi",
-      "age": 20,
-      "birthdate": "2026-04-12",
-      "id": "amTNDGtzHtQ"
-    },
-    {
-      "name": "bansi",
-      "age": 20,
-      "birthdate": "2026-04-12",
-      "id": "473QQfsEzO0"
-    },
-    {
-      "name": "bansi",
-      "age": 58,
-      "birthdate": "2026-03-27",
-      "id": "-YbvRGTHcc4"
-    },
-    {
-      "name": "bansi",
-      "age": 20,
-      "birthdate": "2026-04-12",
-      "id": "irdltixa-J4"
-    },
-    {
-      "name": "bansi",
-      "age": 58,
-      "birthdate": "2026-03-27",
-      "id": "u5Tzlk-XukM"
-    },
-    {
-      "name": "bansi",
-      "age": 20,
-      "birthdate": "2026-04-12",
-      "id": "mIn9xmc6_IU"
-    },
-    {
-      "name": "bansi",
-      "age": 20,
-      "birthdate": "2026-04-12",
-      "id": "f3dg3XhBwgQ"
-    },
-    {
-      "name": "bansi",
-      "age": 20,
-      "birthdate": "2026-04-12",
-      "id": "2nBxjXpyXx0"
-    },
-    {
-      "name": "bansi",
-      "age": 20,
-      "birthdate": "2026-04-12",
-      "id": "hlu5AOQGyFc"
-    },
-    {
-      "name": "bansi",
-      "age": 20,
-      "birthdate": "2026-04-12",
-      "id": "jIgDFxaDF9U"
-    },
-    {
-      "name": "bansi",
-      "age": 20,
-      "birthdate": "2026-04-12",
-      "id": "5muz_3_yF08"
-    },
-    {
-      "name": "bansi",
-      "age": 20,
-      "birthdate": "2026-04-12",
-      "id": "qd7-Dcwwjyg"
-    },
-    {
-      "name": "bansi",
-      "age": 20,
-      "birthdate": "2026-04-12",
-      "id": "azC7pLboMI4"
-    },
-    {
-      "name": "bansi",
-      "age": 20,
-      "birthdate": "2026-04-12",
-      "id": "1z5ibUgEvIY"
-    },
-    {
-      "name": "bansi",
-      "age": 20,
-      "birthdate": "2026-04-12",
-      "id": "gAa3q7hwKj0"
-    },
-    {
-      "name": "bansi",
-      "age": 20,
-      "birthdate": "2026-04-12",
-      "id": "D7ZfI7M7W80"
-    },
-    {
-      "name": "bansi",
-      "age": 20,
-      "birthdate": "2026-04-12",
-      "id": "19hcv6l5jW8"
-    },
-    {
-      "name": "bansi",
-      "age": 20,
-      "birthdate": "2026-04-12",
-      "id": "32P70f9jfTY"
-    },
-    {
-      "name": "bansi",
-      "age": 20,
-      "birthdate": "2026-04-12",
-      "id": "fsI7WYYfcbM"
-    },
-    {
-      "name": "bansi",
-      "age": 20,
-      "birthdate": "2026-04-12",
-      "id": "txUMgA-phRA"
-    },
-    {
-      "name": "bansi",
-      "age": 20,
-      "birthdate": "2026-04-12",
-      "id": "ffEUQcgdqpM"
-    },
-    {
-      "name": "bansi",
-      "age": 20,
-      "birthdate": "2026-04-12",
-      "id": "-hB1T9spvkc"
-    },
-    {
-      "name": "bansi",
-      "age": 20,
-      "birthdate": "2026-04-12",
-      "id": "cCkjPdUDcz0"
-    },
-    {
-      "name": "bansi",
-      "age": 20,
-      "birthdate": "2026-04-12",
-      "id": "Lt6Mrydl4hk"
-    },
-    {
-      "name": "bansi",
-      "age": 20,
-      "birthdate": "2026-04-12",
-      "id": "4pk0MHcSdW0"
-    },
-    {
-      "name": "bansi",
-      "age": 20,
-      "birthdate": "2026-04-12",
-      "id": "wCLl-flOKpY"
-    },
-    {
-      "name": "bansi",
-      "age": 20,
-      "birthdate": "2026-04-12",
-      "id": "7zAnPteeawM"
-    },
-    {
-      "name": "bansi",
-      "age": 20,
-      "birthdate": "2026-04-12",
-      "id": "KDElrSb8URU"
-    },
-    {
-      "name": "bansi",
-      "age": 20,
-      "birthdate": "2026-04-12",
-      "id": "hWZgjOhTIT8"
-    },
-    {
-      "name": "bansi",
-      "age": 20,
-      "birthdate": "2026-04-12",
-      "id": "1V5nZnCiCkg"
-    },
-    {
-      "name": "bansi",
-      "age": 20,
+      "name": "rohan",
+      "age": 30,
       "birthdate": "2026-04-12",
       "id": "gku6URRjudA"
     },
@@ -287,26 +11,123 @@
       "age": 20,
       "birthdate": "2026-04-12",
       "id": "fuO3jp5iP3A"
+    },
+    {
+      "name": "bansi34",
+      "age": 20,
+      "birthdate": "2026-04-12",
+      "id": "t3TJFpTna7E"
+    },
+    {
+      "name": "nidhi",
+      "age": 20,
+      "birthdate": "2026-04-12",
+      "id": "ym1MZUadGI0"
+    },
+    {
+      "name": "Radha",
+      "age": 20,
+      "birthdate": "2026-04-12",
+      "id": "wU9RpWfhWgk"
+    },
+    {
+      "name": "bansi",
+      "age": 20,
+      "birthdate": "2026-04-12",
+      "id": "elDWF1AKsjY"
+    },
+    {
+      "name": "bansi",
+      "age": 20,
+      "birthdate": "2026-04-12",
+      "id": "fGm3MgNcYYQ"
+    },
+    {
+      "name": "bansi",
+      "age": 20,
+      "birthdate": "2026-04-12",
+      "id": "pqux_duBJSM"
+    },
+    {
+      "name": "bansi",
+      "age": 20,
+      "birthdate": "2026-04-12",
+      "id": "Oo4wgYLutic"
+    },
+    {
+      "name": "bansi",
+      "age": 20,
+      "birthdate": "2026-04-12",
+      "id": "6rT28HusZu8"
+    },
+    {
+      "name": "bansi",
+      "age": 20,
+      "birthdate": "2026-04-12",
+      "id": "Q4HWmHnE13M"
+    },
+    {
+      "name": "bansi",
+      "age": 20,
+      "birthdate": "2026-04-12",
+      "id": "kJrdMFj_FlE"
+    },
+    {
+      "name": "hello",
+      "age": 20,
+      "birthdate": "2026-04-11",
+      "id": "39dfp7y9vD0"
+    },
+    {
+      "name": "bansi",
+      "age": 20,
+      "birthdate": "2026-04-12",
+      "id": "Vr8D8nr7Qsw"
+    },
+    {
+      "name": "bansi",
+      "age": 20,
+      "birthdate": "2026-04-12",
+      "id": "OqQKsnystxI"
+    },
+    {
+      "name": "bansi",
+      "age": 20,
+      "birthdate": "2026-04-12",
+      "id": "gB6VliGOJ58"
+    },
+    {
+      "name": "bansi",
+      "age": 20,
+      "birthdate": "2026-04-12",
+      "id": "v97PTV5V2Vc"
+    },
+    {
+      "name": "bansi",
+      "age": 20,
+      "birthdate": "2026-04-12",
+      "id": "o4mTaVJ45L0"
+    },
+    {
+      "name": "bansi",
+      "age": 20,
+      "birthdate": "2026-04-12",
+      "id": "CEq9cyCkKds"
+    },
+    {
+      "name": "hello12",
+      "age": 20,
+      "birthdate": "2026-04-11",
+      "id": "5qYz-lEWZ4E"
+    },
+    {
+      "name": "jyot",
+      "age": 20,
+      "birthdate": "2026-04-11",
+      "id": "QG2rXJXTM3Y"
     }
   ],
   "UserExpenses": [
-    {
-      "expenseTitle": "Food",
-      "description": "I have Spent On Food ",
-      "category": "Food",
-      "subCategory": "Lunch",
-      "amount": 100,
-      "paymentMethod": "Upi",
-      "invoiceNumber": "1232",
-      "expenseDate": "",
-      "submissionDate": "",
-      "employeeId": "214",
-      "employeeName": "Bansi",
-      "department": "Development",
-      "assignedTo": "345",
-      "status": "Approved",
-      "id": "3mW2BNsNRRw"
-    },
     {
       "expenseTitle": "vc",
       "description": "cs c ",
@@ -323,23 +144,6 @@
       "assignedTo": "pjhg",
       "status": "Rejected",
       "id": "CjNr3pMeoME"
-    },
-    {
-      "id": "L8YchZDLw5o",
-      "expenseTitle": "frx",
-      "description": "fdx",
-      "category": "Food",
-      "subCategory": "Lunch",
-      "amount": 454,
-      "paymentMethod": "Cash",
-      "invoiceNumber": "w323123",
-      "expenseDate": "2026-03-30T18:30:00.000Z",
-      "submissionDate": "2026-03-29T18:30:00.000Z",
-      "employeeId": "214",
-      "employeeName": "Bansi",
-      "department": "Development",
-      "assignedTo": "34589",
-      "status": "Pending"
     },
     {
       "id": "R7aEcqXLv34",
@@ -371,25 +175,8 @@
       "submissionDate": "2026-03-31T18:30:00.000Z",
       "employeeId": "21434",
       "employeeName": "Bansi",
-      "department": "Development456",
-      "assignedTo": "pjhg4232",
-      "status": "Pending"
-    },
-    {
-      "id": "k9IPbNeW1J8",
-      "expenseTitle": "r3rer",
-      "description": "ferert",
-      "category": "Food",
-      "subCategory": "Lunch",
-      "amount": 434,
-      "paymentMethod": "Cash",
-      "invoiceNumber": "234",
-      "expenseDate": "2026-03-30T18:30:00.000Z",
-      "submissionDate": "2026-04-07T18:30:00.000Z",
-      "employeeId": "214",
-      "employeeName": "Bansi",
       "department": "Development",
-      "assignedTo": "345",
+      "assignedTo": "pjhg4232",
       "status": "Pending"
     },
     {
@@ -404,10 +191,10 @@
       "expenseDate": "2026-04-01T18:30:00.000Z",
       "submissionDate": "2026-04-08T18:30:00.000Z",
       "employeeId": "2321",
-      "employeeName": "nidhi",
+      "employeeName": "nidhi456",
       "department": "development",
       "assignedTo": "21312",
-      "status": "Approved"
+      "status": "Rejected"
     },
     {
       "id": "y0KBBCT9JBI",
@@ -459,40 +246,6 @@
       "department": "Development",
       "assignedTo": "345",
       "status": "Pending"
-    },
-    {
-      "id": "EYS4IXXJslM",
-      "expenseTitle": "sdsfdsa",
-      "description": "dfdfd",
-      "category": "Food",
-      "subCategory": "Snacks",
-      "amount": 32,
-      "paymentMethod": "Card",
-      "invoiceNumber": "231",
-      "expenseDate": "2026-03-31T18:30:00.000Z",
-      "submissionDate": "2026-04-07T18:30:00.000Z",
-      "employeeId": "214",
-      "employeeName": "Bansi",
-      "department": "Development",
-      "assignedTo": "345",
-      "status": "Pending"
-    },
-    {
-      "id": "IiYefJ9V0lQ",
-      "expenseTitle": "32",
-      "description": "4234234",
-      "category": "Food",
-      "subCategory": "Lunch",
-      "amount": 457,
-      "paymentMethod": "UPI",
-      "invoiceNumber": "234",
-      "expenseDate": "2026-04-01T18:30:00.000Z",
-      "submissionDate": "2026-03-30T18:30:00.000Z",
-      "employeeId": "214",
-      "employeeName": "nidhi",
-      "department": "Development",
-      "assignedTo": "34589",
-      "status": "Approved"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

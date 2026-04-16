@@ -12,39 +12,39 @@ export const Apiservice = {
     };
   },
 
-  async get<T>(path: string, config = {}): Promise<T> {
-    const res = await axiosInstance.get<T>(path, {
+  async get(path: string, config = {}) {
+    const res = await axiosInstance.get(path, {
       ...config,
       headers: this.getHeader(),
     });
     console.log(res);
-    return res.data;
+    return res;
   },
 
-  async post<T, B = unknown>(path: string, data: B, config = {}): Promise<T> {
-    const res = await axiosInstance.post<T>(path, data, {
+  async post(path: string, data: any, config = {}) {
+    const res = await axiosInstance.post(path, data, {
       ...config,
       headers: this.getHeader(),
     });
     console.log(res);
-    return res.data;
+    return res;
   },
 
-  async put<T, B = unknown>(path: string, data: B, config = {}): Promise<T> {
-    const res = await axiosInstance.put<T>(path, data, {
+  async put(path: string, data: any, config = {}) {
+    const res = await axiosInstance.put(path, data, {
       ...config,
       headers: this.getHeader(),
     });
     console.log(res);
-    return res.data;
+    return res;
   },
 
-  async delete<T>(path: string, config = {}): Promise<T> {
-    const res = await axiosInstance.delete<T>(path, {
+  async delete(path: string, config = {}){
+    const res = await axiosInstance.delete(path, {
       ...config,
       headers: this.getHeader(),
     });
     console.log(res);
-    return res.data;
+    return res;
   },
 };

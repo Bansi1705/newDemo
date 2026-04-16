@@ -1,13 +1,13 @@
 export const Toast_Message = {
   SUCCESS: {
-    CREATE: "User created successfully",
-    UPDATE: "User updated successfully",
-    DELETE: "User deleted successfully",
-    FETCH: "User fetched successfully",
+    CREATE: "Data created successfully",
+    UPDATE: "Data updated successfully",
+    DELETE: "Data deleted successfully",
+    FETCH: "Data fetched successfully",
   },
   ERROR: {
-    GENERIC: "Something went wrong",
     NETWORK: "Network error, please try again",
-    NOT_FOUND: "User not found",
+    NOT_FOUND: "Data not found",
+    COMMON:"Something Went Wrong!"
   },
 };

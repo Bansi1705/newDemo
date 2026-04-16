@@ -73,8 +73,8 @@ export interface paginationProps {
   onPageChange: (page: number) => void;
 }
 
-export type ApiResponse<T> = {
-  message: string;
-  data: T;
-  success?: boolean;
+export interface ApiResponse  {
+  data: any;
+  headers:string;
+  status:number
 };

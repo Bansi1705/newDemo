@@ -39,8 +39,8 @@ export const Home = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const res = await Apiservice.get<ApiResponse<User[]>>("/users");
-        setUsers(res);
+        const res: ApiResponse = await Apiservice.get("/users");
+        setUsers(res.data);
       } catch (error: any) {
         console.error(error);
       }
@@ -57,15 +57,15 @@ export const Home = () => {
     if (deleteId === null) return;
 
     try {
-      const res = await Apiservice.delete<ApiResponse<null>>(
-        `/users/${deleteId}`,
+      await Apiservice.delete(`/users/${deleteId}`).then(
+        (response: ApiResponse) => {
+          setUsers((prev) => prev.filter((user) => user.id !== deleteId));
+          toast.success(Toast_Message.SUCCESS.DELETE);
+        },
       );
-
-      setUsers((prev) => prev.filter((user) => user.id !== deleteId));
-      toast.success(Toast_Message.SUCCESS.DELETE);
     } catch (error: any) {
       console.error(error);
-      toast.error(Toast_Message.ERROR.NOT_FOUND);
+      toast.error(Toast_Message.ERROR.COMMON);
     } finally {
       setShowConfirm(false);
       setDeleteId(null);
@@ -87,46 +87,43 @@ export const Home = () => {
     method: "Get" | "Post" | "Put" | "Delete",
     url: string,
   ) => {
-    const newUser = {
+    const newUser: User = {
       name: "bansi",
       age: 20,
       birthdate: "2026-04-12",
     };
 
     try {
-      switch (method) {
-        case "Get": {
-          const response = await Apiservice.get<ApiResponse<User[]>>(url);
-          console.log(response);
-          break;
-        }
-
-        case "Post": {
-          const response = await Apiservice.post<User, ApiResponse<User>>(
-            url,
-            newUser,
-          );
-          console.log(response);
-          break;
-        }
-
-        case "Put": {
-          const response = await Apiservice.put<User, ApiResponse<User>>(
-            url,
-            newUser,
-          );
-          console.log(response);
-          break;
-        }
-
-        case "Delete": {
-          await Apiservice.delete<ApiResponse<null>>(url);
-          break;
-        }
-      }
+      const apiActions = {
+        Get: async () => {
+          await Apiservice.get(url).then((response: ApiResponse) => {
+            toast.success(Toast_Message.SUCCESS.FETCH);
+            console.log(response.status);
+          });
+        },
+        Post: async () => {
+          await Apiservice.post(url, newUser).then((response: ApiResponse) => {
+            toast.success(Toast_Message.SUCCESS.CREATE);
+            console.log(response.headers);
+          });
+        },
+        Put: async () => {
+          await Apiservice.put(url, newUser).then((response: ApiResponse) => {
+            toast.success(Toast_Message.SUCCESS.UPDATE);
+            console.log(response);
+          });
+        },
+        Delete: async () => {
+          await Apiservice.delete(url).then((response: ApiResponse) => {
+            toast.success(Toast_Message.SUCCESS.DELETE);
+            console.log(response);
+          });
+        },
+      };
+      await apiActions[method]();
     } catch (error) {
       console.error(error);
-      toast.error(Toast_Message.ERROR.GENERIC);
+      toast.error(Toast_Message.ERROR.COMMON);
     }
   };
 
