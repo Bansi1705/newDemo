@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import type { ApiResponse, ExpenseData } from "../types";
+import type { ApiResponse, ExpenseData } from "../Interface/types";
 import { ReactDatePicker } from "../Components/CommonComponents/DatePicker";
 import { MdDeleteOutline } from "react-icons/md";
 import { CiEdit } from "react-icons/ci";
@@ -13,7 +13,7 @@ import { SearchBar } from "../Components/CommonComponents/SearchComponent";
 import Header from "../Components/Header";
 import { Apiservice } from "../Services/ApiService";
 import Pagination from "../Components/CommonComponents/Pagination";
-import { Toast_Message } from "../Services/Toast_Message";
+import { CONSTANT } from "../Services/Constant";
 interface StatusChangeData {
   id: number | string;
   newStatus: string;
@@ -147,11 +147,11 @@ const UserExpense = () => {
           payload,
         );
         savedExpense = res.data;
-        toast.success(Toast_Message.SUCCESS.UPDATE);
+        toast.success(CONSTANT.SUCCESS.UPDATE);
       } else {
         const res = await Apiservice.post("/UserExpenses", payload);
         savedExpense = res;
-        toast.success(Toast_Message.SUCCESS.CREATE);
+        toast.success(CONSTANT.SUCCESS.CREATE);
       }
 
       setExpenses((prev) =>

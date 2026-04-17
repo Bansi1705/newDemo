@@ -1,4 +1,4 @@
-import type { OtpProps } from "../../types";
+import type { OtpProps } from "../../Interface/types";
 
 export const Otp: React.FC<OtpProps> = ({ otpValue, setOtpValue }) => {
   return (

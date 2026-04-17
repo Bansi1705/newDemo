@@ -9,12 +9,16 @@ import Confirmation from "../Components/CommonComponents/Confirmation";
 import { Buttons } from "../Components/CommonComponents/Buttons";
 import Pagination from "../Components/CommonComponents/Pagination";
 import { Apiservice } from "../Services/ApiService";
-import type { ApiResponse, User } from "../types";
-import { Toast_Message } from "../Services/Toast_Message";
+import type { ApiResponse, User } from "../Interface/types";
+import { CONSTANT } from "../Services/Constant";
+import { COMMON_SERVICES } from "../Services/CommonService/CommonServices";
+import { DropDown } from "../Components/CommonComponents/DropDown";
 
 export const Home = () => {
   const [users, setUsers] = useState<User[]>([]);
   const navigate = useNavigate();
+
+  const [selectedMonth, setSelectedMonth] = useState<string>("");
 
   const [search, setSearch] = useState<string>("");
   const [showConfirm, setShowConfirm] = useState<boolean>(false);
@@ -53,6 +57,13 @@ export const Home = () => {
     setShowConfirm(true);
   };
 
+  useEffect(() => {
+    const data = COMMON_SERVICES.getFiveYear();
+    const NextData = COMMON_SERVICES.nextFiveYear();
+    const NextMonths = COMMON_SERVICES.nextMonth();
+    console.log(data, NextData, NextMonths);
+  }, []);
+
   const handleConfirm = async () => {
     if (deleteId === null) return;
 
@@ -60,12 +71,12 @@ export const Home = () => {
       await Apiservice.delete(`/users/${deleteId}`).then(
         (response: ApiResponse) => {
           setUsers((prev) => prev.filter((user) => user.id !== deleteId));
-          toast.success(Toast_Message.SUCCESS.DELETE);
+          toast.success(CONSTANT.SUCCESS.DELETE);
         },
       );
     } catch (error: any) {
       console.error(error);
-      toast.error(Toast_Message.ERROR.COMMON);
+      toast.error(CONSTANT.ERROR.COMMON);
     } finally {
       setShowConfirm(false);
       setDeleteId(null);
@@ -97,25 +108,25 @@ export const Home = () => {
       const apiActions = {
         Get: async () => {
           await Apiservice.get(url).then((response: ApiResponse) => {
-            toast.success(Toast_Message.SUCCESS.FETCH);
+            toast.success(CONSTANT.SUCCESS.FETCH);
             console.log(response.status);
           });
         },
         Post: async () => {
           await Apiservice.post(url, newUser).then((response: ApiResponse) => {
-            toast.success(Toast_Message.SUCCESS.CREATE);
+            toast.success(CONSTANT.SUCCESS.CREATE);
             console.log(response.headers);
           });
         },
         Put: async () => {
           await Apiservice.put(url, newUser).then((response: ApiResponse) => {
-            toast.success(Toast_Message.SUCCESS.UPDATE);
+            toast.success(CONSTANT.SUCCESS.UPDATE);
             console.log(response);
           });
         },
         Delete: async () => {
           await Apiservice.delete(url).then((response: ApiResponse) => {
-            toast.success(Toast_Message.SUCCESS.DELETE);
+            toast.success(CONSTANT.SUCCESS.DELETE);
             console.log(response);
           });
         },
@@ -123,9 +134,19 @@ export const Home = () => {
       await apiActions[method]();
     } catch (error) {
       console.error(error);
-      toast.error(Toast_Message.ERROR.COMMON);
+      toast.error(CONSTANT.ERROR.COMMON);
     }
   };
+
+  const monthObj = COMMON_SERVICES.nextMonth();
+  const months = Object.values(monthObj);
+
+  const handleMonthChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const { value } = e.target;
+    setSelectedMonth(value);
+  };
+
+  console.log(selectedMonth);
 
   return (
     <>
@@ -149,6 +170,14 @@ export const Home = () => {
             <Buttons
               label="Delete"
               onClick={() => handleApiTest("Delete", "/users/2")}
+            />
+
+            <DropDown
+              optionsLabel={months}
+              selectClasName="setectBirth m-4 outline-1 color-white bg-#f9f9f9"
+              selectValue={selectedMonth}
+              dropDownChange={handleMonthChange}
+              selectName="userMonth"
             />
           </div>
 

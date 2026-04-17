@@ -1,4 +1,4 @@
-import type { buttonProps } from "../../types";
+import type { buttonProps } from "../../Interface/types";
 
 export const Buttons: React.FC<buttonProps> = ({
   type = "button",

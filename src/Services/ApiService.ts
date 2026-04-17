@@ -17,7 +17,6 @@ export const Apiservice = {
       ...config,
       headers: this.getHeader(),
     });
-    console.log(res);
     return res;
   },
 
@@ -26,7 +25,6 @@ export const Apiservice = {
       ...config,
       headers: this.getHeader(),
     });
-    console.log(res);
     return res;
   },
 
@@ -35,7 +33,6 @@ export const Apiservice = {
       ...config,
       headers: this.getHeader(),
     });
-    console.log(res);
     return res;
   },
 
@@ -44,7 +41,6 @@ export const Apiservice = {
       ...config,
       headers: this.getHeader(),
     });
-    console.log(res);
     return res;
   },
 };

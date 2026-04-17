@@ -195,7 +195,7 @@
   color: #f8fafc;
 }
 
-[data-theme="dark"] .expense-title{
+[data-theme="dark"] .expense-title {
   color: #f8fafc;
 }
 
@@ -206,6 +206,10 @@
   color: #f8fafc;
 }
 [data-theme="dark"] .expense-user-data {
+  background-color: #0f172a;
+  color: #f8fafc;
+}
+[data-theme="dark"] .setectBirth {
   background-color: #0f172a;
   color: #f8fafc;
 }

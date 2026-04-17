@@ -8,6 +8,7 @@ import Confirmation from "./CommonComponents/Confirmation";
 import { toast } from "react-toastify";
 import { Buttons } from "./CommonComponents/Buttons";
 import { SearchBar } from "./CommonComponents/SearchComponent";
+import { CONSTANT } from "../Services/Constant";
 
 type HeaderProps = {
   search?: string;
@@ -26,7 +27,7 @@ function Header({ search, setSearch, searchShow }: HeaderProps) {
 
   const handleConfirm = () => {
     sessionStorage.removeItem("LoginUser");
-    toast.success("Logout Succesfully...");
+    toast.success(CONSTANT.SUCCESS.LOGOUT);
     navigate("/");
   };
 
@@ -52,6 +53,13 @@ function Header({ search, setSearch, searchShow }: HeaderProps) {
           className="nav-item text-white font-medium hover:text-gray-300 px-3 py-2 ml-2 whitespace-nowrap"
         >
           Add User
+        </NavLink>
+
+        <NavLink
+          to="/data"
+          className="nav-item text-white font-medium hover:text-gray-300 px-3 py-2 ml-2 whitespace-nowrap"
+        >
+          Data
         </NavLink>
 
         <NavLink

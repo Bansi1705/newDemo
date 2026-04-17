@@ -1,4 +1,4 @@
-import type { inputProps } from "../../types";
+import type { inputProps } from "../../Interface/types";
 
 const InputField: React.FC<inputProps> = ({
   type,

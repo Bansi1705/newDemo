@@ -5,7 +5,8 @@ import { Otp } from "./CommonComponents/Otp";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
 import { Buttons } from "./CommonComponents/Buttons";
 import InputField from "./CommonComponents/InputFeild";
-import type { LoginData } from "../types";
+import type { LoginData } from "../Interface/types";
+import { CONSTANT } from "../Services/Constant";
 interface FormError {
   email?: string;
   password?: string;
@@ -57,10 +58,10 @@ export const Login: React.FC = () => {
     e.preventDefault();
     if (validate()) {
       sessionStorage.setItem("LoginUser", JSON.stringify({ ...data, token: "123abc"}));
-      toast.success("Login Successful!");
+      toast.success(CONSTANT.SUCCESS.LOGIN);
       navigate("/home");
     } else {
-      toast.error("Please fix the errors!");
+      toast.error(CONSTANT.ERROR.COMMON);
     }
   };
 

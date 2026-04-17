@@ -73,8 +73,16 @@ export interface paginationProps {
   onPageChange: (page: number) => void;
 }
 
-export interface ApiResponse  {
+export interface ApiResponse {
   data: any;
-  headers:string;
-  status:number
-};
+  headers: string;
+  status: number;
+}
+
+export interface tableData {
+  categoryName: string;
+  actualMTD: number;
+  budgetMTD: number;
+  variance: number;
+  commentCount: number;
+}

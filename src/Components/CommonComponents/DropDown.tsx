@@ -1,4 +1,4 @@
-import type { dropdownOption } from "../../types";
+import type { dropdownOption } from "../../Interface/types";
 
 export const DropDown: React.FC<dropdownOption> = ({
   selectValue,

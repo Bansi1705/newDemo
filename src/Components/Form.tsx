@@ -7,8 +7,8 @@ import { ReactDatePicker } from "./CommonComponents/DatePicker";
 import InputField from "./CommonComponents/InputFeild";
 import { Apiservice } from "../Services/ApiService";
 import { Buttons } from "./CommonComponents/Buttons";
-import type { ApiResponse } from "../types";
-import { Toast_Message } from "../Services/Toast_Message";
+import type { ApiResponse } from "../Interface/types";
+import { CONSTANT } from "../Services/Constant";
 
 export const Form = () => {
   const { id } = useParams();
@@ -80,7 +80,7 @@ export const Form = () => {
         });
       } catch (err) {
         console.log(err);
-        toast.error("Failed to fetch user");
+        toast.error(CONSTANT.ERROR.NOT_FOUND);
       }
     };
     fetchUser();
@@ -107,17 +107,17 @@ export const Form = () => {
             `/users/${id}`,
             payload,
           );
-          toast.success(Toast_Message.SUCCESS.UPDATE);
+          toast.success(CONSTANT.SUCCESS.UPDATE);
         } catch (error) {
-          toast.error(Toast_Message.ERROR.COMMON);
+          toast.error(CONSTANT.ERROR.COMMON);
           console.log(error);
         }
       } else {
         try {
           const res: ApiResponse = await Apiservice.post(`/users`, payload);
-          toast.success(Toast_Message.SUCCESS.CREATE);
+          toast.success(CONSTANT.SUCCESS.CREATE);
         } catch (error) {
-          toast.error(Toast_Message.ERROR.COMMON);
+          toast.error(CONSTANT.ERROR.COMMON);
           console.log(error);
         }
       }
