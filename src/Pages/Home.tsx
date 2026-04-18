@@ -150,7 +150,7 @@ export const Home = () => {
 
   return (
     <>
-      <Header search={search} setSearch={setSearch} searchShow={true} />
+      <Header  search={search} setSearch={setSearch} searchShow={true} />
 
       <div className="user-data">
         <div className="table-section">

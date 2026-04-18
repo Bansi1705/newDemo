@@ -5,6 +5,12 @@ import Header from "../Components/Header";
 
 function Data() {
   const [data, setData] = useState<tableData[]>([]);
+  const [search, setSearch] = useState<string>("");
+
+  const filteredUsers = data.filter((row: any) => {
+    if (row.isHeader) return true;
+    return row.categoryName?.toLowerCase().includes(search.toLowerCase());
+  });
 
   const header = ["Name", "ActualMTD", "BudgetMTD", "Variance", "CommentCoutn"];
 
@@ -15,6 +21,7 @@ function Data() {
         const rows = Object.values(response.data);
         const rowsTitle = Object.keys(response.data);
         console.log(rowsTitle);
+
         const filteredRows = rows.filter(
           (item: any) =>
             item.categoryName &&
@@ -24,25 +31,39 @@ function Data() {
             item.commentCount !== null,
         );
 
-        const categories = response.data.categories;
-        const categoryRows = [
-          ...categories.sourceOfRevenue,
-          ...categories.departmentExpenses,
-          ...categories.departmentProfit,
-          ...categories.generalExpenses,
+        const categoryList = [
+          { title: "Source Of Revenue", key: "sourceOfRevenue" },
+          { title: "Department Expenses", key: "departmentExpenses" },
+          { title: "Department Profit", key: "departmentProfit" },
+          { title: "General Expenses", key: "generalExpenses" },
         ];
+
+        const categories = response.data.categories;
+
+        const categoryRows: any[] = [];
+
+        categoryList.forEach((cat) => {
+          categoryRows.push({ categoryTitle: cat.title, isHeader: true });
+
+          (categories[cat.key] || []).forEach((item: any) => {
+            categoryRows.push(item);
+          });
+        });
+
         const allRows = [...filteredRows, ...categoryRows];
+
         setData(allRows);
       } catch (error) {
         console.error(error);
       }
     };
+
     fetchUsers();
   }, []);
 
   return (
     <div>
-      <Header />
+      <Header search={search} setSearch={setSearch} searchShow={true} />
       <div className="user-data">
         <div className="table-data">
           <div className="table-wrapper">
@@ -55,13 +76,19 @@ function Data() {
                 </tr>
               </thead>
               <tbody>
-                {data.map((user, index) => (
+                {filteredUsers.map((row: any, index: number) => (
                   <tr key={index}>
-                    <td>{user.categoryName}</td>
-                    <td>{user.actualMTD}</td>
-                    <td>{user.budgetMTD}</td>
-                    <td>{user.commentCount}</td>
-                    <td>{user.variance}</td>
+                    {row.isHeader ? (
+                      <td colSpan={5}>{row.categoryTitle}</td>
+                    ) : (
+                      <>
+                        <td>{row.categoryName}</td>
+                        <td>{row.actualMTD}</td>
+                        <td>{row.budgetMTD}</td>
+                        <td>{row.variance}</td>
+                        <td>{row.commentCount}</td>
+                      </>
+                    )}
                   </tr>
                 ))}
               </tbody>
