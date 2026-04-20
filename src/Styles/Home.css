@@ -36,10 +36,33 @@
   font-size: 16px;
 }
 
+.sortable-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: none;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.sort-indicator {
+  font-size: 14px;
+}
+
 .data-table td {
   padding: 10px;
   text-align: center;
   border-bottom: 1px solid #ddd;
+}
+
+.section-row td {
+  font-weight: 700;
+  text-align: left;
+  background-color: #eef4fb;
 }
 
 .data-table tr:hover {

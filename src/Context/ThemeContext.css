@@ -82,8 +82,16 @@
   color: #f8fafc;
 }
 
+[data-theme="dark"] .sortable-header {
+  color: #f8fafc;
+}
+
 [data-theme="dark"] .data-table td {
   border-bottom: 1px solid #475569;
+}
+
+[data-theme="dark"] .section-row td {
+  background-color: #334155;
 }
 
 [data-theme="dark"] .data-table tr:hover {
