@@ -86,3 +86,13 @@ export interface tableData {
   variance: number;
   commentCount: number;
 }
+
+export interface RoomDataInterface {
+  srNo:number;
+  roomCount: number;
+  roomNumber: number;
+  description: string | null;
+  createdBy: number | null;
+  modifiedBy: number | null;
+  createdAt: string | null;
+}

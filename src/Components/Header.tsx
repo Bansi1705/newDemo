@@ -69,6 +69,13 @@ function Header({ search, setSearch, searchShow }: HeaderProps) {
           Add Expense
         </NavLink>
 
+        <NavLink
+          to="/roomData"
+          className="nav-item text-white font-medium hover:text-gray-300 px-3 py-2 ml-2 whitespace-nowrap"
+        > 
+        Room Data
+        </NavLink>
+
         <Buttons
           onClick={handleLogout}
           label="LogOut"

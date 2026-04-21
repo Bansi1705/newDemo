@@ -5,6 +5,7 @@ import { Login } from "./Login";
 import { AuthGuard } from "./Auth/AuthGuard";
 import UserExpense from "../Pages/UserExpense";
 import Data from "../Pages/Data";
+import { RoomData } from "../Pages/RoomData";
 
 export const Routing = createBrowserRouter([
   {
@@ -51,6 +52,14 @@ export const Routing = createBrowserRouter([
     element: (
       <AuthGuard required={true}>
         <Data />
+      </AuthGuard>
+    ),
+  },
+  {
+    path: "/roomData",
+    element: (
+      <AuthGuard required={true}>
+        <RoomData />
       </AuthGuard>
     ),
   },

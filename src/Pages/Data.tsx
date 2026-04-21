@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
+import "../Styles/Data.css";
 import type { ApiResponse, tableData } from "../Interface/types";
 import { Apiservice } from "../Services/ApiService";
 import Header from "../Components/Header";
 import { FaArrowDown, FaArrowUp } from "react-icons/fa";
 import { COMMON_SERVICES } from "../Services/CommonService/CommonServices";
-import { FaBell } from "react-icons/fa6";
-
+import { FaRegCommentDots } from "react-icons/fa";
 function Data() {
   const [data, setData] = useState<tableData[]>([]);
   const [search, setSearch] = useState<string>("");
@@ -63,8 +63,6 @@ function Data() {
       try {
         const response: ApiResponse = await Apiservice.get("/data");
         const rows = Object.values(response.data);
-        const rowstype = Object.keys(response.data);
-        console.log(rowstype);
 
         const filteredRows = rows.filter((item: any) => item.categoryName);
 
@@ -97,6 +95,16 @@ function Data() {
     fetchUsers();
   }, []);
 
+  const totalVariables = (name: string) => {
+    return (
+      name === "Total Occupied Rooms" ||
+      name === "Total Room Available" ||
+      name === "Total Occupancy %" ||
+      name === "Total General Expenses" ||
+      name === "Total Department Expense"
+    );
+  };
+
   return (
     <div>
       <Header search={search} setSearch={setSearch} searchShow={true} />
@@ -110,12 +118,15 @@ function Data() {
                     <th key={index} onClick={() => handleSortClick(head.key)}>
                       <div className="flex items-center gap-1">
                         {head.label}
-                        {sortKey === head.key &&
-                          (sortOrder === "asc" ? (
-                            <FaArrowDown />
+                        {sortKey === head.key ? (
+                          sortOrder === "asc" ? (
+                            <FaArrowDown size={15} />
                           ) : (
-                            <FaArrowUp />
-                          ))}
+                            <FaArrowUp size={15} />
+                          )
+                        ) : (
+                          <FaArrowUp />
+                        )}
                       </div>
                     </th>
                   ))}
@@ -129,7 +140,11 @@ function Data() {
                     ) : (
                       <>
                         <td
-                          
+                          style={{
+                            fontWeight: totalVariables(row.categoryName)
+                              ? "bold"
+                              : "normal",
+                          }}
                         >
                           {row.categoryName}
                         </td>
@@ -149,29 +164,23 @@ function Data() {
                         <td>{row.budgetMTD}</td>
                         <td>{row.variance}</td>
                         <td>
-                          <div
-                            style={{
-                              position: "relative",
-                              display: "inline-block",
-                            }}
-                          >
-                            <FaBell size={18} />
-
-                            <span
+                          {row.commentCount == 0 ? (
+                            "-"
+                          ) : (
+                            <div
                               style={{
-                                position: "absolute",
-                                top: "-8px",
-                                right: "-10px",
-                                background: "red",
-                                color: "white",
-                                borderRadius: "50%",
-                                padding: "2px 6px",
-                                fontSize: "10px",
+                                position: "relative",
+                                display: "inline-block",
                               }}
                             >
-                              {row.commentCount}
-                            </span>
-                          </div>
+                              <FaRegCommentDots />
+                              <span
+                               className="commentIcon"
+                              >
+                                {row.commentCount}
+                              </span>
+                            </div>
+                          )}
                         </td>
                         <td>{row.budgetMTH}</td>
                         <td>{row.varianceMTH}</td>
