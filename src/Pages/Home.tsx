@@ -13,12 +13,14 @@ import type { ApiResponse, User } from "../Interface/types";
 import { CONSTANT } from "../Services/Constant";
 import { COMMON_SERVICES } from "../Services/CommonService/CommonServices";
 import { DropDown } from "../Components/CommonComponents/DropDown";
+import CommonMultiSelect from "../Components/CommonComponents/MultipleDropDowm";
 
 export const Home = () => {
   const [users, setUsers] = useState<User[]>([]);
   const navigate = useNavigate();
 
   const [selectedMonth, setSelectedMonth] = useState<string>("");
+  const [selectMultiple, setSelectMultiple] = useState<string[]>([]);
 
   const [search, setSearch] = useState<string>("");
   const [showConfirm, setShowConfirm] = useState<boolean>(false);
@@ -57,12 +59,19 @@ export const Home = () => {
     setShowConfirm(true);
   };
 
-  useEffect(() => {
-    const data = COMMON_SERVICES.getFiveYear();
-    const NextData = COMMON_SERVICES.nextFiveYear();
-    const NextMonths = COMMON_SERVICES.nextMonth();
-    console.log(data, NextData, NextMonths);
-  }, []);
+const [showItems, setShowItems] = useState<string[]>([
+  "BCA",
+  "BBA",
+  "BA",
+  "BCOM",
+  "BVOC",
+]);
+  // useEffect(() => {
+  //   const data = COMMON_SERVICES.getFiveYear();
+  //   const NextData = COMMON_SERVICES.nextFiveYear();
+  //   const NextMonths = COMMON_SERVICES.nextMonth();
+  //   // console.log(data, NextData, NextMonths);
+  // }, []);
 
   const handleConfirm = async () => {
     if (deleteId === null) return;
@@ -146,7 +155,7 @@ export const Home = () => {
     setSelectedMonth(value);
   };
 
-  console.log(selectedMonth);
+  // console.log(selectedMonth);
 
   return (
     <>
@@ -178,6 +187,14 @@ export const Home = () => {
               selectValue={selectedMonth}
               dropDownChange={handleMonthChange}
               selectName="userMonth"
+            />
+
+            <CommonMultiSelect
+              selected={selectMultiple}
+              setOption={setShowItems}
+              setSelected={setSelectMultiple}
+              options={showItems}
+              placeHolder="select Course"
             />
           </div>
 

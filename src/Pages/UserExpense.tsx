@@ -238,10 +238,13 @@ const UserExpense = () => {
     if (!currentExpense) return;
 
     try {
-      const res : ApiResponse = await Apiservice.put(`/UserExpenses/${statusChangeData.id}`, {
-        ...currentExpense,
-        status: statusChangeData.newStatus,
-      });
+      const res: ApiResponse = await Apiservice.put(
+        `/UserExpenses/${statusChangeData.id}`,
+        {
+          ...currentExpense,
+          status: statusChangeData.newStatus,
+        },
+      );
 
       const updatedExpense = res.data;
 
@@ -251,11 +254,7 @@ const UserExpense = () => {
         ),
       );
     } catch (error) {
-      toast.error(
-        `Error updating status: ${
-          error instanceof Error ? error.message : "Unknown error"
-        }`,
-      );
+      toast.error(CONSTANT.ERROR.NETWORK);
     }
 
     setStatusChangeData(null);

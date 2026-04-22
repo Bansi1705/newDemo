@@ -13,8 +13,11 @@ import Confirmation from "../Components/CommonComponents/Confirmation";
 export const RoomData = () => {
   const [roomData, setRoomsData] = useState<RoomDataInterface[]>([]);
   const [showSubArray, setShowSubArray] = useState<boolean>(false);
-   const [deleteExpenseId, setDeleteExpenseId] = useState<number | null>(null);
-    const [showConfirm, setShowConfirm] = useState(false);
+  const [deleteRoomId, setDeleteRoomId] = useState<{
+    index: number;
+    subIndex?: number;
+  } | null>(null);
+  const [showConfirm, setShowConfirm] = useState<boolean>(false);
 
   const tableHeader = [
     { label: "Sr NO.", key: "srNo" },
@@ -37,30 +40,30 @@ export const RoomData = () => {
     };
 
     fetchRoomData();
-  }, []);const handleDelete = (id: number) => {
-      setDeleteExpenseId(id);
-      setShowConfirm(true);
-    };
-  
-    const confirmDelete = async () => {
-      if (!deleteExpenseId) return;
-      try {
-        await Apiservice.delete(`/dataRoom/${deleteExpenseId}`).then(
-          (response: ApiResponse) => {
-            setRoomsData((prev) =>
-              prev.filter((exp) => exp.id !== deleteExpenseId),
-            );
-            setShowConfirm(false);
-          },
-        );
-      } catch (error) {
-        toast.error(
-          `Error deleting expense: ${error instanceof Error ? error.message : "Unknown error"} `,
-        );
-      }
-      setDeleteExpenseId(null);
-      setShowConfirm(false);
-    };
+  }, []);
+
+  const handleDelete = (index: number, subIndex?: number) => {
+    setDeleteRoomId({ index, subIndex });
+    setShowConfirm(true);
+  };
+
+  const confirmDelete = () => {
+    if (!deleteRoomId) return;
+
+    const { index, subIndex } = deleteRoomId;
+    let newData = [...roomData];
+
+    if (subIndex !== undefined) {
+      newData[index].subArray = newData[index].subArray.filter(
+        (_, i) => i !== subIndex,
+      );
+    } else {
+      newData = newData.filter((_, i) => i !== index);
+    }
+    setRoomsData(newData);
+    setDeleteRoomId(null);
+    setShowConfirm(false);
+  };
 
   return (
     <>
@@ -89,7 +92,7 @@ export const RoomData = () => {
                           <>
                             <td className="flex justify-center items-center gap-2">
                               <span
-                                className="cursor-pointer flex items-center justify-center"
+                                className="cursor-pointer"
                                 onClick={() => setShowSubArray(!showSubArray)}
                               >
                                 {showSubArray ? (
@@ -130,12 +133,12 @@ export const RoomData = () => {
                               <td>{sub.createdBy ? sub.createdBy : "-"}</td>
                               <td>{sub.modifiedBy ? sub.modifiedBy : "-"}</td>
                               <td>
-                          <Buttons
-                            onClick={() => handleDelete(index)}
-                            label={<MdDeleteOutline />}
-                            className="delete-btn"
-                          />
-                        </td>
+                                <Buttons
+                                  onClick={() => handleDelete(index, subIndex)}
+                                  label={<MdDeleteOutline />}
+                                  className="delete-btn"
+                                />
+                              </td>
                             </tr>
                           </>
                         ))}
@@ -143,13 +146,13 @@ export const RoomData = () => {
                   ))}
                 </tbody>
               </table>
-               {showConfirm && (
-              <Confirmation
-                confirm={confirmDelete}
-                cancel={() => setShowConfirm(false)}
-                message="Delete this expense?"
-              />
-            )}
+              {showConfirm && (
+                <Confirmation
+                  confirm={confirmDelete}
+                  cancel={() => setShowConfirm(false)}
+                  message="Delete this Room Detail ?"
+                />
+              )}
             </div>
           </div>
         </div>
