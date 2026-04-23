@@ -1,80 +1,108 @@
 import React, { useState } from "react";
 import { GoTriangleDown } from "react-icons/go";
-import { Buttons } from "./Buttons";
 import InputField from "./InputFeild";
-
-type Props = {
-  options: string[];
-  selected: string[];
-  setSelected: React.Dispatch<React.SetStateAction<string[]>>;
-  setOption: React.Dispatch<React.SetStateAction<string[]>>;
+import { toast } from "react-toastify";
+import { CONSTANT } from "../../Services/Constant";
+import { ImCancelCircle } from "react-icons/im";
+type options = { label: string; value: string };
+interface Props {
+  options: options[];
+  setOption: React.Dispatch<React.SetStateAction<options[]>>;
   placeHolder?: string;
-};
-
+}
 const CommonMultiSelect: React.FC<Props> = ({
   options,
-  selected,
-  setSelected,
   setOption,
   placeHolder = "select",
 }) => {
   const [openDropDown, setOpenDropDown] = useState<boolean>(false);
   const [dropDownData, setDropDownData] = useState<string>("");
+  const [selected, setSelected] = useState<options[]>([]);
 
-  const handleSelect = (item: string) => {
-    if (selected.includes(item)) {
-      setSelected(selected.filter((i) => i !== item));
+  const handleSelect = (item: options) => {
+    const exists = selected.find((i) => i.value === item.value);
+    if (exists) {
+      setSelected(selected.filter((i) => i.value !== item.value));
     } else {
       setSelected([...selected, item]);
     }
   };
 
-  const handleAdd = () => {
-    if (!dropDownData.trim()) return;
-
-    if (!options.includes(dropDownData)) {
-      setOption([...options, dropDownData]);
+  const handleAdd = (e: React.KeyboardEvent) => {
+    if (e.key == "Enter") {
+      if (!dropDownData.trim()) {
+        return toast.error(CONSTANT.ERROR.COMMON);
+      }
+      const newItem = {
+        label: dropDownData.toUpperCase(),
+        value: dropDownData.toLowerCase(),
+      };
+      const isAdded = options.find((i) => i.value == newItem.value);
+      if (!isAdded) {
+        setOption([newItem, ...options]);
+      }
+      setDropDownData("");
     }
-
-    setDropDownData(""); // clear input
+  };
+  const handleRemove = (item: options) => {
+    setOption(options.filter((i) => i.value !== item.value));
+    setSelected(selected.filter((i) => i.value !== item.value));
+  };
+  const handleSelectAll = (checked: boolean) => {
+    return checked ? setSelected(options) : setSelected([]);
   };
   console.log(selected);
-
   return (
     <div className="relative w-56 text-black">
-      <div className="flex item-center justify-between px-3 py-2 border border-gray-300 bg-white cursor-pointer">
+      <div className="flex items-center justify-between px-3 py-2 border border-gray-300 bg-white cursor-pointer">
         {placeHolder}
         <GoTriangleDown onClick={() => setOpenDropDown(!openDropDown)} />
       </div>
-
       {openDropDown && (
-        <div className="absolute w-full mt-2 max-h-52 overflow-y-auto bg-white border border-gray-300 rounded-lg shadow-md z-10">
-          <div className="flex items-center">
+        <div className="absolute w-full mt-2 max-h-52 overflow-y-auto bg-white border border-gray-300 rounded-lg">
+          <div className="p-2">
             <InputField
               type="text"
               onChange={(e) => setDropDownData(e.target.value)}
               name="dropDownData"
               value={dropDownData}
+              placeholder="Add Value"
+              classname="border border-gray-400"
+              onKeyDown={handleAdd}
             />
-            <Buttons type="submit" label="ADD" onClick={handleAdd} />
+            {selected.length > 0 && (
+              <>
+                <input
+                  type="checkbox"
+                  checked={selected.length === options.length}
+                  onChange={(e) => handleSelectAll(e.target.checked)}
+                />
+                <label>Select All</label>
+              </>
+            )}
+            {/* <Buttons type="submit" label="ADD" onClick={handleAdd} /> */}
           </div>
-          {options.map((item, index) => (
-            <label
-              key={index}
-              className="flex items-center gap-2 px-3 py-2 cursor-pointer"
-            >
-              <input
-                type="checkbox"
-                checked={selected.includes(item)}
-                onChange={() => handleSelect(item)}
-              />
-              <span className="text-sm text-gray-700">{item}</span>
-            </label>
+          {options.map((item) => (
+            <div className="flex items-center gap-2 px-3 py-2" key={item.value}>
+              <label className="flex w-3/4 items-center gap-2 px-3 py-2 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={selected.some((i) => i.value === item.value)}
+                  onChange={() => handleSelect(item)}
+                />
+                <span className="text-sm text-gray-700">{item.label}</span>
+              </label>
+              <div
+                onClick={() => handleRemove(item)}
+                className="cursor-pointer"
+              >
+                <ImCancelCircle />
+              </div>
+            </div>
           ))}
         </div>
       )}
     </div>
   );
 };
-
 export default CommonMultiSelect;

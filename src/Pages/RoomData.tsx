@@ -55,7 +55,7 @@ export const RoomData = () => {
 
     if (subIndex !== undefined) {
       newData[index].subArray = newData[index].subArray.filter(
-        (_, i) => i !== subIndex,
+        (i:number) => i !== subIndex,
       );
     } else {
       newData = newData.filter((_, i) => i !== index);
@@ -85,7 +85,7 @@ export const RoomData = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {roomData.map((data: any, index: number) => (
+                  {roomData.map((data, index: number) => (
                     <>
                       <tr key={index}>
                         {data.subArray.length !== 0 ? (

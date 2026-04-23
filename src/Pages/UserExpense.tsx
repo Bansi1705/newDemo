@@ -46,7 +46,7 @@ const UserExpense = () => {
   const [editExpense, setEditExpense] = useState<ExpenseData | null>(null);
   const [deleteExpenseId, setDeleteExpenseId] = useState<number | null>(null);
   const [showConfirm, setShowConfirm] = useState(false);
-  const [error, setError] = useState<any>({});
+  const [error, setError] = useState({});
   const [searchTerm, setSearchTerm] = useState("");
 
   const categoryData: Record<string, string[]> = {
@@ -150,7 +150,7 @@ const UserExpense = () => {
         toast.success(CONSTANT.SUCCESS.UPDATE);
       } else {
         const res = await Apiservice.post("/UserExpenses", payload);
-        savedExpense = res;
+        savedExpense = res.data;
         toast.success(CONSTANT.SUCCESS.CREATE);
       }
 
@@ -253,7 +253,7 @@ const UserExpense = () => {
           exp.id === statusChangeData.id ? updatedExpense : exp,
         ),
       );
-    } catch (error) {
+    } catch {
       toast.error(CONSTANT.ERROR.NETWORK);
     }
 

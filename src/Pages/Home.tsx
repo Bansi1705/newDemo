@@ -20,7 +20,6 @@ export const Home = () => {
   const navigate = useNavigate();
 
   const [selectedMonth, setSelectedMonth] = useState<string>("");
-  const [selectMultiple, setSelectMultiple] = useState<string[]>([]);
 
   const [search, setSearch] = useState<string>("");
   const [showConfirm, setShowConfirm] = useState<boolean>(false);
@@ -47,7 +46,7 @@ export const Home = () => {
       try {
         const res: ApiResponse = await Apiservice.get("/users");
         setUsers(res.data);
-      } catch (error: any) {
+      } catch (error) {
         console.error(error);
       }
     };
@@ -59,13 +58,6 @@ export const Home = () => {
     setShowConfirm(true);
   };
 
-const [showItems, setShowItems] = useState<string[]>([
-  "BCA",
-  "BBA",
-  "BA",
-  "BCOM",
-  "BVOC",
-]);
   // useEffect(() => {
   //   const data = COMMON_SERVICES.getFiveYear();
   //   const NextData = COMMON_SERVICES.nextFiveYear();
@@ -157,6 +149,14 @@ const [showItems, setShowItems] = useState<string[]>([
 
   // console.log(selectedMonth);
 
+  const [showItems, setShowItems] = useState([
+    { label: "BCA", value: "bca" },
+    { label: "BBA", value: "bba" },
+    { label: "BA", value: "ba" },
+    { label: "BCOM", value: "bcom" },
+    { label: "BVOC", value: "bvoc" },
+  ]);
+
   return (
     <>
       <Header search={search} setSearch={setSearch} searchShow={true} />
@@ -190,11 +190,9 @@ const [showItems, setShowItems] = useState<string[]>([
             />
 
             <CommonMultiSelect
-              selected={selectMultiple}
-              setOption={setShowItems}
-              setSelected={setSelectMultiple}
               options={showItems}
-              placeHolder="select Course"
+              setOption={setShowItems}
+              placeHolder="Select Course"
             />
           </div>
 

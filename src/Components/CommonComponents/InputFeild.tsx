@@ -9,6 +9,7 @@ const InputField: React.FC<inputProps> = ({
   error,
   classname,
   placeholder,
+  onKeyDown
 }) => {
   return (
     <>
@@ -20,6 +21,8 @@ const InputField: React.FC<inputProps> = ({
         onChange={onChange}
         className={classname}
         placeholder={placeholder}
+        onKeyDown={onKeyDown}
+        autoComplete="off"
       />
       {error && <span className="error-message">{error}</span>}
     </>

@@ -8,7 +8,7 @@ import {
 
 type Theme = "light" | "dark";
 interface ThemeContextType {
-  theme: Theme;
+  theme: "light" | "dark";
   toggleTheme: () => void;
 }
 

@@ -47,6 +47,7 @@ export interface inputProps {
   placeholder?: string;
   classname?: string;
   id?: string;
+  onKeyDown?: React.KeyboardEventHandler<HTMLInputElement>;
 }
 
 export interface dropdownOption {
@@ -85,14 +86,19 @@ export interface tableData {
   budgetMTD: number;
   variance: number;
   commentCount: number;
+  budgetMTH: number;
+  varianceMTH: number;
+  forecastMTH: number;
+  isHeader: boolean;
+  categoryTitle: string;
 }
-
 export interface RoomDataInterface {
-  srNo:number;
-  roomCount: number;
+  isoDate: string;
+  roomsCount: number;
   roomNumber: number;
-  description: string | null;
+  note: string | null;
   createdBy: number | null;
   modifiedBy: number | null;
   createdAt: string | null;
+  subArray:Record<string,string>
 }

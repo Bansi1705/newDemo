@@ -6,6 +6,7 @@ import Header from "../Components/Header";
 import { FaArrowDown, FaArrowUp } from "react-icons/fa";
 import { COMMON_SERVICES } from "../Services/CommonService/CommonServices";
 import { FaRegCommentDots } from "react-icons/fa";
+
 function Data() {
   const [data, setData] = useState<tableData[]>([]);
   const [search, setSearch] = useState<string>("");
@@ -22,17 +23,17 @@ function Data() {
     }
   };
 
-  const filteredUsers = data.filter((row: any) => {
+  const filteredUsers = data.filter((row) => {
     if (row.isHeader) return true;
     return row.categoryName?.toLowerCase().includes(search.toLowerCase());
   });
 
-  const sortedUsers = () => {
+  const sortedUsers  = () => {
     if (!sortKey) return filteredUsers;
 
-    const onlyRows = filteredUsers.filter((row: any) => !row.isHeader);
+    const onlyRows = filteredUsers.filter((row) => !row.isHeader);
 
-    return onlyRows.sort((a: any, b: any) => {
+    return onlyRows.sort((a, b) => {
       if (sortKey === "categoryName") {
         return sortOrder === "asc"
           ? a.categoryName.localeCompare(b.categoryName)
@@ -64,7 +65,7 @@ function Data() {
         const response: ApiResponse = await Apiservice.get("/data");
         const rows = Object.values(response.data);
 
-        const filteredRows = rows.filter((item: any) => item.categoryName);
+        const filteredRows = rows.filter((item:any) => item.categoryName);
 
         const categoryList = [
           { title: "Source Of Revenue", key: "sourceOfRevenue" },
@@ -75,16 +76,16 @@ function Data() {
 
         const categories = response.data.categories;
 
-        const categoryRows: any[] = [];
+        const categoryRows: tableData[] = [];
 
         categoryList.forEach((cat) => {
           categoryRows.push({ categoryTitle: cat.title, isHeader: true });
-          categories[cat.key].forEach((item: any) => {
+          categories[cat.key].forEach((item:tableData) => {
             categoryRows.push(item);
           });
         });
 
-        const allRows = [...filteredRows, ...categoryRows];
+        const allRows: tableData[] = [...filteredRows, ...categoryRows];
 
         setData(allRows);
       } catch (error) {
@@ -133,7 +134,7 @@ function Data() {
                 </tr>
               </thead>
               <tbody>
-                {sortedUsers().map((row: any, index: number) => (
+                {sortedUsers().map((row: tableData, index: number) => (
                   <tr key={index}>
                     {row.isHeader ? (
                       <td colSpan={8}>{row.categoryTitle}</td>
@@ -174,9 +175,7 @@ function Data() {
                               }}
                             >
                               <FaRegCommentDots />
-                              <span
-                               className="commentIcon"
-                              >
+                              <span className="commentIcon">
                                 {row.commentCount}
                               </span>
                             </div>
