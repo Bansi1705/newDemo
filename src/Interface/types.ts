@@ -7,7 +7,7 @@ export interface User {
   birthdate: string;
 }
 export interface ExpenseData {
-  id: number;
+  id?: number;
   expenseTitle: string;
   description: string;
   category: string;
@@ -62,7 +62,7 @@ export interface dropdownOption {
 }
 
 export interface searchBarProps {
-  searchTerm: string;
+  searchTerm?: string;
   searchPlaceholder?: string;
   searchOnChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   searchClssName?: string;
@@ -74,12 +74,12 @@ export interface paginationProps {
   onPageChange: (page: number) => void;
 }
 
-export interface ApiResponse {
-  data: any;
-  headers: string;
-  status: number;
+export interface ApiResponse<T> {
+  status?: number;
+  message?: string;
+  data: T;
+  success?: boolean;
 }
-
 export interface tableData {
   categoryName: string;
   actualMTD: number;
@@ -91,6 +91,12 @@ export interface tableData {
   forecastMTH: number;
   isHeader: boolean;
   categoryTitle: string;
+  categories: {
+    sourceOfRevenue: tableData[];
+    departmentExpenses: tableData[];
+    departmentProfit: tableData[];
+    generalExpenses: tableData[];
+  };
 }
 export interface RoomDataInterface {
   isoDate: string;
@@ -100,5 +106,5 @@ export interface RoomDataInterface {
   createdBy: number | null;
   modifiedBy: number | null;
   createdAt: string | null;
-  subArray:Record<string,string>
+  subArray: RoomDataInterface[];
 }

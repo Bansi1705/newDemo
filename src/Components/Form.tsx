@@ -7,8 +7,8 @@ import { ReactDatePicker } from "./CommonComponents/DatePicker";
 import InputField from "./CommonComponents/InputFeild";
 import { Apiservice } from "../Services/ApiService";
 import { Buttons } from "./CommonComponents/Buttons";
-import type { ApiResponse } from "../Interface/types";
 import { CONSTANT } from "../Services/Constant";
+import type { ApiResponse, User } from "../Interface/types";
 
 export const Form = () => {
   const { id } = useParams();
@@ -70,7 +70,8 @@ export const Form = () => {
 
     const fetchUser = async () => {
       try {
-        const response: ApiResponse = await Apiservice.get(`/users/${id}`);
+        const response :ApiResponse<User> = await Apiservice.get(`/users/${id}`);
+        console.log(response.data)
         setData({
           name: response.data.name || "",
           age: response.data.age || "",
@@ -86,7 +87,7 @@ export const Form = () => {
     fetchUser();
   }, [id]);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("submit clicked");
 
@@ -103,19 +104,20 @@ export const Form = () => {
     try {
       if (id) {
         try {
-          const res: ApiResponse = await Apiservice.put(
-            `/users/${id}`,
-            payload,
+          Apiservice.put<ApiResponse<User>>(`/users/${id}`, payload).then(
+            () => {
+              toast.success(CONSTANT.SUCCESS.UPDATE);
+            },
           );
-          toast.success(CONSTANT.SUCCESS.UPDATE);
         } catch (error) {
           toast.error(CONSTANT.ERROR.COMMON);
           console.log(error);
         }
       } else {
         try {
-          const res: ApiResponse = await Apiservice.post(`/users`, payload);
-          toast.success(CONSTANT.SUCCESS.CREATE);
+          Apiservice.post<ApiResponse<User[]>>(`/users`, payload).then(() => {
+            toast.success(CONSTANT.SUCCESS.CREATE);
+          });
         } catch (error) {
           toast.error(CONSTANT.ERROR.COMMON);
           console.log(error);

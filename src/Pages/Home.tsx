@@ -23,7 +23,8 @@ export const Home = () => {
 
   const [search, setSearch] = useState<string>("");
   const [showConfirm, setShowConfirm] = useState<boolean>(false);
-  const [deleteId, setDeleteId] = useState<number | null>(null);
+  const [deleteId, setDeleteId] = useState<number | undefined>(undefined);
+  const [editId, setEditID] = useState<number | undefined>(undefined);
 
   const [currentPage, setCurrentPage] = useState<number>(1);
   const itemsPerPage = 5;
@@ -42,18 +43,19 @@ export const Home = () => {
   }, [search]);
 
   useEffect(() => {
-    const fetchUsers = async () => {
+    const fetchUser = async () => {
       try {
-        const res: ApiResponse = await Apiservice.get("/users");
-        setUsers(res.data);
-      } catch (error) {
-        console.error(error);
+        const response: ApiResponse<User[]> = await Apiservice.get("/users");
+        setUsers(response.data);
+      } catch {
+        toast.error(CONSTANT.ERROR.COMMON);
       }
     };
-    fetchUsers();
+
+    fetchUser();
   }, []);
 
-  const handleDelete = (id: number) => {
+  const handleDelete = (id: number | undefined) => {
     setDeleteId(id);
     setShowConfirm(true);
   };
@@ -66,31 +68,33 @@ export const Home = () => {
   // }, []);
 
   const handleConfirm = async () => {
-    if (deleteId === null) return;
-
+  if (deleteId !== undefined) {
     try {
-      await Apiservice.delete(`/users/${deleteId}`).then(
-        (response: ApiResponse) => {
-          setUsers((prev) => prev.filter((user) => user.id !== deleteId));
-          toast.success(CONSTANT.SUCCESS.DELETE);
-        },
-      );
-    } catch (error: any) {
-      console.error(error);
+      await Apiservice.delete<ApiResponse<User[]>>(`/users/${deleteId}`);
+      setUsers((prev) => prev.filter((user) => user.id !== deleteId));
+      toast.success(CONSTANT.SUCCESS.DELETE);
+    } catch {
       toast.error(CONSTANT.ERROR.COMMON);
     } finally {
       setShowConfirm(false);
-      setDeleteId(null);
+      setDeleteId(undefined);
     }
-  };
-
-  const handleCancel = () => {
+  } else if (editId !== undefined) {
+    navigate(`/edit-user/${editId}`);
     setShowConfirm(false);
-    setDeleteId(null);
-  };
+    setEditID(undefined);
+  }
+};
 
-  const handleEdit = (id: number) => {
-    navigate(`/edit-user/${id}`);
+ const handleCancel = () => {
+  setShowConfirm(false);
+  setDeleteId(undefined);
+  setEditID(undefined);
+};
+
+  const handleEdit = (id: number | undefined) => {
+    setShowConfirm(true);
+    setEditID(id);
   };
 
   const title = ["Name", "Age", "BirthDate", "Operations"];
@@ -107,32 +111,29 @@ export const Home = () => {
 
     try {
       const apiActions = {
-        Get: async () => {
-          await Apiservice.get(url).then((response: ApiResponse) => {
+        Get: () => {
+          Apiservice.get<ApiResponse<User[]>>(url).then(() => {
             toast.success(CONSTANT.SUCCESS.FETCH);
-            console.log(response.status);
           });
         },
-        Post: async () => {
-          await Apiservice.post(url, newUser).then((response: ApiResponse) => {
+        Post: () => {
+          Apiservice.post<ApiResponse<User>>(url, newUser).then(() => {
             toast.success(CONSTANT.SUCCESS.CREATE);
-            console.log(response.headers);
           });
         },
-        Put: async () => {
-          await Apiservice.put(url, newUser).then((response: ApiResponse) => {
+        Put: () => {
+          Apiservice.put<ApiResponse<User>>(url, newUser).then(() => {
             toast.success(CONSTANT.SUCCESS.UPDATE);
-            console.log(response);
           });
         },
-        Delete: async () => {
-          await Apiservice.delete(url).then((response: ApiResponse) => {
+        Delete: () => {
+          Apiservice.delete<ApiResponse<null>>(url).then(() => {
             toast.success(CONSTANT.SUCCESS.DELETE);
-            console.log(response);
           });
         },
       };
-      await apiActions[method]();
+
+      apiActions[method]();
     } catch (error) {
       console.error(error);
       toast.error(CONSTANT.ERROR.COMMON);
@@ -244,7 +245,12 @@ export const Home = () => {
         <Confirmation
           confirm={handleConfirm}
           cancel={handleCancel}
-          message="Do You Really Want To Delete This Item ??"
+          type={deleteId !== undefined ? "delete" : "edit"}
+          message={
+            deleteId
+              ? "Do You Really Want To Delete This Item ??"
+              : "Do You Want To Edit Item ??"
+          }
         />
       )}
     </>

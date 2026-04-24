@@ -1,24 +1,6 @@
 {
   "users": [
     {
-      "name": "rohan",
-      "age": 30,
-      "birthdate": "2026-04-12",
-      "id": "gku6URRjudA"
-    },
-    {
-      "name": "bansi",
-      "age": 20,
-      "birthdate": "2026-04-12",
-      "id": "fuO3jp5iP3A"
-    },
-    {
-      "name": "nidhi",
-      "age": 20,
-      "birthdate": "2026-04-12",
-      "id": "ym1MZUadGI0"
-    },
-    {
       "name": "Radha",
       "age": 20,
       "birthdate": "2026-04-12",
@@ -131,6 +113,12 @@
       "age": 20,
       "birthdate": "2026-04-12",
       "id": "dGzAPKYE_Sk"
+    },
+    {
+      "name": "bansi",
+      "age": 20,
+      "birthdate": "2026-04-12",
+      "id": "f4EY6ECQJtA"
     }
   ],
   "UserExpenses": [
@@ -169,23 +157,6 @@
       "status": "Approved"
     },
     {
-      "id": "t4z2IQqFEZo",
-      "expenseTitle": "[elf",
-      "description": "f['l",
-      "category": "Office",
-      "subCategory": "Software",
-      "amount": 87876,
-      "paymentMethod": "UPI",
-      "invoiceNumber": "ewfdsf897",
-      "expenseDate": "2026-03-28T18:30:00.000Z",
-      "submissionDate": "2026-03-31T18:30:00.000Z",
-      "employeeId": "21434",
-      "employeeName": "Bansi",
-      "department": "Development",
-      "assignedTo": "pjhg4232",
-      "status": "Pending"
-    },
-    {
       "id": "6g9r3jZFHLY",
       "expenseTitle": "ed",
       "description": "scsc",
@@ -200,7 +171,7 @@
       "employeeName": "nidhi456",
       "department": "development",
       "assignedTo": "21312",
-      "status": "Rejected"
+      "status": "Approved"
     },
     {
       "id": "y0KBBCT9JBI",
@@ -259,7 +230,9 @@
     "totalRoom": 91,
     "totalOccupiedRooms": {
       "categoryName": "Total Occupied Rooms",
-      "departmentIds": [23],
+      "departmentIds": [
+        23
+      ],
       "actualMTD": 1126,
       "budgetMTD": 1130,
       "variance": -4,
@@ -346,7 +319,9 @@
         {
           "isRedirect": true,
           "categoryName": "Room Revenue",
-          "departmentIds": [10],
+          "departmentIds": [
+            10
+          ],
           "actualMTD": 118927.55,
           "budgetMTD": 137896.51,
           "variance": -18968.96,
@@ -363,7 +338,11 @@
         {
           "isRedirect": true,
           "categoryName": "Food & Beverage Revenue",
-          "departmentIds": [45, 56, 11],
+          "departmentIds": [
+            45,
+            56,
+            11
+          ],
           "actualMTD": 11004.7,
           "budgetMTD": 10021.52,
           "variance": 983.18,
@@ -380,7 +359,9 @@
         {
           "isRedirect": true,
           "categoryName": "Telephone Revenue",
-          "departmentIds": [14],
+          "departmentIds": [
+            14
+          ],
           "actualMTD": 49.99,
           "budgetMTD": 0,
           "variance": 49.99,
@@ -397,7 +378,9 @@
         {
           "isRedirect": true,
           "categoryName": "Other Revenue",
-          "departmentIds": [7],
+          "departmentIds": [
+            7
+          ],
           "actualMTD": 1927.08,
           "budgetMTD": 1758.31,
           "variance": 168.77,
@@ -431,7 +414,11 @@
         {
           "isRedirect": true,
           "categoryName": "Rooms Expenses",
-          "departmentIds": [13, 55, 12],
+          "departmentIds": [
+            13,
+            55,
+            12
+          ],
           "actualMTD": 10828.93,
           "budgetMTD": 31125.16,
           "variance": -20296.23,
@@ -448,7 +435,16 @@
         {
           "isRedirect": true,
           "categoryName": "Food & Beverage Expense",
-          "departmentIds": [26, 57, 58, 29, 28, 25, 27, 43],
+          "departmentIds": [
+            26,
+            57,
+            58,
+            29,
+            28,
+            25,
+            27,
+            43
+          ],
           "actualMTD": -1411.28,
           "budgetMTD": 9206.86,
           "variance": -10618.14,
@@ -465,7 +461,9 @@
         {
           "isRedirect": true,
           "categoryName": "Telephone Expense",
-          "departmentIds": [30],
+          "departmentIds": [
+            30
+          ],
           "actualMTD": -461.3,
           "budgetMTD": 1565.01,
           "variance": -2026.31,
@@ -482,7 +480,9 @@
         {
           "isRedirect": true,
           "categoryName": "Other Expense",
-          "departmentIds": [59],
+          "departmentIds": [
+            59
+          ],
           "actualMTD": -24.21,
           "budgetMTD": 728.62,
           "variance": -752.83,
@@ -533,7 +533,11 @@
         {
           "isRedirect": true,
           "categoryName": "General & Administrative",
-          "departmentIds": [4, 33, 32],
+          "departmentIds": [
+            4,
+            33,
+            32
+          ],
           "actualMTD": -5315.18,
           "budgetMTD": 12694.12,
           "variance": -18009.3,
@@ -550,7 +554,11 @@
         {
           "isRedirect": true,
           "categoryName": "Sales & Marketing",
-          "departmentIds": [34, 35, 36],
+          "departmentIds": [
+            34,
+            35,
+            36
+          ],
           "actualMTD": -15639.19,
           "budgetMTD": 14702.85,
           "variance": -30342.04,
@@ -567,7 +575,11 @@
         {
           "isRedirect": true,
           "categoryName": "Repair & Maintenance",
-          "departmentIds": [15, 41, 37],
+          "departmentIds": [
+            15,
+            41,
+            37
+          ],
           "actualMTD": 2569.54,
           "budgetMTD": 7363.97,
           "variance": -4794.43,
@@ -584,7 +596,9 @@
         {
           "isRedirect": true,
           "categoryName": "Utilities",
-          "departmentIds": [8],
+          "departmentIds": [
+            8
+          ],
           "actualMTD": -25746.88,
           "budgetMTD": 8564.86,
           "variance": -34311.74,
@@ -646,7 +660,9 @@
     "fixedExpense": {
       "isRedirect": true,
       "categoryName": "Fixed Expense",
-      "departmentIds": [9],
+      "departmentIds": [
+        9
+      ],
       "actualMTD": -10.8,
       "budgetMTD": 12930.03,
       "variance": -12940.83,
@@ -676,7 +692,9 @@
     "nonOperatingExpense": {
       "isRedirect": true,
       "categoryName": "Non-Operating Expenses",
-      "departmentIds": [21],
+      "departmentIds": [
+        21
+      ],
       "actualMTD": 0,
       "budgetMTD": 40013.75,
       "variance": -40013.75,
@@ -693,7 +711,9 @@
     "intangibleAsset": {
       "isRedirect": true,
       "categoryName": "Intangible Asset",
-      "departmentIds": [66],
+      "departmentIds": [
+        66
+      ],
       "actualMTD": 0,
       "budgetMTD": 0,
       "variance": 0,

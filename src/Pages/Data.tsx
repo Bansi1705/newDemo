@@ -28,7 +28,7 @@ function Data() {
     return row.categoryName?.toLowerCase().includes(search.toLowerCase());
   });
 
-  const sortedUsers  = () => {
+  const sortedUsers = () => {
     if (!sortKey) return filteredUsers;
 
     const onlyRows = filteredUsers.filter((row) => !row.isHeader);
@@ -41,9 +41,9 @@ function Data() {
       }
 
       if (sortOrder === "asc") {
-        return a[sortKey] > b[sortKey] ? 1 : -1;
+        return a[sortKey as keyof tableData] > b[sortKey as keyof tableData] ? 1 : -1;
       } else {
-        return a[sortKey] < b[sortKey] ? 1 : -1;
+        return a[sortKey as keyof tableData] < b[sortKey as keyof tableData] ? 1 : -1;
       }
     });
   };
@@ -62,10 +62,10 @@ function Data() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response: ApiResponse = await Apiservice.get("/data");
+        const response: ApiResponse<tableData[]> = await Apiservice.get("/data");
         const rows = Object.values(response.data);
 
-        const filteredRows = rows.filter((item:any) => item.categoryName);
+        const filteredRows :tableData[] = rows.filter((item:tableData) => item.categoryName);
 
         const categoryList = [
           { title: "Source Of Revenue", key: "sourceOfRevenue" },
@@ -76,11 +76,11 @@ function Data() {
 
         const categories = response.data.categories;
 
-        const categoryRows: tableData[] = [];
+        const categoryRows : tableData[] = [];
 
         categoryList.forEach((cat) => {
           categoryRows.push({ categoryTitle: cat.title, isHeader: true });
-          categories[cat.key].forEach((item:tableData) => {
+          categories[cat.key].forEach((item: tableData) => {
             categoryRows.push(item);
           });
         });

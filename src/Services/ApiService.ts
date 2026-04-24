@@ -12,32 +12,32 @@ export const Apiservice = {
     };
   },
 
-  async get(path: string, config = {}) {
-    const res = await axiosInstance.get(path, {
+  async get<T>(path: string, config = {}) {
+    const res = await axiosInstance.get<T>(path, {
       ...config,
       headers: this.getHeader(),
     });
     return res;
   },
 
-  async post(path: string, data: any, config = {}) {
-    const res = await axiosInstance.post(path, data, {
+  async post<T>(path: string, data: unknown, config = {}) {
+    const res = await axiosInstance.post<T>(path, data, {
       ...config,
       headers: this.getHeader(),
     });
     return res;
   },
 
-  async put(path: string, data: any, config = {}) {
-    const res = await axiosInstance.put(path, data, {
+  async put<T>(path: string, data: unknown, config = {}) {
+    const res = await axiosInstance.put<T>(path, data, {
       ...config,
       headers: this.getHeader(),
     });
     return res;
   },
 
-  async delete(path: string, config = {}){
-    const res = await axiosInstance.delete(path, {
+  async delete<T>(path: string, config = {}) {
+    const res = await axiosInstance.delete<T>(path, {
       ...config,
       headers: this.getHeader(),
     });

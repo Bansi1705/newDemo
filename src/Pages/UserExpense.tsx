@@ -15,7 +15,7 @@ import { Apiservice } from "../Services/ApiService";
 import Pagination from "../Components/CommonComponents/Pagination";
 import { CONSTANT } from "../Services/Constant";
 interface StatusChangeData {
-  id: number | string;
+  id: number | string ;
   newStatus: string;
   showConfirm: boolean;
 }
@@ -44,9 +44,11 @@ const UserExpense = () => {
     useState<StatusChangeData | null>(null);
 
   const [editExpense, setEditExpense] = useState<ExpenseData | null>(null);
-  const [deleteExpenseId, setDeleteExpenseId] = useState<number | null>(null);
+  const [deleteExpenseId, setDeleteExpenseId] = useState<number | undefined>(
+    undefined,
+  );
   const [showConfirm, setShowConfirm] = useState(false);
-  const [error, setError] = useState({});
+  const [error, setError] = useState<Record<string, string>>({});
   const [searchTerm, setSearchTerm] = useState("");
 
   const categoryData: Record<string, string[]> = {
@@ -58,20 +60,21 @@ const UserExpense = () => {
   const paymentMethods = ["Cash", "UPI", "Card"];
 
   useEffect(() => {
-    const fetchUsers = async () => {
+    const fetchUser = async () => {
       try {
-        await Apiservice.get("/UserExpenses").then((response: ApiResponse) => {
-          setExpenses(response.data);
-        });
-      } catch (error) {
-        console.log(error);
+        const response: ApiResponse<ExpenseData[]> =
+          await Apiservice.get("/UserExpenses");
+        setExpenses(response.data);
+      } catch {
+        toast.error(CONSTANT.ERROR.COMMON);
       }
     };
-    fetchUsers();
+
+    fetchUser();
   }, []);
 
   const validate = () => {
-    const newError: any = {};
+    const newError: Record<string, string> = {};
     if (!form.expenseTitle.trim()) newError.expenseTitle = "Title required";
     if (!form.description.trim()) newError.description = "Description required";
     if (!form.category.trim()) newError.category = "Category required";
@@ -139,18 +142,20 @@ const UserExpense = () => {
     };
 
     let savedExpense: ExpenseData;
-
     try {
       if (editExpense) {
-        const res: ApiResponse = await Apiservice.put(
+        const res = await Apiservice.put<ApiResponse<ExpenseData>>(
           `/UserExpenses/${editExpense.id}`,
           payload,
         );
-        savedExpense = res.data;
+        savedExpense = res.data.data;
         toast.success(CONSTANT.SUCCESS.UPDATE);
       } else {
-        const res = await Apiservice.post("/UserExpenses", payload);
-        savedExpense = res.data;
+        const res = await Apiservice.post<ApiResponse<ExpenseData>>(
+          "/UserExpenses",
+          payload,
+        );
+        savedExpense = res.data.data;
         toast.success(CONSTANT.SUCCESS.CREATE);
       }
 
@@ -178,28 +183,24 @@ const UserExpense = () => {
     });
   };
 
-  const handleDelete = (id: number) => {
+  const handleDelete = (id: number | undefined) => {
     setDeleteExpenseId(id);
     setShowConfirm(true);
   };
 
-  const confirmDelete = async () => {
+  const confirmDelete = () => {
     if (!deleteExpenseId) return;
     try {
-      await Apiservice.delete(`/UserExpenses/${deleteExpenseId}`).then(
-        (response: ApiResponse) => {
-          setExpenses((prev) =>
-            prev.filter((exp) => exp.id !== deleteExpenseId),
-          );
-          setShowConfirm(false);
-        },
-      );
-    } catch (error) {
-      toast.error(
-        `Error deleting expense: ${error instanceof Error ? error.message : "Unknown error"} `,
-      );
+      Apiservice.delete<ApiResponse<ExpenseData>>(
+        `/UserExpenses/${deleteExpenseId}`,
+      ).then(() => {
+        setExpenses((prev) => prev.filter((exp) => exp.id !== deleteExpenseId));
+        setShowConfirm(false);
+      });
+    } catch {
+      toast.error(CONSTANT.ERROR.COMMON);
     }
-    setDeleteExpenseId(null);
+    setDeleteExpenseId(undefined);
     setShowConfirm(false);
   };
 
@@ -216,7 +217,7 @@ const UserExpense = () => {
   const startIndex = lastIndex - itemsPerPage;
   const currentRecords = filteredExpenses.slice(startIndex, lastIndex);
 
-  const handleStatusChange = (id: number, newStatus: string) => {
+  const handleStatusChange = (id: number , newStatus: string) => {
     const current = expenses.find((exp) => exp.id === id);
     if (
       (current?.status === "Approved" || current?.status === "Rejected") &&
@@ -238,7 +239,7 @@ const UserExpense = () => {
     if (!currentExpense) return;
 
     try {
-      const res: ApiResponse = await Apiservice.put(
+      const res: ApiResponse<ExpenseData> = await Apiservice.put(
         `/UserExpenses/${statusChangeData.id}`,
         {
           ...currentExpense,
@@ -246,7 +247,7 @@ const UserExpense = () => {
         },
       );
 
-      const updatedExpense = res.data;
+      const updatedExpense: ExpenseData = res.data;
 
       setExpenses((prev) =>
         prev.map((exp) =>

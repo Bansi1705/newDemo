@@ -10,6 +10,7 @@ import { FaMinus } from "react-icons/fa6";
 import { Buttons } from "../Components/CommonComponents/Buttons";
 import { MdDeleteOutline } from "react-icons/md";
 import Confirmation from "../Components/CommonComponents/Confirmation";
+import type { AxiosResponse } from "axios";
 export const RoomData = () => {
   const [roomData, setRoomsData] = useState<RoomDataInterface[]>([]);
   const [showSubArray, setShowSubArray] = useState<boolean>(false);
@@ -32,7 +33,7 @@ export const RoomData = () => {
   useEffect(() => {
     const fetchRoomData = async () => {
       try {
-        const res: Apiservice = await Apiservice.get("/dataRoom");
+        const res: AxiosResponse = await Apiservice.get("/dataRoom");
         setRoomsData(res.data);
       } catch {
         toast.error(CONSTANT.ERROR.NOT_FOUND);
@@ -55,7 +56,7 @@ export const RoomData = () => {
 
     if (subIndex !== undefined) {
       newData[index].subArray = newData[index].subArray.filter(
-        (i:number) => i !== subIndex,
+        (_,i:number) => i !== subIndex,
       );
     } else {
       newData = newData.filter((_, i) => i !== index);
@@ -85,7 +86,7 @@ export const RoomData = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {roomData.map((data, index: number) => (
+                  {roomData.map((data:RoomDataInterface, index: number) => (
                     <>
                       <tr key={index}>
                         {data.subArray.length !== 0 ? (
@@ -123,7 +124,7 @@ export const RoomData = () => {
                       </tr>
 
                       {showSubArray &&
-                        data.subArray.map((sub: any, subIndex: number) => (
+                        data.subArray.map((sub: RoomDataInterface, subIndex: number) => (
                           <>
                             <tr key={subIndex} className="sub-row text-red-300">
                               <td>{subIndex + 1}</td>

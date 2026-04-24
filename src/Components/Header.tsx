@@ -11,8 +11,8 @@ import { SearchBar } from "./CommonComponents/SearchComponent";
 import { CONSTANT } from "../Services/Constant";
 
 type HeaderProps = {
-  search?: string | undefined;
-  setSearch?: React.Dispatch<React.SetStateAction<string>> | undefined;
+  search?: string;
+  setSearch?: React.Dispatch<React.SetStateAction<string>>;
   searchShow?: boolean;
 };
 

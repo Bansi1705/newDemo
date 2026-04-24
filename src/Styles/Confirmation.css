@@ -40,6 +40,8 @@
 
 /* Buttons styling */
 .confirm-actions button {
+  width: auto;
+  min-width: 70px;
   padding: 10px 20px;
   border-radius: 6px;
   border: none;
@@ -50,21 +52,21 @@
 }
 
 /* Yes button */
-.yes-btn {
+.confirm-actions .yes-btn {
   background-color: #e74c3c;
   color: white;
 }
 
-.yes-btn:hover {
+.confirm-actions .yes-btn:hover {
   background-color: #c0392b;
 }
 
 /* No button */
-.no-btn {
+.confirm-actions .no-btn {
   background-color: #bdc3c7;
   color: #333;
 }
 
-.no-btn:hover {
+.confirm-actions .no-btn:hover {
   background-color: #95a5a6;
 }
