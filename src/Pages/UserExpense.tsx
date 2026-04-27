@@ -15,7 +15,7 @@ import { Apiservice } from "../Services/ApiService";
 import Pagination from "../Components/CommonComponents/Pagination";
 import { CONSTANT } from "../Services/Constant";
 interface StatusChangeData {
-  id: number | string ;
+  id: number | string;
   newStatus: string;
   showConfirm: boolean;
 }
@@ -144,18 +144,18 @@ const UserExpense = () => {
     let savedExpense: ExpenseData;
     try {
       if (editExpense) {
-        const res = await Apiservice.put<ApiResponse<ExpenseData>>(
+        const res:ApiResponse<ExpenseData> = await Apiservice.put(
           `/UserExpenses/${editExpense.id}`,
           payload,
         );
-        savedExpense = res.data.data;
+        savedExpense = res.data;
         toast.success(CONSTANT.SUCCESS.UPDATE);
       } else {
-        const res = await Apiservice.post<ApiResponse<ExpenseData>>(
+        const res:ApiResponse<ExpenseData> = await Apiservice.post(
           "/UserExpenses",
           payload,
         );
-        savedExpense = res.data.data;
+        savedExpense = res.data;
         toast.success(CONSTANT.SUCCESS.CREATE);
       }
 
@@ -217,7 +217,7 @@ const UserExpense = () => {
   const startIndex = lastIndex - itemsPerPage;
   const currentRecords = filteredExpenses.slice(startIndex, lastIndex);
 
-  const handleStatusChange = (id: number , newStatus: string) => {
+  const handleStatusChange = (id: number, newStatus: string) => {
     const current = expenses.find((exp) => exp.id === id);
     if (
       (current?.status === "Approved" || current?.status === "Rejected") &&

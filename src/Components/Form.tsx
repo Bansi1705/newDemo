@@ -9,6 +9,7 @@ import { Apiservice } from "../Services/ApiService";
 import { Buttons } from "./CommonComponents/Buttons";
 import { CONSTANT } from "../Services/Constant";
 import type { ApiResponse, User } from "../Interface/types";
+import FileUpload from "./CommonComponents/FileUpload";
 
 export const Form = () => {
   const { id } = useParams();
@@ -18,12 +19,14 @@ export const Form = () => {
     name: string;
     age: number | "";
     birthdate: Date | null;
+    imageFile: File |string| null;
   };
 
   const [data, setData] = useState<FromData>({
     name: "",
     age: "",
     birthdate: null,
+    imageFile: null,
   });
 
   type FormErrors = {
@@ -64,20 +67,22 @@ export const Form = () => {
       [name]: "",
     });
   };
-
   useEffect(() => {
     if (!id) return;
 
     const fetchUser = async () => {
       try {
-        const response :ApiResponse<User> = await Apiservice.get(`/users/${id}`);
-        console.log(response.data)
+        const response: ApiResponse<User> = await Apiservice.get(
+          `/users/${id}`,
+        );
+        console.log(response.data);
         setData({
           name: response.data.name || "",
           age: response.data.age || "",
           birthdate: response.data.birthdate
             ? new Date(response.data.birthdate)
             : null,
+          imageFile: response.data.imageFile | null,
         });
       } catch (err) {
         console.log(err);
@@ -87,53 +92,43 @@ export const Form = () => {
     fetchUser();
   }, [id]);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("submit clicked");
 
     if (!validate()) return;
 
-    const payload = {
-      ...data,
-      birthdate: data.birthdate
-        ? data.birthdate.toISOString().split("T")[0]
-        : null,
-    };
+    const formData = new FormData();
 
-    console.log(payload);
+    formData.append("name", data.name);
+    formData.append("age", String(data.age));
+    formData.append(
+      "birthdate",
+      data.birthdate ? data.birthdate.toISOString().split("T")[0] : "",
+    );
+
+    if (data.imageFile) {
+      formData.append("imageFile", data.imageFile);
+    }
+
     try {
       if (id) {
-        try {
-          Apiservice.put<ApiResponse<User>>(`/users/${id}`, payload).then(
-            () => {
-              toast.success(CONSTANT.SUCCESS.UPDATE);
-            },
-          );
-        } catch (error) {
-          toast.error(CONSTANT.ERROR.COMMON);
-          console.log(error);
-        }
+        await Apiservice.put(`/users/${id}`, formData);
+        toast.success(CONSTANT.SUCCESS.UPDATE);
       } else {
-        try {
-          Apiservice.post<ApiResponse<User[]>>(`/users`, payload).then(() => {
-            toast.success(CONSTANT.SUCCESS.CREATE);
-          });
-        } catch (error) {
-          toast.error(CONSTANT.ERROR.COMMON);
-          console.log(error);
-        }
+        await Apiservice.post(`/users`, formData);
+        toast.success(CONSTANT.SUCCESS.CREATE);
       }
+
       navigate("/home");
     } catch (error) {
       console.error("Error saving user:", error);
-      toast.error("Failed to save user");
+      toast.error(CONSTANT.ERROR.COMMON);
     }
   };
-  const searchShow = false;
 
   return (
     <>
-      <Header searchShow={searchShow} />
+      <Header searchShow={false} />
       <div className="form-data flex items-center justify-center h-screen bg-white-100">
         <form
           className="form bg-white p-6 rounded shadow-xl-30 w-full max-w-md"
@@ -193,6 +188,18 @@ export const Form = () => {
               error={error.birthdate}
               onChange={(date) => setData({ ...data, birthdate: date })}
               selectedDate={data.birthdate}
+            />
+          </div>
+          <div className="form-group mb-4">
+            <FileUpload
+              label="Upload Image"
+              accept="image/*,.pdf,.xls,.xlsx"
+              onFileSelect={(file) =>
+                setData((prev) => ({
+                  ...prev,
+                  imageFile: file,
+                }))
+              }
             />
           </div>
 

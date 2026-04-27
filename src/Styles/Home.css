@@ -132,3 +132,8 @@
 .pagination-controls span {
   margin: 0 10px;
 }
+.imagePreviewIcon{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

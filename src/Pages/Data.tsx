@@ -122,7 +122,7 @@ function Data() {
                         {sortKey === head.key ? (
                           sortOrder === "asc" ? (
                             <FaArrowDown size={15} />
-                          ) : (
+                          ) : ( 
                             <FaArrowUp size={15} />
                           )
                         ) : (

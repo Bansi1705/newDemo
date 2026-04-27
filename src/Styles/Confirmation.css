@@ -1,4 +1,3 @@
-/* Full screen black transparent background */
 .confirm-model {
   position: fixed;
   top: 0;
@@ -12,7 +11,6 @@
   z-index: 100;
 }
 
-/* Modal box */
 .main-confirm {
   background-color: #fff;
   padding: 30px 40px;
@@ -23,7 +21,6 @@
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
 }
 
-/* Confirmation message */
 .confirm-msg {
   margin-bottom: 25px;
   font-size: 18px;
@@ -31,14 +28,12 @@
   font-weight: 500;
 }
 
-/* Buttons container */
 .confirm-actions {
   display: flex;
   justify-content: center;
   gap: 15px; /* space between buttons */
 }
 
-/* Buttons styling */
 .confirm-actions button {
   width: auto;
   min-width: 70px;
@@ -51,7 +46,6 @@
   transition: all 0.3s ease;
 }
 
-/* Yes button */
 .confirm-actions .yes-btn {
   background-color: #e74c3c;
   color: white;

@@ -51,7 +51,6 @@ const CommonMultiSelect: React.FC<Props> = ({
   const handleSelectAll = (checked: boolean) => {
     return checked ? setSelected(options) : setSelected([]);
   };
-  console.log(selected);
   return (
     <div className="relative w-56 text-black">
       <div className="flex items-center justify-between px-3 py-2 border border-gray-300 bg-white cursor-pointer">

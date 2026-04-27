@@ -23,7 +23,7 @@ axiosInstance.interceptors.response.use(
       Routing.navigate("/");
     }
     return Promise.reject(error);
-  }
+  },
 );
 
 export default axiosInstance;

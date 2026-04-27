@@ -11,5 +11,6 @@ export const CONSTANT = {
     NETWORK: "Network error, please try again",
     NOT_FOUND: "Data not found",
     COMMON: "Something Went Wrong!",
+    LARGE_FILE:"File Is Too Large",
   },
 };

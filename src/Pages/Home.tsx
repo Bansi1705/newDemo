@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Header from "../Components/Header";
 import { useNavigate } from "react-router-dom";
-import { MdDeleteOutline } from "react-icons/md";
+import { MdDeleteOutline, MdOutlinePreview } from "react-icons/md";
 import { CiEdit } from "react-icons/ci";
 import "../Styles/Home.css";
 import { toast } from "react-toastify";
@@ -14,6 +14,8 @@ import { CONSTANT } from "../Services/Constant";
 import { COMMON_SERVICES } from "../Services/CommonService/CommonServices";
 import { DropDown } from "../Components/CommonComponents/DropDown";
 import CommonMultiSelect from "../Components/CommonComponents/MultipleDropDowm";
+import FilePreview from "../Components/CommonComponents/FilePreview";
+// import ImagePreview from "../Components/CommonComponents/FilePreview";
 
 export const Home = () => {
   const [users, setUsers] = useState<User[]>([]);
@@ -25,6 +27,10 @@ export const Home = () => {
   const [showConfirm, setShowConfirm] = useState<boolean>(false);
   const [deleteId, setDeleteId] = useState<number | undefined>(undefined);
   const [editId, setEditID] = useState<number | undefined>(undefined);
+  const [showPreView, setShowPreview] = useState<boolean>(false);
+  const [showPreviewImage, setShowPreviewImage] = useState<File | undefined>(
+    undefined,
+  );
 
   const [currentPage, setCurrentPage] = useState<number>(1);
   const itemsPerPage = 5;
@@ -68,36 +74,36 @@ export const Home = () => {
   // }, []);
 
   const handleConfirm = async () => {
-  if (deleteId !== undefined) {
-    try {
-      await Apiservice.delete<ApiResponse<User[]>>(`/users/${deleteId}`);
-      setUsers((prev) => prev.filter((user) => user.id !== deleteId));
-      toast.success(CONSTANT.SUCCESS.DELETE);
-    } catch {
-      toast.error(CONSTANT.ERROR.COMMON);
-    } finally {
+    if (deleteId !== undefined) {
+      try {
+        await Apiservice.delete<ApiResponse<User[]>>(`/users/${deleteId}`);
+        setUsers((prev) => prev.filter((user) => user.id !== deleteId));
+        toast.success(CONSTANT.SUCCESS.DELETE);
+      } catch {
+        toast.error(CONSTANT.ERROR.COMMON);
+      } finally {
+        setShowConfirm(false);
+        setDeleteId(undefined);
+      }
+    } else if (editId !== undefined) {
+      navigate(`/edit-user/${editId}`);
       setShowConfirm(false);
-      setDeleteId(undefined);
+      setEditID(undefined);
     }
-  } else if (editId !== undefined) {
-    navigate(`/edit-user/${editId}`);
-    setShowConfirm(false);
-    setEditID(undefined);
-  }
-};
+  };
 
- const handleCancel = () => {
-  setShowConfirm(false);
-  setDeleteId(undefined);
-  setEditID(undefined);
-};
+  const handleCancel = () => {
+    setShowConfirm(false);
+    setDeleteId(undefined);
+    setEditID(undefined);
+  };
 
   const handleEdit = (id: number | undefined) => {
     setShowConfirm(true);
     setEditID(id);
   };
 
-  const title = ["Name", "Age", "BirthDate", "Operations"];
+  const title = ["Name", "Age", "BirthDate", "Image Preview", "Operations"];
 
   const handleApiTest = async (
     method: "Get" | "Post" | "Put" | "Delete",
@@ -158,6 +164,15 @@ export const Home = () => {
     { label: "BVOC", value: "bvoc" },
   ]);
 
+  const handleShowPreview = (image: File) => {
+    setShowPreview(true);
+    setShowPreviewImage(image);
+  };
+
+  // const handleOnClose = () => {
+  //   setShowPreview(false);
+  //   setShowPreviewImage(undefined);
+  // };
   return (
     <>
       <Header search={search} setSearch={setSearch} searchShow={true} />
@@ -215,6 +230,14 @@ export const Home = () => {
                     <td>{user.name}</td>
                     <td>{user.age}</td>
                     <td>{user.birthdate}</td>
+                    <td>
+                      <div className="imagePreviewIcon">
+                        <MdOutlinePreview
+                          size={30}
+                          onClick={() => handleShowPreview(user.imageFile)}
+                        />
+                      </div>
+                    </td>
                     <td className="action-buttons">
                       <Buttons
                         onClick={() => handleDelete(user.id)}
@@ -240,6 +263,10 @@ export const Home = () => {
           </div>
         </div>
       </div>
+
+      {showPreView && (
+        <FilePreview file={showPreviewImage}/>
+      )}
 
       {showConfirm && (
         <Confirmation
