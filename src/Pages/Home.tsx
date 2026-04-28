@@ -28,8 +28,8 @@ export const Home = () => {
   const [deleteId, setDeleteId] = useState<number | undefined>(undefined);
   const [editId, setEditID] = useState<number | undefined>(undefined);
   const [showPreView, setShowPreview] = useState<boolean>(false);
-  const [showPreviewImage, setShowPreviewImage] = useState<File | undefined>(
-    undefined,
+  const [showPreviewImage, setShowPreviewImage] = useState<File | string |null>(
+    null,
   );
 
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -164,15 +164,15 @@ export const Home = () => {
     { label: "BVOC", value: "bvoc" },
   ]);
 
-  const handleShowPreview = (image: File) => {
+  const handleShowPreview = (file: File | string | null) => {
     setShowPreview(true);
-    setShowPreviewImage(image);
+    setShowPreviewImage(file);
   };
 
-  // const handleOnClose = () => {
-  //   setShowPreview(false);
-  //   setShowPreviewImage(undefined);
-  // };
+  const handleClosePreview = () => {
+    setShowPreview(false);
+    setShowPreviewImage(null);
+  };
   return (
     <>
       <Header search={search} setSearch={setSearch} searchShow={true} />
@@ -234,7 +234,7 @@ export const Home = () => {
                       <div className="imagePreviewIcon">
                         <MdOutlinePreview
                           size={30}
-                          onClick={() => handleShowPreview(user.imageFile)}
+                          onClick={() => handleShowPreview(user.uploadFile)}
                         />
                       </div>
                     </td>
@@ -265,7 +265,7 @@ export const Home = () => {
       </div>
 
       {showPreView && (
-        <FilePreview file={showPreviewImage}/>
+        <FilePreview file={showPreviewImage} onClose={handleClosePreview}/>
       )}
 
       {showConfirm && (

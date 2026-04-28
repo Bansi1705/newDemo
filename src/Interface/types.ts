@@ -5,7 +5,7 @@ export interface User {
   name: string;
   age: number;
   birthdate: string;
-  imageFile: File | null;
+  uploadFile: File | string | null;
 }
 export interface ExpenseData {
   id?: number;

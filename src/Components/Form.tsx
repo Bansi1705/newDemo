@@ -19,14 +19,14 @@ export const Form = () => {
     name: string;
     age: number | "";
     birthdate: Date | null;
-    imageFile: File |string| null;
+    uploadFile: File | string | null;
   };
 
   const [data, setData] = useState<FromData>({
     name: "",
     age: "",
     birthdate: null,
-    imageFile: null,
+    uploadFile: null,
   });
 
   type FormErrors = {
@@ -82,7 +82,7 @@ export const Form = () => {
           birthdate: response.data.birthdate
             ? new Date(response.data.birthdate)
             : null,
-          imageFile: response.data.imageFile | null,
+          uploadFile: response.data.uploadFile,
         });
       } catch (err) {
         console.log(err);
@@ -97,25 +97,21 @@ export const Form = () => {
 
     if (!validate()) return;
 
-    const formData = new FormData();
-
-    formData.append("name", data.name);
-    formData.append("age", String(data.age));
-    formData.append(
-      "birthdate",
-      data.birthdate ? data.birthdate.toISOString().split("T")[0] : "",
-    );
-
-    if (data.imageFile) {
-      formData.append("imageFile", data.imageFile);
-    }
+    const payLoad = {
+      name: data.name,
+      age: data.age,
+      birthdate: data.birthdate
+        ? data.birthdate.toISOString().split("T")[0]
+        : "",
+      uploadFile: data.uploadFile,
+    };
 
     try {
       if (id) {
-        await Apiservice.put(`/users/${id}`, formData);
+        await Apiservice.put<ApiResponse<User>>(`/users/${id}`, payLoad);
         toast.success(CONSTANT.SUCCESS.UPDATE);
       } else {
-        await Apiservice.post(`/users`, formData);
+        await Apiservice.post<ApiResponse<User>>(`/users`, payLoad);
         toast.success(CONSTANT.SUCCESS.CREATE);
       }
 
@@ -192,14 +188,20 @@ export const Form = () => {
           </div>
           <div className="form-group mb-4">
             <FileUpload
-              label="Upload Image"
+              label="Upload File"
               accept="image/*,.pdf,.xls,.xlsx"
-              onFileSelect={(file) =>
-                setData((prev) => ({
-                  ...prev,
-                  imageFile: file,
-                }))
-              }
+              onFileSelect={(file) => {
+                const reader = new FileReader();
+
+                reader.onloadend = () => {
+                  setData((prev) => ({
+                    ...prev,
+                    uploadFile: reader.result as string,
+                  }));
+                };
+
+                reader.readAsDataURL(file);
+              }}
             />
           </div>
 
