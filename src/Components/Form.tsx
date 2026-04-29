@@ -33,6 +33,7 @@ export const Form = () => {
     name?: string;
     age?: string;
     birthdate?: string;
+    uploadFile?: string;
   };
 
   const [error, setError] = useState<FormErrors>({});
@@ -51,6 +52,10 @@ export const Form = () => {
     } else if (data.birthdate > new Date()) {
       newError.birthdate = "Birthdate cannot be in future";
     }
+    if (!data.uploadFile) {
+      newError.uploadFile = "UploadFile is required.";
+    }
+
     setError(newError);
     return Object.keys(newError).length === 0;
   };

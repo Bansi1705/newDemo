@@ -2,7 +2,7 @@ import { IoIosCloseCircleOutline } from "react-icons/io";
 import "../../Styles/ImagePreview.css";
 import { useEffect, useState } from "react";
 import * as XLSX from "xlsx";
-import { MIME_TYPES } from "../../Services/CommonService/ConstantMimeType";
+import { CONSTANT } from "../../Services/Constant";
 
 type FilePreviewProps = {
   file: File | string | null;
@@ -32,27 +32,25 @@ function FilePreview({ file, onClose }: FilePreviewProps) {
   const isImage =
     typeof file === "string"
       ? file.startsWith("data:image")
-      : (file?.type?.startsWith(MIME_TYPES.IMAGE) ?? false);
+      : file
+        ? CONSTANT.MIME_TYPES.IMAGE.includes(file.type)
+        : false;
 
   const isPdf =
     typeof file === "string"
       ? file.startsWith("data:application/pdf")
-      : file?.type === MIME_TYPES.PDF;
+      : file?.type === CONSTANT.MIME_TYPES.PDF;
 
   const isExcel =
     typeof file === "string"
-      ? file.toLowerCase().includes(MIME_TYPES.XLSX.toLowerCase()) ||
-        file.toLowerCase().includes(MIME_TYPES.XLS.toLowerCase()) ||
-        (file.startsWith("data:") &&
-          file.includes("base64") &&
-          !file.startsWith(`data:${MIME_TYPES.IMAGE}`) &&
-          !file.startsWith(`data:${MIME_TYPES.PDF}`)) ||
+      ? file.toLowerCase().includes(CONSTANT.MIME_TYPES.XLSX.toLowerCase()) ||
+        file.toLowerCase().includes(CONSTANT.MIME_TYPES.XLS.toLowerCase()) ||
         file.toLowerCase().endsWith(".xlsx") ||
         file.toLowerCase().endsWith(".xls")
-      : file?.type === MIME_TYPES.XLSX ||
-        file?.type === MIME_TYPES.XLS ||
-        (file?.name?.toLowerCase().endsWith(".xlsx") ?? false) ||
-        (file?.name?.toLowerCase().endsWith(".xls") ?? false);
+      : file
+        ? file.type === CONSTANT.MIME_TYPES.XLSX ||
+          file.type === CONSTANT.MIME_TYPES.XLS
+        : false;
 
   useEffect(() => {
     if (!isExcel) return;

@@ -10,6 +10,9 @@ import { FaMinus } from "react-icons/fa6";
 import { Buttons } from "../Components/CommonComponents/Buttons";
 import { MdDeleteOutline } from "react-icons/md";
 import Confirmation from "../Components/CommonComponents/Confirmation";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+
 export const RoomData = () => {
   const [roomData, setRoomsData] = useState<RoomDataInterface[]>([]);
   const [showSubArray, setShowSubArray] = useState<boolean>(false);
@@ -17,6 +20,15 @@ export const RoomData = () => {
     index: number;
     subIndex?: number;
   } | null>(null);
+
+  const [checkedDelete, setCheckedDelete] = useState<{
+    index: number[];
+    subIndex?: number[];
+  }>({
+    index: [],
+    subIndex: [],
+  });
+
   const [showConfirm, setShowConfirm] = useState<boolean>(false);
 
   const tableHeader = [
@@ -32,7 +44,8 @@ export const RoomData = () => {
   useEffect(() => {
     const fetchRoomData = async () => {
       try {
-        const res: ApiResponse<RoomDataInterface[]> = await Apiservice.get("/dataRoom");
+        const res: ApiResponse<RoomDataInterface[]> =
+          await Apiservice.get("/dataRoom");
         setRoomsData(res.data);
       } catch {
         toast.error(CONSTANT.ERROR.NOT_FOUND);
@@ -48,21 +61,59 @@ export const RoomData = () => {
   };
 
   const confirmDelete = () => {
-    if (!deleteRoomId) return;
-
-    const { index, subIndex } = deleteRoomId;
     let newData = [...roomData];
 
-    if (subIndex !== undefined) {
-      newData[index].subArray = newData[index].subArray.filter(
-        (_, i: number) => i !== subIndex,
-      );
+    if (deleteRoomId) {
+      const { index, subIndex } = deleteRoomId;
+
+      if (subIndex !== undefined) {
+        newData[index].subArray = newData[index].subArray.filter(
+          (_, i) => i !== subIndex,
+        );
+      } else {
+        newData = newData.filter((_, i) => i !== index);
+      }
+
+      setDeleteRoomId(null);
     } else {
-      newData = newData.filter((_, i) => i !== index);
+      newData = newData.filter((_, i) => !checkedDelete.index.includes(i));
+      newData = newData.map((room) => ({
+        ...room,
+        subArray: room.subArray.filter(
+          (_, i) => !checkedDelete.subIndex?.includes(i),
+        ),
+      }));
+
+      setCheckedDelete({
+        index: [],
+        subIndex: [],
+      });
     }
+
     setRoomsData(newData);
-    setDeleteRoomId(null);
     setShowConfirm(false);
+  };
+
+  const handleCheckBoxDeleteChange = (index: number, subIndex?: number) => {
+    if (subIndex !== undefined) {
+      setCheckedDelete((prev) => ({
+        ...prev,
+        subIndex: prev?.subIndex?.includes(subIndex)
+          ? prev.subIndex.filter((item) => item !== subIndex)
+          : [...prev.subIndex, subIndex],
+      }));
+    } else {
+      setCheckedDelete((prev) => ({
+        ...prev,
+        index: prev.index.includes(index)
+          ? prev.index.filter((item) => item !== index)
+          : [...prev.index, index],
+      }));
+    }
+  };
+
+  const handleCheckedDelete = () => {
+    setShowConfirm(true);
   };
 
   return (
@@ -72,6 +123,11 @@ export const RoomData = () => {
         <div className="user-data">
           <div className="table-data">
             <div className="table-wrapper">
+              <Buttons
+                label={"Delete Selected Item"}
+                onClick={handleCheckedDelete}
+                className="delete-selected-btn"
+              />
               <table border={2} className="data-table">
                 <thead>
                   <tr>
@@ -101,13 +157,44 @@ export const RoomData = () => {
                                   <FaPlus className="text-base font-bold scale-110" />
                                 )}
                               </span>
-                              <span>{index + 1}</span>
+                              <span>
+                                <FormControlLabel
+                                  control={
+                                    <Checkbox
+                                      onChange={() =>
+                                        handleCheckBoxDeleteChange(index)
+                                      }
+                                      checked={checkedDelete.index.includes(
+                                        index,
+                                      )}
+                                    />
+                                  }
+                                  label=""
+                                />
+                                {index + 1}
+                              </span>
                             </td>
                           </>
                         ) : (
-                          <td>{index + 1}</td>
+                          <>
+                            <td>
+                              <FormControlLabel
+                                control={
+                                  <Checkbox
+                                    onChange={() =>
+                                      handleCheckBoxDeleteChange(index)
+                                    }
+                                    checked={checkedDelete.index.includes(
+                                      index,
+                                    )}
+                                  />
+                                }
+                                label=""
+                              />
+                              {index + 1}
+                            </td>
+                          </>
                         )}
-
                         <td>{data.isoDate?.split("T")[0]}</td>
                         <td>{data.roomsCount}</td>
                         <td>{data.note}</td>
@@ -130,7 +217,25 @@ export const RoomData = () => {
                                 key={subIndex}
                                 className="sub-row text-red-300"
                               >
-                                <td>{subIndex + 1}</td>
+                                <td>
+                                  <FormControlLabel
+                                    control={
+                                      <Checkbox
+                                        onChange={() =>
+                                          handleCheckBoxDeleteChange(
+                                            index,
+                                            subIndex,
+                                          )
+                                        }
+                                        checked={checkedDelete.subIndex?.includes(
+                                          subIndex,
+                                        )}
+                                      />
+                                    }
+                                    label=""
+                                  />
+                                  {subIndex + 1}
+                                </td>
                                 <td>{sub.isoDate?.split("T")[0]}</td>
                                 <td>{sub.roomsCount}</td>
                                 <td>{sub.note}</td>
@@ -158,7 +263,7 @@ export const RoomData = () => {
                   type="delete"
                   confirm={confirmDelete}
                   cancel={() => setShowConfirm(false)}
-                  message="Delete this Room Detail ?"
+                  message={`Do You ant To Delete`}
                 />
               )}
             </div>

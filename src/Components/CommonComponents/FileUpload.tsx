@@ -1,4 +1,6 @@
 import React from "react";
+import { toast } from "react-toastify";
+import { CONSTANT } from "../../Services/Constant";
 
 type FileUploadProps = {
   onFileSelect: (file: File) => void;
@@ -13,7 +15,15 @@ const FileUpload = ({
 }: FileUploadProps) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (file) onFileSelect(file);
+   
+    console.log(file)
+    if (!file) return;
+
+    if (file.size <= CONSTANT.MAX_FILE_SIZE) {
+      onFileSelect(file);
+    } else {
+      toast.error(CONSTANT.ERROR.LARGE_FILE);
+    }
   };
 
   return (

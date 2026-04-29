@@ -15,11 +15,13 @@ import { COMMON_SERVICES } from "../Services/CommonService/CommonServices";
 import { DropDown } from "../Components/CommonComponents/DropDown";
 import CommonMultiSelect from "../Components/CommonComponents/MultipleDropDowm";
 import FilePreview from "../Components/CommonComponents/FilePreview";
-// import ImagePreview from "../Components/CommonComponents/FilePreview";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
 
 export const Home = () => {
   const [users, setUsers] = useState<User[]>([]);
   const navigate = useNavigate();
+  const [checkedDelete, setCheckedDelete] = useState<number[]>([]);
 
   const [selectedMonth, setSelectedMonth] = useState<string>("");
 
@@ -28,9 +30,9 @@ export const Home = () => {
   const [deleteId, setDeleteId] = useState<number | undefined>(undefined);
   const [editId, setEditID] = useState<number | undefined>(undefined);
   const [showPreView, setShowPreview] = useState<boolean>(false);
-  const [showPreviewImage, setShowPreviewImage] = useState<File | string |null>(
-    null,
-  );
+  const [showPreviewImage, setShowPreviewImage] = useState<
+    File | string | null
+  >(null);
 
   const [currentPage, setCurrentPage] = useState<number>(1);
   const itemsPerPage = 5;
@@ -89,6 +91,20 @@ export const Home = () => {
       navigate(`/edit-user/${editId}`);
       setShowConfirm(false);
       setEditID(undefined);
+    } else if (checkedDelete.length > 0) {
+      try {
+        checkedDelete.map(async (id) => {
+          await Apiservice.delete<ApiResponse<User[]>>(`/users/${id}`);
+          setUsers((prev) =>
+            prev.filter((user) => !checkedDelete.includes(user.id)),
+          );
+        });
+        setCheckedDelete([]);
+        setShowConfirm(false);
+        toast.success(CONSTANT.SUCCESS.DELETE);
+      } catch {
+        toast.error(CONSTANT.ERROR.COMMON);
+      }
     }
   };
 
@@ -96,6 +112,7 @@ export const Home = () => {
     setShowConfirm(false);
     setDeleteId(undefined);
     setEditID(undefined);
+    setCheckedDelete([]);
   };
 
   const handleEdit = (id: number | undefined) => {
@@ -103,7 +120,14 @@ export const Home = () => {
     setEditID(id);
   };
 
-  const title = ["Name", "Age", "BirthDate", "Image Preview", "Operations"];
+  const title = [
+    "Sr.No>",
+    "Name",
+    "Age",
+    "BirthDate",
+    "Image Preview",
+    "Operations",
+  ];
 
   const handleApiTest = async (
     method: "Get" | "Post" | "Put" | "Delete",
@@ -173,6 +197,17 @@ export const Home = () => {
     setShowPreview(false);
     setShowPreviewImage(null);
   };
+
+  const handleCheckBoxDeleteChange = (id: number) => {
+    setCheckedDelete((prev) =>
+      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id],
+    );
+  };
+
+  const handleCheckedDelete = () => {
+    setShowConfirm(true);
+  };
+  console.log(checkedDelete);
   return (
     <>
       <Header search={search} setSearch={setSearch} searchShow={true} />
@@ -210,6 +245,11 @@ export const Home = () => {
               setOption={setShowItems}
               placeHolder="Select Course"
             />
+            <Buttons
+              label={"Delete Selected Item"}
+              className="px-3"
+              onClick={handleCheckedDelete}
+            />
           </div>
 
           <h2 className="main-title">Users List</h2>
@@ -225,8 +265,20 @@ export const Home = () => {
               </thead>
 
               <tbody>
-                {currentRecords.map((user) => (
+                {currentRecords.map((user, index) => (
                   <tr key={user.id}>
+                    <td>
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            onChange={() => handleCheckBoxDeleteChange(user.id)}
+                            checked={checkedDelete.includes(user.id)}
+                          />
+                        }
+                        label=""
+                      />
+                      {index + 1}
+                    </td>
                     <td>{user.name}</td>
                     <td>{user.age}</td>
                     <td>{user.birthdate}</td>
@@ -265,7 +317,7 @@ export const Home = () => {
       </div>
 
       {showPreView && (
-        <FilePreview file={showPreviewImage} onClose={handleClosePreview}/>
+        <FilePreview file={showPreviewImage} onClose={handleClosePreview} />
       )}
 
       {showConfirm && (
@@ -274,9 +326,11 @@ export const Home = () => {
           cancel={handleCancel}
           type={deleteId !== undefined ? "delete" : "edit"}
           message={
-            deleteId
+            deleteId !== undefined
               ? "Do You Really Want To Delete This Item ??"
-              : "Do You Want To Edit Item ??"
+              : editId !== undefined
+                ? "Do You Want To Edit This Item ??"
+                : "Do You Want To Delete All Selected Items ??"
           }
         />
       )}

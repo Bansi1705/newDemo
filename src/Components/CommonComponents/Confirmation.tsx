@@ -25,13 +25,13 @@ function Confirmation({ confirm, cancel, message, type }: props) {
             ) : (
               <>
                 <Buttons
-                  label={<MdCheck />}
+                  label="Delete"
                   onClick={confirm}
                   className="yes-btn"
                 />
 
                 <Buttons
-                  label={<MdClose />}
+                  label="Cancle"
                   onClick={cancel}
                   className="no-btn"
                 />
