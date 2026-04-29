@@ -1,7 +1,8 @@
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import "../../Styles/ImagePreview.css";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import * as XLSX from "xlsx";
+import { MIME_TYPES } from "../../Services/CommonService/ConstantMimeType";
 
 type FilePreviewProps = {
   file: File | string | null;
@@ -31,25 +32,25 @@ function FilePreview({ file, onClose }: FilePreviewProps) {
   const isImage =
     typeof file === "string"
       ? file.startsWith("data:image")
-      : (file?.type?.startsWith("image/") ?? false);
+      : (file?.type?.startsWith(MIME_TYPES.IMAGE) ?? false);
 
   const isPdf =
     typeof file === "string"
       ? file.startsWith("data:application/pdf")
-      : file?.type === "application/pdf";
+      : file?.type === MIME_TYPES.PDF;
 
   const isExcel =
     typeof file === "string"
-      ? file.toLowerCase().includes("spreadsheetml") ||
-        file.toLowerCase().includes("application/vnd.ms-excel") ||
+      ? file.toLowerCase().includes(MIME_TYPES.XLSX.toLowerCase()) ||
+        file.toLowerCase().includes(MIME_TYPES.XLS.toLowerCase()) ||
         (file.startsWith("data:") &&
           file.includes("base64") &&
-          !file.startsWith("data:image") &&
-          !file.startsWith("data:application/pdf")) ||
+          !file.startsWith(`data:${MIME_TYPES.IMAGE}`) &&
+          !file.startsWith(`data:${MIME_TYPES.PDF}`)) ||
         file.toLowerCase().endsWith(".xlsx") ||
         file.toLowerCase().endsWith(".xls")
-      : (file?.type?.includes("spreadsheet") ?? false) ||
-        (file?.type?.includes("excel") ?? false) ||
+      : file?.type === MIME_TYPES.XLSX ||
+        file?.type === MIME_TYPES.XLS ||
         (file?.name?.toLowerCase().endsWith(".xlsx") ?? false) ||
         (file?.name?.toLowerCase().endsWith(".xls") ?? false);
 
