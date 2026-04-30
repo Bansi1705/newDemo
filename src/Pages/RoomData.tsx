@@ -23,11 +23,13 @@ export const RoomData = () => {
 
   const [checkedDelete, setCheckedDelete] = useState<{
     index: number[];
-    subIndex?: number[];
+    subIndex: { parentIndex: number; subIndex: number }[];
   }>({
     index: [],
     subIndex: [],
   });
+
+  const [confirmMsg, setConfirmMsg] = useState<string>("");
 
   const [showConfirm, setShowConfirm] = useState<boolean>(false);
 
@@ -57,6 +59,20 @@ export const RoomData = () => {
 
   const handleDelete = (index: number, subIndex?: number) => {
     setDeleteRoomId({ index, subIndex });
+
+    const room = roomData[index];
+
+    if (subIndex !== undefined) {
+      const subRoom = room.subArray[subIndex];
+      setConfirmMsg(
+        `Do you really want to delete sub room count ${subRoom.roomsCount}?`,
+      );
+    } else {
+      setConfirmMsg(
+        `Do you really want to delete the room count ${room.roomsCount}?`,
+      );
+    }
+
     setShowConfirm(true);
   };
 
@@ -80,7 +96,12 @@ export const RoomData = () => {
       newData = newData.map((room) => ({
         ...room,
         subArray: room.subArray.filter(
-          (_, i) => !checkedDelete.subIndex?.includes(i),
+          (_, subIndex) =>
+            !checkedDelete.subIndex.find(
+              (item) =>
+                item.parentIndex === roomData.indexOf(room) &&
+                item.subIndex === subIndex,
+            ),
         ),
       }));
 
@@ -92,27 +113,64 @@ export const RoomData = () => {
 
     setRoomsData(newData);
     setShowConfirm(false);
+    setConfirmMsg("");
   };
 
   const handleCheckBoxDeleteChange = (index: number, subIndex?: number) => {
     if (subIndex !== undefined) {
-      setCheckedDelete((prev) => ({
-        ...prev,
-        subIndex: prev?.subIndex?.includes(subIndex)
-          ? prev.subIndex.filter((item) => item !== subIndex)
-          : [...prev.subIndex, subIndex],
-      }));
+      setCheckedDelete((prev) => {
+        const isChecked = prev.subIndex.find(
+          (item) => item.parentIndex === index && item.subIndex === subIndex,
+        );
+
+        return {
+          ...prev,
+          subIndex: isChecked
+            ? prev.subIndex.filter(
+                (item) =>
+                  !(item.parentIndex === index && item.subIndex === subIndex),
+              )
+            : [...prev.subIndex, { parentIndex: index, subIndex }],
+        };
+      });
     } else {
-      setCheckedDelete((prev) => ({
-        ...prev,
-        index: prev.index.includes(index)
-          ? prev.index.filter((item) => item !== index)
-          : [...prev.index, index],
-      }));
+      setCheckedDelete((prev) => {
+        const isParentChecked = prev.index.includes(index);
+
+        return {
+          index: isParentChecked
+            ? prev.index.filter((item) => item !== index)
+            : [...prev.index, index],
+
+          subIndex: isParentChecked
+            ? prev.subIndex.filter((item) => item.parentIndex !== index)
+            : [
+                ...prev.subIndex,
+                ...roomData[index].subArray.map((_, subIndex) => ({
+                  parentIndex: index,
+                  subIndex,
+                })),
+              ],
+        };
+      });
     }
   };
 
   const handleCheckedDelete = () => {
+    const roomCounts = checkedDelete.index.map(
+      (index) => roomData[index].roomsCount,
+    );
+
+    const subRoomCounts = checkedDelete.subIndex.map(
+      (item) => roomData[item.parentIndex].subArray[item.subIndex].roomsCount,
+    );
+
+    const allRoomCounts = [...roomCounts, ...subRoomCounts];
+
+    setConfirmMsg(
+      `Do you really want to delete selected room count ${allRoomCounts.join(", ")}?`,
+    );
+
     setShowConfirm(true);
   };
 
@@ -227,8 +285,10 @@ export const RoomData = () => {
                                             subIndex,
                                           )
                                         }
-                                        checked={checkedDelete.subIndex?.includes(
-                                          subIndex,
+                                        checked={checkedDelete.subIndex.some(
+                                          (item) =>
+                                            item.parentIndex === index &&
+                                            item.subIndex === subIndex,
                                         )}
                                       />
                                     }
@@ -263,7 +323,7 @@ export const RoomData = () => {
                   type="delete"
                   confirm={confirmDelete}
                   cancel={() => setShowConfirm(false)}
-                  message={`Do You ant To Delete`}
+                  message={confirmMsg}
                 />
               )}
             </div>

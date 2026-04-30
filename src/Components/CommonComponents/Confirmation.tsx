@@ -1,4 +1,3 @@
-import { MdCheck, MdClose } from "react-icons/md";
 import "../../Styles/Confirmation.css";
 import { Buttons } from "./Buttons";
 
