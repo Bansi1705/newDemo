@@ -30,7 +30,7 @@ function Confirmation({ confirm, cancel, message, type }: props) {
                 />
 
                 <Buttons
-                  label="Cancle"
+                  label="Cancel"
                   onClick={cancel}
                   className="no-btn"
                 />

@@ -6,7 +6,7 @@ import { Apiservice } from "../Services/ApiService";
 import { toast } from "react-toastify";
 import { CONSTANT } from "../Services/Constant";
 import { FaPlus } from "react-icons/fa";
-import { FaMinus } from "react-icons/fa6";
+import { FaArrowDown, FaArrowUp, FaMinus } from "react-icons/fa6";
 import { Buttons } from "../Components/CommonComponents/Buttons";
 import { MdDeleteOutline } from "react-icons/md";
 import Confirmation from "../Components/CommonComponents/Confirmation";
@@ -32,13 +32,15 @@ export const RoomData = () => {
   const [confirmMsg, setConfirmMsg] = useState<string>("");
 
   const [showConfirm, setShowConfirm] = useState<boolean>(false);
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
+  const [sortKey, setSortKey] = useState<string>("");
 
   const tableHeader = [
     { label: "Sr NO.", key: "srNo" },
-    { label: "Created Date", key: "createdAt" },
+    { label: "Created Date", key: "isoDate" },
     { label: "Room Counts", key: "roomsCount" },
     { label: "Description", key: "description" },
-    { label: "Created By", key: "isoDate" },
+    { label: "Created By", key: "createdBy" },
     { label: "Modified By", key: "modifiedBy" },
     { label: "Actions", key: "actions" },
   ];
@@ -174,6 +176,38 @@ export const RoomData = () => {
     setShowConfirm(true);
   };
 
+  const handleSorting = (key: string) => {
+    if (key === "srNo" || key === "actions") return;
+
+    if (sortKey === key) {
+      setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+    } else {
+      setSortKey(key);
+      setSortOrder("asc");
+    }
+  };
+
+  const sortData = () => {
+    if (!sortKey) return roomData;
+
+    return [...roomData].sort((a, b) => {
+      const valueA = a[sortKey as keyof RoomDataInterface];
+      const valueB = b[sortKey as keyof RoomDataInterface];
+
+      if (typeof valueA === "string" && typeof valueB === "string") {
+        return sortOrder === "asc"
+          ? valueA.localeCompare(valueB)
+          : valueB.localeCompare(valueA);
+      }
+
+      if (typeof valueA === "number" && typeof valueB === "number") {
+        return sortOrder === "asc" ? valueA - valueB : valueB - valueA;
+      }
+
+      return 0;
+    });
+  };
+
   return (
     <>
       <div>
@@ -192,6 +226,20 @@ export const RoomData = () => {
                     {tableHeader.map((head, index) => (
                       <th key={index}>
                         <div className="flex items-center gap-1">
+                          {head.label !== "Actions" &&
+                            head.label !== "Sr NO." && (
+                              <div onClick={() => handleSorting(head.key)}>
+                                {sortKey === head.key ? (
+                                  sortOrder === "asc" ? (
+                                    <FaArrowDown size={15} />
+                                  ) : (
+                                    <FaArrowUp size={15} />
+                                  )
+                                ) : (
+                                  <FaArrowUp size={15} />
+                                )}
+                              </div>
+                            )}
                           {head.label}
                         </div>
                       </th>
@@ -199,7 +247,7 @@ export const RoomData = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {roomData.map((data: RoomDataInterface, index: number) => (
+                  {sortData().map((data: RoomDataInterface, index: number) => (
                     <>
                       <tr key={index}>
                         {data.subArray.length !== 0 ? (
@@ -294,7 +342,7 @@ export const RoomData = () => {
                                     }
                                     label=""
                                   />
-                                  {subIndex + 1}
+                                  {index + 1}.{subIndex + 1}
                                 </td>
                                 <td>{sub.isoDate?.split("T")[0]}</td>
                                 <td>{sub.roomsCount}</td>
