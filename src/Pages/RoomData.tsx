@@ -94,18 +94,17 @@ export const RoomData = () => {
 
       setDeleteRoomId(null);
     } else {
-      newData = newData.filter((_, i) => !checkedDelete.index.includes(i));
-      newData = newData.map((room) => ({
+      newData = newData.map((room, parentIndex) => ({
         ...room,
         subArray: room.subArray.filter(
           (_, subIndex) =>
             !checkedDelete.subIndex.find(
               (item) =>
-                item.parentIndex === roomData.indexOf(room) &&
-                item.subIndex === subIndex,
+                item.parentIndex === parentIndex && item.subIndex === subIndex,
             ),
         ),
       }));
+      newData = newData.filter((_, i) => !checkedDelete.index.includes(i));
 
       setCheckedDelete({
         index: [],
@@ -116,6 +115,7 @@ export const RoomData = () => {
     setRoomsData(newData);
     setShowConfirm(false);
     setConfirmMsg("");
+    toast.success(CONSTANT.SUCCESS.DELETE);
   };
 
   const handleCheckBoxDeleteChange = (index: number, subIndex?: number) => {
@@ -159,6 +159,11 @@ export const RoomData = () => {
   };
 
   const handleCheckedDelete = () => {
+    if (!checkedDelete.index.length && !checkedDelete.subIndex.length) {
+      toast.error("Please select item first");
+      return;
+    }
+
     const roomCounts = checkedDelete.index.map(
       (index) => roomData[index].roomsCount,
     );
@@ -188,11 +193,16 @@ export const RoomData = () => {
   };
 
   const sortData = () => {
-    if (!sortKey) return roomData;
+    const dataWithIndex = roomData.map((room, originalIndex) => ({
+      room,
+      originalIndex,
+    }));
 
-    return [...roomData].sort((a, b) => {
-      const valueA = a[sortKey as keyof RoomDataInterface];
-      const valueB = b[sortKey as keyof RoomDataInterface];
+    if (!sortKey) return dataWithIndex;
+
+    return dataWithIndex.sort((a, b) => {
+      const valueA = a.room[sortKey as keyof RoomDataInterface];
+      const valueB = b.room[sortKey as keyof RoomDataInterface];
 
       if (typeof valueA === "string" && typeof valueB === "string") {
         return sortOrder === "asc"
@@ -247,7 +257,7 @@ export const RoomData = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {sortData().map((data: RoomDataInterface, index: number) => (
+                  {sortData().map(({ room: data, originalIndex }, index) => (
                     <>
                       <tr key={index}>
                         {data.subArray.length !== 0 ? (
@@ -268,10 +278,12 @@ export const RoomData = () => {
                                   control={
                                     <Checkbox
                                       onChange={() =>
-                                        handleCheckBoxDeleteChange(index)
+                                        handleCheckBoxDeleteChange(
+                                          originalIndex,
+                                        )
                                       }
                                       checked={checkedDelete.index.includes(
-                                        index,
+                                        originalIndex,
                                       )}
                                     />
                                   }
@@ -288,10 +300,10 @@ export const RoomData = () => {
                                 control={
                                   <Checkbox
                                     onChange={() =>
-                                      handleCheckBoxDeleteChange(index)
+                                      handleCheckBoxDeleteChange(originalIndex)
                                     }
                                     checked={checkedDelete.index.includes(
-                                      index,
+                                      originalIndex,
                                     )}
                                   />
                                 }
@@ -308,7 +320,7 @@ export const RoomData = () => {
                         <td>{data.modifiedBy ? data.modifiedBy : "-"}</td>
                         <td>
                           <Buttons
-                            onClick={() => handleDelete(index)}
+                            onClick={() => handleDelete(originalIndex)}
                             label={<MdDeleteOutline />}
                             className="delete-btn"
                           />
@@ -329,13 +341,14 @@ export const RoomData = () => {
                                       <Checkbox
                                         onChange={() =>
                                           handleCheckBoxDeleteChange(
-                                            index,
+                                            originalIndex,
                                             subIndex,
                                           )
                                         }
                                         checked={checkedDelete.subIndex.some(
                                           (item) =>
-                                            item.parentIndex === index &&
+                                            item.parentIndex ===
+                                              originalIndex &&
                                             item.subIndex === subIndex,
                                         )}
                                       />
@@ -352,7 +365,7 @@ export const RoomData = () => {
                                 <td>
                                   <Buttons
                                     onClick={() =>
-                                      handleDelete(index, subIndex)
+                                      handleDelete(originalIndex, subIndex)
                                     }
                                     label={<MdDeleteOutline />}
                                     className="delete-btn"
