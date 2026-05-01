@@ -159,11 +159,8 @@ export const RoomData = () => {
   };
 
   const handleCheckedDelete = () => {
-    if (!checkedDelete.index.length && !checkedDelete.subIndex.length) {
-      toast.error("Please select item first");
-      return;
-    }
-
+    if (checkedDelete.index.length == 0 && checkedDelete.subIndex.length == 0)
+      return toast.error(CONSTANT.ERROR.DATA_NOT_SELECTED);
     const roomCounts = checkedDelete.index.map(
       (index) => roomData[index].roomsCount,
     );

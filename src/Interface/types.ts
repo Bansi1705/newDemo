@@ -109,3 +109,10 @@ export interface RoomDataInterface {
   createdAt: string | null;
   subArray: RoomDataInterface[];
 }
+
+export interface PropertyDataInterface {
+  propertyName: string;
+  departmentTotalBudget: number;
+  ab: number;
+  ttm: number;
+}

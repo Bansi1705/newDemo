@@ -12,6 +12,7 @@ export const CONSTANT = {
     NOT_FOUND: "Data not found",
     COMMON: "Something Went Wrong!",
     LARGE_FILE: "File Is Too Large",
+    DATA_NOT_SELECTED:"Please Select a Data"
   },
   MIME_TYPES: {
     IMAGE: ["image/jpg", "image/png", "image/jpeg"],
