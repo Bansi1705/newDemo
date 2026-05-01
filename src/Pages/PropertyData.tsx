@@ -5,6 +5,7 @@ import type { ApiResponse } from "../Interface/types";
 import { Apiservice } from "../Services/ApiService";
 import { toast } from "react-toastify";
 import { CONSTANT } from "../Services/Constant";
+import { COMMON_SERVICES } from "../Services/CommonService/CommonServices";
 
 interface DepartmentData {
   categoryName: string;
@@ -164,9 +165,21 @@ export const PropertyData: React.FC = () => {
 
                       return (
                         <Fragment key={property.propertyName}>
-                          <td>{department?.departmentTotalBudget ?? "-"}</td>
-                          <td>{department?.ab ?? "-"}</td>
-                          <td>{department?.ttm ?? "-"}</td>
+                          <td>
+                            {COMMON_SERVICES.formatropertyPValue(
+                              department?.departmentTotalBudget,
+                            )}
+                          </td>
+                          <td>
+                            {COMMON_SERVICES.formatropertyPValue(
+                              department?.ab,
+                            )}
+                          </td>
+                          <td>
+                            {COMMON_SERVICES.formatropertyPValue(
+                              department?.ttm,
+                            )}
+                          </td>
                         </Fragment>
                       );
                     })}

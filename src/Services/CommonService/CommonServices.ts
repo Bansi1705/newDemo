@@ -82,4 +82,16 @@ export const COMMON_SERVICES = {
 
     return value;
   },
+
+  formatropertyPValue(value: number | string | undefined) {
+    if (value === undefined || value === null) return "-";
+
+    if (typeof value === "string" && value.includes("%")) {
+      const num = parseFloat(value);
+      return !isNaN(num) ? `${num.toFixed(2)}%` : value;
+    }
+
+    const num = Number(value);
+    return !isNaN(num) ? num.toFixed(2) : "-";
+  },
 };
