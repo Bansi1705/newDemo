@@ -132,7 +132,7 @@ export const PropertyData: React.FC = () => {
       <div className="user-data">
         <div className="table-data">
           <div className="table-wrapper">
-            <table border={2} className="data-table">
+            <table border={2} className="data-table property-data-table">
               <thead>
                 <tr>
                   <th rowSpan={2}>Category</th>
@@ -156,7 +156,7 @@ export const PropertyData: React.FC = () => {
               <tbody>
                 {getCategoryNames().map((categoryName) => (
                   <tr key={categoryName}>
-                    <td>{categoryName}</td>
+                    <td className="category-cell">{categoryName}</td>
                     {propertyData.map((property) => {
                       const department = getDepartmentData(
                         property,
@@ -166,17 +166,20 @@ export const PropertyData: React.FC = () => {
                       return (
                         <Fragment key={property.propertyName}>
                           <td>
-                            {COMMON_SERVICES.formatropertyPValue(
+                            {COMMON_SERVICES.formatValue(
+                              department?.categoryName,
                               department?.departmentTotalBudget,
                             )}
                           </td>
                           <td>
-                            {COMMON_SERVICES.formatropertyPValue(
+                            {COMMON_SERVICES.formatValue(
+                               department?.categoryName,
                               department?.ab,
                             )}
                           </td>
                           <td>
-                            {COMMON_SERVICES.formatropertyPValue(
+                            {COMMON_SERVICES.formatValue(
+                               department?.categoryName,
                               department?.ttm,
                             )}
                           </td>

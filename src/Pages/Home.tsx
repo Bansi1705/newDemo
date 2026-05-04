@@ -244,6 +244,8 @@ export const Home = () => {
               options={showItems}
               setOption={setShowItems}
               placeHolder="Select Course"
+              isAdd={true}
+              isDelete={true}
             />
             <Buttons
               label={"Delete Selected Item"}

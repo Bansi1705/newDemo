@@ -11151,5 +11151,51 @@
       }
     }
   ],
+  "property": [
+    {
+      "id": 12876,
+      "propertyId": 1,
+      "expenseId": 148728946,
+      "comment": "Test",
+      "createdByUserId": 224,
+      "modifiedByUserId": null,
+      "softDelete": false,
+      "isShowInPnlCritic": false,
+      "createdAt": "2026-05-04T06:33:29.161Z",
+      "updatedAt": "2026-05-04T06:33:29.161Z",
+      "user": {
+        "name": "QA Developer"
+      },
+      "property": {
+        "propertyName": "Spanish Fort Courtyard by Marriott"
+      },
+      "expense": {
+        "id": 148728946,
+        "invoiceNumber": "36668137681",
+        "expenseApprovalWorkFlow": [
+          {
+            "status": "CREATED",
+            "stepOrder": 0,
+            "conditionType": "ALWAYS",
+            "amount": 0,
+            "isAbleToNotify": true
+          },
+          {
+            "approvalUserId": 327,
+            "approvalName": "Monish Chatrath",
+            "status": "APPROVED",
+            "stepOrder": 0,
+            "approvedDate": null,
+            "conditionType": "ALWAYS",
+            "amount": 0,
+            "isAbleToNotify": true
+          }
+        ],
+        "createdByUser": null
+      },
+      "defaultSupportEmails": ["qa-developer@techroversolutions.com"]
+    }
+  ],
+
   "$schema": "./node_modules/json-server/schema.json"
 }

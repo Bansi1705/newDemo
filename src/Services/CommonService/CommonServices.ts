@@ -50,15 +50,21 @@ export const COMMON_SERVICES = {
     return "black";
   },
 
-  formatValue(name: string, value: number) {
+  formatValue(name: string | undefined, value: number | string | undefined) {
     if (!name) return;
     if (value === null || value === undefined) return "-";
+
+    const stringValue = value.toString();
 
     if (
       name.toLowerCase().includes("occupancy") ||
       name.toLowerCase().includes("gop")
     ) {
-      return value + "%";
+      if (stringValue.includes("%")) {
+        return stringValue;
+      }
+
+      return `${value}%`;
     }
 
     if (
@@ -74,17 +80,11 @@ export const COMMON_SERVICES = {
       name.toLowerCase().includes("maintenance") ||
       name.toLowerCase().includes("utilities")
     ) {
-      return value.toLocaleString("en-US", {
+      return Number(value).toLocaleString("en-US", {
         style: "currency",
         currency: "USD",
       });
     }
-
-    return value;
-  },
-
-  formatropertyPValue(value: number | string | undefined) {
-    if (value === undefined || value === null) return "-";
 
     if (typeof value === "string" && value.includes("%")) {
       const num = parseFloat(value);
@@ -93,5 +93,18 @@ export const COMMON_SERVICES = {
 
     const num = Number(value);
     return !isNaN(num) ? num.toFixed(2) : "-";
+  },
+
+  formatDate(dateString: string) {
+    const date = new Date(dateString);
+
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const year = String(date.getFullYear()).slice(-2);
+
+    const hours = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+
+    return `${day}/${month}/${year}, ${hours}:${minutes}`;
   },
 };

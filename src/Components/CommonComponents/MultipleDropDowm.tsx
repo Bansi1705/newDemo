@@ -4,16 +4,23 @@ import InputField from "./InputFeild";
 import { toast } from "react-toastify";
 import { CONSTANT } from "../../Services/Constant";
 import { ImCancelCircle } from "react-icons/im";
+import Button from "@mui/material/Button";
 type options = { label: string; value: string };
 interface Props {
   options: options[];
   setOption: React.Dispatch<React.SetStateAction<options[]>>;
   placeHolder?: string;
+  isAdd?: boolean;
+  isDelete?: boolean;
+  onSend?: boolean;
 }
 const CommonMultiSelect: React.FC<Props> = ({
   options,
   setOption,
   placeHolder = "select",
+  isAdd,
+  isDelete,
+  onSend,
 }) => {
   const [openDropDown, setOpenDropDown] = useState<boolean>(false);
   const [dropDownData, setDropDownData] = useState<string>("");
@@ -60,15 +67,18 @@ const CommonMultiSelect: React.FC<Props> = ({
       {openDropDown && (
         <div className="absolute w-full mt-2 max-h-52 overflow-y-auto bg-white border border-gray-300 rounded-lg">
           <div className="p-2">
-            <InputField
-              type="text"
-              onChange={(e) => setDropDownData(e.target.value)}
-              name="dropDownData"
-              value={dropDownData}
-              placeholder="Add Value"
-              classname="border border-gray-400"
-              onKeyDown={handleAdd}
-            />
+            {isAdd && (
+              <InputField
+                type="text"
+                onChange={(e) => setDropDownData(e.target.value)}
+                name="dropDownData"
+                value={dropDownData}
+                placeholder="Add Value"
+                classname="border border-gray-400"
+                onKeyDown={handleAdd}
+              />
+            )}
+
             {selected.length > 0 && (
               <>
                 <input
@@ -79,7 +89,6 @@ const CommonMultiSelect: React.FC<Props> = ({
                 <label>Select All</label>
               </>
             )}
-            {/* <Buttons type="submit" label="ADD" onClick={handleAdd} /> */}
           </div>
           {options.map((item) => (
             <div className="flex items-center gap-2 px-3 py-2" key={item.value}>
@@ -91,14 +100,21 @@ const CommonMultiSelect: React.FC<Props> = ({
                 />
                 <span className="text-sm text-gray-700">{item.label}</span>
               </label>
-              <div
-                onClick={() => handleRemove(item)}
-                className="cursor-pointer"
-              >
-                <ImCancelCircle />
-              </div>
+              {isDelete && (
+                <div
+                  onClick={() => handleRemove(item)}
+                  className="cursor-pointer"
+                >
+                  <ImCancelCircle />
+                </div>
+              )}
             </div>
           ))}
+          {onSend && (
+            <div className="p-2 border-t">
+              <Button className="w-full">Send</Button>
+            </div>
+          )}
         </div>
       )}
     </div>

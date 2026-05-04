@@ -72,14 +72,20 @@ function Header({ search, setSearch, searchShow }: HeaderProps) {
         <NavLink
           to="/roomData"
           className="nav-item text-white font-medium hover:text-gray-300 px-3 py-2 ml-2 whitespace-nowrap"
-        > 
-        Room Data
+        >
+          Room Data
         </NavLink>
-         <NavLink
+        <NavLink
           to="/propertyData"
           className="nav-item text-white font-medium hover:text-gray-300 px-3 py-2 ml-2 whitespace-nowrap"
-        > 
-        Property Data
+        >
+          Property Data
+        </NavLink>
+        <NavLink
+          to="/property"
+          className="nav-item text-white font-medium hover:text-gray-300 px-3 py-2 ml-2 whitespace-nowrap"
+        >
+          Property
         </NavLink>
 
         <Buttons
