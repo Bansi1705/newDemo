@@ -1,8 +1,10 @@
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import "../../Styles/ImagePreview.css";
 import { useEffect, useState } from "react";
-import * as XLSX from "xlsx";
+// import * as XLSX from "xlsx";
+import ExcelJS from "exceljs";
 import { CONSTANT } from "../../Services/Constant";
+import { toast } from "react-toastify";
 
 type FilePreviewProps = {
   file: File | string | null;
@@ -11,7 +13,6 @@ type FilePreviewProps = {
 
 function FilePreview({ file, onClose }: FilePreviewProps) {
   const [excelHtml, setExcelHtml] = useState("");
-  const [excelError, setExcelError] = useState("");
   const [objectUrl, setObjectUrl] = useState<string>("");
 
   useEffect(() => {
@@ -57,36 +58,56 @@ function FilePreview({ file, onClose }: FilePreviewProps) {
     if (!file) return;
 
     const loadExcel = async () => {
-      let data;
+      try {
+        let data: ArrayBuffer;
 
-      if (typeof file === "string") {
-        const base64 = file.includes(",") ? file.split(",")[1] : file;
-        const binary = atob(base64);
+        if (typeof file === "string") {
+          const base64 = file.includes(",") ? file.split(",")[1] : file;
+          const binary = atob(base64);
 
-        const bytes = new Uint8Array(binary.length);
-        for (let i = 0; i < binary.length; i++) {
-          bytes[i] = binary.charCodeAt(i);
+          const byte = new Uint8Array(binary.length);
+          for (let i = 0; i < binary.length; i++) {
+            byte[i] = binary.charCodeAt(i);
+          }
+
+          data = byte.buffer;
+        } else {
+          data = await file.arrayBuffer();
         }
 
-        data = bytes.buffer;
-      } else {
-        data = await file.arrayBuffer();
+        //  const workbook = XLSX.read(data, { type: "array" });
+        //   const sheetName = workbook.SheetNames[0];
+        //   const sheet = workbook.Sheets[sheetName];
+        //   const html = XLSX.utils.sheet_to_html(sheet);
+
+        const workbook = new ExcelJS.Workbook();
+        await workbook.xlsx.load(data);
+
+        const worksheet = workbook.worksheets[0];
+
+        let html = "<table>";
+
+        worksheet.eachRow((row) => {
+          html += "<tr>";
+
+          row.eachCell((cell) => {
+            html += `<td>${cell.value ?? ""}</td>`;
+          });
+
+          html += "</tr>";
+        });
+
+        html += "</table>";
+
+        setExcelHtml(html);
+      } catch {
+        toast.error(CONSTANT.ERROR.NOT_FOUND);
+        setExcelHtml("");
       }
-
-      const workbook = XLSX.read(data, { type: "array" });
-
-      const sheetName = workbook.SheetNames[0];
-      const sheet = workbook.Sheets[sheetName];
-
-      const html = XLSX.utils.sheet_to_html(sheet);
-
-      setExcelError("");
-      setExcelHtml(html);
     };
 
-    loadExcel().catch((e) => {
-      const msg = e instanceof Error ? e.message : "Excel preview failed";
-      setExcelError(msg);
+    loadExcel().catch(() => {
+      toast.error(CONSTANT.ERROR.PREVIEW_FAIL);
       setExcelHtml("");
     });
   }, [file, isExcel]);

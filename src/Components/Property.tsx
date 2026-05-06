@@ -80,7 +80,6 @@ export const Property: React.FC = () => {
               </div>
             </div>
 
-           
             <div className="flex justify-end">
               <CommonMultiSelect
                 options={getOptions(item)}

@@ -62,9 +62,25 @@
   text-align: left;
 }
 
-.excel-iframe {
+.excel-table-wrap {
   width: 100%;
   max-height: 500px;
+  overflow: auto;
   border: 1px solid #e5e7eb;
   border-radius: 8px;
+}
+
+.excel-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+}
+
+.excel-table td,
+.excel-table th {
+  border: 1px solid #ccc;
+  padding: 6px;
+  text-align: left;
+  white-space: nowrap;
 }
