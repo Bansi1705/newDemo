@@ -118,6 +118,7 @@ function Header({ search, setSearch, searchShow }: HeaderProps) {
 
       {showCofirm && (
         <Confirmation
+          type="Logout"
           confirm={handleConfirm}
           cancel={handleCancel}
           message="Do You Really Want To LogOut ??"

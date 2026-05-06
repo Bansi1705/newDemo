@@ -189,6 +189,7 @@ export const Form = () => {
               error={error.birthdate}
               onChange={(date) => setData({ ...data, birthdate: date })}
               selectedDate={data.birthdate}
+              placeholder="Select BirthDate"
             />
           </div>
           <div className="form-group mb-4">

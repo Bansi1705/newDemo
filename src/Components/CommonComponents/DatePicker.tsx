@@ -3,8 +3,10 @@ import DatePicker from "react-datepicker";
 type props = {
   error?: string;
   selectedDate: Date | null;
-  onChange: (date: Date | null) => void;
+  onChange?: (date: Date | null) => void;
   placeholder?: string;
+  startDate?: Date | null;
+  endDate?: Date | null;
 };
 
 export function ReactDatePicker({
@@ -12,11 +14,18 @@ export function ReactDatePicker({
   selectedDate,
   onChange,
   placeholder,
+  startDate,
+  endDate,
 }: props) {
   return (
     <div>
       <DatePicker
+        showIcon
+        toggleCalendarOnIconClick
         selected={selectedDate}
+        startDate={startDate}
+        endDate={endDate}
+        selectsRange
         onChange={onChange}
         dateFormat="dd/MM/yyyy"
         maxDate={new Date()}

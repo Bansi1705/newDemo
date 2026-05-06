@@ -5,7 +5,7 @@ type props = {
   confirm: () => void;
   cancel: () => void;
   message: string;
-  type: "delete" | "edit";
+  type: "delete" | "edit" | "Logout";
 };
 
 function Confirmation({ confirm, cancel, message, type }: props) {
@@ -23,17 +23,35 @@ function Confirmation({ confirm, cancel, message, type }: props) {
               </>
             ) : (
               <>
-                <Buttons
-                  label="Delete"
-                  onClick={confirm}
-                  className="yes-btn"
-                />
+                {type === "delete" ? (
+                  <>
+                    <Buttons
+                      label="Delete"
+                      onClick={confirm}
+                      className="yes-btn"
+                    />
 
-                <Buttons
-                  label="Cancel"
-                  onClick={cancel}
-                  className="no-btn"
-                />
+                    <Buttons
+                      label="Cancel"
+                      onClick={cancel}
+                      className="no-btn"
+                    />
+                  </>
+                ) : (
+                  <>
+                    <Buttons
+                      label="Logout"
+                      onClick={confirm}
+                      className="yes-btn"
+                    />
+
+                    <Buttons
+                      label="Cancel"
+                      onClick={cancel}
+                      className="no-btn"
+                    />
+                  </>
+                )}
               </>
             )}
           </div>

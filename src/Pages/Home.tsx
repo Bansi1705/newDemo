@@ -17,6 +17,9 @@ import CommonMultiSelect from "../Components/CommonComponents/MultipleDropDowm";
 import FilePreview from "../Components/CommonComponents/FilePreview";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
+import DatePickerBasic from "../Components/CommonComponents/DatePickerBasic";
+import { ReactDatePicker } from "../Components/CommonComponents/DatePicker";
+import CustomDateRangePicker from "../Components/CommonComponents/DatePickerBasic";
 
 export const Home = () => {
   const [users, setUsers] = useState<User[]>([]);
@@ -24,6 +27,13 @@ export const Home = () => {
   const [checkedDelete, setCheckedDelete] = useState<number[]>([]);
 
   const [selectedMonth, setSelectedMonth] = useState<string>("");
+  const [selectedDate, setSelectedDate] = useState<{
+    endDate: Date | undefined;
+    startDate: Date | undefined;
+  }>({
+    endDate: undefined,
+    startDate: undefined,
+  });
 
   const [search, setSearch] = useState<string>("");
   const [showConfirm, setShowConfirm] = useState<boolean>(false);
@@ -121,7 +131,7 @@ export const Home = () => {
   };
 
   const title = [
-    "Sr.No>",
+    "Sr.No",
     "Name",
     "Age",
     "BirthDate",
@@ -207,7 +217,6 @@ export const Home = () => {
   const handleCheckedDelete = () => {
     setShowConfirm(true);
   };
-  console.log(checkedDelete);
   return (
     <>
       <Header search={search} setSearch={setSearch} searchShow={true} />
@@ -252,6 +261,26 @@ export const Home = () => {
               className="px-3"
               onClick={handleCheckedDelete}
             />
+          </div>
+
+          <div className="date-picker-section">
+            {/* <DatePickerBasic selectDate={setSelectedDate} />
+
+            <div className="selected-date-display">
+              {selectedDate.startDate && selectedDate.endDate ? (
+                <p>
+                  Selected Range:
+                  <ReactDatePicker
+                    selectedDate={selectedDate.startDate}
+                    startDate={selectedDate.startDate}
+                    endDate={selectedDate.endDate}
+                  />
+                </p>
+              ) : (
+                <p>No date selected</p>
+              )}
+            </div> */}
+            <CustomDateRangePicker/>
           </div>
 
           <h2 className="main-title">Users List</h2>
