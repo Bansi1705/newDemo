@@ -23,7 +23,7 @@ interface StatusChangeData {
 const UserExpense = () => {
   const [expenses, setExpenses] = useState<ExpenseData[]>([]);
   const [form, setForm] = useState<ExpenseData>({
-    id: Date.now(),
+    id: new Date().getTime(),
     expenseTitle: "",
     description: "",
     category: "",
@@ -144,14 +144,14 @@ const UserExpense = () => {
     let savedExpense: ExpenseData;
     try {
       if (editExpense) {
-        const res:ApiResponse<ExpenseData> = await Apiservice.put(
+        const res: ApiResponse<ExpenseData> = await Apiservice.put(
           `/UserExpenses/${editExpense.id}`,
           payload,
         );
         savedExpense = res.data;
         toast.success(CONSTANT.SUCCESS.UPDATE);
       } else {
-        const res:ApiResponse<ExpenseData> = await Apiservice.post(
+        const res: ApiResponse<ExpenseData> = await Apiservice.post(
           "/UserExpenses",
           payload,
         );
@@ -488,7 +488,7 @@ const UserExpense = () => {
                         <select
                           value={exp.status}
                           onChange={(e) =>
-                            handleStatusChange(exp.id, e.target.value)
+                            handleStatusChange(exp.id??0, e.target.value)
                           }
                           className={`status-dropdown-${exp.status.toLowerCase()} `}
                         >
@@ -530,6 +530,7 @@ const UserExpense = () => {
 
             {showConfirm && (
               <Confirmation
+                type="delete"
                 confirm={confirmDelete}
                 cancel={() => setShowConfirm(false)}
                 message="Delete this expense?"
@@ -538,6 +539,7 @@ const UserExpense = () => {
 
             {statusChangeData?.showConfirm && (
               <Confirmation
+                type="edit"
                 confirm={confirmStatusChange}
                 cancel={() => setStatusChangeData(null)}
                 message={`Change status to "${statusChangeData.newStatus}"?`}

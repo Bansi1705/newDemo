@@ -103,7 +103,7 @@ function Header({ search, setSearch, searchShow }: HeaderProps) {
             <SearchBar
               searchTerm={search}
               searchPlaceholder="Search...."
-              searchOnChange={(e) => setSearch(e.target.value)}
+              searchOnChange={(e) => setSearch && setSearch(e.target.value)}
               searchClssName="text-sm focus:outline-none border-none bg-transparent"
             />
           </div>

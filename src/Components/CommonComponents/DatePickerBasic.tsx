@@ -5,6 +5,7 @@ import { SlCalender } from "react-icons/sl";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 import "../../Styles/DatePickerBasic.css";
+import { format } from "date-fns";
 
 export default function CustomDateRangePicker() {
   const [open, setOpen] = useState(false);
@@ -34,8 +35,8 @@ export default function CustomDateRangePicker() {
     setOpen(false);
   };
 
-  const format = (date?: Date) =>
-    date ? new Date(date).toLocaleDateString("en-GB") : "";
+  const startDate : Date  = range[0]?.startDate || new Date();
+  const endDate : Date = range[0]?.endDate || new Date();
 
   return (
     <div className="date-range-picker">
@@ -43,7 +44,7 @@ export default function CustomDateRangePicker() {
         <input
           readOnly
           onClick={handleOpen}
-          value={`${format(range[0].startDate)} - ${format(range[0].endDate)}`}
+          value={`${format(startDate, "dd/MM/yyyy")} - ${format(endDate, "dd/MM/yyyy")}`}
           placeholder="Select date range"
           className="date-range-picker__input"
         />

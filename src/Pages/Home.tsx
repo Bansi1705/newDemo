@@ -18,6 +18,7 @@ import FilePreview from "../Components/CommonComponents/FilePreview";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import CustomDateRangePicker from "../Components/CommonComponents/DatePickerBasic";
+import WeekPicker from "../WeekPicker";
 
 export const Home = () => {
   const [users, setUsers] = useState<User[]>([]);
@@ -97,7 +98,7 @@ export const Home = () => {
         checkedDelete.map(async (id) => {
           await Apiservice.delete<ApiResponse<User[]>>(`/users/${id}`);
           setUsers((prev) =>
-            prev.filter((user) => !checkedDelete.includes(user.id)),
+            prev.filter((user) => !checkedDelete.includes(user.id??0)),
           );
         });
         setCheckedDelete([]);
@@ -199,9 +200,9 @@ export const Home = () => {
     setShowPreviewImage(null);
   };
 
-  const handleCheckBoxDeleteChange = (id: number) => {
+  const handleCheckBoxDeleteChange = (id: number | undefined) => {
     setCheckedDelete((prev) =>
-      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id],
+      prev.includes(id??0) ? prev.filter((item) => item !== id) : [...prev, id??0],
     );
   };
 
@@ -255,24 +256,10 @@ export const Home = () => {
           </div>
 
           <div className="date-picker-section">
+            <CustomDateRangePicker />
 
-            <CustomDateRangePicker/>
-            {/* <DatePickerBasic selectDate={setSelectedDate} />
-
-            <div className="selected-date-display">
-              {selectedDate.startDate && selectedDate.endDate ? (
-                <p>
-                  Selected Range:
-                  <ReactDatePicker
-                    selectedDate={selectedDate.startDate}
-                    startDate={selectedDate.startDate}
-                    endDate={selectedDate.endDate}
-                  />
-                </p>
-              ) : (
-                <p>No date selected</p>
-              )}
-            </div> */}
+            <WeekPicker/>
+           
           </div>
 
           <h2 className="main-title">Users List</h2>
@@ -294,8 +281,8 @@ export const Home = () => {
                       <FormControlLabel
                         control={
                           <Checkbox
-                            onChange={() => handleCheckBoxDeleteChange(user.id)}
-                            checked={checkedDelete.includes(user.id)}
+                            onChange={() => handleCheckBoxDeleteChange(user.id??0)}
+                            checked={checkedDelete.includes(user.id??0)}
                           />
                         }
                         label=""
