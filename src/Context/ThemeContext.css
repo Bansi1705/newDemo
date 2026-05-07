@@ -222,101 +222,112 @@
   color: #f8fafc;
 }
 
-[data-theme="dark"] .rdrInputRanges {
+[data-theme="dark"] .date-range-picker__input {
   border-color: #475569;
-  background-color: #1e293b;
-  box-shadow: 0 8px 24px rgba(2, 6, 23, 0.35);
+  background: #334155;
   color: #f8fafc;
+  box-shadow: 0 1px 2px rgba(2, 6, 23, 0.35);
 }
 
-[data-theme="dark"] .rdrStaticRanges button {
-  background-color: #1e293b;
-  color: #f8fafc;
-}
-
-[data-theme="dark"] .rdrStaticRanges button:hover {
-  background-color: #334155;
-  color: #929699;
-}
-
-[data-theme="dark"] .rdrCalendarWrapper {
-  border-color: #475569;
-  background-color: #1e293b;
-  box-shadow: 0 8px 24px rgba(2, 6, 23, 0.35);
-  color: #f8fafc;
-}
-
-[data-theme="dark"] .rdrDateDisplayWrapper,
-[data-theme="dark"] .rdrDefinedRangesWrapper {
-  background-color: #0f172a;
-}
-
-[data-theme="dark"] .rdrDateDisplayItem {
-  border-color: #475569;
-  background-color: #334155;
-}
-
-[data-theme="dark"] .rdrDateDisplayItem input {
-  color: #f8fafc;
-}
-
-[data-theme="dark"] .rdrDateDisplayItemActive {
-  border-color: #60a5fa;
-}
-
-[data-theme="dark"] .rdrMonthAndYearWrapper {
-  background-color: #1e293b;
-}
-
-[data-theme="dark"] .rdrMonthAndYearPickers select {
-  color: #f8fafc;
-  background-color: #334155;
-}
-
-[data-theme="dark"] .rdrNextPrevButton {
-  background-color: #334155;
-  color: #f8fafc;
-}
-
-[data-theme="dark"] .rdrInputRangeInput {
-  background-color: #334155;
-  color: #f8fafc;
-}
-
-[data-theme="dark"] .rdrNextPrevButton:hover {
-  background-color: #475569;
-}
-
-[data-theme="dark"] .rdrWeekDay {
+[data-theme="dark"] .date-range-picker__input::placeholder {
   color: #cbd5e1;
 }
 
-[data-theme="dark"] .rdrDays .rdrDay {
-  background-color: #1e293b;
+[data-theme="dark"] .date-range-picker__icon {
+  color: #60a5fa;
+}
+
+[data-theme="dark"] .date-range-picker__popover {
+  border-color: #475569;
+  background: #1e293b;
+  box-shadow: 0 18px 45px rgba(2, 6, 23, 0.45);
+}
+
+[data-theme="dark"] .date-range-picker__popover .rdrDateRangePickerWrapper,
+[data-theme="dark"] .date-range-picker__popover .rdrCalendarWrapper,
+[data-theme="dark"] .date-range-picker__popover .rdrMonth {
+  background: #1e293b;
   color: #f8fafc;
 }
 
-[data-theme="dark"] .rdrDayNumber span {
+[data-theme="dark"] .date-range-picker__popover .rdrDefinedRangesWrapper {
+  border-right-color: #475569;
+  background: #0f172a;
+}
+
+[data-theme="dark"] .date-range-picker__popover .rdrStaticRange,
+[data-theme="dark"] .date-range-picker__popover .rdrInputRange {
+  border-color: #475569;
+  background: #0f172a;
   color: #f8fafc;
 }
 
-[data-theme="dark"] .rdrDayPassive .rdrDayNumber span {
+[data-theme="dark"] .date-range-picker__popover .rdrStaticRange:hover,
+[data-theme="dark"] .date-range-picker__popover .rdrStaticRange:focus {
+  background: #334155;
+}
+
+[data-theme="dark"] .date-range-picker__popover .rdrStaticRangeLabel {
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .date-range-picker__popover .rdrDateDisplayWrapper  {
+  background: #0f172a;
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .date-range-picker__popover .rdrMonthAndYearPickers select {
+  background-color: #334155;
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .date-range-picker__popover .rdrNextPrevButton {
+  background: #334155;
+}
+
+[data-theme="dark"] .date-range-picker__popover .rdrMonthName,
+[data-theme="dark"] .date-range-picker__popover .rdrWeekDay {
+  color: #cbd5e1;
+}
+
+[data-theme="dark"] .date-range-picker__popover .rdrDayNumber span {
+  color: #f8fafc;
+}
+
+[data-theme="dark"]
+  .date-range-picker__popover
+  .rdrDayPassive
+  .rdrDayNumber
+  span {
   color: #64748b;
 }
 
-[data-theme="dark"] .rdrDayToday .rdrDayNumber span::after {
-  background-color: #60a5fa;
+[data-theme="dark"]
+  .date-range-picker__popover
+  .rdrDayToday
+  .rdrDayNumber
+  span::after {
+  background: #60a5fa;
 }
 
-[data-theme="dark"] .rdrSelected,
-[data-theme="dark"] .rdrInRange,
-[data-theme="dark"] .rdrStartEdge,
-[data-theme="dark"] .rdrEndEdge {
-  background-color: #2563eb;
+[data-theme="dark"] .date-range-picker__popover .rdrStartEdge,
+[data-theme="dark"] .date-range-picker__popover .rdrEndEdge,
+[data-theme="dark"] .date-range-picker__popover .rdrInRange {
+  color: #3b82f6;
 }
 
-[data-theme="dark"] .rdrDayStartPreview,
-[data-theme="dark"] .rdrDayInPreview,
-[data-theme="dark"] .rdrDayEndPreview {
-  border-color: #60a5fa;
+[data-theme="dark"] .date-range-picker__actions {
+  border-top-color: #475569;
+  background: #0f172a;
+}
+
+[data-theme="dark"] .date-range-picker__button--secondary {
+  border-color: #475569;
+  background: #334155;
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .date-range-picker__button--secondary:hover {
+  border-color: #64748b;
+  background: #475569;
 }
