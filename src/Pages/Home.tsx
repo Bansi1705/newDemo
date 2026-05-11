@@ -210,6 +210,8 @@ export const Home = () => {
   const handleCheckedDelete = () => {
     setShowConfirm(true);
   };
+
+  console.log("hello");
   return (
     <>
       <Header search={search} setSearch={setSearch} searchShow={true} />
