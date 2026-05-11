@@ -211,7 +211,8 @@ export const Home = () => {
     setShowConfirm(true);
   };
 
-  console.log("hello");
+  const name = "bansi";
+  console.log(name);
   return (
     <>
       <Header search={search} setSearch={setSearch} searchShow={true} />
