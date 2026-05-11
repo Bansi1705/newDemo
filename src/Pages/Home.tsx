@@ -214,7 +214,7 @@ export const Home = () => {
   console.log("hello")
 
   console.log("testing branch");
-  console.log("merge test");
+  console.log("merge testing");
   return (
     <>
       <Header search={search} setSearch={setSearch} searchShow={true} />
