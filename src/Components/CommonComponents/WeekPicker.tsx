@@ -31,6 +31,8 @@ export default function WeekPicker({
     0,
   ).getDate();
 
+  console.log("WeekPicker");
+
   const weeks = eachWeekOfInterval({
     start: new Date(startYear || lastYear, startMonth ?? 0, 1),
     end: new Date(endYear || nextYear, endMonth ?? 11 + 1, totalLastMonthDays),
