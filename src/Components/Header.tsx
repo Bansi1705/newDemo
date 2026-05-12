@@ -40,7 +40,7 @@ function Header({ search, setSearch, searchShow }: HeaderProps) {
       <div className="text-2xl font-bold">
         <h1>UserDetail</h1>
       </div>
-      <div className="navbar-links flex items-center justify-between gap-3 flex-nowrap">
+      <div className="navbar-links flex items-center justify-between gap-1 flex-nowrap">
         <NavLink
           to="/"
           className="nav-item text-white font-medium hover:text-gray-300 px-3 py-2 ml-2 whitespace-nowrap"
@@ -56,17 +56,17 @@ function Header({ search, setSearch, searchShow }: HeaderProps) {
         </NavLink>
 
         <NavLink
-          to="/data"
-          className="nav-item text-white font-medium hover:text-gray-300 px-3 py-2 ml-2 whitespace-nowrap"
-        >
-          Data
-        </NavLink>
-
-        <NavLink
           to="/userExpense"
           className="nav-item text-white font-medium hover:text-gray-300 px-3 py-2 ml-2 whitespace-nowrap"
         >
           Add Expense
+        </NavLink>
+
+         <NavLink
+          to="/data"
+          className="nav-item text-white font-medium hover:text-gray-300 px-3 py-2 ml-2 whitespace-nowrap"
+        >
+          Data
         </NavLink>
 
         <NavLink
@@ -86,6 +86,13 @@ function Header({ search, setSearch, searchShow }: HeaderProps) {
           className="nav-item text-white font-medium hover:text-gray-300 px-3 py-2 ml-2 whitespace-nowrap"
         >
           Property
+        </NavLink>
+
+         <NavLink
+          to="/chartData"
+          className="nav-item text-white font-medium hover:text-gray-300 px-3 py-2 ml-2 whitespace-nowrap"
+        >
+          Chart
         </NavLink>
 
         <Buttons

@@ -449,3 +449,41 @@
   color: #0f172a;
   stroke: #475569;
 }
+
+[data-theme="dark"] .chart-page {
+  background: #0f172a;
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .chart-card {
+  border-color: #334155;
+  background: #1e293b;
+  box-shadow: 0 14px 34px rgba(2, 6, 23, 0.36);
+}
+
+[data-theme="dark"] .chart-card .apexcharts-title-text {
+  fill: #f8fafc;
+}
+
+[data-theme="dark"] .chart-card .apexcharts-text,
+[data-theme="dark"] .chart-card .apexcharts-legend-text {
+  color: #cbd5e1 !important;
+  fill: #cbd5e1;
+}
+
+[data-theme="dark"] .chart-card .apexcharts-gridline {
+  stroke: #334155;
+}
+
+[data-theme="dark"] .chart-card .apexcharts-tooltip,
+[data-theme="dark"] .chart-card .apexcharts-xaxistooltip,
+[data-theme="dark"] .chart-card .apexcharts-yaxistooltip,
+[data-theme="dark"] .chart-card .apexcharts-menu {
+  border-color: #475569;
+  background: #0f172a;
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .chart-card .apexcharts-menu-item:hover {
+  background: #334155;
+}
