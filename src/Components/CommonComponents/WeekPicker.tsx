@@ -31,7 +31,7 @@ export default function WeekPicker({
     0,
   ).getDate();
 
-  const name="jyot";
+  const name="bansi";
   console.log(name);
 
   const weeks = eachWeekOfInterval({
