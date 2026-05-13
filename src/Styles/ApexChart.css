@@ -1,0 +1,56 @@
+.chart-page {
+  min-height: 100vh;
+  background: #f5f7fa;
+  color: #1f2937;
+  font-family: Arial, sans-serif;
+}
+
+.chart-content {
+  width: min(1120px, calc(100% - 40px));
+  margin: 0 auto;
+  padding: 32px 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  align-items: stretch;
+}
+
+.chart-card {
+  min-width: 0;
+  padding: 24px;
+  border: 1px solid #dbe7f3;
+  border-radius: 10px;
+  background: #ffffff;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+  overflow: hidden;
+}
+
+.chart-card .apexcharts-canvas {
+  margin: 0 auto;
+  max-width: 100%;
+}
+
+.chart-card .apexcharts-title-text {
+  fill: #1f2937;
+  font-weight: 700;
+}
+
+.chart-card .apexcharts-text,
+.chart-card .apexcharts-legend-text {
+  color: #475569 !important;
+  fill: #475569;
+}
+
+.chart-card .apexcharts-gridline {
+  stroke: #e5edf5;
+}
+
+.chart-card .apexcharts-menu {
+  border-color: #dbe7f3;
+  background: #ffffff;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.12);
+}
+
+.chart-card .apexcharts-menu-item:hover {
+  background: #eef4fb;
+}
