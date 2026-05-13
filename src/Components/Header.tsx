@@ -40,7 +40,7 @@ function Header({ search, setSearch, searchShow }: HeaderProps) {
       <div className="text-2xl font-bold">
         <h1>UserDetail</h1>
       </div>
-      <div className="navbar-links flex items-center justify-between gap-1 flex-nowrap">
+      <div className="navbar-links flex items-center justify-between gap-1 flex-nowrap text-sm">
         <NavLink
           to="/"
           className="nav-item text-white font-medium hover:text-gray-300 px-3 py-2 ml-2 whitespace-nowrap"

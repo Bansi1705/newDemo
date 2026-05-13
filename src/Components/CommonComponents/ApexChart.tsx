@@ -1,18 +1,42 @@
 import { useEffect, useState } from "react";
 import Header from "../Header";
 import { Apiservice } from "../../Services/ApiService";
-import type { ApiResponse, User } from "../../Interface/types";
+import type { ApiResponse } from "../../Interface/types";
 import ReactApexChart from "react-apexcharts";
 import type { ApexOptions } from "apexcharts";
 import "../../Styles/ApexChart.css";
+interface DistributionAnalysis {
+  propertyName: string;
+  punchIns: number;
+  punchOuts: number;
+  total: number;
+  propertyId: number;
+}
+
+interface chartDataInterface {
+  distributionAnalysis: DistributionAnalysis[];
+  occupancyStatistics: {
+    checkInPercentage: number;
+    checkOutPercentage: number;
+    total: number;
+  };
+}
 
 export const ApexChart: React.FC = () => {
-  const [chartData, setChartData] = useState<User[]>([]);
+  const [chartData, setChartData] = useState<chartDataInterface>({
+    distributionAnalysis: [],
+    occupancyStatistics: {
+      checkInPercentage: 0,
+      checkOutPercentage: 0,
+      total: 0,
+    },
+  });
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res: ApiResponse<User[]> = await Apiservice.get("/users");
+        const res: ApiResponse<chartDataInterface> =
+          await Apiservice.get("/chartData");
         setChartData(res.data);
       } catch (error) {
         console.error("Error fetching chart data:", error);
@@ -22,12 +46,24 @@ export const ApexChart: React.FC = () => {
     fetchData();
   }, []);
 
-  const pieChartSeries = chartData.map((item) => item.age);
+  const filteredDistributionData = chartData.distributionAnalysis.filter(
+    (data) => data.total > 0,
+  );
+  const pieChartSeries =
+    chartData.occupancyStatistics.total > 0
+      ? [
+          chartData.occupancyStatistics.checkInPercentage,
+          chartData.occupancyStatistics.checkOutPercentage,
+        ]
+      : [0, 0];
   const pieChartOptions = {
-    labels: chartData.map((item) => item.name),
+    labels:
+      chartData.occupancyStatistics.total > 0
+        ? ["Check Ins", "Check Outs"]
+        : ["No Data"],
 
     title: {
-      text: "Users Age Pie Chart",
+      text: "Occupancy Statistics Overview",
       align: "center",
     },
 
@@ -38,42 +74,44 @@ export const ApexChart: React.FC = () => {
 
   const barChartseries = [
     {
-      name: "Age",
-      data: chartData.map((item) => item.age),
+      name: "Total",
+      data: filteredDistributionData.map((data) => data.total),
+    },
+    {
+      name: "Punch Ins",
+      data: filteredDistributionData.map((data) => data.punchIns),
+    },
+    {
+      name: "Punch Outs",
+      data: filteredDistributionData.map((data) => data.punchOuts),
     },
   ];
 
   const barChartOptions = {
     chart: {
-      height: 350,
       type: "bar",
+      toolbar: {
+        show: false,
+      },
     },
 
     tooltip: {
-      enabled: false,
-    },
-
-    plotOptions: {
-      bar: {
-        borderRadius: 10,
-        dataLabels: {
-          position: "top",
-        },
-      },
+      enabled: true,
     },
 
     dataLabels: {
-      enabled: true,
-      offsetY: -20,
-      style: {
-        fontSize: "12px",
-        colors: ["#304758"],
-      },
+      enabled: false,
     },
 
     xaxis: {
-      categories: chartData.map((item) => item.name),
-      position: "buttom",
+      categories: filteredDistributionData.map((data) => data.propertyName),
+      labels: {
+        rotate: -40,
+        hideOverlappingLabels: true,
+        style: {
+          fontSize: "7px",
+        },
+      },
     },
 
     yaxis: {
@@ -83,7 +121,55 @@ export const ApexChart: React.FC = () => {
     },
 
     title: {
-      text: "Users Age Chart",
+      text: "Punch In and Punch Out Distribution by Property",
+      align: "center",
+    },
+  } as ApexOptions;
+
+  const lineChartseries = [
+    {
+      name: "Total Employee Activity",
+      data: filteredDistributionData.map((data) => data.total),
+    },
+  ];
+
+  const lineChartOptions = {
+    chart: {
+      type: "line",
+      toolbar: {
+        show: false,
+      },
+    },
+
+    tooltip: {
+      enabled: true,
+    },
+
+    dataLabels: {
+      enabled: false,
+    },
+
+    xaxis: {
+      categories: filteredDistributionData.map((data) => data.propertyName),
+      labels: {
+        rotate: -40,
+        trim: true,
+        hideOverlappingLabels: true,
+        style: {
+          fontSize: "7px",
+        },
+      },
+      position: "bottom",
+    },
+
+    yaxis: {
+      labels: {
+        show: true,
+      },
+    },
+
+    title: {
+      text: "Property-wise Total Activity Overview",
       align: "center",
     },
   } as ApexOptions;
@@ -92,12 +178,22 @@ export const ApexChart: React.FC = () => {
     <div className="chart-page">
       <Header />
 
+      <section className="barChart-card">
+        <ReactApexChart
+          type="bar"
+          series={barChartseries}
+          options={barChartOptions}
+          width="100%"
+          height={400}
+        />
+      </section>
+
       <main className="chart-content">
         <section className="chart-card">
           <ReactApexChart
-            type="bar"
-            series={barChartseries}
-            options={barChartOptions}
+            type="line"
+            series={lineChartseries}
+            options={lineChartOptions}
             width={500}
             height={320}
           />

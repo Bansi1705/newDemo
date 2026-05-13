@@ -283,7 +283,7 @@
   color: #f8fafc;
 }
 
-[data-theme="dark"] .date-range-picker__popover .rdrDateDisplayWrapper  {
+[data-theme="dark"] .date-range-picker__popover .rdrDateDisplayWrapper {
   background: #0f172a;
   color: #f8fafc;
 }
@@ -455,35 +455,51 @@
   color: #f8fafc;
 }
 
-[data-theme="dark"] .chart-card {
+[data-theme="dark"] .chart-card,
+[data-theme="dark"] .barChart-card {
   border-color: #334155;
   background: #1e293b;
   box-shadow: 0 14px 34px rgba(2, 6, 23, 0.36);
 }
 
-[data-theme="dark"] .chart-card .apexcharts-title-text {
+[data-theme="dark"] .chart-card .apexcharts-title-text,
+[data-theme="dark"] .barChart-card .apexcharts-title-text {
   fill: #f8fafc;
 }
 
 [data-theme="dark"] .chart-card .apexcharts-text,
-[data-theme="dark"] .chart-card .apexcharts-legend-text {
+[data-theme="dark"] .chart-card .apexcharts-legend-text,
+[data-theme="dark"] .barChart-card .apexcharts-text,
+[data-theme="dark"] .barChart-card .apexcharts-legend-text {
   color: #cbd5e1 !important;
   fill: #cbd5e1;
 }
 
-[data-theme="dark"] .chart-card .apexcharts-gridline {
+[data-theme="dark"] .chart-card .apexcharts-gridline,
+[data-theme="dark"] .barChart-card .apexcharts-gridline {
   stroke: #334155;
 }
 
 [data-theme="dark"] .chart-card .apexcharts-tooltip,
 [data-theme="dark"] .chart-card .apexcharts-xaxistooltip,
 [data-theme="dark"] .chart-card .apexcharts-yaxistooltip,
-[data-theme="dark"] .chart-card .apexcharts-menu {
+[data-theme="dark"] .chart-card .apexcharts-menu,
+[data-theme="dark"] .barChart-card .apexcharts-tooltip,
+[data-theme="dark"] .barChart-card .apexcharts-xaxistooltip,
+[data-theme="dark"] .barChart-card .apexcharts-yaxistooltip,
+[data-theme="dark"] .barChart-card .apexcharts-menu {
   border-color: #475569;
   background: #0f172a;
   color: #f8fafc;
 }
 
-[data-theme="dark"] .chart-card .apexcharts-menu-item:hover {
+[data-theme="dark"] .chart-card .apexcharts-menu-item:hover,
+[data-theme="dark"] .barChart-card .apexcharts-menu-item:hover {
   background: #334155;
+}
+
+[data-theme="dark"] .chart-card .apexcharts-tooltip .apexcharts-tooltip-title,
+[data-theme="dark"] .barChart-card .apexcharts-tooltip .apexcharts-tooltip-title {
+  color: #f8fafc;
+  background-color: #0f172a;
 }

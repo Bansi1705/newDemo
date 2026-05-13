@@ -11266,5 +11266,260 @@
       ]
     }
   ],
+   "chartData": {
+        "overview": {
+            "total": 20048,
+            "punchIns": 20048,
+            "punchOuts": 20048,
+            "times": 20048
+        },
+        "distributionAnalysis": [
+            {
+                "propertyId": 1,
+                "propertyName": "Spanish Fort Courtyard by Marriott",
+                "lastMissingPunchImportDate": "2025-04-07T07:07:35.223Z",
+                "punchIns": 1606,
+                "punchOuts": 1606,
+                "times": 1606,
+                "total": 3212
+            },
+            {
+                "propertyId": 2,
+                "propertyName": "Spanish Fort Fairfield Inn and Suites",
+                "lastMissingPunchImportDate": "2025-04-07T07:07:35.223Z",
+                "punchIns": 786,
+                "punchOuts": 786,
+                "times": 786,
+                "total": 1572
+            },
+            {
+                "propertyId": 3,
+                "propertyName": "D'iberville Courtyard",
+                "lastMissingPunchImportDate": "2025-08-05T10:16:23.695Z",
+                "punchIns": 827,
+                "punchOuts": 827,
+                "times": 827,
+                "total": 1654
+            },
+            {
+                "propertyId": 6,
+                "propertyName": "Double Tree Harrisonburg",
+                "lastMissingPunchImportDate": "2025-04-07T07:07:35.223Z",
+                "punchIns": 897,
+                "punchOuts": 897,
+                "times": 897,
+                "total": 1794
+            },
+            {
+                "propertyId": 7,
+                "propertyName": "Embassy Suites Indianapolis North",
+                "lastMissingPunchImportDate": "2025-04-07T07:07:35.223Z",
+                "punchIns": 1669,
+                "punchOuts": 1669,
+                "times": 1669,
+                "total": 3338
+            },
+            {
+                "propertyId": 8,
+                "propertyName": "Embassy suites Overland park",
+                "lastMissingPunchImportDate": "2025-04-07T07:07:35.223Z",
+                "punchIns": 827,
+                "punchOuts": 827,
+                "times": 827,
+                "total": 1654
+            },
+            {
+                "propertyId": 9,
+                "propertyName": "DoubleTree Westminster",
+                "lastMissingPunchImportDate": "2025-04-07T07:07:35.223Z",
+                "punchIns": 1814,
+                "punchOuts": 1814,
+                "times": 1814,
+                "total": 3628
+            },
+            {
+                "propertyId": 10,
+                "propertyName": "Pensacola-Home 2 Suites",
+                "lastMissingPunchImportDate": "2025-04-01T17:06:49.611Z",
+                "punchIns": 481,
+                "punchOuts": 481,
+                "times": 481,
+                "total": 962
+            },
+            {
+                "propertyId": 11,
+                "propertyName": "Battery Hotel Group, LLC",
+                "lastMissingPunchImportDate": "2025-04-01T17:06:49.611Z",
+                "punchIns": 824,
+                "punchOuts": 824,
+                "times": 824,
+                "total": 1648
+            },
+            {
+                "propertyId": 12,
+                "propertyName": "Savannah Fairfield Inn & Suites ",
+                "lastMissingPunchImportDate": "2025-04-07T07:07:35.223Z",
+                "punchIns": 2015,
+                "punchOuts": 2015,
+                "times": 2015,
+                "total": 4030
+            },
+            {
+                "propertyId": 13,
+                "propertyName": "Arosh,LP-Four Points by Sheraton DFW Airport North",
+                "lastMissingPunchImportDate": "2025-04-07T07:07:35.223Z",
+                "punchIns": 2087,
+                "punchOuts": 2087,
+                "times": 2087,
+                "total": 4174
+            },
+            {
+                "propertyId": 14,
+                "propertyName": "McAllen Residence Inn by Marriott",
+                "lastMissingPunchImportDate": "2025-04-07T07:07:35.223Z",
+                "punchIns": 260,
+                "punchOuts": 260,
+                "times": 260,
+                "total": 520
+            },
+            {
+                "propertyId": 15,
+                "propertyName": "Atlanta Doubletree by Hilton",
+                "lastMissingPunchImportDate": "2025-04-07T07:07:35.223Z",
+                "punchIns": 2310,
+                "punchOuts": 2310,
+                "times": 2310,
+                "total": 4620
+            },
+            {
+                "propertyId": 16,
+                "propertyName": "Hampton Inn Boston Braintree",
+                "lastMissingPunchImportDate": "2025-04-01T17:06:49.611Z",
+                "punchIns": 1428,
+                "punchOuts": 1428,
+                "times": 1428,
+                "total": 2856
+            },
+            {
+                "propertyId": 43,
+                "propertyName": "Encore Hospitality",
+                "lastMissingPunchImportDate": null,
+                "punchIns": 0,
+                "punchOuts": 0,
+                "times": 0,
+                "total": 0
+            },
+            {
+                "propertyId": 115,
+                "propertyName": "EH PACIFIC OAK SOR II Q&C Operations",
+                "lastMissingPunchImportDate": "2025-04-07T07:07:35.223Z",
+                "punchIns": 2217,
+                "punchOuts": 2217,
+                "times": 2217,
+                "total": 4434
+            },
+            {
+                "propertyId": 116,
+                "propertyName": "EH PACIFIC OAK SOR II Q&C Property",
+                "lastMissingPunchImportDate": null,
+                "punchIns": 0,
+                "punchOuts": 0,
+                "times": 0,
+                "total": 0
+            }
+        ],
+        "occupancyStatistics": {
+            "checkInPercentage": 100,
+            "checkOutPercentage": 100,
+            "total": 100
+        },
+        "propertyMap": {
+            "1": {
+                "id": 1,
+                "propertyName": "Spanish Fort Courtyard by Marriott",
+                "lastMissingPunchImportDate": "2025-04-07T07:07:35.223Z"
+            },
+            "2": {
+                "id": 2,
+                "propertyName": "Spanish Fort Fairfield Inn and Suites",
+                "lastMissingPunchImportDate": "2025-04-07T07:07:35.223Z"
+            },
+            "3": {
+                "id": 3,
+                "propertyName": "D'iberville Courtyard",
+                "lastMissingPunchImportDate": "2025-08-05T10:16:23.695Z"
+            },
+            "6": {
+                "id": 6,
+                "propertyName": "Double Tree Harrisonburg",
+                "lastMissingPunchImportDate": "2025-04-07T07:07:35.223Z"
+            },
+            "7": {
+                "id": 7,
+                "propertyName": "Embassy Suites Indianapolis North",
+                "lastMissingPunchImportDate": "2025-04-07T07:07:35.223Z"
+            },
+            "8": {
+                "id": 8,
+                "propertyName": "Embassy suites Overland park",
+                "lastMissingPunchImportDate": "2025-04-07T07:07:35.223Z"
+            },
+            "9": {
+                "id": 9,
+                "propertyName": "DoubleTree Westminster",
+                "lastMissingPunchImportDate": "2025-04-07T07:07:35.223Z"
+            },
+            "10": {
+                "id": 10,
+                "propertyName": "Pensacola-Home 2 Suites",
+                "lastMissingPunchImportDate": "2025-04-01T17:06:49.611Z"
+            },
+            "11": {
+                "id": 11,
+                "propertyName": "Battery Hotel Group, LLC",
+                "lastMissingPunchImportDate": "2025-04-01T17:06:49.611Z"
+            },
+            "12": {
+                "id": 12,
+                "propertyName": "Savannah Fairfield Inn & Suites ",
+                "lastMissingPunchImportDate": "2025-04-07T07:07:35.223Z"
+            },
+            "13": {
+                "id": 13,
+                "propertyName": "Arosh,LP-Four Points by Sheraton DFW Airport North",
+                "lastMissingPunchImportDate": "2025-04-07T07:07:35.223Z"
+            },
+            "14": {
+                "id": 14,
+                "propertyName": "McAllen Residence Inn by Marriott",
+                "lastMissingPunchImportDate": "2025-04-07T07:07:35.223Z"
+            },
+            "15": {
+                "id": 15,
+                "propertyName": "Atlanta Doubletree by Hilton",
+                "lastMissingPunchImportDate": "2025-04-07T07:07:35.223Z"
+            },
+            "16": {
+                "id": 16,
+                "propertyName": "Hampton Inn Boston Braintree",
+                "lastMissingPunchImportDate": "2025-04-01T17:06:49.611Z"
+            },
+            "43": {
+                "id": 43,
+                "propertyName": "Encore Hospitality",
+                "lastMissingPunchImportDate": null
+            },
+            "115": {
+                "id": 115,
+                "propertyName": "EH PACIFIC OAK SOR II Q&C Operations",
+                "lastMissingPunchImportDate": "2025-04-07T07:07:35.223Z"
+            },
+            "116": {
+                "id": 116,
+                "propertyName": "EH PACIFIC OAK SOR II Q&C Property",
+                "lastMissingPunchImportDate": null
+            }
+        }
+    },
   "$schema": "./node_modules/json-server/schema.json"
 }
