@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
-import Header from "../Header";
-import { Apiservice } from "../../Services/ApiService";
-import type { ApiResponse } from "../../Interface/types";
+import Header from "../Components/Header";
+import { Apiservice } from "../Services/ApiService";
+import type { ApiResponse } from "../Interface/types";
 import ReactApexChart from "react-apexcharts";
 import type { ApexOptions } from "apexcharts";
-import "../../Styles/ApexChart.css";
+import "../Styles/ApexChart.css";
+import { PropertyChart } from "./PropertyChart";
+import CommonChart from "../Components/CommonComponents/Chart";
 interface DistributionAnalysis {
   propertyName: string;
   punchIns: number;
@@ -177,37 +179,32 @@ export const ApexChart: React.FC = () => {
   return (
     <div className="chart-page">
       <Header />
-
       <section className="barChart-card">
-        <ReactApexChart
+        <CommonChart
           type="bar"
           series={barChartseries}
           options={barChartOptions}
-          width="100%"
-          height={400}
         />
       </section>
 
       <main className="chart-content">
         <section className="chart-card">
-          <ReactApexChart
+          <CommonChart
             type="line"
             series={lineChartseries}
             options={lineChartOptions}
-            width={500}
-            height={320}
           />
         </section>
 
         <section className="chart-card">
-          <ReactApexChart
+          <CommonChart
             type="pie"
             series={pieChartSeries}
             options={pieChartOptions}
-            width={500}
-            height={320}
           />
         </section>
+
+        <PropertyChart />
       </main>
     </div>
   );

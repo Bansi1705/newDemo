@@ -11521,5 +11521,3136 @@
             }
         }
     },
+      "NextData": {
+        "propertyStatistics": [
+            {
+                "id": 1,
+                "companyCode": "319",
+                "companyName": "Encore SF North, LLC",
+                "propertyName": "Spanish Fort Courtyard by Marriott",
+                "franchiseType": "MARRIOTT",
+                "pmForms": [
+                    {
+                        "formId": 1,
+                        "formName": "Quarterly Fire Drill",
+                        "formType": "QUARTERLY",
+                        "pmForms": [
+                            {
+                                "id": 1085,
+                                "propertyId": 1,
+                                "formId": 1,
+                                "quarter": 2,
+                                "year": 2026,
+                                "associateUser": [],
+                                "date": "2026-05-07",
+                                "note": "",
+                                "rejectionReason": "test",
+                                "fileName": null,
+                                "createdBy": 283,
+                                "modifiedBy": null,
+                                "createdAt": "2026-05-07T13:49:29.393Z",
+                                "updatedAt": "2026-05-07T13:59:24.087Z",
+                                "softDelete": false,
+                                "computedStatus": "REJECTED",
+                                "pmFormApprovalWorkflow": [
+                                    {
+                                        "id": 2644,
+                                        "referenceId": 1085,
+                                        "formId": 1,
+                                        "approvalUserIds": [
+                                            310,
+                                            283
+                                        ],
+                                        "status": "PENDING",
+                                        "stepOrder": 17,
+                                        "approvedDate": null,
+                                        "modifiedByUserId": null,
+                                        "softDelete": false,
+                                        "createdAt": "2026-05-07T13:49:29.397Z",
+                                        "updatedAt": "2026-05-07T13:49:29.397Z"
+                                    },
+                                    {
+                                        "id": 2643,
+                                        "referenceId": 1085,
+                                        "formId": 1,
+                                        "approvalUserIds": [
+                                            180
+                                        ],
+                                        "status": "REJECTED",
+                                        "stepOrder": 1,
+                                        "approvedDate": "2026-05-07T13:59:24.140Z",
+                                        "modifiedByUserId": 180,
+                                        "softDelete": false,
+                                        "createdAt": "2026-05-07T13:49:29.396Z",
+                                        "updatedAt": "2026-05-07T13:59:24.140Z"
+                                    }
+                                ],
+                                "formType": "QUARTERLY",
+                                "submissionType": "EARLY",
+                                "formStatus": "PENDING"
+                            }
+                        ],
+                        "stats": {
+                            "total": 0,
+                            "APPROVED": 0,
+                            "PENDING": 0,
+                            "REJECTED": 1,
+                            "EARLY": 1,
+                            "ON_TIME": 0,
+                            "LATE": 0,
+                            "formStatus": {
+                                "PENDING": 1,
+                                "IN_PROGRESS": 0,
+                                "COMPLETED": 0,
+                                "NA": 0,
+                                "APPROVED": 0
+                            }
+                        },
+                        "pmCategory": [],
+                        "pmItems": [],
+                        "formStatus": "PENDING",
+                        "isExcludeFromNotify": false
+                    },
+                    {
+                        "formId": 7,
+                        "formName": "Tamper Flow Inspection",
+                        "formType": "QUARTERLY",
+                        "pmForms": [
+                            {
+                                "id": 978,
+                                "propertyId": 1,
+                                "formId": 7,
+                                "quarter": 2,
+                                "year": 2026,
+                                "associateUser": null,
+                                "date": "2026-01-19",
+                                "note": null,
+                                "rejectionReason": null,
+                                "fileName": null,
+                                "createdBy": 224,
+                                "modifiedBy": 224,
+                                "createdAt": "2026-01-19T12:22:33.090Z",
+                                "updatedAt": "2026-04-14T10:03:17.774Z",
+                                "softDelete": false,
+                                "computedStatus": "PENDING",
+                                "pmFormApprovalWorkflow": [
+                                    {
+                                        "id": 1375,
+                                        "referenceId": 978,
+                                        "formId": 7,
+                                        "approvalUserIds": [
+                                            180
+                                        ],
+                                        "status": "PENDING",
+                                        "stepOrder": 1,
+                                        "approvedDate": null,
+                                        "modifiedByUserId": null,
+                                        "softDelete": false,
+                                        "createdAt": "2026-01-19T12:22:33.096Z",
+                                        "updatedAt": "2026-01-19T12:22:33.096Z"
+                                    },
+                                    {
+                                        "id": 1376,
+                                        "referenceId": 978,
+                                        "formId": 7,
+                                        "approvalUserIds": [
+                                            310,
+                                            283
+                                        ],
+                                        "status": "PENDING",
+                                        "stepOrder": 17,
+                                        "approvedDate": null,
+                                        "modifiedByUserId": null,
+                                        "softDelete": false,
+                                        "createdAt": "2026-01-19T12:22:33.098Z",
+                                        "updatedAt": "2026-01-19T12:22:33.098Z"
+                                    }
+                                ],
+                                "formType": "QUARTERLY",
+                                "submissionType": "EARLY",
+                                "formStatus": "PENDING"
+                            }
+                        ],
+                        "stats": {
+                            "total": 0,
+                            "APPROVED": 0,
+                            "PENDING": 1,
+                            "REJECTED": 0,
+                            "EARLY": 1,
+                            "ON_TIME": 0,
+                            "LATE": 0,
+                            "formStatus": {
+                                "PENDING": 1,
+                                "IN_PROGRESS": 0,
+                                "COMPLETED": 0,
+                                "NA": 0,
+                                "APPROVED": 0
+                            }
+                        },
+                        "pmCategory": [],
+                        "pmItems": [],
+                        "formStatus": "PENDING",
+                        "isExcludeFromNotify": false
+                    },
+                    {
+                        "formId": 11,
+                        "formName": "Kitchen Vent hood inspection",
+                        "formType": "QUARTERLY",
+                        "pmForms": [
+                            {
+                                "id": 184,
+                                "propertyId": 1,
+                                "formId": 11,
+                                "quarter": 2,
+                                "year": 2026,
+                                "date": "2026-01-19",
+                                "fileName": "1768825396357_5113_Quarterly_Fire_Drill_1768815069543.pdf",
+                                "location": "cc",
+                                "vendorName": "za",
+                                "dateOfInspection": "2026-01-19",
+                                "remark": "test",
+                                "rejectionReason": null,
+                                "createdBy": 224,
+                                "modifiedBy": null,
+                                "softDelete": false,
+                                "createdAt": "2026-01-19T12:23:24.547Z",
+                                "updatedAt": "2026-01-19T12:23:24.547Z",
+                                "computedStatus": "PENDING",
+                                "pmFormApprovalWorkflow": [
+                                    {
+                                        "id": 1377,
+                                        "referenceId": 184,
+                                        "formId": 11,
+                                        "approvalUserIds": [
+                                            180
+                                        ],
+                                        "status": "PENDING",
+                                        "stepOrder": 1,
+                                        "approvedDate": null,
+                                        "modifiedByUserId": null,
+                                        "softDelete": false,
+                                        "createdAt": "2026-01-19T12:23:24.553Z",
+                                        "updatedAt": "2026-01-19T12:23:24.553Z"
+                                    },
+                                    {
+                                        "id": 1378,
+                                        "referenceId": 184,
+                                        "formId": 11,
+                                        "approvalUserIds": [
+                                            310,
+                                            283
+                                        ],
+                                        "status": "PENDING",
+                                        "stepOrder": 17,
+                                        "approvedDate": null,
+                                        "modifiedByUserId": null,
+                                        "softDelete": false,
+                                        "createdAt": "2026-01-19T12:23:24.556Z",
+                                        "updatedAt": "2026-01-19T12:23:24.556Z"
+                                    }
+                                ],
+                                "formType": "QUARTERLY",
+                                "submissionType": "EARLY",
+                                "formStatus": "PENDING"
+                            }
+                        ],
+                        "stats": {
+                            "total": 0,
+                            "APPROVED": 0,
+                            "PENDING": 1,
+                            "REJECTED": 0,
+                            "EARLY": 1,
+                            "ON_TIME": 0,
+                            "LATE": 0,
+                            "formStatus": {
+                                "PENDING": 1,
+                                "IN_PROGRESS": 0,
+                                "COMPLETED": 0,
+                                "NA": 0,
+                                "APPROVED": 0
+                            }
+                        },
+                        "pmCategory": [],
+                        "pmItems": [],
+                        "formStatus": "PENDING",
+                        "isExcludeFromNotify": false
+                    },
+                    {
+                        "formId": 14,
+                        "formName": "Carbon Monoxide",
+                        "formType": "QUARTERLY",
+                        "pmForms": [
+                            {
+                                "id": 979,
+                                "propertyId": 1,
+                                "formId": 14,
+                                "quarter": 2,
+                                "year": 2026,
+                                "associateUser": null,
+                                "date": "2026-01-19",
+                                "note": null,
+                                "rejectionReason": null,
+                                "fileName": null,
+                                "createdBy": 224,
+                                "modifiedBy": null,
+                                "createdAt": "2026-01-19T12:24:05.780Z",
+                                "updatedAt": "2026-01-19T12:24:05.780Z",
+                                "softDelete": false,
+                                "computedStatus": "PENDING",
+                                "pmFormApprovalWorkflow": [
+                                    {
+                                        "id": 1381,
+                                        "referenceId": 979,
+                                        "formId": 14,
+                                        "approvalUserIds": [
+                                            180
+                                        ],
+                                        "status": "PENDING",
+                                        "stepOrder": 1,
+                                        "approvedDate": null,
+                                        "modifiedByUserId": null,
+                                        "softDelete": false,
+                                        "createdAt": "2026-01-19T12:24:05.785Z",
+                                        "updatedAt": "2026-01-19T12:24:05.785Z"
+                                    },
+                                    {
+                                        "id": 1382,
+                                        "referenceId": 979,
+                                        "formId": 14,
+                                        "approvalUserIds": [
+                                            310,
+                                            283
+                                        ],
+                                        "status": "PENDING",
+                                        "stepOrder": 17,
+                                        "approvedDate": null,
+                                        "modifiedByUserId": null,
+                                        "softDelete": false,
+                                        "createdAt": "2026-01-19T12:24:05.787Z",
+                                        "updatedAt": "2026-01-19T12:24:05.787Z"
+                                    }
+                                ],
+                                "formType": "QUARTERLY",
+                                "submissionType": "EARLY",
+                                "formStatus": "PENDING"
+                            }
+                        ],
+                        "stats": {
+                            "total": 0,
+                            "APPROVED": 0,
+                            "PENDING": 1,
+                            "REJECTED": 0,
+                            "EARLY": 1,
+                            "ON_TIME": 0,
+                            "LATE": 0,
+                            "formStatus": {
+                                "PENDING": 1,
+                                "IN_PROGRESS": 0,
+                                "COMPLETED": 0,
+                                "NA": 0,
+                                "APPROVED": 0
+                            }
+                        },
+                        "pmCategory": [],
+                        "pmItems": [],
+                        "formStatus": "PENDING",
+                        "isExcludeFromNotify": false
+                    },
+                    {
+                        "formId": 15,
+                        "formName": "GFSA",
+                        "formType": "QUARTERLY",
+                        "pmForms": [
+                            {
+                                "id": 901,
+                                "propertyId": 1,
+                                "formId": 15,
+                                "quarter": 2,
+                                "year": 2026,
+                                "associateUser": null,
+                                "date": "2026-01-19",
+                                "note": null,
+                                "rejectionReason": null,
+                                "fileName": "1768830211035_5310_Report_date_not_visible_in_report_approval.png",
+                                "createdBy": 148,
+                                "modifiedBy": 224,
+                                "createdAt": "2026-01-07T17:19:17.352Z",
+                                "updatedAt": "2026-01-19T13:43:32.454Z",
+                                "softDelete": false,
+                                "computedStatus": "PENDING",
+                                "pmFormApprovalWorkflow": [
+                                    {
+                                        "id": 1088,
+                                        "referenceId": 901,
+                                        "formId": 15,
+                                        "approvalUserIds": [
+                                            310,
+                                            283
+                                        ],
+                                        "status": "PENDING",
+                                        "stepOrder": 17,
+                                        "approvedDate": null,
+                                        "modifiedByUserId": null,
+                                        "softDelete": false,
+                                        "createdAt": "2026-01-07T17:19:17.371Z",
+                                        "updatedAt": "2026-01-07T17:19:17.371Z"
+                                    },
+                                    {
+                                        "id": 1090,
+                                        "referenceId": 901,
+                                        "formId": 15,
+                                        "approvalUserIds": [
+                                            310,
+                                            283
+                                        ],
+                                        "status": "PENDING",
+                                        "stepOrder": 17,
+                                        "approvedDate": null,
+                                        "modifiedByUserId": null,
+                                        "softDelete": false,
+                                        "createdAt": "2026-01-07T17:23:39.913Z",
+                                        "updatedAt": "2026-01-07T17:23:39.913Z"
+                                    },
+                                    {
+                                        "id": 1087,
+                                        "referenceId": 901,
+                                        "formId": 15,
+                                        "approvalUserIds": [
+                                            180
+                                        ],
+                                        "status": "PENDING",
+                                        "stepOrder": 1,
+                                        "approvedDate": null,
+                                        "modifiedByUserId": null,
+                                        "softDelete": false,
+                                        "createdAt": "2026-01-07T17:19:17.365Z",
+                                        "updatedAt": "2026-01-07T17:19:17.365Z"
+                                    },
+                                    {
+                                        "id": 1089,
+                                        "referenceId": 901,
+                                        "formId": 15,
+                                        "approvalUserIds": [
+                                            180
+                                        ],
+                                        "status": "PENDING",
+                                        "stepOrder": 1,
+                                        "approvedDate": null,
+                                        "modifiedByUserId": null,
+                                        "softDelete": false,
+                                        "createdAt": "2026-01-07T17:23:39.909Z",
+                                        "updatedAt": "2026-01-07T17:23:39.909Z"
+                                    }
+                                ],
+                                "formType": "QUARTERLY",
+                                "submissionType": "EARLY",
+                                "formStatus": "PENDING"
+                            }
+                        ],
+                        "stats": {
+                            "total": 0,
+                            "APPROVED": 0,
+                            "PENDING": 1,
+                            "REJECTED": 0,
+                            "EARLY": 1,
+                            "ON_TIME": 0,
+                            "LATE": 0,
+                            "formStatus": {
+                                "PENDING": 1,
+                                "IN_PROGRESS": 0,
+                                "COMPLETED": 0,
+                                "NA": 0,
+                                "APPROVED": 0
+                            }
+                        },
+                        "pmCategory": [],
+                        "pmItems": [],
+                        "formStatus": "PENDING",
+                        "isExcludeFromNotify": false
+                    },
+                    {
+                        "formId": 18,
+                        "formName": "MESH",
+                        "formType": "QUARTERLY",
+                        "pmForms": [
+                            {
+                                "id": 981,
+                                "propertyId": 1,
+                                "formId": 18,
+                                "quarter": 2,
+                                "year": 2026,
+                                "associateUser": null,
+                                "date": "2026-01-19",
+                                "note": null,
+                                "rejectionReason": null,
+                                "fileName": "1768830235304_3798_Notify_button_visible.png",
+                                "createdBy": 224,
+                                "modifiedBy": 224,
+                                "createdAt": "2026-01-19T12:26:05.451Z",
+                                "updatedAt": "2026-01-19T13:43:56.577Z",
+                                "softDelete": false,
+                                "computedStatus": "PENDING",
+                                "pmFormApprovalWorkflow": [
+                                    {
+                                        "id": 1387,
+                                        "referenceId": 981,
+                                        "formId": 18,
+                                        "approvalUserIds": [
+                                            180
+                                        ],
+                                        "status": "PENDING",
+                                        "stepOrder": 1,
+                                        "approvedDate": null,
+                                        "modifiedByUserId": null,
+                                        "softDelete": false,
+                                        "createdAt": "2026-01-19T12:26:05.456Z",
+                                        "updatedAt": "2026-01-19T12:26:05.456Z"
+                                    },
+                                    {
+                                        "id": 1388,
+                                        "referenceId": 981,
+                                        "formId": 18,
+                                        "approvalUserIds": [
+                                            310,
+                                            283
+                                        ],
+                                        "status": "PENDING",
+                                        "stepOrder": 17,
+                                        "approvedDate": null,
+                                        "modifiedByUserId": null,
+                                        "softDelete": false,
+                                        "createdAt": "2026-01-19T12:26:05.459Z",
+                                        "updatedAt": "2026-01-19T12:26:05.459Z"
+                                    }
+                                ],
+                                "formType": "QUARTERLY",
+                                "submissionType": "EARLY",
+                                "formStatus": "PENDING"
+                            }
+                        ],
+                        "stats": {
+                            "total": 0,
+                            "APPROVED": 0,
+                            "PENDING": 1,
+                            "REJECTED": 0,
+                            "EARLY": 1,
+                            "ON_TIME": 0,
+                            "LATE": 0,
+                            "formStatus": {
+                                "PENDING": 1,
+                                "IN_PROGRESS": 0,
+                                "COMPLETED": 0,
+                                "NA": 0,
+                                "APPROVED": 0
+                            }
+                        },
+                        "pmCategory": [],
+                        "pmItems": [],
+                        "formStatus": "PENDING",
+                        "isExcludeFromNotify": false
+                    },
+                    {
+                        "formId": 22,
+                        "formName": "Sprinkler Valve Inspection",
+                        "formType": "QUARTERLY",
+                        "pmForms": [
+                            {
+                                "id": 980,
+                                "propertyId": 1,
+                                "formId": 22,
+                                "quarter": 2,
+                                "year": 2026,
+                                "associateUser": null,
+                                "date": "2026-01-19",
+                                "note": null,
+                                "rejectionReason": null,
+                                "fileName": null,
+                                "createdBy": 224,
+                                "modifiedBy": 224,
+                                "createdAt": "2026-01-19T12:24:53.334Z",
+                                "updatedAt": "2026-04-09T07:20:01.910Z",
+                                "softDelete": false,
+                                "computedStatus": "PENDING",
+                                "pmFormApprovalWorkflow": [
+                                    {
+                                        "id": 1383,
+                                        "referenceId": 980,
+                                        "formId": 22,
+                                        "approvalUserIds": [
+                                            180
+                                        ],
+                                        "status": "PENDING",
+                                        "stepOrder": 1,
+                                        "approvedDate": null,
+                                        "modifiedByUserId": null,
+                                        "softDelete": false,
+                                        "createdAt": "2026-01-19T12:24:53.338Z",
+                                        "updatedAt": "2026-01-19T12:24:53.338Z"
+                                    },
+                                    {
+                                        "id": 1384,
+                                        "referenceId": 980,
+                                        "formId": 22,
+                                        "approvalUserIds": [
+                                            310,
+                                            283
+                                        ],
+                                        "status": "PENDING",
+                                        "stepOrder": 17,
+                                        "approvedDate": null,
+                                        "modifiedByUserId": null,
+                                        "softDelete": false,
+                                        "createdAt": "2026-01-19T12:24:53.341Z",
+                                        "updatedAt": "2026-01-19T12:24:53.341Z"
+                                    }
+                                ],
+                                "formType": "QUARTERLY",
+                                "submissionType": "EARLY",
+                                "formStatus": "PENDING"
+                            }
+                        ],
+                        "stats": {
+                            "total": 0,
+                            "APPROVED": 0,
+                            "PENDING": 1,
+                            "REJECTED": 0,
+                            "EARLY": 1,
+                            "ON_TIME": 0,
+                            "LATE": 0,
+                            "formStatus": {
+                                "PENDING": 1,
+                                "IN_PROGRESS": 0,
+                                "COMPLETED": 0,
+                                "NA": 0,
+                                "APPROVED": 0
+                            }
+                        },
+                        "pmCategory": [],
+                        "pmItems": [],
+                        "formStatus": "PENDING",
+                        "isExcludeFromNotify": false
+                    }
+                ],
+                "isAbleToApprove": false,
+                "pmFormApprovalWorkflow": [
+                    {
+                        "stepOrder": 1,
+                        "approvalUserIds": [
+                            180
+                        ],
+                        "approvalUsers": [
+                            {
+                                "id": 180,
+                                "name": "Melissa Corbin"
+                            }
+                        ],
+                        "isAbleToNotify": true
+                    },
+                    {
+                        "stepOrder": 17,
+                        "approvalUserIds": [
+                            310,
+                            283
+                        ],
+                        "approvalUsers": [
+                            {
+                                "id": 310,
+                                "name": "Leanna Houston"
+                            },
+                            {
+                                "id": 283,
+                                "name": "Damon K"
+                            }
+                        ],
+                        "isAbleToNotify": true
+                    }
+                ],
+                "isAllpmFormApprovalWorkflowApproved": false
+            },
+            {
+                "id": 2,
+                "companyCode": "320",
+                "companyName": "Encore SF South, LLC",
+                "propertyName": "Spanish Fort Fairfield Inn and Suites",
+                "franchiseType": "MARRIOTT",
+                "pmForms": [
+                    {
+                        "formId": 1,
+                        "formName": "Quarterly Fire Drill",
+                        "formType": "QUARTERLY",
+                        "pmForms": [],
+                        "stats": {
+                            "total": 0,
+                            "APPROVED": 0,
+                            "PENDING": 0,
+                            "REJECTED": 0,
+                            "EARLY": 0,
+                            "ON_TIME": 0,
+                            "LATE": 0,
+                            "formStatus": {
+                                "PENDING": 1,
+                                "IN_PROGRESS": 0,
+                                "COMPLETED": 0,
+                                "NA": 0,
+                                "APPROVED": 0
+                            }
+                        },
+                        "pmCategory": [],
+                        "pmItems": [],
+                        "formStatus": "PENDING",
+                        "isExcludeFromNotify": false
+                    },
+                    {
+                        "formId": 7,
+                        "formName": "Tamper Flow Inspection",
+                        "formType": "QUARTERLY",
+                        "pmForms": [],
+                        "stats": {
+                            "total": 0,
+                            "APPROVED": 0,
+                            "PENDING": 0,
+                            "REJECTED": 0,
+                            "EARLY": 0,
+                            "ON_TIME": 0,
+                            "LATE": 0,
+                            "formStatus": {
+                                "PENDING": 1,
+                                "IN_PROGRESS": 0,
+                                "COMPLETED": 0,
+                                "NA": 0,
+                                "APPROVED": 0
+                            }
+                        },
+                        "pmCategory": [],
+                        "pmItems": [],
+                        "formStatus": "PENDING",
+                        "isExcludeFromNotify": false
+                    },
+                    {
+                        "formId": 11,
+                        "formName": "Kitchen Vent hood inspection",
+                        "formType": "QUARTERLY",
+                        "pmForms": [],
+                        "stats": {
+                            "total": 0,
+                            "APPROVED": 0,
+                            "PENDING": 0,
+                            "REJECTED": 0,
+                            "EARLY": 0,
+                            "ON_TIME": 0,
+                            "LATE": 0,
+                            "formStatus": {
+                                "PENDING": 0,
+                                "IN_PROGRESS": 0,
+                                "COMPLETED": 0,
+                                "NA": 1,
+                                "APPROVED": 0
+                            }
+                        },
+                        "pmCategory": [],
+                        "pmItems": [],
+                        "formStatus": "N/A",
+                        "isExcludeFromNotify": false
+                    },
+                    {
+                        "formId": 14,
+                        "formName": "Carbon Monoxide",
+                        "formType": "QUARTERLY",
+                        "pmForms": [],
+                        "stats": {
+                            "total": 0,
+                            "APPROVED": 0,
+                            "PENDING": 0,
+                            "REJECTED": 0,
+                            "EARLY": 0,
+                            "ON_TIME": 0,
+                            "LATE": 0,
+                            "formStatus": {
+                                "PENDING": 1,
+                                "IN_PROGRESS": 0,
+                                "COMPLETED": 0,
+                                "NA": 0,
+                                "APPROVED": 0
+                            }
+                        },
+                        "pmCategory": [],
+                        "pmItems": [],
+                        "formStatus": "PENDING",
+                        "isExcludeFromNotify": false
+                    },
+                    {
+                        "formId": 15,
+                        "formName": "GFSA",
+                        "formType": "QUARTERLY",
+                        "pmForms": [],
+                        "stats": {
+                            "total": 0,
+                            "APPROVED": 0,
+                            "PENDING": 0,
+                            "REJECTED": 0,
+                            "EARLY": 0,
+                            "ON_TIME": 0,
+                            "LATE": 0,
+                            "formStatus": {
+                                "PENDING": 1,
+                                "IN_PROGRESS": 0,
+                                "COMPLETED": 0,
+                                "NA": 0,
+                                "APPROVED": 0
+                            }
+                        },
+                        "pmCategory": [],
+                        "pmItems": [],
+                        "formStatus": "PENDING",
+                        "isExcludeFromNotify": false
+                    },
+                    {
+                        "formId": 18,
+                        "formName": "MESH",
+                        "formType": "QUARTERLY",
+                        "pmForms": [],
+                        "stats": {
+                            "total": 0,
+                            "APPROVED": 0,
+                            "PENDING": 0,
+                            "REJECTED": 0,
+                            "EARLY": 0,
+                            "ON_TIME": 0,
+                            "LATE": 0,
+                            "formStatus": {
+                                "PENDING": 1,
+                                "IN_PROGRESS": 0,
+                                "COMPLETED": 0,
+                                "NA": 0,
+                                "APPROVED": 0
+                            }
+                        },
+                        "pmCategory": [],
+                        "pmItems": [],
+                        "formStatus": "PENDING",
+                        "isExcludeFromNotify": false
+                    },
+                    {
+                        "formId": 22,
+                        "formName": "Sprinkler Valve Inspection",
+                        "formType": "QUARTERLY",
+                        "pmForms": [
+                            {
+                                "id": 1081,
+                                "propertyId": 2,
+                                "formId": 22,
+                                "quarter": 2,
+                                "year": 2026,
+                                "associateUser": null,
+                                "date": "2026-04-20",
+                                "note": null,
+                                "rejectionReason": null,
+                                "fileName": null,
+                                "createdBy": 224,
+                                "modifiedBy": null,
+                                "createdAt": "2026-04-20T06:42:13.866Z",
+                                "updatedAt": "2026-04-20T06:42:13.866Z",
+                                "softDelete": false,
+                                "computedStatus": "PENDING",
+                                "pmFormApprovalWorkflow": [
+                                    {
+                                        "id": 2584,
+                                        "referenceId": 1081,
+                                        "formId": 22,
+                                        "approvalUserIds": [
+                                            310,
+                                            283
+                                        ],
+                                        "status": "PENDING",
+                                        "stepOrder": 17,
+                                        "approvedDate": null,
+                                        "modifiedByUserId": null,
+                                        "softDelete": false,
+                                        "createdAt": "2026-04-20T06:42:13.879Z",
+                                        "updatedAt": "2026-04-20T06:42:13.879Z"
+                                    },
+                                    {
+                                        "id": 2583,
+                                        "referenceId": 1081,
+                                        "formId": 22,
+                                        "approvalUserIds": [
+                                            180
+                                        ],
+                                        "status": "PENDING",
+                                        "stepOrder": 2,
+                                        "approvedDate": null,
+                                        "modifiedByUserId": null,
+                                        "softDelete": false,
+                                        "createdAt": "2026-04-20T06:42:13.876Z",
+                                        "updatedAt": "2026-04-20T06:42:13.876Z"
+                                    }
+                                ],
+                                "formType": "QUARTERLY",
+                                "submissionType": "EARLY",
+                                "formStatus": "PENDING"
+                            }
+                        ],
+                        "stats": {
+                            "total": 0,
+                            "APPROVED": 0,
+                            "PENDING": 1,
+                            "REJECTED": 0,
+                            "EARLY": 1,
+                            "ON_TIME": 0,
+                            "LATE": 0,
+                            "formStatus": {
+                                "PENDING": 1,
+                                "IN_PROGRESS": 0,
+                                "COMPLETED": 0,
+                                "NA": 0,
+                                "APPROVED": 0
+                            }
+                        },
+                        "pmCategory": [],
+                        "pmItems": [],
+                        "formStatus": "PENDING",
+                        "isExcludeFromNotify": false
+                    }
+                ],
+                "isAbleToApprove": false,
+                "pmFormApprovalWorkflow": [
+                    {
+                        "stepOrder": 2,
+                        "approvalUserIds": [
+                            180
+                        ],
+                        "approvalUsers": [
+                            {
+                                "id": 180,
+                                "name": "Melissa Corbin"
+                            }
+                        ],
+                        "isAbleToNotify": true
+                    },
+                    {
+                        "stepOrder": 17,
+                        "approvalUserIds": [
+                            310,
+                            283
+                        ],
+                        "approvalUsers": [
+                            {
+                                "id": 310,
+                                "name": "Leanna Houston"
+                            },
+                            {
+                                "id": 283,
+                                "name": "Damon K"
+                            }
+                        ],
+                        "isAbleToNotify": true
+                    }
+                ],
+                "isAllpmFormApprovalWorkflowApproved": false
+            },
+            {
+                "id": 3,
+                "companyCode": "321",
+                "companyName": "",
+                "propertyName": "D'iberville Courtyard",
+                "franchiseType": "MARRIOTT",
+                "pmForms": [
+                    {
+                        "formId": 1,
+                        "formName": "Quarterly Fire Drill",
+                        "formType": "QUARTERLY",
+                        "pmForms": [
+                            {
+                                "id": 903,
+                                "propertyId": 3,
+                                "formId": 1,
+                                "quarter": 2,
+                                "year": 2026,
+                                "associateUser": [
+                                    "Test"
+                                ],
+                                "date": "2026-01-08",
+                                "note": "",
+                                "rejectionReason": null,
+                                "fileName": "1769576321755_6449_DR_Commercial_Dryers_january_190120261117.pdf",
+                                "createdBy": 224,
+                                "modifiedBy": 224,
+                                "createdAt": "2026-01-08T04:29:46.023Z",
+                                "updatedAt": "2026-01-28T04:58:52.731Z",
+                                "softDelete": false,
+                                "computedStatus": "PENDING",
+                                "pmFormApprovalWorkflow": [
+                                    {
+                                        "id": 1094,
+                                        "referenceId": 903,
+                                        "formId": 1,
+                                        "approvalUserIds": [
+                                            310,
+                                            283
+                                        ],
+                                        "status": "PENDING",
+                                        "stepOrder": 17,
+                                        "approvedDate": null,
+                                        "modifiedByUserId": null,
+                                        "softDelete": false,
+                                        "createdAt": "2026-01-08T04:29:46.044Z",
+                                        "updatedAt": "2026-01-08T04:29:46.044Z"
+                                    },
+                                    {
+                                        "id": 1093,
+                                        "referenceId": 903,
+                                        "formId": 1,
+                                        "approvalUserIds": [
+                                            179
+                                        ],
+                                        "status": "APPROVED",
+                                        "stepOrder": 3,
+                                        "approvedDate": "2026-05-07T07:20:51.119Z",
+                                        "modifiedByUserId": 179,
+                                        "softDelete": false,
+                                        "createdAt": "2026-01-08T04:29:46.037Z",
+                                        "updatedAt": "2026-05-07T07:20:51.119Z"
+                                    }
+                                ],
+                                "formType": "QUARTERLY",
+                                "submissionType": "EARLY",
+                                "formStatus": "IN_COMPLETE"
+                            }
+                        ],
+                        "stats": {
+                            "total": 0,
+                            "APPROVED": 0,
+                            "PENDING": 1,
+                            "REJECTED": 0,
+                            "EARLY": 1,
+                            "ON_TIME": 0,
+                            "LATE": 0,
+                            "formStatus": {
+                                "PENDING": 0,
+                                "IN_PROGRESS": 1,
+                                "COMPLETED": 0,
+                                "NA": 0,
+                                "APPROVED": 0
+                            }
+                        },
+                        "pmCategory": [],
+                        "pmItems": [],
+                        "formStatus": "IN_PROGRESS",
+                        "isExcludeFromNotify": false
+                    },
+                    {
+                        "formId": 7,
+                        "formName": "Tamper Flow Inspection",
+                        "formType": "QUARTERLY",
+                        "pmForms": [],
+                        "stats": {
+                            "total": 0,
+                            "APPROVED": 0,
+                            "PENDING": 0,
+                            "REJECTED": 0,
+                            "EARLY": 0,
+                            "ON_TIME": 0,
+                            "LATE": 0,
+                            "formStatus": {
+                                "PENDING": 1,
+                                "IN_PROGRESS": 0,
+                                "COMPLETED": 0,
+                                "NA": 0,
+                                "APPROVED": 0
+                            }
+                        },
+                        "pmCategory": [],
+                        "pmItems": [],
+                        "formStatus": "PENDING",
+                        "isExcludeFromNotify": false
+                    },
+                    {
+                        "formId": 11,
+                        "formName": "Kitchen Vent hood inspection",
+                        "formType": "QUARTERLY",
+                        "pmForms": [],
+                        "stats": {
+                            "total": 0,
+                            "APPROVED": 0,
+                            "PENDING": 0,
+                            "REJECTED": 0,
+                            "EARLY": 0,
+                            "ON_TIME": 0,
+                            "LATE": 0,
+                            "formStatus": {
+                                "PENDING": 1,
+                                "IN_PROGRESS": 0,
+                                "COMPLETED": 0,
+                                "NA": 0,
+                                "APPROVED": 0
+                            }
+                        },
+                        "pmCategory": [],
+                        "pmItems": [],
+                        "formStatus": "PENDING",
+                        "isExcludeFromNotify": false
+                    },
+                    {
+                        "formId": 14,
+                        "formName": "Carbon Monoxide",
+                        "formType": "QUARTERLY",
+                        "pmForms": [],
+                        "stats": {
+                            "total": 0,
+                            "APPROVED": 0,
+                            "PENDING": 0,
+                            "REJECTED": 0,
+                            "EARLY": 0,
+                            "ON_TIME": 0,
+                            "LATE": 0,
+                            "formStatus": {
+                                "PENDING": 1,
+                                "IN_PROGRESS": 0,
+                                "COMPLETED": 0,
+                                "NA": 0,
+                                "APPROVED": 0
+                            }
+                        },
+                        "pmCategory": [],
+                        "pmItems": [],
+                        "formStatus": "PENDING",
+                        "isExcludeFromNotify": false
+                    },
+                    {
+                        "formId": 15,
+                        "formName": "GFSA",
+                        "formType": "QUARTERLY",
+                        "pmForms": [
+                            {
+                                "id": 1060,
+                                "propertyId": 3,
+                                "formId": 15,
+                                "quarter": 2,
+                                "year": 2026,
+                                "associateUser": null,
+                                "date": "2026-04-08",
+                                "note": null,
+                                "rejectionReason": null,
+                                "fileName": "1775629221108_4183_1775571145635_8853_IMG-20260406-WA0000.jpg",
+                                "createdBy": 224,
+                                "modifiedBy": null,
+                                "createdAt": "2026-04-08T06:20:26.636Z",
+                                "updatedAt": "2026-04-08T06:20:26.636Z",
+                                "softDelete": false,
+                                "computedStatus": "PENDING",
+                                "pmFormApprovalWorkflow": [
+                                    {
+                                        "id": 2463,
+                                        "referenceId": 1060,
+                                        "formId": 15,
+                                        "approvalUserIds": [
+                                            179
+                                        ],
+                                        "status": "PENDING",
+                                        "stepOrder": 3,
+                                        "approvedDate": null,
+                                        "modifiedByUserId": null,
+                                        "softDelete": false,
+                                        "createdAt": "2026-04-08T06:20:26.649Z",
+                                        "updatedAt": "2026-04-08T06:20:26.649Z"
+                                    },
+                                    {
+                                        "id": 2464,
+                                        "referenceId": 1060,
+                                        "formId": 15,
+                                        "approvalUserIds": [
+                                            310,
+                                            283
+                                        ],
+                                        "status": "PENDING",
+                                        "stepOrder": 17,
+                                        "approvedDate": null,
+                                        "modifiedByUserId": null,
+                                        "softDelete": false,
+                                        "createdAt": "2026-04-08T06:20:26.653Z",
+                                        "updatedAt": "2026-04-08T06:20:26.653Z"
+                                    }
+                                ],
+                                "formType": "QUARTERLY",
+                                "submissionType": "EARLY",
+                                "formStatus": "PENDING"
+                            }
+                        ],
+                        "stats": {
+                            "total": 0,
+                            "APPROVED": 0,
+                            "PENDING": 1,
+                            "REJECTED": 0,
+                            "EARLY": 1,
+                            "ON_TIME": 0,
+                            "LATE": 0,
+                            "formStatus": {
+                                "PENDING": 1,
+                                "IN_PROGRESS": 0,
+                                "COMPLETED": 0,
+                                "NA": 0,
+                                "APPROVED": 0
+                            }
+                        },
+                        "pmCategory": [],
+                        "pmItems": [],
+                        "formStatus": "PENDING",
+                        "isExcludeFromNotify": false
+                    },
+                    {
+                        "formId": 18,
+                        "formName": "MESH",
+                        "formType": "QUARTERLY",
+                        "pmForms": [
+                            {
+                                "id": 1061,
+                                "propertyId": 3,
+                                "formId": 18,
+                                "quarter": 2,
+                                "year": 2026,
+                                "associateUser": null,
+                                "date": "2026-04-08",
+                                "note": null,
+                                "rejectionReason": null,
+                                "fileName": "1775629516412_1538_Vector.png",
+                                "createdBy": 224,
+                                "modifiedBy": null,
+                                "createdAt": "2026-04-08T06:25:21.929Z",
+                                "updatedAt": "2026-04-08T06:25:21.929Z",
+                                "softDelete": false,
+                                "computedStatus": "PENDING",
+                                "pmFormApprovalWorkflow": [
+                                    {
+                                        "id": 2466,
+                                        "referenceId": 1061,
+                                        "formId": 18,
+                                        "approvalUserIds": [
+                                            310,
+                                            283
+                                        ],
+                                        "status": "PENDING",
+                                        "stepOrder": 17,
+                                        "approvedDate": null,
+                                        "modifiedByUserId": null,
+                                        "softDelete": false,
+                                        "createdAt": "2026-04-08T06:25:21.936Z",
+                                        "updatedAt": "2026-04-08T06:25:21.936Z"
+                                    },
+                                    {
+                                        "id": 2465,
+                                        "referenceId": 1061,
+                                        "formId": 18,
+                                        "approvalUserIds": [
+                                            179
+                                        ],
+                                        "status": "PENDING",
+                                        "stepOrder": 3,
+                                        "approvedDate": null,
+                                        "modifiedByUserId": null,
+                                        "softDelete": false,
+                                        "createdAt": "2026-04-08T06:25:21.934Z",
+                                        "updatedAt": "2026-04-08T06:25:21.934Z"
+                                    }
+                                ],
+                                "formType": "QUARTERLY",
+                                "submissionType": "EARLY",
+                                "formStatus": "PENDING"
+                            }
+                        ],
+                        "stats": {
+                            "total": 0,
+                            "APPROVED": 0,
+                            "PENDING": 1,
+                            "REJECTED": 0,
+                            "EARLY": 1,
+                            "ON_TIME": 0,
+                            "LATE": 0,
+                            "formStatus": {
+                                "PENDING": 1,
+                                "IN_PROGRESS": 0,
+                                "COMPLETED": 0,
+                                "NA": 0,
+                                "APPROVED": 0
+                            }
+                        },
+                        "pmCategory": [],
+                        "pmItems": [],
+                        "formStatus": "PENDING",
+                        "isExcludeFromNotify": false
+                    },
+                    {
+                        "formId": 22,
+                        "formName": "Sprinkler Valve Inspection",
+                        "formType": "QUARTERLY",
+                        "pmForms": [],
+                        "stats": {
+                            "total": 0,
+                            "APPROVED": 0,
+                            "PENDING": 0,
+                            "REJECTED": 0,
+                            "EARLY": 0,
+                            "ON_TIME": 0,
+                            "LATE": 0,
+                            "formStatus": {
+                                "PENDING": 1,
+                                "IN_PROGRESS": 0,
+                                "COMPLETED": 0,
+                                "NA": 0,
+                                "APPROVED": 0
+                            }
+                        },
+                        "pmCategory": [],
+                        "pmItems": [],
+                        "formStatus": "PENDING",
+                        "isExcludeFromNotify": false
+                    }
+                ],
+                "isAbleToApprove": false,
+                "pmFormApprovalWorkflow": [
+                    {
+                        "stepOrder": 3,
+                        "approvalUserIds": [
+                            179
+                        ],
+                        "approvalUsers": [
+                            {
+                                "id": 179,
+                                "name": "Joanne Lowe"
+                            }
+                        ],
+                        "isAbleToNotify": true
+                    },
+                    {
+                        "stepOrder": 17,
+                        "approvalUserIds": [
+                            310,
+                            283
+                        ],
+                        "approvalUsers": [
+                            {
+                                "id": 310,
+                                "name": "Leanna Houston"
+                            },
+                            {
+                                "id": 283,
+                                "name": "Damon K"
+                            }
+                        ],
+                        "isAbleToNotify": true
+                    }
+                ],
+                "isAllpmFormApprovalWorkflowApproved": false
+            },
+            {
+                "id": 11,
+                "companyCode": "347",
+                "companyName": "EH Battery Hotel, LLC",
+                "propertyName": "Battery Hotel Group, LLC",
+                "franchiseType": "MARRIOTT",
+                "pmForms": [
+                    {
+                        "formId": 1,
+                        "formName": "Quarterly Fire Drill",
+                        "formType": "QUARTERLY",
+                        "pmForms": [
+                            {
+                                "id": 911,
+                                "propertyId": 11,
+                                "formId": 1,
+                                "quarter": 2,
+                                "year": 2026,
+                                "associateUser": [
+                                    "1.test\n2. test 2\n3. test 3",
+                                    "second one",
+                                    "thirsd one"
+                                ],
+                                "date": "2026-01-08",
+                                "note": "this is notes",
+                                "rejectionReason": null,
+                                "fileName": "1767848674217_8543_1767734840427_1252_Fire_Drill_Signature_Page_Q1_2026_iissue_file_.pdf",
+                                "createdBy": 245,
+                                "modifiedBy": null,
+                                "createdAt": "2026-01-08T05:05:25.573Z",
+                                "updatedAt": "2026-01-08T05:05:25.573Z",
+                                "softDelete": false,
+                                "computedStatus": "PENDING",
+                                "pmFormApprovalWorkflow": [
+                                    {
+                                        "id": 1110,
+                                        "referenceId": 911,
+                                        "formId": 1,
+                                        "approvalUserIds": [
+                                            310,
+                                            283
+                                        ],
+                                        "status": "PENDING",
+                                        "stepOrder": 17,
+                                        "approvedDate": null,
+                                        "modifiedByUserId": null,
+                                        "softDelete": false,
+                                        "createdAt": "2026-01-08T05:05:25.579Z",
+                                        "updatedAt": "2026-01-08T05:05:25.579Z"
+                                    },
+                                    {
+                                        "id": 1109,
+                                        "referenceId": 911,
+                                        "formId": 1,
+                                        "approvalUserIds": [
+                                            217
+                                        ],
+                                        "status": "PENDING",
+                                        "stepOrder": 10,
+                                        "approvedDate": null,
+                                        "modifiedByUserId": null,
+                                        "softDelete": false,
+                                        "createdAt": "2026-01-08T05:05:25.577Z",
+                                        "updatedAt": "2026-01-08T05:05:25.577Z"
+                                    }
+                                ],
+                                "formType": "QUARTERLY",
+                                "submissionType": "EARLY",
+                                "formStatus": "PENDING"
+                            }
+                        ],
+                        "stats": {
+                            "total": 0,
+                            "APPROVED": 0,
+                            "PENDING": 1,
+                            "REJECTED": 0,
+                            "EARLY": 1,
+                            "ON_TIME": 0,
+                            "LATE": 0,
+                            "formStatus": {
+                                "PENDING": 1,
+                                "IN_PROGRESS": 0,
+                                "COMPLETED": 0,
+                                "NA": 0,
+                                "APPROVED": 0
+                            }
+                        },
+                        "pmCategory": [],
+                        "pmItems": [],
+                        "formStatus": "PENDING",
+                        "isExcludeFromNotify": false
+                    },
+                    {
+                        "formId": 7,
+                        "formName": "Tamper Flow Inspection",
+                        "formType": "QUARTERLY",
+                        "pmForms": [],
+                        "stats": {
+                            "total": 0,
+                            "APPROVED": 0,
+                            "PENDING": 0,
+                            "REJECTED": 0,
+                            "EARLY": 0,
+                            "ON_TIME": 0,
+                            "LATE": 0,
+                            "formStatus": {
+                                "PENDING": 1,
+                                "IN_PROGRESS": 0,
+                                "COMPLETED": 0,
+                                "NA": 0,
+                                "APPROVED": 0
+                            }
+                        },
+                        "pmCategory": [],
+                        "pmItems": [],
+                        "formStatus": "PENDING",
+                        "isExcludeFromNotify": false
+                    },
+                    {
+                        "formId": 11,
+                        "formName": "Kitchen Vent hood inspection",
+                        "formType": "QUARTERLY",
+                        "pmForms": [],
+                        "stats": {
+                            "total": 0,
+                            "APPROVED": 0,
+                            "PENDING": 0,
+                            "REJECTED": 0,
+                            "EARLY": 0,
+                            "ON_TIME": 0,
+                            "LATE": 0,
+                            "formStatus": {
+                                "PENDING": 1,
+                                "IN_PROGRESS": 0,
+                                "COMPLETED": 0,
+                                "NA": 0,
+                                "APPROVED": 0
+                            }
+                        },
+                        "pmCategory": [],
+                        "pmItems": [],
+                        "formStatus": "PENDING",
+                        "isExcludeFromNotify": false
+                    },
+                    {
+                        "formId": 14,
+                        "formName": "Carbon Monoxide",
+                        "formType": "QUARTERLY",
+                        "pmForms": [],
+                        "stats": {
+                            "total": 0,
+                            "APPROVED": 0,
+                            "PENDING": 0,
+                            "REJECTED": 0,
+                            "EARLY": 0,
+                            "ON_TIME": 0,
+                            "LATE": 0,
+                            "formStatus": {
+                                "PENDING": 1,
+                                "IN_PROGRESS": 0,
+                                "COMPLETED": 0,
+                                "NA": 0,
+                                "APPROVED": 0
+                            }
+                        },
+                        "pmCategory": [],
+                        "pmItems": [],
+                        "formStatus": "PENDING",
+                        "isExcludeFromNotify": false
+                    },
+                    {
+                        "formId": 15,
+                        "formName": "GFSA",
+                        "formType": "QUARTERLY",
+                        "pmForms": [],
+                        "stats": {
+                            "total": 0,
+                            "APPROVED": 0,
+                            "PENDING": 0,
+                            "REJECTED": 0,
+                            "EARLY": 0,
+                            "ON_TIME": 0,
+                            "LATE": 0,
+                            "formStatus": {
+                                "PENDING": 1,
+                                "IN_PROGRESS": 0,
+                                "COMPLETED": 0,
+                                "NA": 0,
+                                "APPROVED": 0
+                            }
+                        },
+                        "pmCategory": [],
+                        "pmItems": [],
+                        "formStatus": "PENDING",
+                        "isExcludeFromNotify": false
+                    },
+                    {
+                        "formId": 18,
+                        "formName": "MESH",
+                        "formType": "QUARTERLY",
+                        "pmForms": [],
+                        "stats": {
+                            "total": 0,
+                            "APPROVED": 0,
+                            "PENDING": 0,
+                            "REJECTED": 0,
+                            "EARLY": 0,
+                            "ON_TIME": 0,
+                            "LATE": 0,
+                            "formStatus": {
+                                "PENDING": 1,
+                                "IN_PROGRESS": 0,
+                                "COMPLETED": 0,
+                                "NA": 0,
+                                "APPROVED": 0
+                            }
+                        },
+                        "pmCategory": [],
+                        "pmItems": [],
+                        "formStatus": "PENDING",
+                        "isExcludeFromNotify": false
+                    },
+                    {
+                        "formId": 22,
+                        "formName": "Sprinkler Valve Inspection",
+                        "formType": "QUARTERLY",
+                        "pmForms": [
+                            {
+                                "id": 1067,
+                                "propertyId": 11,
+                                "formId": 22,
+                                "quarter": 2,
+                                "year": 2026,
+                                "associateUser": null,
+                                "date": "2026-04-09",
+                                "note": null,
+                                "rejectionReason": null,
+                                "fileName": null,
+                                "createdBy": 224,
+                                "modifiedBy": null,
+                                "createdAt": "2026-04-09T10:10:24.454Z",
+                                "updatedAt": "2026-04-09T10:10:24.454Z",
+                                "softDelete": false,
+                                "computedStatus": "PENDING",
+                                "pmFormApprovalWorkflow": [
+                                    {
+                                        "id": 2492,
+                                        "referenceId": 1067,
+                                        "formId": 22,
+                                        "approvalUserIds": [
+                                            310,
+                                            283
+                                        ],
+                                        "status": "PENDING",
+                                        "stepOrder": 17,
+                                        "approvedDate": null,
+                                        "modifiedByUserId": null,
+                                        "softDelete": false,
+                                        "createdAt": "2026-04-09T10:10:24.465Z",
+                                        "updatedAt": "2026-04-09T10:10:24.465Z"
+                                    },
+                                    {
+                                        "id": 2491,
+                                        "referenceId": 1067,
+                                        "formId": 22,
+                                        "approvalUserIds": [
+                                            217
+                                        ],
+                                        "status": "PENDING",
+                                        "stepOrder": 10,
+                                        "approvedDate": null,
+                                        "modifiedByUserId": null,
+                                        "softDelete": false,
+                                        "createdAt": "2026-04-09T10:10:24.462Z",
+                                        "updatedAt": "2026-04-09T10:10:24.462Z"
+                                    }
+                                ],
+                                "formType": "QUARTERLY",
+                                "submissionType": "EARLY",
+                                "formStatus": "PENDING"
+                            }
+                        ],
+                        "stats": {
+                            "total": 0,
+                            "APPROVED": 0,
+                            "PENDING": 1,
+                            "REJECTED": 0,
+                            "EARLY": 1,
+                            "ON_TIME": 0,
+                            "LATE": 0,
+                            "formStatus": {
+                                "PENDING": 1,
+                                "IN_PROGRESS": 0,
+                                "COMPLETED": 0,
+                                "NA": 0,
+                                "APPROVED": 0
+                            }
+                        },
+                        "pmCategory": [],
+                        "pmItems": [],
+                        "formStatus": "PENDING",
+                        "isExcludeFromNotify": false
+                    }
+                ],
+                "isAbleToApprove": false,
+                "pmFormApprovalWorkflow": [
+                    {
+                        "stepOrder": 10,
+                        "approvalUserIds": [
+                            217
+                        ],
+                        "approvalUsers": [
+                            {
+                                "id": 217,
+                                "name": "Jeff Walker"
+                            }
+                        ],
+                        "isAbleToNotify": true
+                    },
+                    {
+                        "stepOrder": 17,
+                        "approvalUserIds": [
+                            310,
+                            283
+                        ],
+                        "approvalUsers": [
+                            {
+                                "id": 310,
+                                "name": "Leanna Houston"
+                            },
+                            {
+                                "id": 283,
+                                "name": "Damon K"
+                            }
+                        ],
+                        "isAbleToNotify": true
+                    }
+                ],
+                "isAllpmFormApprovalWorkflowApproved": false
+            },
+            {
+                "id": 12,
+                "companyCode": "348",
+                "companyName": "EH SAVANNAH LLC",
+                "propertyName": "Savannah Fairfield Inn & Suites ",
+                "franchiseType": "MARRIOTT",
+                "pmForms": [
+                    {
+                        "formId": 1,
+                        "formName": "Quarterly Fire Drill",
+                        "formType": "QUARTERLY",
+                        "pmForms": [
+                            {
+                                "id": 886,
+                                "propertyId": 12,
+                                "formId": 1,
+                                "quarter": 2,
+                                "year": 2026,
+                                "associateUser": [],
+                                "date": "2026-01-06",
+                                "note": "",
+                                "rejectionReason": "what to see the result",
+                                "fileName": "1767698149041_7887_jpg.jpg",
+                                "createdBy": 245,
+                                "modifiedBy": 245,
+                                "createdAt": "2026-01-06T11:16:19.465Z",
+                                "updatedAt": "2026-02-06T06:46:13.182Z",
+                                "softDelete": false,
+                                "computedStatus": "PENDING",
+                                "pmFormApprovalWorkflow": [
+                                    {
+                                        "id": 1039,
+                                        "referenceId": 886,
+                                        "formId": 1,
+                                        "approvalUserIds": [
+                                            273
+                                        ],
+                                        "status": "APPROVED",
+                                        "stepOrder": 11,
+                                        "approvedDate": "2026-02-06T06:46:58.269Z",
+                                        "modifiedByUserId": 273,
+                                        "softDelete": false,
+                                        "createdAt": "2026-01-06T11:16:19.469Z",
+                                        "updatedAt": "2026-02-06T06:46:58.269Z"
+                                    },
+                                    {
+                                        "id": 1040,
+                                        "referenceId": 886,
+                                        "formId": 1,
+                                        "approvalUserIds": [
+                                            310,
+                                            283
+                                        ],
+                                        "status": "PENDING",
+                                        "stepOrder": 17,
+                                        "approvedDate": null,
+                                        "modifiedByUserId": null,
+                                        "softDelete": false,
+                                        "createdAt": "2026-01-06T11:16:19.473Z",
+                                        "updatedAt": "2026-01-06T11:16:19.473Z"
+                                    }
+                                ],
+                                "formType": "QUARTERLY",
+                                "submissionType": "EARLY",
+                                "formStatus": "COMPLETE"
+                            }
+                        ],
+                        "stats": {
+                            "total": 0,
+                            "APPROVED": 0,
+                            "PENDING": 1,
+                            "REJECTED": 0,
+                            "EARLY": 1,
+                            "ON_TIME": 0,
+                            "LATE": 0,
+                            "formStatus": {
+                                "PENDING": 0,
+                                "IN_PROGRESS": 0,
+                                "COMPLETED": 1,
+                                "NA": 0,
+                                "APPROVED": 0
+                            }
+                        },
+                        "pmCategory": [],
+                        "pmItems": [],
+                        "formStatus": "COMPLETED",
+                        "isExcludeFromNotify": false
+                    },
+                    {
+                        "formId": 7,
+                        "formName": "Tamper Flow Inspection",
+                        "formType": "QUARTERLY",
+                        "pmForms": [
+                            {
+                                "id": 1027,
+                                "propertyId": 12,
+                                "formId": 7,
+                                "quarter": 2,
+                                "year": 2026,
+                                "associateUser": null,
+                                "date": "2026-02-06",
+                                "note": null,
+                                "rejectionReason": null,
+                                "fileName": null,
+                                "createdBy": 245,
+                                "modifiedBy": null,
+                                "createdAt": "2026-02-06T09:09:09.590Z",
+                                "updatedAt": "2026-02-06T09:09:09.590Z",
+                                "softDelete": false,
+                                "computedStatus": "PENDING",
+                                "pmFormApprovalWorkflow": [
+                                    {
+                                        "id": 1593,
+                                        "referenceId": 1027,
+                                        "formId": 7,
+                                        "approvalUserIds": [
+                                            273
+                                        ],
+                                        "status": "APPROVED",
+                                        "stepOrder": 11,
+                                        "approvedDate": "2026-02-09T09:18:18.094Z",
+                                        "modifiedByUserId": 273,
+                                        "softDelete": false,
+                                        "createdAt": "2026-02-06T09:09:09.599Z",
+                                        "updatedAt": "2026-02-09T09:18:18.095Z"
+                                    },
+                                    {
+                                        "id": 1594,
+                                        "referenceId": 1027,
+                                        "formId": 7,
+                                        "approvalUserIds": [
+                                            310,
+                                            283
+                                        ],
+                                        "status": "PENDING",
+                                        "stepOrder": 17,
+                                        "approvedDate": null,
+                                        "modifiedByUserId": null,
+                                        "softDelete": false,
+                                        "createdAt": "2026-02-06T09:09:09.603Z",
+                                        "updatedAt": "2026-02-06T09:09:09.603Z"
+                                    }
+                                ],
+                                "formType": "QUARTERLY",
+                                "submissionType": "EARLY",
+                                "formStatus": "COMPLETE"
+                            }
+                        ],
+                        "stats": {
+                            "total": 0,
+                            "APPROVED": 0,
+                            "PENDING": 1,
+                            "REJECTED": 0,
+                            "EARLY": 1,
+                            "ON_TIME": 0,
+                            "LATE": 0,
+                            "formStatus": {
+                                "PENDING": 0,
+                                "IN_PROGRESS": 0,
+                                "COMPLETED": 1,
+                                "NA": 0,
+                                "APPROVED": 0
+                            }
+                        },
+                        "pmCategory": [],
+                        "pmItems": [],
+                        "formStatus": "COMPLETED",
+                        "isExcludeFromNotify": false
+                    },
+                    {
+                        "formId": 11,
+                        "formName": "Kitchen Vent hood inspection",
+                        "formType": "QUARTERLY",
+                        "pmForms": [],
+                        "stats": {
+                            "total": 0,
+                            "APPROVED": 0,
+                            "PENDING": 0,
+                            "REJECTED": 0,
+                            "EARLY": 0,
+                            "ON_TIME": 0,
+                            "LATE": 0,
+                            "formStatus": {
+                                "PENDING": 0,
+                                "IN_PROGRESS": 0,
+                                "COMPLETED": 0,
+                                "NA": 1,
+                                "APPROVED": 0
+                            }
+                        },
+                        "pmCategory": [],
+                        "pmItems": [],
+                        "formStatus": "N/A",
+                        "isExcludeFromNotify": false
+                    },
+                    {
+                        "formId": 14,
+                        "formName": "Carbon Monoxide",
+                        "formType": "QUARTERLY",
+                        "pmForms": [
+                            {
+                                "id": 1028,
+                                "propertyId": 12,
+                                "formId": 14,
+                                "quarter": 2,
+                                "year": 2026,
+                                "associateUser": null,
+                                "date": "2026-02-06",
+                                "note": null,
+                                "rejectionReason": null,
+                                "fileName": null,
+                                "createdBy": 245,
+                                "modifiedBy": 245,
+                                "createdAt": "2026-02-06T09:09:46.683Z",
+                                "updatedAt": "2026-02-09T09:14:42.151Z",
+                                "softDelete": false,
+                                "computedStatus": "PENDING",
+                                "pmFormApprovalWorkflow": [
+                                    {
+                                        "id": 1595,
+                                        "referenceId": 1028,
+                                        "formId": 14,
+                                        "approvalUserIds": [
+                                            273
+                                        ],
+                                        "status": "APPROVED",
+                                        "stepOrder": 11,
+                                        "approvedDate": "2026-02-09T09:16:38.917Z",
+                                        "modifiedByUserId": 273,
+                                        "softDelete": false,
+                                        "createdAt": "2026-02-06T09:09:46.688Z",
+                                        "updatedAt": "2026-02-09T09:16:38.917Z"
+                                    },
+                                    {
+                                        "id": 1596,
+                                        "referenceId": 1028,
+                                        "formId": 14,
+                                        "approvalUserIds": [
+                                            310,
+                                            283
+                                        ],
+                                        "status": "PENDING",
+                                        "stepOrder": 17,
+                                        "approvedDate": null,
+                                        "modifiedByUserId": null,
+                                        "softDelete": false,
+                                        "createdAt": "2026-02-06T09:09:46.691Z",
+                                        "updatedAt": "2026-02-06T09:09:46.691Z"
+                                    }
+                                ],
+                                "formType": "QUARTERLY",
+                                "submissionType": "EARLY",
+                                "formStatus": "COMPLETE"
+                            }
+                        ],
+                        "stats": {
+                            "total": 0,
+                            "APPROVED": 0,
+                            "PENDING": 1,
+                            "REJECTED": 0,
+                            "EARLY": 1,
+                            "ON_TIME": 0,
+                            "LATE": 0,
+                            "formStatus": {
+                                "PENDING": 0,
+                                "IN_PROGRESS": 0,
+                                "COMPLETED": 1,
+                                "NA": 0,
+                                "APPROVED": 0
+                            }
+                        },
+                        "pmCategory": [],
+                        "pmItems": [],
+                        "formStatus": "COMPLETED",
+                        "isExcludeFromNotify": false
+                    },
+                    {
+                        "formId": 15,
+                        "formName": "GFSA",
+                        "formType": "QUARTERLY",
+                        "pmForms": [
+                            {
+                                "id": 1033,
+                                "propertyId": 12,
+                                "formId": 15,
+                                "quarter": 2,
+                                "year": 2026,
+                                "associateUser": null,
+                                "date": "2026-02-09",
+                                "note": null,
+                                "rejectionReason": null,
+                                "fileName": "1770622523639_6850_6.pdf",
+                                "createdBy": 245,
+                                "modifiedBy": null,
+                                "createdAt": "2026-02-09T07:35:31.796Z",
+                                "updatedAt": "2026-02-09T07:35:31.796Z",
+                                "softDelete": false,
+                                "computedStatus": "PENDING",
+                                "pmFormApprovalWorkflow": [
+                                    {
+                                        "id": 1643,
+                                        "referenceId": 1033,
+                                        "formId": 15,
+                                        "approvalUserIds": [
+                                            273
+                                        ],
+                                        "status": "APPROVED",
+                                        "stepOrder": 11,
+                                        "approvedDate": "2026-02-09T07:36:10.094Z",
+                                        "modifiedByUserId": 273,
+                                        "softDelete": false,
+                                        "createdAt": "2026-02-09T07:35:31.802Z",
+                                        "updatedAt": "2026-02-09T07:36:10.094Z"
+                                    },
+                                    {
+                                        "id": 1644,
+                                        "referenceId": 1033,
+                                        "formId": 15,
+                                        "approvalUserIds": [
+                                            310,
+                                            283
+                                        ],
+                                        "status": "PENDING",
+                                        "stepOrder": 17,
+                                        "approvedDate": null,
+                                        "modifiedByUserId": null,
+                                        "softDelete": false,
+                                        "createdAt": "2026-02-09T07:35:31.805Z",
+                                        "updatedAt": "2026-02-09T07:35:31.805Z"
+                                    }
+                                ],
+                                "formType": "QUARTERLY",
+                                "submissionType": "EARLY",
+                                "formStatus": "COMPLETE"
+                            }
+                        ],
+                        "stats": {
+                            "total": 0,
+                            "APPROVED": 0,
+                            "PENDING": 1,
+                            "REJECTED": 0,
+                            "EARLY": 1,
+                            "ON_TIME": 0,
+                            "LATE": 0,
+                            "formStatus": {
+                                "PENDING": 0,
+                                "IN_PROGRESS": 0,
+                                "COMPLETED": 1,
+                                "NA": 0,
+                                "APPROVED": 0
+                            }
+                        },
+                        "pmCategory": [],
+                        "pmItems": [],
+                        "formStatus": "COMPLETED",
+                        "isExcludeFromNotify": false
+                    },
+                    {
+                        "formId": 18,
+                        "formName": "MESH",
+                        "formType": "QUARTERLY",
+                        "pmForms": [
+                            {
+                                "id": 1032,
+                                "propertyId": 12,
+                                "formId": 18,
+                                "quarter": 2,
+                                "year": 2026,
+                                "associateUser": null,
+                                "date": "2026-02-09",
+                                "note": null,
+                                "rejectionReason": null,
+                                "fileName": "1770621076063_8442_8.pdf",
+                                "createdBy": 245,
+                                "modifiedBy": null,
+                                "createdAt": "2026-02-09T07:11:20.370Z",
+                                "updatedAt": "2026-02-09T07:11:20.370Z",
+                                "softDelete": false,
+                                "computedStatus": "PENDING",
+                                "pmFormApprovalWorkflow": [
+                                    {
+                                        "id": 1641,
+                                        "referenceId": 1032,
+                                        "formId": 18,
+                                        "approvalUserIds": [
+                                            273
+                                        ],
+                                        "status": "APPROVED",
+                                        "stepOrder": 11,
+                                        "approvedDate": "2026-02-09T07:20:19.890Z",
+                                        "modifiedByUserId": 273,
+                                        "softDelete": false,
+                                        "createdAt": "2026-02-09T07:11:20.376Z",
+                                        "updatedAt": "2026-02-09T07:20:19.890Z"
+                                    },
+                                    {
+                                        "id": 1642,
+                                        "referenceId": 1032,
+                                        "formId": 18,
+                                        "approvalUserIds": [
+                                            310,
+                                            283
+                                        ],
+                                        "status": "PENDING",
+                                        "stepOrder": 17,
+                                        "approvedDate": null,
+                                        "modifiedByUserId": null,
+                                        "softDelete": false,
+                                        "createdAt": "2026-02-09T07:11:20.379Z",
+                                        "updatedAt": "2026-02-09T07:11:20.379Z"
+                                    }
+                                ],
+                                "formType": "QUARTERLY",
+                                "submissionType": "EARLY",
+                                "formStatus": "COMPLETE"
+                            }
+                        ],
+                        "stats": {
+                            "total": 0,
+                            "APPROVED": 0,
+                            "PENDING": 1,
+                            "REJECTED": 0,
+                            "EARLY": 1,
+                            "ON_TIME": 0,
+                            "LATE": 0,
+                            "formStatus": {
+                                "PENDING": 0,
+                                "IN_PROGRESS": 0,
+                                "COMPLETED": 1,
+                                "NA": 0,
+                                "APPROVED": 0
+                            }
+                        },
+                        "pmCategory": [],
+                        "pmItems": [],
+                        "formStatus": "COMPLETED",
+                        "isExcludeFromNotify": false
+                    },
+                    {
+                        "formId": 22,
+                        "formName": "Sprinkler Valve Inspection",
+                        "formType": "QUARTERLY",
+                        "pmForms": [
+                            {
+                                "id": 1029,
+                                "propertyId": 12,
+                                "formId": 22,
+                                "quarter": 2,
+                                "year": 2026,
+                                "associateUser": null,
+                                "date": "2026-02-06",
+                                "note": null,
+                                "rejectionReason": null,
+                                "fileName": null,
+                                "createdBy": 245,
+                                "modifiedBy": null,
+                                "createdAt": "2026-02-06T09:10:41.054Z",
+                                "updatedAt": "2026-02-06T09:10:41.054Z",
+                                "softDelete": false,
+                                "computedStatus": "PENDING",
+                                "pmFormApprovalWorkflow": [
+                                    {
+                                        "id": 1598,
+                                        "referenceId": 1029,
+                                        "formId": 22,
+                                        "approvalUserIds": [
+                                            310,
+                                            283
+                                        ],
+                                        "status": "PENDING",
+                                        "stepOrder": 17,
+                                        "approvedDate": null,
+                                        "modifiedByUserId": null,
+                                        "softDelete": false,
+                                        "createdAt": "2026-02-06T09:10:41.062Z",
+                                        "updatedAt": "2026-02-06T09:10:41.062Z"
+                                    },
+                                    {
+                                        "id": 1597,
+                                        "referenceId": 1029,
+                                        "formId": 22,
+                                        "approvalUserIds": [
+                                            273
+                                        ],
+                                        "status": "APPROVED",
+                                        "stepOrder": 11,
+                                        "approvedDate": "2026-02-09T09:25:17.635Z",
+                                        "modifiedByUserId": 273,
+                                        "softDelete": false,
+                                        "createdAt": "2026-02-06T09:10:41.059Z",
+                                        "updatedAt": "2026-02-09T09:25:17.635Z"
+                                    }
+                                ],
+                                "formType": "QUARTERLY",
+                                "submissionType": "EARLY",
+                                "formStatus": "COMPLETE"
+                            }
+                        ],
+                        "stats": {
+                            "total": 0,
+                            "APPROVED": 0,
+                            "PENDING": 1,
+                            "REJECTED": 0,
+                            "EARLY": 1,
+                            "ON_TIME": 0,
+                            "LATE": 0,
+                            "formStatus": {
+                                "PENDING": 0,
+                                "IN_PROGRESS": 0,
+                                "COMPLETED": 1,
+                                "NA": 0,
+                                "APPROVED": 0
+                            }
+                        },
+                        "pmCategory": [],
+                        "pmItems": [],
+                        "formStatus": "COMPLETED",
+                        "isExcludeFromNotify": false
+                    }
+                ],
+                "isAbleToApprove": true,
+                "pmFormApprovalWorkflow": [
+                    {
+                        "stepOrder": 11,
+                        "approvalUserIds": [
+                            273
+                        ],
+                        "approvalUsers": [
+                            {
+                                "id": 273,
+                                "name": "Rachel Dupuis"
+                            }
+                        ],
+                        "isAbleToNotify": true
+                    },
+                    {
+                        "stepOrder": 17,
+                        "approvalUserIds": [
+                            310,
+                            283
+                        ],
+                        "approvalUsers": [
+                            {
+                                "id": 310,
+                                "name": "Leanna Houston"
+                            },
+                            {
+                                "id": 283,
+                                "name": "Damon K"
+                            }
+                        ],
+                        "isAbleToNotify": true
+                    }
+                ],
+                "isAllpmFormApprovalWorkflowApproved": false
+            },
+            {
+                "id": 13,
+                "companyCode": "124",
+                "companyName": "",
+                "propertyName": "Arosh,LP-Four Points by Sheraton DFW Airport North",
+                "franchiseType": "MARRIOTT",
+                "pmForms": [
+                    {
+                        "formId": 1,
+                        "formName": "Quarterly Fire Drill",
+                        "formType": "QUARTERLY",
+                        "pmForms": [
+                            {
+                                "id": 934,
+                                "propertyId": 13,
+                                "formId": 1,
+                                "quarter": 2,
+                                "year": 2026,
+                                "associateUser": [],
+                                "date": "2026-01-08",
+                                "note": "",
+                                "rejectionReason": null,
+                                "fileName": "",
+                                "createdBy": 224,
+                                "modifiedBy": 224,
+                                "createdAt": "2026-01-08T14:47:33.308Z",
+                                "updatedAt": "2026-03-17T05:30:42.715Z",
+                                "softDelete": false,
+                                "computedStatus": "PENDING",
+                                "pmFormApprovalWorkflow": [
+                                    {
+                                        "id": 1195,
+                                        "referenceId": 934,
+                                        "formId": 1,
+                                        "approvalUserIds": [
+                                            283
+                                        ],
+                                        "status": "PENDING",
+                                        "stepOrder": 12,
+                                        "approvedDate": null,
+                                        "modifiedByUserId": null,
+                                        "softDelete": false,
+                                        "createdAt": "2026-01-08T14:47:33.313Z",
+                                        "updatedAt": "2026-01-08T14:47:33.313Z"
+                                    },
+                                    {
+                                        "id": 1196,
+                                        "referenceId": 934,
+                                        "formId": 1,
+                                        "approvalUserIds": [
+                                            283
+                                        ],
+                                        "status": "PENDING",
+                                        "stepOrder": 12,
+                                        "approvedDate": null,
+                                        "modifiedByUserId": null,
+                                        "softDelete": false,
+                                        "createdAt": "2026-01-08T14:47:33.316Z",
+                                        "updatedAt": "2026-01-08T14:47:33.316Z"
+                                    }
+                                ],
+                                "formType": "QUARTERLY",
+                                "submissionType": "EARLY",
+                                "formStatus": "PENDING"
+                            }
+                        ],
+                        "stats": {
+                            "total": 0,
+                            "APPROVED": 0,
+                            "PENDING": 1,
+                            "REJECTED": 0,
+                            "EARLY": 1,
+                            "ON_TIME": 0,
+                            "LATE": 0,
+                            "formStatus": {
+                                "PENDING": 1,
+                                "IN_PROGRESS": 0,
+                                "COMPLETED": 0,
+                                "NA": 0,
+                                "APPROVED": 0
+                            }
+                        },
+                        "pmCategory": [],
+                        "pmItems": [],
+                        "formStatus": "PENDING",
+                        "isExcludeFromNotify": false
+                    },
+                    {
+                        "formId": 7,
+                        "formName": "Tamper Flow Inspection",
+                        "formType": "QUARTERLY",
+                        "pmForms": [],
+                        "stats": {
+                            "total": 0,
+                            "APPROVED": 0,
+                            "PENDING": 0,
+                            "REJECTED": 0,
+                            "EARLY": 0,
+                            "ON_TIME": 0,
+                            "LATE": 0,
+                            "formStatus": {
+                                "PENDING": 1,
+                                "IN_PROGRESS": 0,
+                                "COMPLETED": 0,
+                                "NA": 0,
+                                "APPROVED": 0
+                            }
+                        },
+                        "pmCategory": [],
+                        "pmItems": [],
+                        "formStatus": "PENDING",
+                        "isExcludeFromNotify": false
+                    },
+                    {
+                        "formId": 11,
+                        "formName": "Kitchen Vent hood inspection",
+                        "formType": "QUARTERLY",
+                        "pmForms": [],
+                        "stats": {
+                            "total": 0,
+                            "APPROVED": 0,
+                            "PENDING": 0,
+                            "REJECTED": 0,
+                            "EARLY": 0,
+                            "ON_TIME": 0,
+                            "LATE": 0,
+                            "formStatus": {
+                                "PENDING": 1,
+                                "IN_PROGRESS": 0,
+                                "COMPLETED": 0,
+                                "NA": 0,
+                                "APPROVED": 0
+                            }
+                        },
+                        "pmCategory": [],
+                        "pmItems": [],
+                        "formStatus": "PENDING",
+                        "isExcludeFromNotify": false
+                    },
+                    {
+                        "formId": 14,
+                        "formName": "Carbon Monoxide",
+                        "formType": "QUARTERLY",
+                        "pmForms": [],
+                        "stats": {
+                            "total": 0,
+                            "APPROVED": 0,
+                            "PENDING": 0,
+                            "REJECTED": 0,
+                            "EARLY": 0,
+                            "ON_TIME": 0,
+                            "LATE": 0,
+                            "formStatus": {
+                                "PENDING": 1,
+                                "IN_PROGRESS": 0,
+                                "COMPLETED": 0,
+                                "NA": 0,
+                                "APPROVED": 0
+                            }
+                        },
+                        "pmCategory": [],
+                        "pmItems": [],
+                        "formStatus": "PENDING",
+                        "isExcludeFromNotify": false
+                    },
+                    {
+                        "formId": 15,
+                        "formName": "GFSA",
+                        "formType": "QUARTERLY",
+                        "pmForms": [],
+                        "stats": {
+                            "total": 0,
+                            "APPROVED": 0,
+                            "PENDING": 0,
+                            "REJECTED": 0,
+                            "EARLY": 0,
+                            "ON_TIME": 0,
+                            "LATE": 0,
+                            "formStatus": {
+                                "PENDING": 1,
+                                "IN_PROGRESS": 0,
+                                "COMPLETED": 0,
+                                "NA": 0,
+                                "APPROVED": 0
+                            }
+                        },
+                        "pmCategory": [],
+                        "pmItems": [],
+                        "formStatus": "PENDING",
+                        "isExcludeFromNotify": false
+                    },
+                    {
+                        "formId": 18,
+                        "formName": "MESH",
+                        "formType": "QUARTERLY",
+                        "pmForms": [],
+                        "stats": {
+                            "total": 0,
+                            "APPROVED": 0,
+                            "PENDING": 0,
+                            "REJECTED": 0,
+                            "EARLY": 0,
+                            "ON_TIME": 0,
+                            "LATE": 0,
+                            "formStatus": {
+                                "PENDING": 1,
+                                "IN_PROGRESS": 0,
+                                "COMPLETED": 0,
+                                "NA": 0,
+                                "APPROVED": 0
+                            }
+                        },
+                        "pmCategory": [],
+                        "pmItems": [],
+                        "formStatus": "PENDING",
+                        "isExcludeFromNotify": false
+                    },
+                    {
+                        "formId": 22,
+                        "formName": "Sprinkler Valve Inspection",
+                        "formType": "QUARTERLY",
+                        "pmForms": [],
+                        "stats": {
+                            "total": 0,
+                            "APPROVED": 0,
+                            "PENDING": 0,
+                            "REJECTED": 0,
+                            "EARLY": 0,
+                            "ON_TIME": 0,
+                            "LATE": 0,
+                            "formStatus": {
+                                "PENDING": 1,
+                                "IN_PROGRESS": 0,
+                                "COMPLETED": 0,
+                                "NA": 0,
+                                "APPROVED": 0
+                            }
+                        },
+                        "pmCategory": [],
+                        "pmItems": [],
+                        "formStatus": "PENDING",
+                        "isExcludeFromNotify": false
+                    }
+                ],
+                "isAbleToApprove": false,
+                "pmFormApprovalWorkflow": [
+                    {
+                        "stepOrder": 12,
+                        "approvalUserIds": [
+                            283
+                        ],
+                        "approvalUsers": [
+                            {
+                                "id": 283,
+                                "name": "Damon K"
+                            }
+                        ],
+                        "isAbleToNotify": true
+                    },
+                    {
+                        "stepOrder": 17,
+                        "approvalUserIds": [
+                            310,
+                            283
+                        ],
+                        "approvalUsers": [
+                            {
+                                "id": 310,
+                                "name": "Leanna Houston"
+                            },
+                            {
+                                "id": 283,
+                                "name": "Damon K"
+                            }
+                        ],
+                        "isAbleToNotify": true
+                    }
+                ],
+                "isAllpmFormApprovalWorkflowApproved": false
+            },
+            {
+                "id": 14,
+                "companyCode": "326",
+                "companyName": "EH McAllen LLC",
+                "propertyName": "McAllen Residence Inn by Marriott",
+                "franchiseType": "MARRIOTT",
+                "pmForms": [
+                    {
+                        "formId": 1,
+                        "formName": "Quarterly Fire Drill",
+                        "formType": "QUARTERLY",
+                        "pmForms": [
+                            {
+                                "id": 890,
+                                "propertyId": 14,
+                                "formId": 1,
+                                "quarter": 2,
+                                "year": 2026,
+                                "associateUser": [],
+                                "date": "2026-01-07",
+                                "note": "",
+                                "rejectionReason": null,
+                                "fileName": "1767763615941_6517_2.pdf",
+                                "createdBy": 245,
+                                "modifiedBy": null,
+                                "createdAt": "2026-01-07T05:26:59.756Z",
+                                "updatedAt": "2026-01-07T05:26:59.756Z",
+                                "softDelete": false,
+                                "computedStatus": "PENDING",
+                                "pmFormApprovalWorkflow": [
+                                    {
+                                        "id": 1047,
+                                        "referenceId": 890,
+                                        "formId": 1,
+                                        "approvalUserIds": [
+                                            224
+                                        ],
+                                        "status": "PENDING",
+                                        "stepOrder": 13,
+                                        "approvedDate": null,
+                                        "modifiedByUserId": null,
+                                        "softDelete": false,
+                                        "createdAt": "2026-01-07T05:26:59.761Z",
+                                        "updatedAt": "2026-01-07T05:26:59.761Z"
+                                    },
+                                    {
+                                        "id": 1048,
+                                        "referenceId": 890,
+                                        "formId": 1,
+                                        "approvalUserIds": [
+                                            310,
+                                            283
+                                        ],
+                                        "status": "PENDING",
+                                        "stepOrder": 17,
+                                        "approvedDate": null,
+                                        "modifiedByUserId": null,
+                                        "softDelete": false,
+                                        "createdAt": "2026-01-07T05:26:59.764Z",
+                                        "updatedAt": "2026-01-07T05:26:59.764Z"
+                                    }
+                                ],
+                                "formType": "QUARTERLY",
+                                "submissionType": "EARLY",
+                                "formStatus": "PENDING"
+                            }
+                        ],
+                        "stats": {
+                            "total": 0,
+                            "APPROVED": 0,
+                            "PENDING": 1,
+                            "REJECTED": 0,
+                            "EARLY": 1,
+                            "ON_TIME": 0,
+                            "LATE": 0,
+                            "formStatus": {
+                                "PENDING": 1,
+                                "IN_PROGRESS": 0,
+                                "COMPLETED": 0,
+                                "NA": 0,
+                                "APPROVED": 0
+                            }
+                        },
+                        "pmCategory": [],
+                        "pmItems": [],
+                        "formStatus": "PENDING",
+                        "isExcludeFromNotify": false
+                    },
+                    {
+                        "formId": 7,
+                        "formName": "Tamper Flow Inspection",
+                        "formType": "QUARTERLY",
+                        "pmForms": [],
+                        "stats": {
+                            "total": 0,
+                            "APPROVED": 0,
+                            "PENDING": 0,
+                            "REJECTED": 0,
+                            "EARLY": 0,
+                            "ON_TIME": 0,
+                            "LATE": 0,
+                            "formStatus": {
+                                "PENDING": 1,
+                                "IN_PROGRESS": 0,
+                                "COMPLETED": 0,
+                                "NA": 0,
+                                "APPROVED": 0
+                            }
+                        },
+                        "pmCategory": [],
+                        "pmItems": [],
+                        "formStatus": "PENDING",
+                        "isExcludeFromNotify": false
+                    },
+                    {
+                        "formId": 11,
+                        "formName": "Kitchen Vent hood inspection",
+                        "formType": "QUARTERLY",
+                        "pmForms": [],
+                        "stats": {
+                            "total": 0,
+                            "APPROVED": 0,
+                            "PENDING": 0,
+                            "REJECTED": 0,
+                            "EARLY": 0,
+                            "ON_TIME": 0,
+                            "LATE": 0,
+                            "formStatus": {
+                                "PENDING": 0,
+                                "IN_PROGRESS": 0,
+                                "COMPLETED": 0,
+                                "NA": 1,
+                                "APPROVED": 0
+                            }
+                        },
+                        "pmCategory": [],
+                        "pmItems": [],
+                        "formStatus": "N/A",
+                        "isExcludeFromNotify": false
+                    },
+                    {
+                        "formId": 14,
+                        "formName": "Carbon Monoxide",
+                        "formType": "QUARTERLY",
+                        "pmForms": [],
+                        "stats": {
+                            "total": 0,
+                            "APPROVED": 0,
+                            "PENDING": 0,
+                            "REJECTED": 0,
+                            "EARLY": 0,
+                            "ON_TIME": 0,
+                            "LATE": 0,
+                            "formStatus": {
+                                "PENDING": 1,
+                                "IN_PROGRESS": 0,
+                                "COMPLETED": 0,
+                                "NA": 0,
+                                "APPROVED": 0
+                            }
+                        },
+                        "pmCategory": [],
+                        "pmItems": [],
+                        "formStatus": "PENDING",
+                        "isExcludeFromNotify": false
+                    },
+                    {
+                        "formId": 15,
+                        "formName": "GFSA",
+                        "formType": "QUARTERLY",
+                        "pmForms": [],
+                        "stats": {
+                            "total": 0,
+                            "APPROVED": 0,
+                            "PENDING": 0,
+                            "REJECTED": 0,
+                            "EARLY": 0,
+                            "ON_TIME": 0,
+                            "LATE": 0,
+                            "formStatus": {
+                                "PENDING": 1,
+                                "IN_PROGRESS": 0,
+                                "COMPLETED": 0,
+                                "NA": 0,
+                                "APPROVED": 0
+                            }
+                        },
+                        "pmCategory": [],
+                        "pmItems": [],
+                        "formStatus": "PENDING",
+                        "isExcludeFromNotify": false
+                    },
+                    {
+                        "formId": 18,
+                        "formName": "MESH",
+                        "formType": "QUARTERLY",
+                        "pmForms": [],
+                        "stats": {
+                            "total": 0,
+                            "APPROVED": 0,
+                            "PENDING": 0,
+                            "REJECTED": 0,
+                            "EARLY": 0,
+                            "ON_TIME": 0,
+                            "LATE": 0,
+                            "formStatus": {
+                                "PENDING": 1,
+                                "IN_PROGRESS": 0,
+                                "COMPLETED": 0,
+                                "NA": 0,
+                                "APPROVED": 0
+                            }
+                        },
+                        "pmCategory": [],
+                        "pmItems": [],
+                        "formStatus": "PENDING",
+                        "isExcludeFromNotify": false
+                    },
+                    {
+                        "formId": 22,
+                        "formName": "Sprinkler Valve Inspection",
+                        "formType": "QUARTERLY",
+                        "pmForms": [],
+                        "stats": {
+                            "total": 0,
+                            "APPROVED": 0,
+                            "PENDING": 0,
+                            "REJECTED": 0,
+                            "EARLY": 0,
+                            "ON_TIME": 0,
+                            "LATE": 0,
+                            "formStatus": {
+                                "PENDING": 1,
+                                "IN_PROGRESS": 0,
+                                "COMPLETED": 0,
+                                "NA": 0,
+                                "APPROVED": 0
+                            }
+                        },
+                        "pmCategory": [],
+                        "pmItems": [],
+                        "formStatus": "PENDING",
+                        "isExcludeFromNotify": false
+                    }
+                ],
+                "isAbleToApprove": false,
+                "pmFormApprovalWorkflow": [
+                    {
+                        "stepOrder": 13,
+                        "approvalUserIds": [
+                            224
+                        ],
+                        "approvalUsers": [
+                            {
+                                "id": 224,
+                                "name": "QA Developer"
+                            }
+                        ],
+                        "isAbleToNotify": true
+                    },
+                    {
+                        "stepOrder": 17,
+                        "approvalUserIds": [
+                            310,
+                            283
+                        ],
+                        "approvalUsers": [
+                            {
+                                "id": 310,
+                                "name": "Leanna Houston"
+                            },
+                            {
+                                "id": 283,
+                                "name": "Damon K"
+                            }
+                        ],
+                        "isAbleToNotify": true
+                    }
+                ],
+                "isAllpmFormApprovalWorkflowApproved": false
+            },
+            {
+                "id": 115,
+                "companyCode": "333",
+                "companyName": "EH PACIFIC OAK SOR II Q&C Operations, LLC",
+                "propertyName": "EH PACIFIC OAK SOR II Q&C Operations",
+                "franchiseType": "MARRIOTT",
+                "pmForms": [
+                    {
+                        "formId": 1,
+                        "formName": "Quarterly Fire Drill",
+                        "formType": "QUARTERLY",
+                        "pmForms": [
+                            {
+                                "id": 957,
+                                "propertyId": 115,
+                                "formId": 1,
+                                "quarter": 2,
+                                "year": 2026,
+                                "associateUser": [],
+                                "date": "2026-01-12",
+                                "note": "test",
+                                "rejectionReason": null,
+                                "fileName": null,
+                                "createdBy": 224,
+                                "modifiedBy": 224,
+                                "createdAt": "2026-01-12T11:29:14.850Z",
+                                "updatedAt": "2026-01-12T11:36:22.901Z",
+                                "softDelete": false,
+                                "computedStatus": "PENDING",
+                                "pmFormApprovalWorkflow": [
+                                    {
+                                        "id": 1290,
+                                        "referenceId": 957,
+                                        "formId": 1,
+                                        "approvalUserIds": [
+                                            310,
+                                            283
+                                        ],
+                                        "status": "PENDING",
+                                        "stepOrder": 17,
+                                        "approvedDate": null,
+                                        "modifiedByUserId": null,
+                                        "softDelete": false,
+                                        "createdAt": "2026-01-12T11:29:14.862Z",
+                                        "updatedAt": "2026-01-12T11:29:14.862Z"
+                                    },
+                                    {
+                                        "id": 1289,
+                                        "referenceId": 957,
+                                        "formId": 1,
+                                        "approvalUserIds": [
+                                            192
+                                        ],
+                                        "status": "PENDING",
+                                        "stepOrder": 16,
+                                        "approvedDate": null,
+                                        "modifiedByUserId": null,
+                                        "softDelete": false,
+                                        "createdAt": "2026-01-12T11:29:14.856Z",
+                                        "updatedAt": "2026-01-12T11:29:14.856Z"
+                                    }
+                                ],
+                                "formType": "QUARTERLY",
+                                "submissionType": "EARLY",
+                                "formStatus": "PENDING"
+                            }
+                        ],
+                        "stats": {
+                            "total": 0,
+                            "APPROVED": 0,
+                            "PENDING": 1,
+                            "REJECTED": 0,
+                            "EARLY": 1,
+                            "ON_TIME": 0,
+                            "LATE": 0,
+                            "formStatus": {
+                                "PENDING": 1,
+                                "IN_PROGRESS": 0,
+                                "COMPLETED": 0,
+                                "NA": 0,
+                                "APPROVED": 0
+                            }
+                        },
+                        "pmCategory": [],
+                        "pmItems": [],
+                        "formStatus": "PENDING",
+                        "isExcludeFromNotify": false
+                    },
+                    {
+                        "formId": 7,
+                        "formName": "Tamper Flow Inspection",
+                        "formType": "QUARTERLY",
+                        "pmForms": [],
+                        "stats": {
+                            "total": 0,
+                            "APPROVED": 0,
+                            "PENDING": 0,
+                            "REJECTED": 0,
+                            "EARLY": 0,
+                            "ON_TIME": 0,
+                            "LATE": 0,
+                            "formStatus": {
+                                "PENDING": 1,
+                                "IN_PROGRESS": 0,
+                                "COMPLETED": 0,
+                                "NA": 0,
+                                "APPROVED": 0
+                            }
+                        },
+                        "pmCategory": [],
+                        "pmItems": [],
+                        "formStatus": "PENDING",
+                        "isExcludeFromNotify": false
+                    },
+                    {
+                        "formId": 11,
+                        "formName": "Kitchen Vent hood inspection",
+                        "formType": "QUARTERLY",
+                        "pmForms": [],
+                        "stats": {
+                            "total": 0,
+                            "APPROVED": 0,
+                            "PENDING": 0,
+                            "REJECTED": 0,
+                            "EARLY": 0,
+                            "ON_TIME": 0,
+                            "LATE": 0,
+                            "formStatus": {
+                                "PENDING": 1,
+                                "IN_PROGRESS": 0,
+                                "COMPLETED": 0,
+                                "NA": 0,
+                                "APPROVED": 0
+                            }
+                        },
+                        "pmCategory": [],
+                        "pmItems": [],
+                        "formStatus": "PENDING",
+                        "isExcludeFromNotify": false
+                    },
+                    {
+                        "formId": 14,
+                        "formName": "Carbon Monoxide",
+                        "formType": "QUARTERLY",
+                        "pmForms": [],
+                        "stats": {
+                            "total": 0,
+                            "APPROVED": 0,
+                            "PENDING": 0,
+                            "REJECTED": 0,
+                            "EARLY": 0,
+                            "ON_TIME": 0,
+                            "LATE": 0,
+                            "formStatus": {
+                                "PENDING": 1,
+                                "IN_PROGRESS": 0,
+                                "COMPLETED": 0,
+                                "NA": 0,
+                                "APPROVED": 0
+                            }
+                        },
+                        "pmCategory": [],
+                        "pmItems": [],
+                        "formStatus": "PENDING",
+                        "isExcludeFromNotify": false
+                    },
+                    {
+                        "formId": 15,
+                        "formName": "GFSA",
+                        "formType": "QUARTERLY",
+                        "pmForms": [],
+                        "stats": {
+                            "total": 0,
+                            "APPROVED": 0,
+                            "PENDING": 0,
+                            "REJECTED": 0,
+                            "EARLY": 0,
+                            "ON_TIME": 0,
+                            "LATE": 0,
+                            "formStatus": {
+                                "PENDING": 1,
+                                "IN_PROGRESS": 0,
+                                "COMPLETED": 0,
+                                "NA": 0,
+                                "APPROVED": 0
+                            }
+                        },
+                        "pmCategory": [],
+                        "pmItems": [],
+                        "formStatus": "PENDING",
+                        "isExcludeFromNotify": false
+                    },
+                    {
+                        "formId": 18,
+                        "formName": "MESH",
+                        "formType": "QUARTERLY",
+                        "pmForms": [],
+                        "stats": {
+                            "total": 0,
+                            "APPROVED": 0,
+                            "PENDING": 0,
+                            "REJECTED": 0,
+                            "EARLY": 0,
+                            "ON_TIME": 0,
+                            "LATE": 0,
+                            "formStatus": {
+                                "PENDING": 1,
+                                "IN_PROGRESS": 0,
+                                "COMPLETED": 0,
+                                "NA": 0,
+                                "APPROVED": 0
+                            }
+                        },
+                        "pmCategory": [],
+                        "pmItems": [],
+                        "formStatus": "PENDING",
+                        "isExcludeFromNotify": false
+                    },
+                    {
+                        "formId": 22,
+                        "formName": "Sprinkler Valve Inspection",
+                        "formType": "QUARTERLY",
+                        "pmForms": [
+                            {
+                                "id": 947,
+                                "propertyId": 115,
+                                "formId": 22,
+                                "quarter": 2,
+                                "year": 2026,
+                                "associateUser": null,
+                                "date": "2026-01-12",
+                                "note": null,
+                                "rejectionReason": null,
+                                "fileName": null,
+                                "createdBy": 224,
+                                "modifiedBy": null,
+                                "createdAt": "2026-01-12T05:18:11.612Z",
+                                "updatedAt": "2026-01-12T05:18:11.612Z",
+                                "softDelete": false,
+                                "computedStatus": "PENDING",
+                                "pmFormApprovalWorkflow": [
+                                    {
+                                        "id": 1239,
+                                        "referenceId": 947,
+                                        "formId": 22,
+                                        "approvalUserIds": [
+                                            192
+                                        ],
+                                        "status": "PENDING",
+                                        "stepOrder": 16,
+                                        "approvedDate": null,
+                                        "modifiedByUserId": null,
+                                        "softDelete": false,
+                                        "createdAt": "2026-01-12T05:18:11.619Z",
+                                        "updatedAt": "2026-01-12T05:18:11.619Z"
+                                    },
+                                    {
+                                        "id": 1240,
+                                        "referenceId": 947,
+                                        "formId": 22,
+                                        "approvalUserIds": [
+                                            310,
+                                            283
+                                        ],
+                                        "status": "PENDING",
+                                        "stepOrder": 17,
+                                        "approvedDate": null,
+                                        "modifiedByUserId": null,
+                                        "softDelete": false,
+                                        "createdAt": "2026-01-12T05:18:11.621Z",
+                                        "updatedAt": "2026-01-12T05:18:11.621Z"
+                                    }
+                                ],
+                                "formType": "QUARTERLY",
+                                "submissionType": "EARLY",
+                                "formStatus": "PENDING"
+                            }
+                        ],
+                        "stats": {
+                            "total": 0,
+                            "APPROVED": 0,
+                            "PENDING": 1,
+                            "REJECTED": 0,
+                            "EARLY": 1,
+                            "ON_TIME": 0,
+                            "LATE": 0,
+                            "formStatus": {
+                                "PENDING": 1,
+                                "IN_PROGRESS": 0,
+                                "COMPLETED": 0,
+                                "NA": 0,
+                                "APPROVED": 0
+                            }
+                        },
+                        "pmCategory": [],
+                        "pmItems": [],
+                        "formStatus": "PENDING",
+                        "isExcludeFromNotify": false
+                    }
+                ],
+                "isAbleToApprove": false,
+                "pmFormApprovalWorkflow": [
+                    {
+                        "stepOrder": 16,
+                        "approvalUserIds": [
+                            192
+                        ],
+                        "approvalUsers": [
+                            {
+                                "id": 192,
+                                "name": "Christopher Dwyer"
+                            }
+                        ],
+                        "isAbleToNotify": true
+                    },
+                    {
+                        "stepOrder": 17,
+                        "approvalUserIds": [
+                            310,
+                            283
+                        ],
+                        "approvalUsers": [
+                            {
+                                "id": 310,
+                                "name": "Leanna Houston"
+                            },
+                            {
+                                "id": 283,
+                                "name": "Damon K"
+                            }
+                        ],
+                        "isAbleToNotify": true
+                    }
+                ],
+                "isAllpmFormApprovalWorkflowApproved": false
+            }
+        ],
+        "totalStatistics": {
+            "total": 56,
+            "APPROVED": 0,
+            "PENDING": 22,
+            "REJECTED": 1,
+            "EARLY": 23,
+            "ON_TIME": 0,
+            "LATE": 0,
+            "formStatus": {
+                "PENDING": 46,
+                "IN_PROGRESS": 1,
+                "COMPLETED": 6,
+                "NA": 3,
+                "APPROVED": 0
+            }
+        }
+    },
   "$schema": "./node_modules/json-server/schema.json"
 }

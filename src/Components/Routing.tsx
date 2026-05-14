@@ -8,7 +8,7 @@ import Data from "../Pages/Data";
 import { RoomData } from "../Pages/RoomData";
 import { PropertyData } from "../Pages/PropertyData";
 import { Property } from "./Property";
-import { ApexChart } from "./CommonComponents/ApexChart";
+import { ApexChart } from "../Pages/ApexChart";
 
 export const Routing = createBrowserRouter([
   {
