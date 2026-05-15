@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type Dispatch, type SetStateAction } from "react";
 import Header from "../Components/Header";
 import { useNavigate } from "react-router-dom";
 import { MdDeleteOutline, MdOutlinePreview } from "react-icons/md";
@@ -19,13 +19,13 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import CustomDateRangePicker from "../Components/CommonComponents/DatePickerBasic";
 import WeekPicker from "../Components/CommonComponents/WeekPicker";
+import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 
 export const Home = () => {
   const [users, setUsers] = useState<User[]>([]);
   const navigate = useNavigate();
   const [checkedDelete, setCheckedDelete] = useState<number[]>([]);
   const [selectedMonth, setSelectedMonth] = useState<string>("");
-
   const [search, setSearch] = useState<string>("");
   const [showConfirm, setShowConfirm] = useState<boolean>(false);
   const [deleteId, setDeleteId] = useState<number | undefined>(undefined);
@@ -46,7 +46,6 @@ export const Home = () => {
   const startIndex = lastIndex - itemsPerPage;
   const currentRecords = filteredUsers.slice(startIndex, lastIndex);
   const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
-
   useEffect(() => {
     setCurrentPage(1);
   }, [search]);
@@ -61,6 +60,7 @@ export const Home = () => {
       }
     };
 
+    
     fetchUser();
   }, []);
 
@@ -138,6 +138,7 @@ export const Home = () => {
       name: "bansi",
       age: 20,
       birthdate: "2026-04-12",
+      uploadFile: null,
     };
 
     try {
@@ -215,7 +216,11 @@ export const Home = () => {
   console.log(name);
   return (
     <>
-      <Header search={search} setSearch={setSearch} searchShow={true} />
+      <Header
+        search={search}
+        setSearch={setSearch}
+        searchShow={true}
+      />
 
       <div className="user-data">
         <div className="table-section">
@@ -223,18 +228,22 @@ export const Home = () => {
             <Buttons
               label="Get"
               onClick={() => handleApiTest("Get", "/users")}
+              className="bg-blue-500 px-3 py-2 rounded cursor-pointer"
             />
             <Buttons
               label="Post"
               onClick={() => handleApiTest("Post", "/users")}
+              className="bg-blue-500 px-3 py-2 rounded cursor-pointer"
             />
             <Buttons
               label="Put"
               onClick={() => handleApiTest("Put", "/users/1")}
+              className="bg-blue-500 px-3 py-2 rounded cursor-pointer"
             />
             <Buttons
               label="Delete"
               onClick={() => handleApiTest("Delete", "/users/2")}
+              className="bg-blue-500 px-3 py-2 rounded cursor-pointer"
             />
 
             <DropDown
@@ -311,16 +320,45 @@ export const Home = () => {
                       </div>
                     </td>
                     <td className="action-buttons">
-                      <Buttons
-                        onClick={() => handleDelete(user.id)}
-                        label={<MdDeleteOutline />}
-                        className="delete-btn"
-                      />
-                      <Buttons
-                        onClick={() => handleEdit(user.id)}
-                        label={<CiEdit />}
-                        className="edit-btn"
-                      />
+                      <Menu
+                        as="div"
+                        className="relative inline-block text-left"
+                      >
+                        <MenuButton className="bg-blue-500 px-3 py-2 rounded cursor-pointer">
+                          Actions
+                        </MenuButton>
+                        <MenuItems className="absolute right-0 mb-2 w-40 bg-white border rounded shadow-lg z-50">
+                          <MenuItem>
+                            {() => (
+                              <Buttons
+                                onClick={() => handleEdit(user.id)}
+                                label={
+                                  <>
+                                    <CiEdit />
+                                    Edit
+                                  </>
+                                }
+                                className="edit-btn"
+                              />
+                            )}
+                          </MenuItem>
+
+                          <MenuItem>
+                            {() => (
+                              <Buttons
+                                onClick={() => handleDelete(user.id)}
+                                label={
+                                  <>
+                                    <MdDeleteOutline />
+                                    Delete
+                                  </>
+                                }
+                                className="delete-btn"
+                              />
+                            )}
+                          </MenuItem>
+                        </MenuItems>
+                      </Menu>
                     </td>
                   </tr>
                 ))}

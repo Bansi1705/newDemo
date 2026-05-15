@@ -14,6 +14,7 @@ import Header from "../Components/Header";
 import { Apiservice } from "../Services/ApiService";
 import Pagination from "../Components/CommonComponents/Pagination";
 import { CONSTANT } from "../Services/Constant";
+import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 interface StatusChangeData {
   id: number | string;
   newStatus: string;
@@ -435,13 +436,13 @@ const UserExpense = () => {
             <Buttons
               label={editExpense ? "Update" : "Save"}
               type="submit"
-              className="submit-btn bg-blue-600 text-white py-2 rounded hover:bg-blue-800 transition-colors"
+              className="submit-btn bg-blue-600 text-white p-2 rounded hover:bg-blue-800 transition-colors"
             />
             <Buttons
               label="Cancel"
               type="button"
               onClick={resetForm}
-              className="cancel-btn bg-gray-600 text-white py-2 rounded hover:bg-gray-800 transition-colors"
+              className="cancel-btn bg-gray-600 text-white p-2 rounded hover:bg-gray-800 transition-colors"
             />
           </div>
         </form>
@@ -488,7 +489,7 @@ const UserExpense = () => {
                         <select
                           value={exp.status}
                           onChange={(e) =>
-                            handleStatusChange(exp.id??0, e.target.value)
+                            handleStatusChange(exp.id ?? 0, e.target.value)
                           }
                           className={`status-dropdown-${exp.status.toLowerCase()} `}
                         >
@@ -504,17 +505,45 @@ const UserExpense = () => {
                         </select>
                       </td>
                       <td>
-                        <Buttons
-                          onClick={() => handleDelete(exp.id)}
-                          label={<MdDeleteOutline />}
-                          className="delete-btn"
-                        />
+                        <Menu
+                          as="div"
+                          className="relative inline-block text-left"
+                        >
+                          <MenuButton className="bg-blue-500 px-3 py-2 rounded cursor-pointer">
+                            Actions
+                          </MenuButton>
+                          <MenuItems className="absolute right-0 mb-2 w-40 bg-white border rounded shadow-lg z-50">
+                            <MenuItem>
+                              {() => (
+                                <Buttons
+                                  onClick={() => handleEdit(exp)}
+                                  label={
+                                    <>
+                                      <CiEdit />
+                                      Edit
+                                    </>
+                                  }
+                                  className="edit-btn"
+                                />
+                              )}
+                            </MenuItem>
 
-                        <Buttons
-                          onClick={() => handleEdit(exp)}
-                          label={<CiEdit />}
-                          className="edit-btn"
-                        />
+                            <MenuItem>
+                              {() => (
+                                <Buttons
+                                  onClick={() => handleDelete(exp.id)}
+                                  label={
+                                    <>
+                                      <MdDeleteOutline />
+                                      Delete
+                                    </>
+                                  }
+                                  className="delete-btn"
+                                />
+                              )}
+                            </MenuItem>
+                          </MenuItems>
+                        </Menu>
                       </td>
                     </tr>
                   ))
@@ -527,6 +556,12 @@ const UserExpense = () => {
                 )}
               </tbody>
             </table>
+
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={setCurrentPage}
+            />
 
             {showConfirm && (
               <Confirmation
@@ -547,12 +582,6 @@ const UserExpense = () => {
             )}
           </div>
         )}
-
-        <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          onPageChange={setCurrentPage}
-        />
       </div>
     </>
   );

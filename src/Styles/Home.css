@@ -12,7 +12,7 @@
 }
 
 .table-section {
-  max-width: 900px;
+  max-width: 1180px;
   margin: 0 auto;
 }
 
@@ -85,6 +85,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  width:100%;
 }
 
 .delete-btn {
@@ -186,6 +187,73 @@
 .date-picker-section__summary:empty {
   display: none;
 }
+.listview {
+  width: min(100%, 360px);
+  margin: 0 auto 24px;
+  font-family: Arial, sans-serif;
+}
+
+.listview-button {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid #bfdbfe;
+  border-radius: 8px;
+  background-color: #ffffff;
+  color: #1e3a8a;
+  font-size: 14px;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
+}
+
+.listview-button:hover {
+  border-color: #60a5fa;
+  background-color: #eff6ff;
+}
+
+.listview-button:focus-visible {
+  outline: 3px solid rgba(96, 165, 250, 0.3);
+  outline-offset: 2px;
+}
+
+.listview-options {
+  width: var(--button-width);
+  max-height: 240px;
+  overflow-y: auto;
+  margin-top: 6px;
+  padding: 6px;
+  border: 1px solid #dbeafe;
+  border-radius: 8px;
+  background-color: #ffffff;
+  box-shadow: 0 14px 34px rgba(15, 23, 42, 0.16);
+  z-index: 60;
+}
+
+.listview-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 10px;
+  border-radius: 6px;
+  color: #334155;
+  font-size: 14px;
+  line-height: 1.4;
+  cursor: pointer;
+}
+
+.listview-option:hover,
+.listview-option[data-focus] {
+  background-color: #eff6ff;
+  color: #1d4ed8;
+}
+
+.listview-option-icon {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 auto;
+  color: #2563eb;
+}
 
 @media (max-width: 760px) {
   .date-picker-section {
@@ -197,5 +265,19 @@
   .date-picker-section__summary {
     flex-basis: 100%;
     max-width: 100%;
+  }
+
+  .propertyCard {
+    padding: 14px;
+  }
+
+  .property-date-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 761px) and (max-width: 1024px) {
+  .property-date-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }

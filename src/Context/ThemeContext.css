@@ -45,15 +45,6 @@
   box-shadow: 0 0 5px rgba(96, 165, 250, 0.5);
 }
 
-[data-theme="dark"] button {
-  background-color: #2563eb;
-  color: #f8fafc;
-}
-
-[data-theme="dark"] button:hover {
-  background-color: #1d4ed8;
-}
-
 [data-theme="dark"] .form-label {
   color: #f8fafc;
 }
@@ -99,21 +90,21 @@
 }
 
 [data-theme="dark"] .edit-btn {
-  background-color: #f87171;
+  background-color: #1d4ed8;
   color: #f8fafc;
 }
 
 [data-theme="dark"] .edit-btn:hover {
-  background-color: #ef4444;
+  background-color: #2563eb;
 }
 
 [data-theme="dark"] .delete-btn {
-  background-color: #22c55e;
+  background-color: #dc2626;
   color: #f8fafc;
 }
 
 [data-theme="dark"] .delete-btn:hover {
-  background-color: #16a34a;
+  background-color: #b91c1c;
 }
 
 [data-theme="dark"] .expense-form-data {
@@ -177,12 +168,12 @@
 }
 
 [data-theme="dark"] .expense-data-table td button {
-  background-color: #f87171;
+  background-color: #2563eb;
   color: #f8fafc;
 }
 
 [data-theme="dark"] .expense-data-table td button:hover {
-  background-color: #ef4444;
+  background-color: #1d4ed8;
 }
 
 [data-theme="dark"] .pagination-controls {
@@ -232,6 +223,82 @@
   border-color: #1d4ed8;
   background-color: #172554;
   color: #bfdbfe;
+}
+
+[data-theme="dark"] .propertyCard {
+  border-color: #334155;
+  background-color: #1e293b;
+  box-shadow: 0 14px 34px rgba(2, 6, 23, 0.36);
+}
+
+[data-theme="dark"] .property-group__title {
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .property-date-group__title {
+  border-color: #1d4ed8;
+  background-color: #172554;
+  color: #bfdbfe;
+}
+
+[data-theme="dark"] .property-data-card {
+  border-color: #334155;
+  background: linear-gradient(180deg, #1e293b 0%, #162033 100%);
+  box-shadow: 0 8px 22px rgba(2, 6, 23, 0.32);
+}
+
+[data-theme="dark"] .property-data-card__header {
+  border-bottom-color: #334155;
+}
+
+[data-theme="dark"] .property-data-card__header span {
+  color: #60a5fa;
+}
+
+[data-theme="dark"] .property-data-card__header strong,
+[data-theme="dark"] .property-data-card__stats strong {
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .property-data-card__stats p {
+  background-color: #0f172a;
+}
+
+[data-theme="dark"] .property-data-card__stats span,
+[data-theme="dark"] .property-data-card__date {
+  color: #cbd5e1;
+}
+
+[data-theme="dark"] .listview-button {
+  border-color: #475569;
+  background-color: #1e293b;
+  color: #bfdbfe;
+  box-shadow: 0 8px 24px rgba(2, 6, 23, 0.35);
+}
+
+[data-theme="dark"] .listview-button:hover {
+  border-color: #60a5fa;
+  background-color: #334155;
+}
+
+[data-theme="dark"] .listview-options {
+  border-color: #475569;
+  background-color: #1e293b;
+  box-shadow: 0 18px 45px rgba(2, 6, 23, 0.45);
+}
+
+[data-theme="dark"] .listview-option {
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .listview-option:hover,
+[data-theme="dark"] .listview-option[data-focus] {
+  background-color: #334155;
+  color: #bfdbfe;
+}
+
+[data-theme="dark"] .listview-option-icon {
+  color: #60a5fa;
 }
 
 [data-theme="dark"] .date-range-picker__input {

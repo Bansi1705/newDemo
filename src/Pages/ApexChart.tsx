@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import Header from "../Components/Header";
 import { Apiservice } from "../Services/ApiService";
 import type { ApiResponse } from "../Interface/types";
-import ReactApexChart from "react-apexcharts";
 import type { ApexOptions } from "apexcharts";
 import "../Styles/ApexChart.css";
 import { PropertyChart } from "./PropertyChart";

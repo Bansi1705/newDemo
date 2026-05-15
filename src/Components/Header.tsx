@@ -87,6 +87,12 @@ function Header({ search, setSearch, searchShow }: HeaderProps) {
         >
           Property
         </NavLink>
+        <NavLink
+          to="/propertyCard"
+          className="nav-item text-white font-medium hover:text-gray-300 px-3 py-2 ml-2 whitespace-nowrap"
+        >
+          Property Card
+        </NavLink>
 
          <NavLink
           to="/chartData"

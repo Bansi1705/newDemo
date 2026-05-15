@@ -109,7 +109,7 @@
   padding: 20px;
   font-family: Arial, sans-serif;
   background-color: #f5f7fa;
-  min-height: 100vh;
+  margin-top: 24px;
 }
 
 .expense-user-data h2 {
@@ -124,6 +124,10 @@
   background-color: #fff;
   border-radius: 10px;
   overflow: hidden;
+}
+
+.expense-user-data .pagination-controls {
+  margin-top: 14px;
 }
 
 .expense-data-table td {

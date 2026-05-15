@@ -1,0 +1,120 @@
+
+.propertyCard {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  width: 100%;
+  margin: 0 0 28px;
+  padding: 18px;
+  border: 1px solid #dbe3ef;
+  border-radius: 10px;
+  background-color: #ffffff;
+  box-shadow: 0 14px 34px rgba(15, 23, 42, 0.08);
+}
+
+.property-group {
+  width: 100%;
+}
+
+.property-group__title {
+  margin: 0 0 14px;
+  color: #111827;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.property-date-group {
+  margin-top: 16px;
+}
+
+.property-date-group:first-of-type {
+  margin-top: 0;
+}
+
+.property-date-group__title {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  margin: 0 0 12px;
+  padding: 6px 12px;
+  border: 1px solid #bfdbfe;
+  border-radius: 8px;
+  background-color: #eff6ff;
+  color: #1e3a8a;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.property-date-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.property-data-card {
+  min-width: 0;
+  padding: 16px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  box-shadow: 0 8px 22px rgba(15, 23, 42, 0.07);
+}
+
+.property-data-card__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e5eaf2;
+}
+
+.property-data-card__header span {
+  color: #2563eb;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.property-data-card__header strong {
+  color: #334155;
+  font-size: 13px;
+  font-weight: 700;
+  text-align: right;
+}
+
+.property-data-card__stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.property-data-card__stats p {
+  min-width: 0;
+  margin: 0;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #f1f5f9;
+}
+
+.property-data-card__stats span {
+  display: block;
+  color: #64748b;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.property-data-card__stats strong {
+  display: block;
+  margin-top: 5px;
+  color: #111827;
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.property-data-card__date {
+  margin: 14px 0 0;
+  color: #64748b;
+  font-size: 13px;
+  font-weight: 600;
+}

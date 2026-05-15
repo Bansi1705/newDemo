@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useReducer } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Otp } from "./CommonComponents/Otp";
@@ -12,18 +12,90 @@ interface FormError {
   password?: string;
   otp?: string;
 }
+interface State {
+  data: LoginData;
+  error: FormError;
+  otpValue: string;
+  showPassword: boolean;
+}
 
+type Action =
+  | {
+      type: "HANDLE_CHANGE";
+      payload: { name: string; value: string };
+    }
+  | {
+      type: "SET_OTP";
+      payload: string;
+    }
+  | {
+      type: "SET_ERROR";
+      payload: FormError;
+    }
+  | {
+      type: "TOGGLE_PASSWORD";
+    };
+const initialState: State = {
+  data: {
+    email: "",
+    password: "",
+  },
+  error: {},
+  otpValue: "",
+  showPassword: false,
+};
+
+const reducer = (state: State, action: Action): State => {
+  switch (action.type) {
+    case "HANDLE_CHANGE":
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          [action.payload.name]: action.payload.value,
+        },
+        error: {
+          ...state.error,
+          [action.payload.name]: "",
+        },
+      };
+
+    case "SET_OTP":
+      return {
+        ...state,
+        otpValue: action.payload,
+        error: {
+          ...state.error,
+          otp: "",
+        },
+      };
+
+    case "SET_ERROR":
+      return {
+        ...state,
+        error: action.payload,
+      };
+
+    case "TOGGLE_PASSWORD":
+      return {
+        ...state,
+        showPassword: !state.showPassword,
+      };
+
+    default:
+      return state;
+  }
+};
 export const Login: React.FC = () => {
-  const [data, setData] = useState<LoginData>({ email: "", password: "" });
-  const [error, setError] = useState<FormError>({});
-  const [otpValue, setOtpValue] = useState("");
   const navigate = useNavigate();
-  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setData({ ...data, [name]: value });
-    setError({ ...error, [name]: "" });
+    dispatch({
+      type: "HANDLE_CHANGE",
+      payload: { name, value },
+    });
   };
 
   const handleOtp = () => {
@@ -34,30 +106,36 @@ export const Login: React.FC = () => {
 
   const validate = (): boolean => {
     const newError: FormError = {};
-    if (!data.email.trim()) {
+    if (!state.data.email.trim()) {
       newError.email = "Email is required!";
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(state.data.email)) {
       newError.email = "Invalid email format";
     }
-    if (!data.password.trim()) {
+    if (!state.data.password.trim()) {
       newError.password = "Password is required!";
-    } else if (data.password.length < 6) {
+    } else if (state.data.password.length < 6) {
       newError.password = "Minimum 6 characters required";
     }
-    if (!otpValue.trim()) {
+    if (!state.otpValue.trim()) {
       newError.otp = "Otp Required!";
     }
-    if (otpValue !== localStorage.getItem("loginOtp")) {
+    if (state.otpValue !== localStorage.getItem("loginOtp")) {
       newError.otp = "Invalid OTP!";
     }
-    setError(newError);
+    dispatch({
+      type: "SET_ERROR",
+      payload: newError,
+    });
     return Object.keys(newError).length === 0;
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (validate()) {
-      sessionStorage.setItem("LoginUser", JSON.stringify({ ...data, token: "123abc"}));
+      sessionStorage.setItem(
+        "LoginUser",
+        JSON.stringify({ ...state.data, token: "123abc" }),
+      );
       toast.success(CONSTANT.SUCCESS.LOGIN);
       navigate("/home");
     } else {
@@ -81,10 +159,10 @@ export const Login: React.FC = () => {
               type="email"
               name="email"
               id="email"
-              value={data.email}
+              value={state.data.email}
               onChange={handleChange}
               placeholder="bansi@gmail.com"
-              error={error.email}
+              error={state.error.email}
               classname="px-3 py-2 border border-gray-300 rounded-lg text-base outline-none focus:border-blue-600 transition-colors duration-200"
             />
           </div>
@@ -99,24 +177,26 @@ export const Login: React.FC = () => {
             <div className="relative flex items-center">
               <InputField
                 id="password"
-                type={showPassword ? "text" : "password"}
+                type={state.showPassword ? "text" : "password"}
                 name="password"
-                value={data.password}
+                value={state.data.password}
                 onChange={handleChange}
                 placeholder="********"
-                error={error.password}
+                error={state.error.password}
                 classname="w-full px-3 py-2 pr-10 border border-gray-300 rounded-lg text-base outline-none focus:border-blue-600 transition-colors duration-200"
               />
               <span
                 className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-lg text-gray-500 flex items-center justify-center"
-                onClick={() => setShowPassword(!showPassword)}
+                onClick={() => dispatch({ type: "TOGGLE_PASSWORD" })}
               >
-                {showPassword ? <FaEyeSlash /> : <FaEye />}
+                {state.showPassword ? <FaEyeSlash /> : <FaEye />}
               </span>
             </div>
 
-            {error.password && (
-              <p className="mt-1 text-red-600 text-sm">{error.password}</p>
+            {state.error.password && (
+              <p className="mt-1 text-red-600 text-sm">
+                {state.error.password}
+              </p>
             )}
           </div>
           <div className="mb-4 flex flex-col">
@@ -126,9 +206,14 @@ export const Login: React.FC = () => {
             >
               Otp :
             </label>
-            <Otp otpValue={otpValue} setOtpValue={setOtpValue} />
-            {error.otp && (
-              <p className="mt-1 text-red-600 text-sm">{error.otp}</p>
+            <Otp
+              otpValue={state.otpValue}
+              setOtpValue={(value: string) =>
+                dispatch({ type: "SET_OTP", payload: value })
+              }
+            />
+            {state.error.otp && (
+              <p className="mt-1 text-red-600 text-sm">{state.error.otp}</p>
             )}
           </div>
 

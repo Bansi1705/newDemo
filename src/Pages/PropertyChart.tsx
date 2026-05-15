@@ -164,7 +164,6 @@ export const PropertyChart: React.FC = () => {
           type="pie"
           series={pieChartSeries}
           options={pieChartOptions}
-          
         />
       </section>
     </>

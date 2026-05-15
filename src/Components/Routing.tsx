@@ -9,6 +9,7 @@ import { RoomData } from "../Pages/RoomData";
 import { PropertyData } from "../Pages/PropertyData";
 import { Property } from "./Property";
 import { ApexChart } from "../Pages/ApexChart";
+import { PropertyCard } from "../Pages/PropertyCard";
 
 export const Routing = createBrowserRouter([
   {
@@ -87,6 +88,14 @@ export const Routing = createBrowserRouter([
     element: (
       <AuthGuard required={true}>
         <ApexChart />
+      </AuthGuard>
+    ),
+  },
+   {
+  path: "/propertyCard",
+    element: (
+      <AuthGuard required={true}>
+        <PropertyCard/>
       </AuthGuard>
     ),
   },
