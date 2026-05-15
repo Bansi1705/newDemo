@@ -14747,5 +14747,373 @@
     "totalElements": 93,
     "totalPages": 8
   },
+  "propertyWiseReadings": {
+    "notifyArray": [
+      {
+        "stepOrder": 17,
+        "notifyUserIds": [310, 283],
+        "notifyUsers": [
+          {
+            "id": 310,
+            "name": "Leanna Houston"
+          },
+          {
+            "id": 283,
+            "name": "Damon K"
+          }
+        ],
+        "isAbleToNotify": true
+      }
+    ],
+    "readingLimits": [
+      {
+        "phLevel": "7.2 to 7.4",
+        "flowRate": "",
+        "chlorine": "2-4 PPM",
+        "alkalinity": "80-120 PPM",
+        "temperature": "80-84F",
+        "calcium": "200-400 PPM"
+      }
+    ],
+    "content": [
+      {
+        "id": 465,
+        "propertyId": 1,
+        "date": "2026-05-01",
+        "actualTime": "11:34:00",
+        "type": "POOL",
+        "temperature": "1",
+        "phLevel": "5",
+        "waterFlowRate": "7344344449898",
+        "alkalinity": "1",
+        "calcium": "1",
+        "chlorine": "4",
+        "poolLightsFunctional": true,
+        "antiSuctionDrainCoversInPlace": true,
+        "skimmerCoversInPlace": true,
+        "waterClarityVisual": true,
+        "createdByUserId": 224,
+        "modifiedByUserId": 224,
+        "softDelete": false,
+        "createdAt": "2026-05-11T06:04:54.506Z",
+        "updatedAt": "2026-05-14T10:30:57.857Z",
+        "comment": "Test Tr ",
+        "endOfWeekDate": null,
+        "readingFrequencyType": "DAILY",
+        "createdByUser": {
+          "name": "QA Developer"
+        },
+        "property": {
+          "propertyName": "Spanish Fort Courtyard by Marriott"
+        },
+        "time": "08:00 AM",
+        "hasMissingDetails": false
+      },
+      {
+        "id": 481,
+        "propertyId": 1,
+        "date": "2026-05-01",
+        "actualTime": "12:46:00",
+        "type": "POOL",
+        "temperature": "2",
+        "phLevel": "3",
+        "waterFlowRate": "12",
+        "alkalinity": null,
+        "calcium": "2",
+        "chlorine": null,
+        "poolLightsFunctional": true,
+        "antiSuctionDrainCoversInPlace": false,
+        "skimmerCoversInPlace": false,
+        "waterClarityVisual": true,
+        "createdByUserId": 224,
+        "modifiedByUserId": null,
+        "softDelete": false,
+        "createdAt": "2026-05-11T07:16:53.892Z",
+        "updatedAt": "2026-05-11T07:16:53.892Z",
+        "comment": "tt",
+        "endOfWeekDate": null,
+        "readingFrequencyType": "DAILY",
+        "createdByUser": {
+          "name": "QA Developer"
+        },
+        "property": {
+          "propertyName": "Spanish Fort Courtyard by Marriott"
+        },
+        "time": "02:00 PM",
+        "hasMissingDetails": true
+      },
+      {
+        "id": 482,
+        "propertyId": 1,
+        "date": "2026-05-01",
+        "actualTime": "12:47:00",
+        "type": "POOL",
+        "temperature": "7",
+        "phLevel": "2",
+        "waterFlowRate": "1",
+        "alkalinity": null,
+        "calcium": "2",
+        "chlorine": null,
+        "poolLightsFunctional": true,
+        "antiSuctionDrainCoversInPlace": false,
+        "skimmerCoversInPlace": false,
+        "waterClarityVisual": true,
+        "createdByUserId": 224,
+        "modifiedByUserId": null,
+        "softDelete": false,
+        "createdAt": "2026-05-11T07:17:17.555Z",
+        "updatedAt": "2026-05-11T07:17:17.555Z",
+        "comment": "3",
+        "endOfWeekDate": null,
+        "readingFrequencyType": "DAILY",
+        "createdByUser": {
+          "name": "QA Developer"
+        },
+        "property": {
+          "propertyName": "Spanish Fort Courtyard by Marriott"
+        },
+        "time": "10:00 PM",
+        "hasMissingDetails": true
+      },
+      {
+        "id": 483,
+        "propertyId": 2,
+        "date": "2026-05-01",
+        "actualTime": "12:49:00",
+        "type": "POOL",
+        "temperature": "7",
+        "phLevel": "52",
+        "waterFlowRate": "3",
+        "alkalinity": null,
+        "calcium": "12",
+        "chlorine": null,
+        "poolLightsFunctional": true,
+        "antiSuctionDrainCoversInPlace": true,
+        "skimmerCoversInPlace": true,
+        "waterClarityVisual": true,
+        "createdByUserId": 224,
+        "modifiedByUserId": null,
+        "softDelete": false,
+        "createdAt": "2026-05-11T07:20:05.095Z",
+        "updatedAt": "2026-05-11T07:20:05.095Z",
+        "comment": "test hp 11 may",
+        "endOfWeekDate": null,
+        "readingFrequencyType": "DAILY",
+        "createdByUser": {
+          "name": "QA Developer"
+        },
+        "property": {
+          "propertyName": "Spanish Fort Fairfield Inn and Suites"
+        },
+        "time": "08:00 AM",
+        "hasMissingDetails": false
+      },
+      {
+        "id": null,
+        "propertyId": 2,
+        "date": "2026-05-01",
+        "actualTime": null,
+        "type": "POOL",
+        "poolLightsFunctional": true,
+        "antiSuctionDrainCoversInPlace": true,
+        "skimmerCoversInPlace": true,
+        "waterClarityVisual": true,
+        "createdAt": "2026-05-15T07:13:55.595Z",
+        "updatedAt": "2026-05-15T07:13:55.595Z",
+        "isPending": true,
+        "property": {
+          "propertyName": "Spanish Fort Fairfield Inn and Suites"
+        },
+        "__slotIndex": 1,
+        "time": "02:00 PM",
+        "hasMissingDetails": false
+      },
+      {
+        "id": null,
+        "propertyId": 2,
+        "date": "2026-05-01",
+        "actualTime": null,
+        "type": "POOL",
+        "poolLightsFunctional": true,
+        "antiSuctionDrainCoversInPlace": true,
+        "skimmerCoversInPlace": true,
+        "waterClarityVisual": true,
+        "createdAt": "2026-05-15T07:13:55.595Z",
+        "updatedAt": "2026-05-15T07:13:55.595Z",
+        "isPending": true,
+        "property": {
+          "propertyName": "Spanish Fort Fairfield Inn and Suites"
+        },
+        "__slotIndex": 2,
+        "time": "10:00 PM",
+        "hasMissingDetails": false
+      },
+      {
+        "id": 486,
+        "propertyId": 3,
+        "date": "2026-05-01",
+        "actualTime": "12:59:00",
+        "type": "POOL",
+        "temperature": "7",
+        "phLevel": "5",
+        "waterFlowRate": "1",
+        "alkalinity": null,
+        "calcium": "1",
+        "chlorine": null,
+        "poolLightsFunctional": false,
+        "antiSuctionDrainCoversInPlace": false,
+        "skimmerCoversInPlace": false,
+        "waterClarityVisual": true,
+        "createdByUserId": 224,
+        "modifiedByUserId": null,
+        "softDelete": false,
+        "createdAt": "2026-05-11T07:29:40.910Z",
+        "updatedAt": "2026-05-11T07:29:40.910Z",
+        "comment": "spa rreading data add 11th may 2026 reagain",
+        "endOfWeekDate": null,
+        "readingFrequencyType": "DAILY",
+        "createdByUser": {
+          "name": "QA Developer"
+        },
+        "property": {
+          "propertyName": "D'iberville Courtyard"
+        },
+        "time": "08:00 AM",
+        "hasMissingDetails": true
+      },
+      {
+        "id": 498,
+        "propertyId": 3,
+        "date": "2026-05-01",
+        "actualTime": "16:05:00",
+        "type": "POOL",
+        "temperature": "7",
+        "phLevel": "5",
+        "waterFlowRate": "755",
+        "alkalinity": null,
+        "calcium": "401",
+        "chlorine": null,
+        "poolLightsFunctional": false,
+        "antiSuctionDrainCoversInPlace": false,
+        "skimmerCoversInPlace": true,
+        "waterClarityVisual": false,
+        "createdByUserId": 224,
+        "modifiedByUserId": 224,
+        "softDelete": false,
+        "createdAt": "2026-05-11T10:36:15.678Z",
+        "updatedAt": "2026-05-11T10:36:26.127Z",
+        "comment": "test",
+        "endOfWeekDate": null,
+        "readingFrequencyType": "DAILY",
+        "createdByUser": {
+          "name": "QA Developer"
+        },
+        "property": {
+          "propertyName": "D'iberville Courtyard"
+        },
+        "time": "02:00 PM",
+        "hasMissingDetails": true
+      },
+      {
+        "id": null,
+        "propertyId": 3,
+        "date": "2026-05-01",
+        "actualTime": null,
+        "type": "POOL",
+        "poolLightsFunctional": true,
+        "antiSuctionDrainCoversInPlace": true,
+        "skimmerCoversInPlace": true,
+        "waterClarityVisual": true,
+        "createdAt": "2026-05-15T07:13:55.595Z",
+        "updatedAt": "2026-05-15T07:13:55.595Z",
+        "isPending": true,
+        "property": {
+          "propertyName": "D'iberville Courtyard"
+        },
+        "__slotIndex": 2,
+        "time": "10:00 PM",
+        "hasMissingDetails": false
+      },
+      {
+        "id": 494,
+        "propertyId": 6,
+        "date": "2026-05-01",
+        "actualTime": "15:43:00",
+        "type": "POOL",
+        "temperature": "5",
+        "phLevel": "2",
+        "waterFlowRate": "1",
+        "alkalinity": null,
+        "calcium": "3",
+        "chlorine": null,
+        "poolLightsFunctional": true,
+        "antiSuctionDrainCoversInPlace": true,
+        "skimmerCoversInPlace": true,
+        "waterClarityVisual": true,
+        "createdByUserId": 224,
+        "modifiedByUserId": null,
+        "softDelete": false,
+        "createdAt": "2026-05-11T10:13:49.175Z",
+        "updatedAt": "2026-05-11T10:13:49.175Z",
+        "comment": "TTTT",
+        "endOfWeekDate": null,
+        "readingFrequencyType": "DAILY",
+        "createdByUser": {
+          "name": "QA Developer"
+        },
+        "property": {
+          "propertyName": "Double Tree Harrisonburg"
+        },
+        "time": "08:00 AM",
+        "hasMissingDetails": false
+      },
+      {
+        "id": null,
+        "propertyId": 6,
+        "date": "2026-05-01",
+        "actualTime": null,
+        "type": "POOL",
+        "poolLightsFunctional": true,
+        "antiSuctionDrainCoversInPlace": true,
+        "skimmerCoversInPlace": true,
+        "waterClarityVisual": true,
+        "createdAt": "2026-05-15T07:13:55.595Z",
+        "updatedAt": "2026-05-15T07:13:55.595Z",
+        "isPending": true,
+        "property": {
+          "propertyName": "Double Tree Harrisonburg"
+        },
+        "__slotIndex": 1,
+        "time": "02:00 PM",
+        "hasMissingDetails": false
+      },
+      {
+        "id": null,
+        "propertyId": 6,
+        "date": "2026-05-01",
+        "actualTime": null,
+        "type": "POOL",
+        "poolLightsFunctional": true,
+        "antiSuctionDrainCoversInPlace": true,
+        "skimmerCoversInPlace": true,
+        "waterClarityVisual": true,
+        "createdAt": "2026-05-15T07:13:55.595Z",
+        "updatedAt": "2026-05-15T07:13:55.595Z",
+        "isPending": true,
+        "property": {
+          "propertyName": "Double Tree Harrisonburg"
+        },
+        "__slotIndex": 2,
+        "time": "10:00 PM",
+        "hasMissingDetails": false
+      }
+    ],
+    "pageable": {
+      "pageNumber": 0,
+      "pageLimit": 12
+    },
+    "totalElements": 1023,
+    "totalPages": 86
+  },
   "$schema": "./node_modules/json-server/schema.json"
 }

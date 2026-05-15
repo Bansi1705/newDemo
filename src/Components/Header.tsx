@@ -1,5 +1,5 @@
 import { NavLink, useNavigate } from "react-router-dom";
-import { FaRegSun } from "react-icons/fa6";
+import { FaChevronDown, FaRegSun } from "react-icons/fa6";
 import { FaRegMoon, FaSearch } from "react-icons/fa";
 // import "../Styles/Header.css";
 import { useTheme } from "../Context/ThemeContext";
@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 import { Buttons } from "./CommonComponents/Buttons";
 import { SearchBar } from "./CommonComponents/SearchComponent";
 import { CONSTANT } from "../Services/Constant";
+import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 
 type HeaderProps = {
   search?: string;
@@ -19,6 +20,7 @@ type HeaderProps = {
 function Header({ search, setSearch, searchShow }: HeaderProps) {
   const { theme, toggleTheme } = useTheme();
   const [showCofirm, setShowConfirm] = useState<boolean>(false);
+  const [selectedTab, setSelectedTab] = useState("Pages");
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -52,23 +54,21 @@ function Header({ search, setSearch, searchShow }: HeaderProps) {
           to="/add-user"
           className="nav-item text-white font-medium hover:text-gray-300 px-3 py-2 ml-2 whitespace-nowrap"
         >
-          Add User
+          + User
         </NavLink>
 
         <NavLink
           to="/userExpense"
           className="nav-item text-white font-medium hover:text-gray-300 px-3 py-2 ml-2 whitespace-nowrap"
         >
-          Add Expense
+          + Expense
         </NavLink>
-
-         <NavLink
+        <NavLink
           to="/data"
           className="nav-item text-white font-medium hover:text-gray-300 px-3 py-2 ml-2 whitespace-nowrap"
         >
           Data
         </NavLink>
-
         <NavLink
           to="/roomData"
           className="nav-item text-white font-medium hover:text-gray-300 px-3 py-2 ml-2 whitespace-nowrap"
@@ -82,24 +82,49 @@ function Header({ search, setSearch, searchShow }: HeaderProps) {
           Property Data
         </NavLink>
         <NavLink
-          to="/property"
-          className="nav-item text-white font-medium hover:text-gray-300 px-3 py-2 ml-2 whitespace-nowrap"
-        >
-          Property
-        </NavLink>
-        <NavLink
-          to="/propertyCard"
-          className="nav-item text-white font-medium hover:text-gray-300 px-3 py-2 ml-2 whitespace-nowrap"
-        >
-          Property Card
-        </NavLink>
-
-         <NavLink
           to="/chartData"
           className="nav-item text-white font-medium hover:text-gray-300 px-3 py-2 ml-2 whitespace-nowrap"
         >
           Chart
         </NavLink>
+        <Menu as="div" className="relative inline-block text-left">
+          <MenuButton className="flex items-center gap-1 text-white font-medium hover:text-gray-300 px-3 py-2 ml-2 whitespace-nowrap">
+            {selectedTab}
+            <FaChevronDown size={14} />
+          </MenuButton>
+
+          <MenuItems className="absolute right-0 mt-2 w-52 rounded-lg bg-white shadow-lg z-50 overflow-hidden">
+            <MenuItem>
+              <NavLink
+                to="/property"
+                onClick={() => setSelectedTab("Property")}
+                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-black"
+              >
+                Property
+              </NavLink>
+            </MenuItem>
+
+            <MenuItem>
+              <NavLink
+                to="/propertyCard"
+                onClick={() => setSelectedTab("Property Card")}
+                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-black"
+              >
+                Property Card
+              </NavLink>
+            </MenuItem>
+
+            <MenuItem>
+              <NavLink
+                to="/propertyWiseCard"
+                onClick={() => setSelectedTab("PropertyWise Card")}
+                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-black"
+              >
+                PropertyWise Card
+              </NavLink>
+            </MenuItem>
+          </MenuItems>
+        </Menu>
 
         <Buttons
           onClick={handleLogout}
