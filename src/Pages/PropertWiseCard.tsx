@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import { CONSTANT } from "../Services/Constant";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { ReactDatePicker } from "../Components/CommonComponents/DatePicker";
+import { COMMON_SERVICES } from "../Services/CommonService/CommonServices";
 
 interface ContentInterface {
   date: string;
@@ -34,7 +35,7 @@ export const PropertyWiseCard = () => {
   const [listProperty, setListProperty] = useState<ListViewInterface | null>(
     null,
   );
-  const [selectedTime, setSelectedTime] = useState<string>("");
+  const [selectedTime, setSelectedTime] = useState<string>("All");
   const [selectProperty, setSelectProperty] = useState<string>("");
   const [selectDate, setSelectDate] = useState<Date | null>(null);
 
@@ -74,15 +75,17 @@ export const PropertyWiseCard = () => {
   }
 
   const filterCardsByTime = (cards: ContentInterface[]) => {
-    if (selectedTime === "All") {
+    if (selectedTime === "All Time") {
       return cards;
     }
+
     return cards.filter((card) => {
       const hour = Number(card.time.split(":")[0]);
 
       if (selectedTime === "8") {
         return hour === 8;
       }
+
       if (selectedTime === "2") {
         return hour === 2;
       }
@@ -96,7 +99,7 @@ export const PropertyWiseCard = () => {
   };
 
   const timeOptions = [
-    { label: "All", value: "All" },
+    { label: "All Time", value: "All Time" },
     { label: "8 AM", value: "8" },
     { label: "2 PM", value: "2" },
     { label: "10 PM", value: "10" },
@@ -110,14 +113,32 @@ export const PropertyWiseCard = () => {
     }
   });
 
-  console.log(selectDate);
+  const hasData = () => {
+    return Object.entries(groupedData).find(([propertyName, dates]) => {
+      if (selectProperty && selectProperty !== propertyName) {
+        return false;
+      }
+
+      return Object.entries(dates).find(([date, cards]) => {
+        if (
+          selectDate &&
+          new Date(date).toDateString() !== selectDate.toDateString()
+        ) {
+          return false;
+        }
+
+        return filterCardsByTime(cards).length > 0;
+      });
+    });
+  };
+
   return (
     <div>
       <Header />
 
       <div className="propertyCard">
         <div className="selection relative inline-block">
-          <div className="absolute right-75">
+          <div className="absolute right-75 w-1/4">
             <ReactDatePicker
               selectedDate={selectDate}
               onChange={(date) => setSelectDate(date)}
@@ -125,14 +146,26 @@ export const PropertyWiseCard = () => {
             />
           </div>
 
-          <div className="selectProperty ">
+          <div className="selectProperty w-1/4">
             <Menu as="div" className="absolute right-35">
-              <MenuButton className="bg-blue-500 px-3 py-2 rounded cursor-pointer text-white">
-                {propertyNames.find((i) => i === selectProperty) ||
-                  "Select Property"}
+              <MenuButton className="bg-blue-500 px-3 py-2 rounded cursor-pointer text-white min-w-[160px] break-words whitespace-normal text-left">
+                {propertyNames.find((i) => i === selectProperty) || "All Property"}
               </MenuButton>
 
               <MenuItems className="absolute right-0 mt-2 w-40 bg-white border rounded-md shadow-lg z-10">
+                <MenuItem>
+                  {({ active }) => (
+                    <button
+                      onClick={() => setSelectProperty("")}
+                      className={`block w-full text-left px-4 py-2 ${
+                        active ? "bg-gray-100" : ""
+                      }`}
+                    >
+                      All
+                    </button>
+                  )}
+                </MenuItem>
+
                 {propertyNames.map((option, i) => (
                   <MenuItem key={i}>
                     {({ active }) => (
@@ -151,11 +184,11 @@ export const PropertyWiseCard = () => {
             </Menu>
           </div>
 
-          <div className="selectTime">
+          <div className="selectTime w-1/4">
             <Menu as="div" className="absolute right-0">
-              <MenuButton className="bg-blue-500 px-3 py-2 rounded cursor-pointer text-white">
+              <MenuButton className="bg-blue-500 px-3 py-2 rounded cursor-pointer text-white min-w-[100px] truncate">
                 {timeOptions.find((i) => i.value === selectedTime)?.label ||
-                  "Select Time"}
+                  timeOptions[0].label}
               </MenuButton>
 
               <MenuItems className="absolute right-0 mt-2 w-40 bg-white border rounded-md shadow-lg z-10">
@@ -177,6 +210,12 @@ export const PropertyWiseCard = () => {
             </Menu>
           </div>
         </div>
+
+        {!hasData() && (
+          <div className="text-center mt-10 text-xl font-semibold">
+            No Data Found
+          </div>
+        )}
 
         {Object.entries(groupedData).map(
           ([propertyName, dates], propertyIndex: number) => {
@@ -212,7 +251,7 @@ export const PropertyWiseCard = () => {
                                 <span>{card.time}</span>
 
                                 <strong>
-                                  {card.createdByUser?.name ?? "No User"}
+                                  {card.createdByUser?.name ?? "-"}
                                 </strong>
                               </div>
 
@@ -239,8 +278,7 @@ export const PropertyWiseCard = () => {
                               </div>
 
                               <p className="property-data-card__date">
-                                Created:
-                                {card.createdAt?.split("T")[0]}
+                                Created :{COMMON_SERVICES.formatCreateDate(card.createdAt)}
                               </p>
                             </div>
                           ))}

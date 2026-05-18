@@ -1,4 +1,4 @@
-import { useEffect, useState, type Dispatch, type SetStateAction } from "react";
+import { useEffect, useState } from "react";
 import Header from "../Components/Header";
 import { useNavigate } from "react-router-dom";
 import { MdDeleteOutline, MdOutlinePreview } from "react-icons/md";
@@ -20,6 +20,8 @@ import Checkbox from "@mui/material/Checkbox";
 import CustomDateRangePicker from "../Components/CommonComponents/DatePickerBasic";
 import WeekPicker from "../Components/CommonComponents/WeekPicker";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
+import { MultipleWeekPicker } from "../Components/CommonComponents/MultiWeekSelect";
+import { startOfWeek } from "date-fns";
 
 export const Home = () => {
   const [users, setUsers] = useState<User[]>([]);
@@ -34,6 +36,9 @@ export const Home = () => {
   const [showPreviewImage, setShowPreviewImage] = useState<
     File | string | null
   >(null);
+  const [weeks, setWeeks] = useState<Date[]>([
+    startOfWeek(new Date(), { weekStartsOn: 1 }),
+  ]);
 
   const [currentPage, setCurrentPage] = useState<number>(1);
   const itemsPerPage = 5;
@@ -60,7 +65,6 @@ export const Home = () => {
       }
     };
 
-    
     fetchUser();
   }, []);
 
@@ -212,16 +216,11 @@ export const Home = () => {
     setShowConfirm(true);
   };
 
-  const name = "bansi";
-  console.log(name);
+  // const name = "bansi";
+  console.log(weeks);
   return (
     <>
-      <Header
-        search={search}
-        setSearch={setSearch}
-        searchShow={true}
-      />
-
+      <Header search={search} setSearch={setSearch} searchShow={true} />
       <div className="user-data">
         <div className="table-section">
           <div className="apiButtons mb-4 flex gap-4 justify-center items-center">
@@ -263,7 +262,7 @@ export const Home = () => {
             />
             <Buttons
               label={"Delete Selected Item"}
-              className="px-3"
+              className="p-3 bg-blue-600"
               onClick={handleCheckedDelete}
             />
           </div>
@@ -276,6 +275,11 @@ export const Home = () => {
               startMonth={1}
               endYear={2027}
               endMonth={10}
+            />
+
+            <MultipleWeekPicker
+              selectedWeeks={weeks}
+              onChange={setWeeks}
             />
           </div>
 
