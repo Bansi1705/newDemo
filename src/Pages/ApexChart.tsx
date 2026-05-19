@@ -6,6 +6,9 @@ import type { ApexOptions } from "apexcharts";
 import "../Styles/ApexChart.css";
 import { PropertyChart } from "./PropertyChart";
 import CommonChart from "../Components/CommonComponents/Chart";
+import { CONSTANT } from "../Services/Constant";
+import { toast } from "react-toastify";
+import Loader from "../Components/CommonComponents/Loader";
 interface DistributionAnalysis {
   propertyName: string;
   punchIns: number;
@@ -33,14 +36,20 @@ export const ApexChart: React.FC = () => {
     },
   });
 
+  const [loadingChart,setLoadingChart]=useState<boolean>(true)
+
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoadingChart(true)
+
         const res: ApiResponse<chartDataInterface> =
           await Apiservice.get("/chartData");
         setChartData(res.data);
-      } catch (error) {
-        console.error("Error fetching chart data:", error);
+      } catch  {
+        toast.error(CONSTANT.ERROR.NOT_FOUND)
+      }finally{
+        setLoadingChart(false)
       }
     };
 
@@ -176,7 +185,9 @@ export const ApexChart: React.FC = () => {
   } as ApexOptions;
 
   return (
-    <div className="chart-page">
+  <>
+  {loadingChart? <Loader/> : (
+      <div className="chart-page">
       <Header />
       <section className="barChart-card">
         <CommonChart
@@ -206,5 +217,7 @@ export const ApexChart: React.FC = () => {
         <PropertyChart />
       </main>
     </div>
+  )}
+  </>
   );
 };

@@ -1,3 +1,5 @@
+import { format } from "date-fns";
+
 export const COMMON_SERVICES = {
   getFiveYear() {
     const currentYear = new Date().getFullYear();
@@ -106,5 +108,9 @@ export const COMMON_SERVICES = {
     const minutes = String(date.getMinutes()).padStart(2, "0");
 
     return `${day}/${month}/${year}, ${hours}:${minutes}`;
+  },
+
+   formatCreateDate(date: string){
+   return  format(new Date(date), "dd MMM yyyy");
   },
 };

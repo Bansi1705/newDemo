@@ -1,4 +1,3 @@
-import { endOfDay, startOfDay } from "date-fns";
 import DatePicker from "react-datepicker";
 
 type Props = {
@@ -6,7 +5,6 @@ type Props = {
   selectedDate?: Date | null;
   onChange?: (date: Date | null) => void;
   placeholder?: string;
-  isWeekPicker?: boolean;
 };
 
 export function ReactDatePicker({
@@ -14,7 +12,6 @@ export function ReactDatePicker({
   selectedDate,
   onChange,
   placeholder,
-  isWeekPicker = false,
 }: Props) {
   return (
     <div>
@@ -23,13 +20,8 @@ export function ReactDatePicker({
         toggleCalendarOnIconClick
         selected={selectedDate}
         onChange={onChange}
-        startDate={selectedDate ? startOfDay(selectedDate) : undefined}
-        endDate={selectedDate ? endOfDay(selectedDate) : undefined}
-        showWeekPicker={isWeekPicker}
-        dateFormat={isWeekPicker ? "'Week' w, yyyy" : "dd/MM/yyyy"}
         maxDate={new Date()}
         className="input-field"
-        shouldCloseOnSelect
         placeholderText={placeholder}
         name="datePicker"
       />

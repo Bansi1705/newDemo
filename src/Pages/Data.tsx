@@ -6,10 +6,12 @@ import Header from "../Components/Header";
 import { FaArrowDown, FaArrowUp } from "react-icons/fa";
 import { COMMON_SERVICES } from "../Services/CommonService/CommonServices";
 import { FaRegCommentDots } from "react-icons/fa";
+import Loader from "../Components/CommonComponents/Loader";
 
 function Data() {
   const [data, setData] = useState<tableData[]>([]);
   const [search, setSearch] = useState<string>("");
+  const [loadData,setLoadingData]=useState<boolean>(true)
 
   const [sortKey, setSortKey] = useState<string>("");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
@@ -62,6 +64,7 @@ function Data() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
+        setLoadingData(true)
         const response: ApiResponse<tableData[]> = await Apiservice.get("/data");
         const rows = Object.values(response.data);
 
@@ -90,6 +93,8 @@ function Data() {
         setData(allRows);
       } catch (error) {
         console.error(error);
+      }finally{
+        setLoadingData(false)
       }
     };
 
@@ -108,7 +113,8 @@ function Data() {
 
   return (
     <div>
-      <Header search={search} setSearch={setSearch} searchShow={true} />
+      {loadData? <Loader/> : (<>
+       <Header search={search} setSearch={setSearch} searchShow={true} />
       <div className="user-data">
         <div className="table-data">
           <div className="table-wrapper">
@@ -193,6 +199,8 @@ function Data() {
           </div>
         </div>
       </div>
+      </>)}
+     
     </div>
   );
 }
