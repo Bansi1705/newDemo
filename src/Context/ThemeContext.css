@@ -411,7 +411,6 @@
   background: #475569;
 }
 
-/* Week picker */
 [data-theme="dark"] .week-picker__select {
   border-color: #475569;
   background-color: #334155;
@@ -566,7 +565,46 @@
 }
 
 [data-theme="dark"] .chart-card .apexcharts-tooltip .apexcharts-tooltip-title,
-[data-theme="dark"] .barChart-card .apexcharts-tooltip .apexcharts-tooltip-title {
+[data-theme="dark"]
+  .barChart-card
+  .apexcharts-tooltip
+  .apexcharts-tooltip-title {
   color: #f8fafc;
   background-color: #0f172a;
+}
+
+[data-theme="dark"] .monthly-report-page {
+  background-color: #0f172a;
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .monthly-report-title {
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .monthly-report-table-wrap {
+  background-color: #1e293b;
+  box-shadow: 0 14px 34px rgba(2, 6, 23, 0.36);
+}
+
+[data-theme="dark"] .monthly-report-table th {
+  background-color: #2563eb;
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .monthly-report-table td {
+  border-bottom-color: #475569;
+  color: #e2e8f0;
+}
+
+[data-theme="dark"] .monthly-report-table tbody tr:hover {
+  background-color: #334155;
+}
+
+[data-theme="dark"] .monthly-report-month {
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .monthly-report-empty {
+  color: #cbd5e1;
 }

@@ -123,6 +123,15 @@ console.log("header renders")
                 PropertyWise Card
               </NavLink>
             </MenuItem>
+             <MenuItem>
+              <NavLink
+                to="/monthlyReport"
+                onClick={() => setSelectedTab("MonthlyReport")}
+                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-black"
+              >
+                Monthly Report
+              </NavLink>
+            </MenuItem>
           </MenuItems>
         </Menu>
 

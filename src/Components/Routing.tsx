@@ -11,6 +11,7 @@ import { Property } from "./Property";
 import { ApexChart } from "../Pages/ApexChart";
 import { PropertyCard } from "../Pages/PropertyCard";
 import { PropertyWiseCard } from "../Pages/PropertWiseCard";
+import MonthlyReports from "../Pages/MonthlyReports";
 
 export const Routing = createBrowserRouter([
   {
@@ -52,7 +53,8 @@ export const Routing = createBrowserRouter([
         <UserExpense />
       </AuthGuard>
     ),
-  }, {
+  },
+  {
     path: "/data",
     element: (
       <AuthGuard required={true}>
@@ -69,7 +71,7 @@ export const Routing = createBrowserRouter([
     ),
   },
   {
-  path: "/propertyData",
+    path: "/propertyData",
     element: (
       <AuthGuard required={true}>
         <PropertyData />
@@ -77,33 +79,42 @@ export const Routing = createBrowserRouter([
     ),
   },
   {
-  path: "/property",
+    path: "/property",
     element: (
       <AuthGuard required={true}>
-        <Property/>
+        <Property />
       </AuthGuard>
     ),
   },
   {
-  path: "/chartData",
+    path: "/chartData",
     element: (
       <AuthGuard required={true}>
         <ApexChart />
       </AuthGuard>
     ),
   },
-   {
-  path: "/propertyCard",
+  {
+    path: "/propertyCard",
     element: (
       <AuthGuard required={true}>
-        <PropertyCard/>
+        <PropertyCard />
       </AuthGuard>
     ),
-  }, {
-  path: "/propertyWiseCard",
+  },
+  {
+    path: "/propertyWiseCard",
     element: (
       <AuthGuard required={true}>
-        <PropertyWiseCard/>
+        <PropertyWiseCard />
+      </AuthGuard>
+    ),
+  },
+  {
+    path: "/monthlyReport",
+    element: (
+      <AuthGuard required={true}>
+        <MonthlyReports />
       </AuthGuard>
     ),
   },

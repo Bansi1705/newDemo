@@ -47,7 +47,6 @@ export const Property: React.FC = () => {
     const fetchData = async () => {
       try {
         setLodingData(true);
-        await new Promise((resolve) => setTimeout(resolve, 2000));
         const res: ApiResponse<propertyInterface[]> =
           await Apiservice.get("/property");
 

@@ -36,20 +36,19 @@ export const ApexChart: React.FC = () => {
     },
   });
 
-  const [loadingChart,setLoadingChart]=useState<boolean>(true)
+  const [loadingChart, setLoadingChart] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setLoadingChart(true)
-
+        setLoadingChart(true);
         const res: ApiResponse<chartDataInterface> =
           await Apiservice.get("/chartData");
         setChartData(res.data);
-      } catch  {
-        toast.error(CONSTANT.ERROR.NOT_FOUND)
-      }finally{
-        setLoadingChart(false)
+      } catch {
+        toast.error(CONSTANT.ERROR.NOT_FOUND);
+      } finally {
+        setLoadingChart(false);
       }
     };
 
@@ -185,39 +184,41 @@ export const ApexChart: React.FC = () => {
   } as ApexOptions;
 
   return (
-  <>
-  {loadingChart? <Loader/> : (
-      <div className="chart-page">
-      <Header />
-      <section className="barChart-card">
-        <CommonChart
-          type="bar"
-          series={barChartseries}
-          options={barChartOptions}
-        />
-      </section>
+    <>
+      {loadingChart ? (
+        <Loader />
+      ) : (
+        <div className="chart-page">
+          <Header />
+          <section className="barChart-card">
+            <CommonChart
+              type="bar"
+              series={barChartseries}
+              options={barChartOptions}
+            />
+          </section>
 
-      <main className="chart-content">
-        <section className="chart-card">
-          <CommonChart
-            type="line"
-            series={lineChartseries}
-            options={lineChartOptions}
-          />
-        </section>
+          <main className="chart-content">
+            <section className="chart-card">
+              <CommonChart
+                type="line"
+                series={lineChartseries}
+                options={lineChartOptions}
+              />
+            </section>
 
-        <section className="chart-card">
-          <CommonChart
-            type="pie"
-            series={pieChartSeries}
-            options={pieChartOptions}
-          />
-        </section>
+            <section className="chart-card">
+              <CommonChart
+                type="pie"
+                series={pieChartSeries}
+                options={pieChartOptions}
+              />
+            </section>
 
-        <PropertyChart />
-      </main>
-    </div>
-  )}
-  </>
+            <PropertyChart />
+          </main>
+        </div>
+      )}
+    </>
   );
 };

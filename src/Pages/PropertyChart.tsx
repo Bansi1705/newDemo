@@ -87,7 +87,7 @@ export const PropertyChart: React.FC = () => {
       name: "Total Forms",
       data: propertyData?.propertyStatistics.map(
         (property) => property.pmForms.length,
-      ) ,
+      ),
     },
     {
       name: "Pending Forms",
@@ -152,11 +152,11 @@ export const PropertyChart: React.FC = () => {
   return (
     <>
       <section className="chart-card">
-        <CommonChart 
-         type="bar"
+        <CommonChart
+          type="bar"
           series={barChartSeries}
           options={barChartOptions}
-         />
+        />
       </section>
 
       <section className="chart-card">

@@ -61,7 +61,6 @@ export const Home = () => {
     const fetchUser = async () => {
       try {
         setLoading(true);
-        await new Promise((resolve) => setTimeout(resolve, 2000));
         const response: ApiResponse<User[]> = await Apiservice.get("/users");
         setUsers(response.data);
       } catch {
@@ -226,7 +225,7 @@ export const Home = () => {
   return (
     <>
       {loading ? (
-        <Loader/>
+        <Loader />
       ) : (
         <>
           <Header search={search} setSearch={setSearch} searchShow={true} />
