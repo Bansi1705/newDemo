@@ -28,7 +28,7 @@ export function MultipleWeekPicker({
 
     onChange(updatedWeeks);
   };
-  
+
   const getWeekRange = (weeks: Date[]) => {
     if (!weeks.length) return "";
 

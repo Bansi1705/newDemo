@@ -12,9 +12,11 @@ import { MdDeleteOutline } from "react-icons/md";
 import Confirmation from "../Components/CommonComponents/Confirmation";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
+import Loader from "../Components/CommonComponents/Loader";
 
 export const RoomData = () => {
   const [roomData, setRoomsData] = useState<RoomDataInterface[]>([]);
+  const [loadRoomData, setLoadRoomData] = useState<boolean>(true);
   const [showSubArray, setShowSubArray] = useState<boolean>(false);
   const [deleteRoomId, setDeleteRoomId] = useState<{
     index: number;
@@ -48,11 +50,14 @@ export const RoomData = () => {
   useEffect(() => {
     const fetchRoomData = async () => {
       try {
+        setLoadRoomData(true);
         const res: ApiResponse<RoomDataInterface[]> =
           await Apiservice.get("/dataRoom");
         setRoomsData(res.data);
       } catch {
         toast.error(CONSTANT.ERROR.NOT_FOUND);
+      } finally {
+        setLoadRoomData(false);
       }
     };
 
@@ -218,175 +223,195 @@ export const RoomData = () => {
   return (
     <>
       <div>
-        <Header />
-        <div className="user-data">
-          <div className="table-data">
-            <div className="table-wrapper">
-              <Buttons
-                label={"Delete Selected Item"}
-                onClick={handleCheckedDelete}
-                className="delete-selected-btn"
-              />
-              <table border={2} className="data-table">
-                <thead>
-                  <tr>
-                    {tableHeader.map((head, index) => (
-                      <th key={index}>
-                        <div className="flex items-center gap-1">
-                          {head.label !== "Actions" &&
-                            head.label !== "Sr NO." && (
-                              <div onClick={() => handleSorting(head.key)}>
-                                {sortKey === head.key ? (
-                                  sortOrder === "asc" ? (
-                                    <FaArrowDown size={15} />
-                                  ) : (
-                                    <FaArrowUp size={15} />
-                                  )
-                                ) : (
-                                  <FaArrowUp size={15} />
-                                )}
-                              </div>
-                            )}
-                          {head.label}
-                        </div>
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {sortData().map(({ room: data, originalIndex }, index) => (
-                    <>
-                      <tr key={index}>
-                        {data.subArray.length !== 0 ? (
-                          <>
-                            <td className="flex justify-center items-center gap-2">
-                              <span
-                                className="cursor-pointer"
-                                onClick={() => setShowSubArray(!showSubArray)}
-                              >
-                                {showSubArray ? (
-                                  <FaMinus className="text-base font-bold scale-110" />
-                                ) : (
-                                  <FaPlus className="text-base font-bold scale-110" />
-                                )}
-                              </span>
-                              <span>
-                                <FormControlLabel
-                                  control={
-                                    <Checkbox
-                                      onChange={() =>
-                                        handleCheckBoxDeleteChange(
-                                          originalIndex,
-                                        )
-                                      }
-                                      checked={checkedDelete.index.includes(
-                                        originalIndex,
-                                      )}
-                                    />
-                                  }
-                                  label=""
-                                />
-                                {index + 1}
-                              </span>
-                            </td>
-                          </>
-                        ) : (
-                          <>
-                            <td>
-                              <FormControlLabel
-                                control={
-                                  <Checkbox
-                                    onChange={() =>
-                                      handleCheckBoxDeleteChange(originalIndex)
-                                    }
-                                    checked={checkedDelete.index.includes(
-                                      originalIndex,
+        {loadRoomData ? (
+          <Loader />
+        ) : (
+          <>
+            {" "}
+            <Header />
+            <div className="user-data">
+              <div className="table-data">
+                <div className="table-wrapper">
+                  <Buttons
+                    label={"Delete Selected Item"}
+                    onClick={handleCheckedDelete}
+                    className="delete-selected-btn"
+                  />
+                  <table border={2} className="data-table">
+                    <thead>
+                      <tr>
+                        {tableHeader.map((head, index) => (
+                          <th key={index}>
+                            <div className="flex items-center gap-1">
+                              {head.label !== "Actions" &&
+                                head.label !== "Sr NO." && (
+                                  <div onClick={() => handleSorting(head.key)}>
+                                    {sortKey === head.key ? (
+                                      sortOrder === "asc" ? (
+                                        <FaArrowDown size={15} />
+                                      ) : (
+                                        <FaArrowUp size={15} />
+                                      )
+                                    ) : (
+                                      <FaArrowUp size={15} />
                                     )}
-                                  />
-                                }
-                                label=""
-                              />
-                              {index + 1}
-                            </td>
-                          </>
-                        )}
-                        <td>{data.isoDate?.split("T")[0]}</td>
-                        <td>{data.roomsCount}</td>
-                        <td>{data.note}</td>
-                        <td>{data.createdBy ? data.createdBy : "-"}</td>
-                        <td>{data.modifiedBy ? data.modifiedBy : "-"}</td>
-                        <td>
-                          <Buttons
-                            onClick={() => handleDelete(originalIndex)}
-                            label={<MdDeleteOutline />}
-                            className="delete-btn"
-                          />
-                        </td>
+                                  </div>
+                                )}
+                              {head.label}
+                            </div>
+                          </th>
+                        ))}
                       </tr>
-
-                      {showSubArray &&
-                        data.subArray.map(
-                          (sub: RoomDataInterface, subIndex: number) => (
-                            <>
-                              <tr
-                                key={subIndex}
-                                className="sub-row text-red-300"
-                              >
-                                <td>
-                                  <FormControlLabel
-                                    control={
-                                      <Checkbox
-                                        onChange={() =>
-                                          handleCheckBoxDeleteChange(
-                                            originalIndex,
-                                            subIndex,
-                                          )
+                    </thead>
+                    <tbody>
+                      {sortData().map(
+                        ({ room: data, originalIndex }, index) => (
+                          <>
+                            <tr key={index}>
+                              {data.subArray.length !== 0 ? (
+                                <>
+                                  <td className="flex justify-center items-center gap-2">
+                                    <span
+                                      className="cursor-pointer"
+                                      onClick={() =>
+                                        setShowSubArray(!showSubArray)
+                                      }
+                                    >
+                                      {showSubArray ? (
+                                        <FaMinus className="text-base font-bold scale-110" />
+                                      ) : (
+                                        <FaPlus className="text-base font-bold scale-110" />
+                                      )}
+                                    </span>
+                                    <span>
+                                      <FormControlLabel
+                                        control={
+                                          <Checkbox
+                                            onChange={() =>
+                                              handleCheckBoxDeleteChange(
+                                                originalIndex,
+                                              )
+                                            }
+                                            checked={checkedDelete.index.includes(
+                                              originalIndex,
+                                            )}
+                                          />
                                         }
-                                        checked={checkedDelete.subIndex.some(
-                                          (item) =>
-                                            item.parentIndex ===
-                                              originalIndex &&
-                                            item.subIndex === subIndex,
-                                        )}
+                                        label=""
                                       />
-                                    }
-                                    label=""
-                                  />
-                                  {index + 1}.{subIndex + 1}
-                                </td>
-                                <td>{sub.isoDate?.split("T")[0]}</td>
-                                <td>{sub.roomsCount}</td>
-                                <td>{sub.note}</td>
-                                <td>{sub.createdBy ? sub.createdBy : "-"}</td>
-                                <td>{sub.modifiedBy ? sub.modifiedBy : "-"}</td>
-                                <td>
-                                  <Buttons
-                                    onClick={() =>
-                                      handleDelete(originalIndex, subIndex)
-                                    }
-                                    label={<MdDeleteOutline />}
-                                    className="delete-btn"
-                                  />
-                                </td>
-                              </tr>
-                            </>
-                          ),
-                        )}
-                    </>
-                  ))}
-                </tbody>
-              </table>
-              {showConfirm && (
-                <Confirmation
-                  type="delete"
-                  confirm={confirmDelete}
-                  cancel={() => setShowConfirm(false)}
-                  message={confirmMsg}
-                />
-              )}
+                                      {index + 1}
+                                    </span>
+                                  </td>
+                                </>
+                              ) : (
+                                <>
+                                  <td>
+                                    <FormControlLabel
+                                      control={
+                                        <Checkbox
+                                          onChange={() =>
+                                            handleCheckBoxDeleteChange(
+                                              originalIndex,
+                                            )
+                                          }
+                                          checked={checkedDelete.index.includes(
+                                            originalIndex,
+                                          )}
+                                        />
+                                      }
+                                      label=""
+                                    />
+                                    {index + 1}
+                                  </td>
+                                </>
+                              )}
+                              <td>{data.isoDate?.split("T")[0]}</td>
+                              <td>{data.roomsCount}</td>
+                              <td>{data.note}</td>
+                              <td>{data.createdBy ? data.createdBy : "-"}</td>
+                              <td>{data.modifiedBy ? data.modifiedBy : "-"}</td>
+                              <td>
+                                <Buttons
+                                  onClick={() => handleDelete(originalIndex)}
+                                  label={<MdDeleteOutline />}
+                                  className="delete-btn"
+                                />
+                              </td>
+                            </tr>
+
+                            {showSubArray &&
+                              data.subArray.map(
+                                (sub: RoomDataInterface, subIndex: number) => (
+                                  <>
+                                    <tr
+                                      key={subIndex}
+                                      className="sub-row text-red-300"
+                                    >
+                                      <td>
+                                        <FormControlLabel
+                                          control={
+                                            <Checkbox
+                                              onChange={() =>
+                                                handleCheckBoxDeleteChange(
+                                                  originalIndex,
+                                                  subIndex,
+                                                )
+                                              }
+                                              checked={checkedDelete.subIndex.some(
+                                                (item) =>
+                                                  item.parentIndex ===
+                                                    originalIndex &&
+                                                  item.subIndex === subIndex,
+                                              )}
+                                            />
+                                          }
+                                          label=""
+                                        />
+                                        {index + 1}.{subIndex + 1}
+                                      </td>
+                                      <td>{sub.isoDate?.split("T")[0]}</td>
+                                      <td>{sub.roomsCount}</td>
+                                      <td>{sub.note}</td>
+                                      <td>
+                                        {sub.createdBy ? sub.createdBy : "-"}
+                                      </td>
+                                      <td>
+                                        {sub.modifiedBy ? sub.modifiedBy : "-"}
+                                      </td>
+                                      <td>
+                                        <Buttons
+                                          onClick={() =>
+                                            handleDelete(
+                                              originalIndex,
+                                              subIndex,
+                                            )
+                                          }
+                                          label={<MdDeleteOutline />}
+                                          className="delete-btn"
+                                        />
+                                      </td>
+                                    </tr>
+                                  </>
+                                ),
+                              )}
+                          </>
+                        ),
+                      )}
+                    </tbody>
+                  </table>
+                  {showConfirm && (
+                    <Confirmation
+                      type="delete"
+                      confirm={confirmDelete}
+                      cancel={() => setShowConfirm(false)}
+                      message={confirmMsg}
+                    />
+                  )}
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
+          </>
+        )}
       </div>
     </>
   );

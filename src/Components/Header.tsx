@@ -3,7 +3,7 @@ import { FaChevronDown, FaRegSun } from "react-icons/fa6";
 import { FaRegMoon, FaSearch } from "react-icons/fa";
 // import "../Styles/Header.css";
 import { useTheme } from "../Context/ThemeContext";
-import { useState } from "react";
+import React, { useState } from "react";
 import Confirmation from "./CommonComponents/Confirmation";
 import { toast } from "react-toastify";
 import { Buttons } from "./CommonComponents/Buttons";
@@ -36,7 +36,7 @@ function Header({ search, setSearch, searchShow }: HeaderProps) {
   const handleCancel = () => {
     setShowConfirm(false);
   };
-
+console.log("header renders")
   return (
     <div className="navbar flex items-center justify-between px-[15px] py-[30px] bg-blue-500 text-white w-full">
       <div className="text-2xl font-bold">
@@ -166,4 +166,4 @@ function Header({ search, setSearch, searchShow }: HeaderProps) {
   );
 }
 
-export default Header;
+export default React.memo(Header);

@@ -6,6 +6,7 @@ import { Apiservice } from "../Services/ApiService";
 import { toast } from "react-toastify";
 import { CONSTANT } from "../Services/Constant";
 import { COMMON_SERVICES } from "../Services/CommonService/CommonServices";
+import Loader from "../Components/CommonComponents/Loader";
 
 interface DepartmentData {
   categoryName: string;
@@ -21,6 +22,7 @@ interface PropertyDataInterface {
 
 export const PropertyData: React.FC = () => {
   const [propertyData, setPropertyData] = useState<PropertyDataInterface[]>([]);
+  const [loadData, setLoadData] = useState<boolean>(true);
 
   const propertyColumnHeader = [
     { label: "Budget", key: "departmentTotalBudget" },
@@ -54,6 +56,7 @@ export const PropertyData: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoadData(true);
         const res: ApiResponse<any[]> = await Apiservice.get("/propertyData");
 
         const formattedData: PropertyDataInterface[] = res.data.map((item) => {
@@ -119,6 +122,8 @@ export const PropertyData: React.FC = () => {
         setPropertyData(formattedData);
       } catch {
         toast.error(CONSTANT.ERROR.NOT_FOUND);
+      } finally {
+        setLoadData(false);
       }
     };
 
@@ -127,72 +132,78 @@ export const PropertyData: React.FC = () => {
 
   return (
     <div>
-      <Header />
+      {loadData ? (
+        <Loader />
+      ) : (
+        <>
+          <Header />
 
-      <div className="user-data">
-        <div className="table-data">
-          <div className="table-wrapper">
-            <table border={2} className="data-table property-data-table">
-              <thead>
-                <tr>
-                  <th rowSpan={2}>Category</th>
-                  {propertyData.map((property, index) => (
-                    <th key={index} colSpan={propertyColumnHeader.length}>
-                      {property.propertyName}
-                    </th>
-                  ))}
-                </tr>
-                <tr>
-                  {propertyData.map((property) =>
-                    propertyColumnHeader.map((header) => (
-                      <th key={`${property.propertyName}-${header.key}`}>
-                        {header.label}
-                      </th>
-                    )),
-                  )}
-                </tr>
-              </thead>
+          <div className="user-data">
+            <div className="table-data">
+              <div className="table-wrapper">
+                <table border={2} className="data-table property-data-table">
+                  <thead>
+                    <tr>
+                      <th rowSpan={2}>Category</th>
+                      {propertyData.map((property, index) => (
+                        <th key={index} colSpan={propertyColumnHeader.length}>
+                          {property.propertyName}
+                        </th>
+                      ))}
+                    </tr>
+                    <tr>
+                      {propertyData.map((property) =>
+                        propertyColumnHeader.map((header) => (
+                          <th key={`${property.propertyName}-${header.key}`}>
+                            {header.label}
+                          </th>
+                        )),
+                      )}
+                    </tr>
+                  </thead>
 
-              <tbody>
-                {getCategoryNames().map((categoryName) => (
-                  <tr key={categoryName}>
-                    <td className="category-cell">{categoryName}</td>
-                    {propertyData.map((property) => {
-                      const department = getDepartmentData(
-                        property,
-                        categoryName,
-                      );
+                  <tbody>
+                    {getCategoryNames().map((categoryName) => (
+                      <tr key={categoryName}>
+                        <td className="category-cell">{categoryName}</td>
+                        {propertyData.map((property) => {
+                          const department = getDepartmentData(
+                            property,
+                            categoryName,
+                          );
 
-                      return (
-                        <Fragment key={property.propertyName}>
-                          <td>
-                            {COMMON_SERVICES.formatValue(
-                              department?.categoryName,
-                              department?.departmentTotalBudget,
-                            )}
-                          </td>
-                          <td>
-                            {COMMON_SERVICES.formatValue(
-                               department?.categoryName,
-                              department?.ab,
-                            )}
-                          </td>
-                          <td>
-                            {COMMON_SERVICES.formatValue(
-                               department?.categoryName,
-                              department?.ttm,
-                            )}
-                          </td>
-                        </Fragment>
-                      );
-                    })}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+                          return (
+                            <Fragment key={property.propertyName}>
+                              <td>
+                                {COMMON_SERVICES.formatValue(
+                                  department?.categoryName,
+                                  department?.departmentTotalBudget,
+                                )}
+                              </td>
+                              <td>
+                                {COMMON_SERVICES.formatValue(
+                                  department?.categoryName,
+                                  department?.ab,
+                                )}
+                              </td>
+                              <td>
+                                {COMMON_SERVICES.formatValue(
+                                  department?.categoryName,
+                                  department?.ttm,
+                                )}
+                              </td>
+                            </Fragment>
+                          );
+                        })}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        </>
+      )}
     </div>
   );
 };

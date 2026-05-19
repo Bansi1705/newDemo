@@ -22,9 +22,11 @@ import WeekPicker from "../Components/CommonComponents/WeekPicker";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { MultipleWeekPicker } from "../Components/CommonComponents/MultiWeekSelect";
 import { startOfWeek } from "date-fns";
+import Loader from "../Components/CommonComponents/Loader";
 
 export const Home = () => {
   const [users, setUsers] = useState<User[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
   const navigate = useNavigate();
   const [checkedDelete, setCheckedDelete] = useState<number[]>([]);
   const [selectedMonth, setSelectedMonth] = useState<string>("");
@@ -58,10 +60,14 @@ export const Home = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
+        setLoading(true);
+        await new Promise((resolve) => setTimeout(resolve, 2000));
         const response: ApiResponse<User[]> = await Apiservice.get("/users");
         setUsers(response.data);
       } catch {
         toast.error(CONSTANT.ERROR.COMMON);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -216,185 +222,187 @@ export const Home = () => {
     setShowConfirm(true);
   };
 
-  // const name = "bansi";
-  console.log(weeks);
+  // console.log(weeks);
   return (
     <>
-      <Header search={search} setSearch={setSearch} searchShow={true} />
-      <div className="user-data">
-        <div className="table-section">
-          <div className="apiButtons mb-4 flex gap-4 justify-center items-center">
-            <Buttons
-              label="Get"
-              onClick={() => handleApiTest("Get", "/users")}
-              className="bg-blue-500 px-3 py-2 rounded cursor-pointer"
-            />
-            <Buttons
-              label="Post"
-              onClick={() => handleApiTest("Post", "/users")}
-              className="bg-blue-500 px-3 py-2 rounded cursor-pointer"
-            />
-            <Buttons
-              label="Put"
-              onClick={() => handleApiTest("Put", "/users/1")}
-              className="bg-blue-500 px-3 py-2 rounded cursor-pointer"
-            />
-            <Buttons
-              label="Delete"
-              onClick={() => handleApiTest("Delete", "/users/2")}
-              className="bg-blue-500 px-3 py-2 rounded cursor-pointer"
-            />
+      {loading ? (
+        <Loader/>
+      ) : (
+        <>
+          <Header search={search} setSearch={setSearch} searchShow={true} />
+          <div className="user-data">
+            <div className="table-section">
+              <div className="apiButtons mb-4 flex gap-4 justify-center items-center">
+                <Buttons
+                  label="Get"
+                  onClick={() => handleApiTest("Get", "/users")}
+                  className="bg-blue-500 px-3 py-2 rounded cursor-pointer"
+                />
+                <Buttons
+                  label="Post"
+                  onClick={() => handleApiTest("Post", "/users")}
+                  className="bg-blue-500 px-3 py-2 rounded cursor-pointer"
+                />
+                <Buttons
+                  label="Put"
+                  onClick={() => handleApiTest("Put", "/users/1")}
+                  className="bg-blue-500 px-3 py-2 rounded cursor-pointer"
+                />
+                <Buttons
+                  label="Delete"
+                  onClick={() => handleApiTest("Delete", "/users/2")}
+                  className="bg-blue-500 px-3 py-2 rounded cursor-pointer"
+                />
 
-            <DropDown
-              optionsLabel={months}
-              selectClasName="setectBirth m-4 outline-1 color-white bg-#f9f9f9"
-              selectValue={selectedMonth}
-              dropDownChange={handleMonthChange}
-              selectName="userMonth"
-            />
+                <DropDown
+                  optionsLabel={months}
+                  selectClasName="setectBirth m-4 outline-1 color-white bg-#f9f9f9"
+                  selectValue={selectedMonth}
+                  dropDownChange={handleMonthChange}
+                  selectName="userMonth"
+                />
 
-            <CommonMultiSelect
-              options={showItems}
-              setOption={setShowItems}
-              placeHolder="Select Course"
-              isAdd={true}
-              isDelete={true}
-            />
-            <Buttons
-              label={"Delete Selected Item"}
-              className="p-3 bg-blue-600"
-              onClick={handleCheckedDelete}
-            />
-          </div>
+                <CommonMultiSelect
+                  options={showItems}
+                  setOption={setShowItems}
+                  placeHolder="Select Course"
+                  isAdd={true}
+                  isDelete={true}
+                />
+                <Buttons
+                  label={"Delete Selected Item"}
+                  className="p-3 bg-blue-600"
+                  onClick={handleCheckedDelete}
+                />
+              </div>
 
-          <div className="date-picker-section">
-            <CustomDateRangePicker />
+              <div className="date-picker-section">
+                <CustomDateRangePicker />
 
-            <WeekPicker
-              startYear={2025}
-              startMonth={1}
-              endYear={2027}
-              endMonth={10}
-            />
+                <WeekPicker
+                  startYear={2025}
+                  startMonth={1}
+                  endYear={2027}
+                  endMonth={10}
+                />
 
-            <MultipleWeekPicker
-              selectedWeeks={weeks}
-              onChange={setWeeks}
-            />
-          </div>
+                <MultipleWeekPicker selectedWeeks={weeks} onChange={setWeeks} />
+              </div>
 
-          <h2 className="main-title">Users List</h2>
+              <h2 className="main-title">Users List</h2>
 
-          <div className="table-wrapper">
-            <table border={2} className="data-table">
-              <thead>
-                <tr>
-                  {title.map((head, index) => (
-                    <th key={index}>{head}</th>
-                  ))}
-                </tr>
-              </thead>
+              <div className="table-wrapper">
+                <table border={2} className="data-table">
+                  <thead>
+                    <tr>
+                      {title.map((head, index) => (
+                        <th key={index}>{head}</th>
+                      ))}
+                    </tr>
+                  </thead>
 
-              <tbody>
-                {currentRecords.map((user, index) => (
-                  <tr key={user.id}>
-                    <td>
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            onChange={() =>
-                              handleCheckBoxDeleteChange(user.id ?? 0)
+                  <tbody>
+                    {currentRecords.map((user, index) => (
+                      <tr key={user.id}>
+                        <td>
+                          <FormControlLabel
+                            control={
+                              <Checkbox
+                                onChange={() =>
+                                  handleCheckBoxDeleteChange(user.id ?? 0)
+                                }
+                                checked={checkedDelete.includes(user.id ?? 0)}
+                              />
                             }
-                            checked={checkedDelete.includes(user.id ?? 0)}
+                            label=""
                           />
-                        }
-                        label=""
-                      />
-                      {index + 1}
-                    </td>
-                    <td>{user.name}</td>
-                    <td>{user.age}</td>
-                    <td>{user.birthdate}</td>
-                    <td>
-                      <div className="imagePreviewIcon">
-                        <MdOutlinePreview
-                          size={30}
-                          onClick={() => handleShowPreview(user.uploadFile)}
-                        />
-                      </div>
-                    </td>
-                    <td className="action-buttons">
-                      <Menu
-                        as="div"
-                        className="relative inline-block text-left"
-                      >
-                        <MenuButton className="bg-blue-500 px-3 py-2 rounded cursor-pointer">
-                          Actions
-                        </MenuButton>
-                        <MenuItems className="absolute right-0 mb-2 w-40 bg-white border rounded shadow-lg z-50">
-                          <MenuItem>
-                            {() => (
-                              <Buttons
-                                onClick={() => handleEdit(user.id)}
-                                label={
-                                  <>
-                                    <CiEdit />
-                                    Edit
-                                  </>
-                                }
-                                className="edit-btn"
-                              />
-                            )}
-                          </MenuItem>
+                          {index + 1}
+                        </td>
+                        <td>{user.name}</td>
+                        <td>{user.age}</td>
+                        <td>{user.birthdate}</td>
+                        <td>
+                          <div className="imagePreviewIcon">
+                            <MdOutlinePreview
+                              size={30}
+                              onClick={() => handleShowPreview(user.uploadFile)}
+                            />
+                          </div>
+                        </td>
+                        <td className="action-buttons">
+                          <Menu
+                            as="div"
+                            className="relative inline-block text-left"
+                          >
+                            <MenuButton className="bg-blue-500 px-3 py-2 rounded cursor-pointer">
+                              Actions
+                            </MenuButton>
+                            <MenuItems className="absolute right-0 mb-2 w-40 bg-white border rounded shadow-lg z-50">
+                              <MenuItem>
+                                {() => (
+                                  <Buttons
+                                    onClick={() => handleEdit(user.id)}
+                                    label={
+                                      <>
+                                        <CiEdit />
+                                        Edit
+                                      </>
+                                    }
+                                    className="edit-btn"
+                                  />
+                                )}
+                              </MenuItem>
 
-                          <MenuItem>
-                            {() => (
-                              <Buttons
-                                onClick={() => handleDelete(user.id)}
-                                label={
-                                  <>
-                                    <MdDeleteOutline />
-                                    Delete
-                                  </>
-                                }
-                                className="delete-btn"
-                              />
-                            )}
-                          </MenuItem>
-                        </MenuItems>
-                      </Menu>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+                              <MenuItem>
+                                {() => (
+                                  <Buttons
+                                    onClick={() => handleDelete(user.id)}
+                                    label={
+                                      <>
+                                        <MdDeleteOutline />
+                                        Delete
+                                      </>
+                                    }
+                                    className="delete-btn"
+                                  />
+                                )}
+                              </MenuItem>
+                            </MenuItems>
+                          </Menu>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
 
-            <Pagination
-              currentPage={currentPage}
-              totalPages={totalPages}
-              onPageChange={setCurrentPage}
-            />
+                <Pagination
+                  currentPage={currentPage}
+                  totalPages={totalPages}
+                  onPageChange={setCurrentPage}
+                />
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
 
-      {showPreView && (
-        <FilePreview file={showPreviewImage} onClose={handleClosePreview} />
-      )}
+          {showPreView && (
+            <FilePreview file={showPreviewImage} onClose={handleClosePreview} />
+          )}
 
-      {showConfirm && (
-        <Confirmation
-          confirm={handleConfirm}
-          cancel={handleCancel}
-          type={deleteId !== undefined ? "delete" : "edit"}
-          message={
-            deleteId !== undefined
-              ? "Do You Really Want To Delete This Item ??"
-              : editId !== undefined
-                ? "Do You Want To Edit This Item ??"
-                : "Do You Want To Delete All Selected Items ??"
-          }
-        />
+          {showConfirm && (
+            <Confirmation
+              confirm={handleConfirm}
+              cancel={handleCancel}
+              type={deleteId !== undefined ? "delete" : "edit"}
+              message={
+                deleteId !== undefined
+                  ? "Do You Really Want To Delete This Item ??"
+                  : editId !== undefined
+                    ? "Do You Want To Edit This Item ??"
+                    : "Do You Want To Delete All Selected Items ??"
+              }
+            />
+          )}
+        </>
       )}
     </>
   );

@@ -5,6 +5,7 @@ import type { ApiResponse } from "../Interface/types";
 import { Apiservice } from "../Services/ApiService";
 import { toast } from "react-toastify";
 import { CONSTANT } from "../Services/Constant";
+import Loader from "../Components/CommonComponents/Loader";
 
 interface ContentInterface {
   date: string;
@@ -32,9 +33,11 @@ export const PropertyCard = () => {
   const [listProperty, setListProperty] = useState<ListViewInterface | null>(
     null,
   );
+  const [loadPropertData,setLoadPropertyData]=useState<boolean>(true)
   useEffect(() => {
     const fetchListData = async () => {
       try {
+        setLoadPropertyData(true)
         const listResponse: ApiResponse<ListViewInterface> =
           await Apiservice.get("/listViewData");
 
@@ -42,6 +45,9 @@ export const PropertyCard = () => {
       } catch (error) {
         console.log(error);
         toast.error(CONSTANT.ERROR.COMMON);
+      }
+      finally{
+        setLoadPropertyData(false)
       }
     };
     fetchListData();
@@ -69,7 +75,7 @@ export const PropertyCard = () => {
   console.log(groupedData);
   return (
     <div>
-      <Header />
+      {loadPropertData ? <Loader/> : (<> <Header />
       <div>
         <div className="propertyCard">
           {Object.entries(groupedData).map(
@@ -123,6 +129,8 @@ export const PropertyCard = () => {
           )}
         </div>
       </div>
+      </>)}
+     
     </div>
   );
 };

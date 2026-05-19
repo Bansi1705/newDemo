@@ -8,6 +8,7 @@ import { CONSTANT } from "../Services/Constant";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { ReactDatePicker } from "../Components/CommonComponents/DatePicker";
 import { COMMON_SERVICES } from "../Services/CommonService/CommonServices";
+import Loader from "../Components/CommonComponents/Loader";
 
 interface ContentInterface {
   date: string;
@@ -35,6 +36,7 @@ export const PropertyWiseCard = () => {
   const [listProperty, setListProperty] = useState<ListViewInterface | null>(
     null,
   );
+  const [loadProperty,setLoadProperty]=useState<boolean>(true)
   const [selectedTime, setSelectedTime] = useState<string>("All");
   const [selectProperty, setSelectProperty] = useState<string>("");
   const [selectDate, setSelectDate] = useState<Date | null>(null);
@@ -42,6 +44,7 @@ export const PropertyWiseCard = () => {
   useEffect(() => {
     const fetchListData = async () => {
       try {
+        setLoadProperty(true)
         const listResponse: ApiResponse<ListViewInterface> =
           await Apiservice.get("/propertyWiseReadings");
 
@@ -49,6 +52,8 @@ export const PropertyWiseCard = () => {
       } catch (error) {
         console.log(error);
         toast.error(CONSTANT.ERROR.COMMON);
+      }finally{
+        setLoadProperty(false)
       }
     };
 
@@ -134,7 +139,8 @@ export const PropertyWiseCard = () => {
 
   return (
     <div>
-      <Header />
+      {loadProperty? <Loader/>:(<>
+       <Header />
 
       <div className="propertyCard">
         <div className="selection relative inline-block">
@@ -292,6 +298,8 @@ export const PropertyWiseCard = () => {
           },
         )}
       </div>
+      </>)}
+     
     </div>
   );
 };
