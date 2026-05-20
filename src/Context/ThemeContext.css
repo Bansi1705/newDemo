@@ -608,3 +608,12 @@
 [data-theme="dark"] .monthly-report-empty {
   color: #cbd5e1;
 }
+
+[data-theme="dark"] .menu-container .menu-items,
+[data-theme="dark"] .menu-container .menu-items .menu-item ,
+[data-theme="dark"] .status-menu-container .status-menu-items,
+[data-theme="dark"] .status-menu-container .status-menu-items .status-menu-item
+{
+  background-color: #1e293b;
+  color: #f8fafc;
+}

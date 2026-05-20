@@ -110,7 +110,13 @@ export const COMMON_SERVICES = {
     return `${day}/${month}/${year}, ${hours}:${minutes}`;
   },
 
-   formatCreateDate(date: string){
-   return  format(new Date(date), "dd MMM yyyy");
+  formatCreateDate(date: string) {
+    return format(new Date(date), "dd MMM yyyy");
+  },
+
+  formatText(text?: string) {
+    if (!text) return "-";
+    const replacedText = text.toLowerCase().replaceAll("_", " ");
+    return replacedText.charAt(0).toUpperCase() + replacedText.slice(1);
   },
 };
