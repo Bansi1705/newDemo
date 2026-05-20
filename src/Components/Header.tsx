@@ -132,6 +132,15 @@ console.log("header renders")
                 Monthly Report
               </NavLink>
             </MenuItem>
+             <MenuItem>
+              <NavLink
+                to="/capitalExpense"
+                onClick={() => setSelectedTab("MonthlyReport")}
+                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-black"
+              >
+                Capital Expense
+              </NavLink>
+            </MenuItem>
           </MenuItems>
         </Menu>
 

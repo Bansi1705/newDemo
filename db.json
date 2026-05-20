@@ -15624,5 +15624,1020 @@
       "completed": false
     }
   },
+  "capitalExpense": {
+    "content": [
+      {
+        "id": 110537825,
+        "propertyId": 115,
+        "departmentId": 65,
+        "accountId": 24190,
+        "vendorId": 19891,
+        "invoiceDate": "2025-10-30",
+        "postDate": "2026-01-03",
+        "invoiceNumber": "PO-110625155327",
+        "file": "1762465999575_4060_1_1QRTMOR20_Document_1__002_.pdf",
+        "invoiceStatus": "PENDING",
+        "creditAmount": null,
+        "debitAmount": 4394.04,
+        "invoiceAmount": 4394.04,
+        "createdAt": "2025-11-06T21:53:28.062Z",
+        "invoiceType": "PO",
+        "rejectComment": null,
+        "overBudgetComment": null,
+        "invoiceAddedBy": "SYSTEM",
+        "isAccural": false,
+        "createdByUserId": 192,
+        "approvedBy": null,
+        "isCapitalInvoice": true,
+        "description": "Thermostats installed unit- TR",
+        "isSpread": false,
+        "multipleInvoiceId": "19859",
+        "isReopened": false,
+        "isFoundInM3": false,
+        "nextApproverUserId": null,
+        "approvalStatus": "PENDING",
+        "isOverBudget": false,
+        "emailAttachment": null,
+        "projectId": null,
+        "expenseCommentCount": "0",
+        "lastExpenseComment": null,
+        "subInvoices": [],
+        "updatedIsInvoiceStatusChange": false,
+        "account": {
+          "accountName": "Building Improvements",
+          "accountNumber": "140014011"
+        },
+        "department": {
+          "departmentName": "Capital Expense"
+        },
+        "property": {
+          "propertyName": "EH PACIFIC OAK SOR II Q&C Operations"
+        },
+        "vendor": {
+          "vendorName": "Johnson Controls Inc",
+          "vendorNumber": "JOH126"
+        },
+        "user": {
+          "name": "Christopher Dwyer"
+        },
+        "rejectedByUser": null,
+        "project": null,
+        "createdByUser": {
+          "id": 192,
+          "name": "Christopher Dwyer"
+        },
+        "approvedByUser": null,
+        "nextApproverUser": null,
+        "m3Log": [],
+        "expenseApprovalWorkFlow": null,
+        "expenseApprovalPersonList": []
+      },
+      {
+        "id": 110537824,
+        "propertyId": 115,
+        "departmentId": 65,
+        "accountId": 24190,
+        "vendorId": 19891,
+        "invoiceDate": "2025-10-31",
+        "postDate": "2026-01-03",
+        "invoiceNumber": "PO-110625153719",
+        "file": "1762465019914_5352_JCI_Water_Softener_Solution_Quote__003_.pdf",
+        "invoiceStatus": "PENDING",
+        "creditAmount": null,
+        "debitAmount": 23430,
+        "invoiceAmount": 23430,
+        "createdAt": "2025-11-06T21:37:20.919Z",
+        "invoiceType": "PO",
+        "rejectComment": null,
+        "overBudgetComment": null,
+        "invoiceAddedBy": "SYSTEM",
+        "isAccural": false,
+        "createdByUserId": 192,
+        "approvedBy": null,
+        "isCapitalInvoice": true,
+        "description": "Twin Alternating Softener System- TR",
+        "isSpread": false,
+        "multipleInvoiceId": "19858",
+        "isReopened": false,
+        "isFoundInM3": false,
+        "nextApproverUserId": null,
+        "approvalStatus": "PENDING",
+        "isOverBudget": false,
+        "emailAttachment": null,
+        "projectId": null,
+        "expenseCommentCount": "0",
+        "lastExpenseComment": null,
+        "subInvoices": [],
+        "updatedIsInvoiceStatusChange": false,
+        "account": {
+          "accountName": "Building Improvements",
+          "accountNumber": "140014011"
+        },
+        "department": {
+          "departmentName": "Capital Expense"
+        },
+        "property": {
+          "propertyName": "EH PACIFIC OAK SOR II Q&C Operations"
+        },
+        "vendor": {
+          "vendorName": "Johnson Controls Inc",
+          "vendorNumber": "JOH126"
+        },
+        "user": {
+          "name": "Christopher Dwyer"
+        },
+        "rejectedByUser": null,
+        "project": null,
+        "createdByUser": {
+          "id": 192,
+          "name": "Christopher Dwyer"
+        },
+        "approvedByUser": null,
+        "nextApproverUser": null,
+        "m3Log": [],
+        "expenseApprovalWorkFlow": null,
+        "expenseApprovalPersonList": []
+      },
+      {
+        "id": 110537823,
+        "propertyId": 115,
+        "departmentId": 65,
+        "accountId": 23732,
+        "vendorId": 1145558,
+        "invoiceDate": "2025-11-03",
+        "postDate": "2026-01-03",
+        "invoiceNumber": "PO-110625151403",
+        "file": "1762463620089_2462_GuestSupply_US___Order_Details.pdf",
+        "invoiceStatus": "PENDING",
+        "creditAmount": null,
+        "debitAmount": 10096.37,
+        "invoiceAmount": 10096.37,
+        "createdAt": "2025-11-06T21:14:03.594Z",
+        "invoiceType": "PO",
+        "rejectComment": null,
+        "overBudgetComment": null,
+        "invoiceAddedBy": "SYSTEM",
+        "isAccural": false,
+        "createdByUserId": 192,
+        "approvedBy": null,
+        "isCapitalInvoice": true,
+        "description": "Terry and Linene- TR",
+        "isSpread": false,
+        "multipleInvoiceId": "19857",
+        "isReopened": false,
+        "isFoundInM3": false,
+        "nextApproverUserId": null,
+        "approvalStatus": "PENDING",
+        "isOverBudget": false,
+        "emailAttachment": null,
+        "projectId": null,
+        "expenseCommentCount": "0",
+        "lastExpenseComment": null,
+        "subInvoices": [],
+        "updatedIsInvoiceStatusChange": false,
+        "account": {
+          "accountName": "Furniture & Fixtures",
+          "accountNumber": "140014050"
+        },
+        "department": {
+          "departmentName": "Capital Expense"
+        },
+        "property": {
+          "propertyName": "EH PACIFIC OAK SOR II Q&C Operations"
+        },
+        "vendor": {
+          "vendorName": "Guest Supply, LLC",
+          "vendorNumber": "GUE009"
+        },
+        "user": {
+          "name": "Christopher Dwyer"
+        },
+        "rejectedByUser": null,
+        "project": null,
+        "createdByUser": {
+          "id": 192,
+          "name": "Christopher Dwyer"
+        },
+        "approvedByUser": null,
+        "nextApproverUser": null,
+        "m3Log": [],
+        "expenseApprovalWorkFlow": null,
+        "expenseApprovalPersonList": []
+      },
+      {
+        "id": 110537821,
+        "propertyId": 115,
+        "departmentId": 65,
+        "accountId": 24190,
+        "vendorId": 19873,
+        "invoiceDate": "2025-11-04",
+        "postDate": "2026-01-03",
+        "invoiceNumber": "PO-110625150347",
+        "file": "1762462744958_863_Estimate_14031_from_COLES_PLUMBING_AND_MECHANICAL_CONTRACTORS_INC__002_.pdf",
+        "invoiceStatus": "PENDING",
+        "creditAmount": null,
+        "debitAmount": 3155,
+        "invoiceAmount": 3155,
+        "createdAt": "2025-11-06T21:03:47.646Z",
+        "invoiceType": "PO",
+        "rejectComment": null,
+        "overBudgetComment": null,
+        "invoiceAddedBy": "SYSTEM",
+        "isAccural": false,
+        "createdByUserId": 192,
+        "approvedBy": null,
+        "isCapitalInvoice": true,
+        "description": "Backflow Test and rebuild  SWBNO- TR",
+        "isSpread": false,
+        "multipleInvoiceId": "19855",
+        "isReopened": false,
+        "isFoundInM3": false,
+        "nextApproverUserId": null,
+        "approvalStatus": "PENDING",
+        "isOverBudget": false,
+        "emailAttachment": null,
+        "projectId": null,
+        "expenseCommentCount": "0",
+        "lastExpenseComment": null,
+        "subInvoices": [],
+        "updatedIsInvoiceStatusChange": false,
+        "account": {
+          "accountName": "Building Improvements",
+          "accountNumber": "140014011"
+        },
+        "department": {
+          "departmentName": "Capital Expense"
+        },
+        "property": {
+          "propertyName": "EH PACIFIC OAK SOR II Q&C Operations"
+        },
+        "vendor": {
+          "vendorName": "Cole's Plumbing & Mechanical Contractor's Inc",
+          "vendorNumber": "COL206"
+        },
+        "user": {
+          "name": "Christopher Dwyer"
+        },
+        "rejectedByUser": null,
+        "project": null,
+        "createdByUser": {
+          "id": 192,
+          "name": "Christopher Dwyer"
+        },
+        "approvedByUser": null,
+        "nextApproverUser": null,
+        "m3Log": [],
+        "expenseApprovalWorkFlow": null,
+        "expenseApprovalPersonList": []
+      },
+      {
+        "id": 110537822,
+        "propertyId": 115,
+        "departmentId": 65,
+        "accountId": 24190,
+        "vendorId": 19859,
+        "invoiceDate": "2025-11-06",
+        "postDate": "2026-01-03",
+        "invoiceNumber": "PO-110625150852",
+        "file": "1762463290105_2624_TV.pdf",
+        "invoiceStatus": "PENDING",
+        "creditAmount": null,
+        "debitAmount": 2295,
+        "invoiceAmount": 2295,
+        "createdAt": "2025-11-06T21:08:52.511Z",
+        "invoiceType": "PO",
+        "rejectComment": null,
+        "overBudgetComment": null,
+        "invoiceAddedBy": "SYSTEM",
+        "isAccural": false,
+        "createdByUserId": 192,
+        "approvedBy": null,
+        "isCapitalInvoice": true,
+        "description": "TV for the guest rooms- TR",
+        "isSpread": false,
+        "multipleInvoiceId": "19856",
+        "isReopened": false,
+        "isFoundInM3": false,
+        "nextApproverUserId": null,
+        "approvalStatus": "PENDING",
+        "isOverBudget": false,
+        "emailAttachment": null,
+        "projectId": null,
+        "expenseCommentCount": "0",
+        "lastExpenseComment": null,
+        "subInvoices": [],
+        "updatedIsInvoiceStatusChange": false,
+        "account": {
+          "accountName": "Building Improvements",
+          "accountNumber": "140014011"
+        },
+        "department": {
+          "departmentName": "Capital Expense"
+        },
+        "property": {
+          "propertyName": "EH PACIFIC OAK SOR II Q&C Operations"
+        },
+        "vendor": {
+          "vendorName": "Best Buy Business Advantage Account",
+          "vendorNumber": "BES103"
+        },
+        "user": {
+          "name": "Christopher Dwyer"
+        },
+        "rejectedByUser": null,
+        "project": null,
+        "createdByUser": {
+          "id": 192,
+          "name": "Christopher Dwyer"
+        },
+        "approvedByUser": null,
+        "nextApproverUser": null,
+        "m3Log": [],
+        "expenseApprovalWorkFlow": null,
+        "expenseApprovalPersonList": []
+      },
+      {
+        "id": 132790025,
+        "propertyId": 10,
+        "departmentId": 65,
+        "accountId": 23725,
+        "vendorId": 17551,
+        "invoiceDate": "2025-11-30",
+        "postDate": "2026-01-03",
+        "invoiceNumber": "INV-347277",
+        "file": "1767190427425_243_connected_room_last_invoice.pdf",
+        "invoiceStatus": "APPROVED",
+        "creditAmount": null,
+        "debitAmount": 3917.42,
+        "invoiceAmount": 3917.42,
+        "createdAt": "2025-12-31T14:14:01.074Z",
+        "invoiceType": "INVOICE",
+        "rejectComment": null,
+        "overBudgetComment": null,
+        "invoiceAddedBy": "SYSTEM",
+        "isAccural": false,
+        "createdByUserId": 190,
+        "approvedBy": 296,
+        "isCapitalInvoice": true,
+        "description": "Install fee, last invoice of connected room CapEx- TR",
+        "isSpread": false,
+        "multipleInvoiceId": "22877",
+        "isReopened": false,
+        "isFoundInM3": true,
+        "nextApproverUserId": null,
+        "approvalStatus": "COMPLETED",
+        "isOverBudget": true,
+        "emailAttachment": "1767190436541_6152_Connected_Room_CapEx___Sarah_Hughes___Outlook.pdf",
+        "projectId": null,
+        "expenseCommentCount": "0",
+        "lastExpenseComment": null,
+        "subInvoices": [],
+        "updatedIsInvoiceStatusChange": false,
+        "account": {
+          "accountName": "Furniture & Fixtures",
+          "accountNumber": "140014050"
+        },
+        "department": {
+          "departmentName": "Capital Expense"
+        },
+        "property": {
+          "propertyName": "Pensacola-Home 2 Suites"
+        },
+        "vendor": {
+          "vendorName": "Single Digits Inc",
+          "vendorNumber": "SIN061"
+        },
+        "user": {
+          "name": "Sarah Hughes"
+        },
+        "rejectedByUser": null,
+        "project": null,
+        "createdByUser": {
+          "id": 190,
+          "name": "Sarah Hughes"
+        },
+        "approvedByUser": {
+          "id": 296,
+          "name": "Kalyan Kalivarapu"
+        },
+        "nextApproverUser": null,
+        "m3Log": [
+          {
+            "m3_status": true
+          }
+        ],
+        "expenseApprovalWorkFlow": null,
+        "isInvoiceStatusChange": false,
+        "expenseApprovalPersonList": [
+          {
+            "approvalUserId": 190,
+            "approvalName": "Sarah Hughes",
+            "status": "CREATED",
+            "stepOrder": 0,
+            "approvedDate": "2025-12-31T14:14:01.074Z",
+            "conditionType": "ALWAYS",
+            "amount": 0
+          },
+          {
+            "approvalUserId": 294,
+            "approvalName": "Rachel Dupuis",
+            "status": "APPROVED",
+            "stepOrder": 1,
+            "approvedDate": "2025-12-31T15:00:52.929Z",
+            "conditionType": "ALWAYS",
+            "amount": 25000,
+            "overBudgetString": "Over Budget"
+          },
+          {
+            "approvalUserId": 266,
+            "approvalName": "Glenn Pedersen",
+            "status": "APPROVED",
+            "stepOrder": 3,
+            "approvedDate": "2025-12-31T22:31:16.679Z",
+            "conditionType": "GREATER_THAN",
+            "amount": 25000,
+            "overBudgetString": "Over Budget"
+          },
+          {
+            "approvalUserId": 277,
+            "approvalName": "Sasirekha Sakthivel",
+            "status": "APPROVED",
+            "stepOrder": 4,
+            "approvedDate": "2026-01-02T16:26:22.119Z",
+            "conditionType": "ALWAYS",
+            "amount": 25000,
+            "overBudgetString": "Over Budget"
+          },
+          {
+            "approvalUserId": 296,
+            "approvalName": "Kalyan Kalivarapu",
+            "status": "APPROVED",
+            "stepOrder": 6,
+            "approvedDate": "2026-01-05T10:19:45.809Z",
+            "conditionType": "ALWAYS",
+            "amount": 25000,
+            "overBudgetString": "Over Budget"
+          },
+          {
+            "approvalUserId": null,
+            "approvalName": "M3",
+            "status": "TRANSFERRED",
+            "stepOrder": 7,
+            "conditionType": "ALWAYS",
+            "amount": 0
+          }
+        ]
+      },
+      {
+        "id": 133014050,
+        "propertyId": 7,
+        "departmentId": 65,
+        "accountId": 23722,
+        "vendorId": 20878,
+        "invoiceDate": "2025-12-16",
+        "postDate": "2026-01-05",
+        "invoiceNumber": "0618833-4675-3",
+        "file": "1767645479591_23_0618833_4675_3_CAPEX.pdf",
+        "invoiceStatus": "PENDING",
+        "creditAmount": null,
+        "debitAmount": 3403.31,
+        "invoiceAmount": 3403.31,
+        "createdAt": "2026-01-05T20:38:28.304Z",
+        "invoiceType": "INVOICE",
+        "rejectComment": null,
+        "overBudgetComment": null,
+        "invoiceAddedBy": "SYSTEM",
+        "isAccural": false,
+        "createdByUserId": 230,
+        "approvedBy": 170,
+        "isCapitalInvoice": true,
+        "description": "Removal of Old mattress's- TR",
+        "isSpread": false,
+        "multipleInvoiceId": "23157",
+        "isReopened": false,
+        "isFoundInM3": false,
+        "nextApproverUserId": 277,
+        "approvalStatus": "PENDING",
+        "isOverBudget": true,
+        "emailAttachment": "1767645488535_319_CAPEX_Matress_removal.pdf",
+        "projectId": null,
+        "expenseCommentCount": "0",
+        "lastExpenseComment": null,
+        "subInvoices": [],
+        "updatedIsInvoiceStatusChange": false,
+        "account": {
+          "accountName": "Furniture & Fixtures",
+          "accountNumber": "140014050"
+        },
+        "department": {
+          "departmentName": "Capital Expense"
+        },
+        "property": {
+          "propertyName": "Embassy Suites Indianapolis North"
+        },
+        "vendor": {
+          "vendorName": "Waste Management of Indiana LLC",
+          "vendorNumber": "WAS582"
+        },
+        "user": {
+          "name": "- -"
+        },
+        "rejectedByUser": null,
+        "project": null,
+        "createdByUser": {
+          "id": 230,
+          "name": "- -"
+        },
+        "approvedByUser": {
+          "id": 170,
+          "name": "Jeff Hudson"
+        },
+        "nextApproverUser": {
+          "name": "Encap.hotel"
+        },
+        "m3Log": [],
+        "expenseApprovalWorkFlow": null,
+        "isInvoiceStatusChange": false,
+        "expenseApprovalPersonList": [
+          {
+            "approvalUserId": 230,
+            "approvalName": "- -",
+            "status": "CREATED",
+            "stepOrder": 0,
+            "approvedDate": "2026-01-05T20:38:28.304Z",
+            "conditionType": "ALWAYS",
+            "amount": 0
+          },
+          {
+            "approvalUserId": 294,
+            "approvalName": "Rachel Dupuis",
+            "status": "APPROVED",
+            "stepOrder": 1,
+            "approvedDate": "2026-01-05T23:57:57.595Z",
+            "conditionType": "ALWAYS",
+            "amount": 25000,
+            "overBudgetString": "Over Budget"
+          },
+          {
+            "approvalUserId": 170,
+            "approvalName": "Jeff Hudson",
+            "status": "APPROVED",
+            "stepOrder": 2,
+            "approvedDate": "2026-01-06T20:40:31.048Z",
+            "conditionType": "GREATER_THAN",
+            "amount": 25000,
+            "overBudgetString": "Over Budget"
+          },
+          {
+            "approvalUserId": 277,
+            "approvalName": "Sasirekha Sakthivel",
+            "status": "IN_PROGRESS",
+            "stepOrder": 4,
+            "approvedDate": null,
+            "conditionType": "ALWAYS",
+            "amount": 25000,
+            "overBudgetString": "Over Budget"
+          },
+          {
+            "approvalUserId": 343,
+            "approvalName": "Monish Chatrath",
+            "status": "PENDING",
+            "stepOrder": 5,
+            "approvedDate": null,
+            "conditionType": "ALWAYS",
+            "amount": 25000,
+            "overBudgetString": "Over Budget"
+          },
+          {
+            "approvalUserId": 296,
+            "approvalName": "Kalyan Kalivarapu",
+            "status": "PENDING",
+            "stepOrder": 6,
+            "approvedDate": null,
+            "conditionType": "ALWAYS",
+            "amount": 25000,
+            "overBudgetString": "Over Budget"
+          },
+          {
+            "approvalUserId": null,
+            "approvalName": "M3",
+            "status": "PENDING",
+            "stepOrder": 7,
+            "conditionType": "ALWAYS",
+            "amount": 0
+          }
+        ]
+      },
+      {
+        "id": 130660727,
+        "propertyId": 10,
+        "departmentId": 65,
+        "accountId": 23725,
+        "vendorId": 2730386,
+        "invoiceDate": "2025-12-18",
+        "postDate": "2026-01-03",
+        "invoiceNumber": "733662",
+        "file": "1766792704791_1888_733662_479813_Z2.pdf",
+        "invoiceStatus": "APPROVED",
+        "creditAmount": null,
+        "debitAmount": 977.27,
+        "invoiceAmount": 977.27,
+        "createdAt": "2025-12-26T23:57:25.689Z",
+        "invoiceType": "INVOICE",
+        "rejectComment": null,
+        "overBudgetComment": null,
+        "invoiceAddedBy": "SYSTEM",
+        "isAccural": false,
+        "createdByUserId": 190,
+        "approvedBy": 296,
+        "isCapitalInvoice": true,
+        "description": "Replaced batteries and board on NAC fire panel- TR",
+        "isSpread": false,
+        "multipleInvoiceId": "22611",
+        "isReopened": false,
+        "isFoundInM3": true,
+        "nextApproverUserId": null,
+        "approvalStatus": "COMPLETED",
+        "isOverBudget": true,
+        "emailAttachment": "1766793437492_6051_Hiller_email.pdf",
+        "projectId": null,
+        "expenseCommentCount": "0",
+        "lastExpenseComment": null,
+        "subInvoices": [],
+        "updatedIsInvoiceStatusChange": false,
+        "account": {
+          "accountName": "Furniture & Fixtures",
+          "accountNumber": "140014050"
+        },
+        "department": {
+          "departmentName": "Capital Expense"
+        },
+        "property": {
+          "propertyName": "Pensacola-Home 2 Suites"
+        },
+        "vendor": {
+          "vendorName": "The Hiller Companies Inc",
+          "vendorNumber": "THE231"
+        },
+        "user": {
+          "name": "Sarah Hughes"
+        },
+        "rejectedByUser": null,
+        "project": null,
+        "createdByUser": {
+          "id": 190,
+          "name": "Sarah Hughes"
+        },
+        "approvedByUser": {
+          "id": 296,
+          "name": "Kalyan Kalivarapu"
+        },
+        "nextApproverUser": null,
+        "m3Log": [
+          {
+            "m3_status": true
+          }
+        ],
+        "expenseApprovalWorkFlow": null,
+        "isInvoiceStatusChange": false,
+        "expenseApprovalPersonList": [
+          {
+            "approvalUserId": 190,
+            "approvalName": "Sarah Hughes",
+            "status": "CREATED",
+            "stepOrder": 0,
+            "approvedDate": "2025-12-26T23:57:25.689Z",
+            "conditionType": "ALWAYS",
+            "amount": 0
+          },
+          {
+            "approvalUserId": 294,
+            "approvalName": "Rachel Dupuis",
+            "status": "APPROVED",
+            "stepOrder": 1,
+            "approvedDate": "2025-12-29T22:40:18.903Z",
+            "conditionType": "ALWAYS",
+            "amount": 25000,
+            "overBudgetString": "Over Budget"
+          },
+          {
+            "approvalUserId": 266,
+            "approvalName": "Glenn Pedersen",
+            "status": "APPROVED",
+            "stepOrder": 3,
+            "approvedDate": "2025-12-31T22:34:50.104Z",
+            "conditionType": "GREATER_THAN",
+            "amount": 25000,
+            "overBudgetString": "Over Budget"
+          },
+          {
+            "approvalUserId": 277,
+            "approvalName": "Sasirekha Sakthivel",
+            "status": "APPROVED",
+            "stepOrder": 4,
+            "approvedDate": "2026-01-02T16:26:22.142Z",
+            "conditionType": "ALWAYS",
+            "amount": 25000,
+            "overBudgetString": "Over Budget"
+          },
+          {
+            "approvalUserId": 296,
+            "approvalName": "Kalyan Kalivarapu",
+            "status": "APPROVED",
+            "stepOrder": 6,
+            "approvedDate": "2026-01-05T10:19:45.647Z",
+            "conditionType": "ALWAYS",
+            "amount": 25000,
+            "overBudgetString": "Over Budget"
+          },
+          {
+            "approvalUserId": null,
+            "approvalName": "M3",
+            "status": "TRANSFERRED",
+            "stepOrder": 7,
+            "conditionType": "ALWAYS",
+            "amount": 0
+          }
+        ]
+      },
+      {
+        "id": 132790047,
+        "propertyId": 3,
+        "departmentId": 65,
+        "accountId": 23719,
+        "vendorId": 25753,
+        "invoiceDate": "2025-12-29",
+        "postDate": "2026-01-03",
+        "invoiceNumber": "4953",
+        "file": "1767202110618_1278_Broussard_4953.pdf",
+        "invoiceStatus": "APPROVED",
+        "creditAmount": null,
+        "debitAmount": 2016.52,
+        "invoiceAmount": 2016.52,
+        "createdAt": "2025-12-31T17:28:45.705Z",
+        "invoiceType": "INVOICE",
+        "rejectComment": null,
+        "overBudgetComment": null,
+        "invoiceAddedBy": "SYSTEM",
+        "isAccural": false,
+        "createdByUserId": 179,
+        "approvedBy": 296,
+        "isCapitalInvoice": true,
+        "description": "RTU-1 fire damper replacement- TR",
+        "isSpread": false,
+        "multipleInvoiceId": "22899",
+        "isReopened": false,
+        "isFoundInM3": true,
+        "nextApproverUserId": null,
+        "approvalStatus": "COMPLETED",
+        "isOverBudget": true,
+        "emailAttachment": "1767202117800_2945_RE_D_Iberville_Courtyard_5th_floor_fire_damper_replacement.pdf",
+        "projectId": null,
+        "expenseCommentCount": "0",
+        "lastExpenseComment": null,
+        "subInvoices": [],
+        "updatedIsInvoiceStatusChange": false,
+        "account": {
+          "accountName": "Furniture & Fixtures",
+          "accountNumber": "140014050"
+        },
+        "department": {
+          "departmentName": "Capital Expense"
+        },
+        "property": {
+          "propertyName": "D'iberville Courtyard"
+        },
+        "vendor": {
+          "vendorName": "Broussard Plumbing *Archived*",
+          "vendorNumber": "BRO252"
+        },
+        "user": {
+          "name": "Joanne Lowe"
+        },
+        "rejectedByUser": null,
+        "project": null,
+        "createdByUser": {
+          "id": 179,
+          "name": "Joanne Lowe"
+        },
+        "approvedByUser": {
+          "id": 296,
+          "name": "Kalyan Kalivarapu"
+        },
+        "nextApproverUser": null,
+        "m3Log": [
+          {
+            "m3_status": true
+          }
+        ],
+        "expenseApprovalWorkFlow": null,
+        "isInvoiceStatusChange": false,
+        "expenseApprovalPersonList": [
+          {
+            "approvalUserId": 179,
+            "approvalName": "Joanne Lowe",
+            "status": "CREATED",
+            "stepOrder": 0,
+            "approvedDate": "2025-12-31T17:28:45.705Z",
+            "conditionType": "ALWAYS",
+            "amount": 0
+          },
+          {
+            "approvalUserId": 294,
+            "approvalName": "Rachel Dupuis",
+            "status": "APPROVED",
+            "stepOrder": 1,
+            "approvedDate": "2025-12-31T21:16:24.810Z",
+            "conditionType": "ALWAYS",
+            "amount": 25000,
+            "overBudgetString": "Over Budget"
+          },
+          {
+            "approvalUserId": 266,
+            "approvalName": "Glenn Pedersen",
+            "status": "APPROVED",
+            "stepOrder": 3,
+            "approvedDate": "2025-12-31T22:30:06.104Z",
+            "conditionType": "GREATER_THAN",
+            "amount": 25000,
+            "overBudgetString": "Over Budget"
+          },
+          {
+            "approvalUserId": 277,
+            "approvalName": "Sasirekha Sakthivel",
+            "status": "APPROVED",
+            "stepOrder": 4,
+            "approvedDate": "2026-01-02T15:54:17.485Z",
+            "conditionType": "ALWAYS",
+            "amount": 25000,
+            "overBudgetString": "Over Budget"
+          },
+          {
+            "approvalUserId": 296,
+            "approvalName": "Kalyan Kalivarapu",
+            "status": "APPROVED",
+            "stepOrder": 6,
+            "approvedDate": "2026-01-05T10:06:53.689Z",
+            "conditionType": "ALWAYS",
+            "amount": 25000,
+            "overBudgetString": "Over Budget"
+          },
+          {
+            "approvalUserId": null,
+            "approvalName": "M3",
+            "status": "TRANSFERRED",
+            "stepOrder": 7,
+            "conditionType": "ALWAYS",
+            "amount": 0
+          }
+        ]
+      },
+      {
+        "id": 132352039,
+        "propertyId": 14,
+        "departmentId": 65,
+        "accountId": 23802,
+        "vendorId": 17894,
+        "invoiceDate": "2025-12-30",
+        "postDate": "2026-01-03",
+        "invoiceNumber": "123025",
+        "file": "1767119955061_689_Encore_Cons_Pay_App_1_Dec_25.pdf",
+        "invoiceStatus": "APPROVED",
+        "creditAmount": null,
+        "debitAmount": 200000,
+        "invoiceAmount": 200000,
+        "createdAt": "2025-12-30T18:39:23.369Z",
+        "invoiceType": "INVOICE",
+        "rejectComment": null,
+        "overBudgetComment": null,
+        "invoiceAddedBy": "SYSTEM",
+        "isAccural": false,
+        "createdByUserId": 277,
+        "approvedBy": 298,
+        "isCapitalInvoice": true,
+        "description": "Pay App#1 Dec'25- TR",
+        "isSpread": false,
+        "multipleInvoiceId": "22749",
+        "isReopened": false,
+        "isFoundInM3": true,
+        "nextApproverUserId": null,
+        "approvalStatus": "COMPLETED",
+        "isOverBudget": true,
+        "emailAttachment": null,
+        "projectId": null,
+        "expenseCommentCount": "0",
+        "lastExpenseComment": null,
+        "subInvoices": [],
+        "updatedIsInvoiceStatusChange": false,
+        "account": {
+          "accountName": "Construction In Progress",
+          "accountNumber": "140014100"
+        },
+        "department": {
+          "departmentName": "Capital Expense"
+        },
+        "property": {
+          "propertyName": "McAllen Residence Inn by Marriott"
+        },
+        "vendor": {
+          "vendorName": "Encore Construction Group LLC",
+          "vendorNumber": "ENC100"
+        },
+        "user": {
+          "name": "Encap.hotel"
+        },
+        "rejectedByUser": null,
+        "project": null,
+        "createdByUser": {
+          "id": 277,
+          "name": "Encap.hotel"
+        },
+        "approvedByUser": null,
+        "nextApproverUser": null,
+        "m3Log": [
+          {
+            "m3_status": true
+          }
+        ],
+        "expenseApprovalWorkFlow": null,
+        "isInvoiceStatusChange": false,
+        "expenseApprovalPersonList": [
+          {
+            "approvalUserId": 277,
+            "approvalName": "Encap.hotel",
+            "status": "CREATED",
+            "stepOrder": 0,
+            "approvedDate": "2025-12-30T18:39:23.369Z",
+            "conditionType": "ALWAYS",
+            "amount": 0
+          },
+          {
+            "approvalUserId": 294,
+            "approvalName": "Rachel Dupuis",
+            "status": "APPROVED",
+            "stepOrder": 1,
+            "approvedDate": "2025-12-30T22:40:53.223Z",
+            "conditionType": "ALWAYS",
+            "amount": 25000,
+            "overBudgetString": "Over: $25K"
+          },
+          {
+            "approvalUserId": 266,
+            "approvalName": "Glenn Pedersen",
+            "status": "APPROVED",
+            "stepOrder": 3,
+            "approvedDate": "2025-12-31T22:33:03.008Z",
+            "conditionType": "GREATER_THAN",
+            "amount": 25000,
+            "overBudgetString": "Over: $25K"
+          },
+          {
+            "approvalUserId": 277,
+            "approvalName": "Sasirekha Sakthivel",
+            "status": "APPROVED",
+            "stepOrder": 4,
+            "approvedDate": "2026-01-02T16:22:00.165Z",
+            "conditionType": "ALWAYS",
+            "amount": 25000,
+            "overBudgetString": "Over: $25K"
+          },
+          {
+            "approvalUserId": 296,
+            "approvalName": "Kalyan Kalivarapu",
+            "status": "APPROVED",
+            "stepOrder": 6,
+            "approvedDate": "2026-01-05T10:18:07.653Z",
+            "conditionType": "ALWAYS",
+            "amount": 25000,
+            "overBudgetString": "Over: $25K"
+          },
+          {
+            "approvalUserId": 298,
+            "approvalName": "Yatin Gandhi",
+            "status": "APPROVED",
+            "stepOrder": 7,
+            "approvedDate": "2026-01-05T13:14:57.723Z",
+            "conditionType": "GREATER_THAN",
+            "amount": 25000,
+            "overBudgetString": "Over: $25K"
+          },
+          {
+            "approvalUserId": null,
+            "approvalName": "M3",
+            "status": "TRANSFERRED",
+            "stepOrder": 8,
+            "conditionType": "ALWAYS",
+            "amount": 0
+          }
+        ]
+      }
+    ],
+    "pageable": {
+      "pageNumber": 0,
+      "pageLimit": 10
+    },
+    "totalElements": 27,
+    "totalPages": 3
+  },
   "$schema": "./node_modules/json-server/schema.json"
 }

@@ -12,6 +12,7 @@ import { ApexChart } from "../Pages/ApexChart";
 import { PropertyCard } from "../Pages/PropertyCard";
 import { PropertyWiseCard } from "../Pages/PropertWiseCard";
 import MonthlyReports from "../Pages/MonthlyReports";
+import CapitalExpense from "../Pages/CapitalExpense";
 
 export const Routing = createBrowserRouter([
   {
@@ -115,6 +116,14 @@ export const Routing = createBrowserRouter([
     element: (
       <AuthGuard required={true}>
         <MonthlyReports />
+      </AuthGuard>
+    ),
+  },
+  {
+    path: "/capitalExpense",
+    element: (
+      <AuthGuard required={true}>
+        <CapitalExpense />
       </AuthGuard>
     ),
   },
