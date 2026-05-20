@@ -95,17 +95,12 @@ const MonthlyReports = () => {
                             {formatText(month)}
                           </td>
                           <td>
-                            <div className="flex flex-wrap gap-2">
-                              {data.pmFormApprovalWorkflow.map((workflow) => {
-                                return (
-                                  <ApprovalMenu
-                                    approverName={data.nextApprover.approverNames}
-                                    approvalUsers={workflow.approvalUsers}
-                                    status={workflow.status}
-                                  />
-                                );
-                              })}
-                            </div>
+                              <ApprovalMenu
+                                workflows={data.pmFormApprovalWorkflow}
+                                approverName={
+                                  data.nextApprover?.approverNames || []
+                                }
+                              />
                           </td>
                           <td>
                             <span className="monthly-report-badge">
