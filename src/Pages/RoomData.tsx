@@ -227,7 +227,6 @@ export const RoomData = () => {
           <Loader />
         ) : (
           <>
-            {" "}
             <Header />
             <div className="user-data">
               <div className="table-data">

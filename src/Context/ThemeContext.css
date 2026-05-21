@@ -609,6 +609,38 @@
   color: #cbd5e1;
 }
 
+[data-theme="dark"] .capital-expense-page {
+  background-color: #0f172a;
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .capital-expense-title {
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .capital-expense-table-wrap {
+  background-color: #1e293b;
+  box-shadow: 0 14px 34px rgba(2, 6, 23, 0.36);
+}
+
+[data-theme="dark"] .capital-expense-table th {
+  background-color: #2563eb;
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .capital-expense-table td {
+  border-bottom-color: #475569;
+  color: #e2e8f0;
+}
+
+[data-theme="dark"] .capital-expense-table tbody tr:hover {
+  background-color: #334155;
+}
+
+[data-theme="dark"] .capital-expense-empty {
+  color: #cbd5e1;
+}
+
 [data-theme="dark"] .menu-container .menu-items,
 [data-theme="dark"] .menu-container .menu-items .menu-item ,
 [data-theme="dark"] .status-menu-container .status-menu-items,

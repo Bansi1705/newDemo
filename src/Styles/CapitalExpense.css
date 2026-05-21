@@ -1,0 +1,76 @@
+.capital-expense-page {
+  min-height: 100vh;
+  padding: 24px;
+  background-color: #f5f7fa;
+  color: #1f2937;
+  font-family: Arial, sans-serif;
+}
+
+.capital-expense-section {
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.capital-expense-title {
+  margin: 0 0 20px;
+  color: #333;
+  font-size: 28px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.capital-expense-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: 10px;
+  background-color: #ffffff;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+}
+
+.capital-expense-table {
+  width: 100%;
+  min-width: 1200px;
+  border-collapse: collapse;
+}
+
+.capital-expense-table th {
+  padding: 14px 12px;
+  background-color: #4a90e2;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 700;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.capital-expense-table td {
+  padding: 12px;
+  border-bottom: 1px solid #e5e7eb;
+  color: #374151;
+  font-size: 14px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.capital-expense-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.capital-expense-table tbody tr:hover {
+  background-color: #f1f5f9;
+}
+
+.capital-expense-empty {
+  padding: 28px 12px;
+  color: #888;
+  font-weight: 600;
+}
+
+.capital-expense-table tr .status-Pending{
+  color:oklch(90.5% 0.182 98.111);
+}
+
+.capital-expense-table tr .status-Completed{
+color:oklch(72.3% 0.219 149.579);
+}
