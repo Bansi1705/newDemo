@@ -119,4 +119,27 @@ export const COMMON_SERVICES = {
     const replacedText = text.toLowerCase().replaceAll("_", " ");
     return replacedText.charAt(0).toUpperCase() + replacedText.slice(1);
   },
+
+  sortData<T>(
+    data: T[],
+    sortOrder: "asc" | "desc",
+    sortKey:string,
+  ) {
+    return [...data].sort((a, b) => {
+      const valueA =a[sortKey as keyof T] ;
+      const valueB =b[sortKey as keyof T] ;
+
+      if (typeof valueA === "string" && typeof valueB === "string") {
+        return sortOrder === "asc"
+          ? valueA.localeCompare(valueB)
+          : valueB.localeCompare(valueA);
+      }
+
+      if (typeof valueA === "number" && typeof valueB === "number") {
+        return sortOrder === "asc" ? valueA - valueB : valueB - valueA;
+      }
+
+      return 0;
+    });
+  },
 };

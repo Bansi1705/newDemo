@@ -13,6 +13,7 @@ import Confirmation from "../Components/CommonComponents/Confirmation";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import Loader from "../Components/CommonComponents/Loader";
+import { COMMON_SERVICES } from "../Services/CommonService/CommonServices";
 
 export const RoomData = () => {
   const [roomData, setRoomsData] = useState<RoomDataInterface[]>([]);
@@ -195,31 +196,12 @@ export const RoomData = () => {
   };
 
   const sortData = () => {
-    const dataWithIndex = roomData.map((room, originalIndex) => ({
-      room,
-      originalIndex,
-    }));
+    const sortedRooms = sortKey
+      ? COMMON_SERVICES.sortData(roomData, sortOrder, sortKey)
+      : roomData;
 
-    if (!sortKey) return dataWithIndex;
-
-    return dataWithIndex.sort((a, b) => {
-      const valueA = a.room[sortKey as keyof RoomDataInterface];
-      const valueB = b.room[sortKey as keyof RoomDataInterface];
-
-      if (typeof valueA === "string" && typeof valueB === "string") {
-        return sortOrder === "asc"
-          ? valueA.localeCompare(valueB)
-          : valueB.localeCompare(valueA);
-      }
-
-      if (typeof valueA === "number" && typeof valueB === "number") {
-        return sortOrder === "asc" ? valueA - valueB : valueB - valueA;
-      }
-
-      return 0;
-    });
+    return sortedRooms.map((room, index) => ({ room, index }));
   };
-
   return (
     <>
       <div>

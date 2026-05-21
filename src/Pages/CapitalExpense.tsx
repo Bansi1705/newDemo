@@ -5,7 +5,6 @@ import { Apiservice } from "../Services/ApiService";
 import { toast } from "react-toastify";
 import { CONSTANT } from "../Services/Constant";
 import Loader from "../Components/CommonComponents/Loader";
-import { format } from "date-fns";
 import "../Styles/CapitalExpense.css";
 import { COMMON_SERVICES } from "../Services/CommonService/CommonServices";
 import { FaArrowDown, FaArrowUp } from "react-icons/fa6";
@@ -48,6 +47,7 @@ const CapitalExpense = () => {
   const [loadCapEx, setLoadCapEx] = useState<boolean>(true);
   const [sortKey, setSortKey] = useState<string>("");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
+  const [serchTerm, setSerchTerm] = useState<string>("");
 
   useEffect(() => {
     const fetchCapEx = async () => {
@@ -70,14 +70,14 @@ const CapitalExpense = () => {
     { key: "projectName", label: "Project Name" },
     { key: "invoiceDate", label: "Expense Date" },
     { key: "postDate", label: "Post Date" },
-    { key: "vendor", label: "Vendor" },
+    { key: "vendorName", label: "Vendor" },
     { key: "invoiceNumber", label: "Invoice Number" },
     { key: "invoiceType", label: "Type" },
     { key: "invoiceAmount", label: "Cost" },
     { key: "description", label: "Description" },
-    { key: "approver", label: "Approver" },
+    { key: "approverName", label: "Approver" },
     { key: "approvalStatus", label: "Approval Status" },
-    { key: "comment", label: "Comment" },
+    { key: "expenseCommentCount", label: "Comment" },
   ];
 
   const handleCapExSorting = (key: string) => {
@@ -88,40 +88,26 @@ const CapitalExpense = () => {
       setSortOrder("asc");
     }
   };
+  const formattedData = capExData.content.map((item) => ({
+    ...item,
+    propertyName: item.property.propertyName,
+    projectName: item.project?.projectName,
+    vendorName: item.vendor.vendorName,
+    approverName: item.approvedByUser?.name || "-",
+  }));
 
-  const sortCapExData = () => {
-    return [...capExData.content].sort((a, b) => {
-      const valueA =
-        sortKey === "propertyName"
-          ? a.property.propertyName
-          : sortKey === "vendor"
-            ? a.vendor.vendorName
-            : sortKey === "approver"
-              ? a.approvedByUser?.name || ""
-              : a[sortKey as keyof Content];
+  const sortCapExData = COMMON_SERVICES.sortData(
+    formattedData,
+    sortOrder,
+    sortKey,
+  );
 
-      const valueB =
-        sortKey === "propertyName"
-          ? b.property.propertyName
-          : sortKey === "vendor"
-            ? b.vendor.vendorName
-            : sortKey === "approver"
-              ? b.approvedByUser?.name || ""
-              : b[sortKey as keyof Content];
-
-      if (typeof valueA === "string" && typeof valueB === "string") {
-        return sortOrder === "asc"
-          ? valueA.localeCompare(valueB)
-          : valueB.localeCompare(valueA);
-      }
-
-      if (typeof valueA === "number" && typeof valueB === "number") {
-        return sortOrder === "asc" ? valueA - valueB : valueB - valueA;
-      }
-
-      return 0;
-    });
-  };
+  const filteredUsers = sortCapExData.filter(
+    (item) =>
+      item.propertyName.toLowerCase().includes(serchTerm.toLowerCase()) ||
+      item.vendorName.toLowerCase().includes(serchTerm.toLowerCase()) ||
+      item.invoiceNumber.toLowerCase().includes(serchTerm.toLowerCase()),
+  );
 
   return (
     <>
@@ -129,7 +115,11 @@ const CapitalExpense = () => {
         <Loader />
       ) : (
         <>
-          <Header />
+          <Header
+            searchShow={true}
+            search={serchTerm}
+            setSearch={setSerchTerm}
+          />
           <main className="capital-expense-page">
             <section className="capital-expense-section">
               <h2 className="capital-expense-title">Capital Expense</h2>
@@ -161,7 +151,7 @@ const CapitalExpense = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {capExData.content.length === 0 ? (
+                    {filteredUsers.length === 0 ? (
                       <tr>
                         <td
                           className="capital-expense-empty"
@@ -171,7 +161,7 @@ const CapitalExpense = () => {
                         </td>
                       </tr>
                     ) : (
-                      sortCapExData().map((item, index) => {
+                      filteredUsers.map((item, index) => {
                         const formatedStatus = COMMON_SERVICES.formatText(
                           item.approvalStatus,
                         );
@@ -180,8 +170,8 @@ const CapitalExpense = () => {
                           <>
                             <tr key={index}>
                               <td>{index + 1}</td>
-                              <td>{item.property.propertyName}</td>
-                              <td>{item.project?.projectName || "-"}</td>
+                              <td>{item.propertyName}</td>
+                              <td>{item.projectName || "-"}</td>
                               <td>
                                 {COMMON_SERVICES.formatCreateDate(
                                   item.invoiceDate,
@@ -192,7 +182,7 @@ const CapitalExpense = () => {
                                   item.postDate,
                                 )}
                               </td>
-                              <td>{item.vendor.vendorName}</td>
+                              <td>{item.vendorName}</td>
                               <td>{item.invoiceNumber}</td>
                               <td>{item.invoiceType}</td>
                               <td>{item.invoiceAmount}</td>
@@ -201,7 +191,7 @@ const CapitalExpense = () => {
                                 {item.expenseApprovalPersonList[0]
                                   ?.approvalName || "-"}
                                 / <br />
-                                {item.approvedByUser?.name || "-"}
+                                {item.approverName || "-"}
                               </td>
                               <td className={`${statusClass}`}>
                                 {COMMON_SERVICES.formatText(

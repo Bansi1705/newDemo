@@ -32,26 +32,8 @@ function Data() {
 
   const sortedUsers = () => {
     if (!sortKey) return filteredUsers;
-
     const onlyRows = filteredUsers.filter((row) => !row.isHeader);
-
-    return onlyRows.sort((a, b) => {
-      if (sortKey === "categoryName") {
-        return sortOrder === "asc"
-          ? a.categoryName.localeCompare(b.categoryName)
-          : b.categoryName.localeCompare(a.categoryName);
-      }
-
-      if (sortOrder === "asc") {
-        return a[sortKey as keyof tableData] > b[sortKey as keyof tableData]
-          ? 1
-          : -1;
-      } else {
-        return a[sortKey as keyof tableData] < b[sortKey as keyof tableData]
-          ? 1
-          : -1;
-      }
-    });
+    return COMMON_SERVICES.sortData(onlyRows,sortOrder,sortKey)
   };
 
   const tableHeader = [
