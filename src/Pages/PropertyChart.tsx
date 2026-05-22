@@ -43,8 +43,7 @@ interface NextData {
   propertyStatistics: PropertyStatistics[];
   totalStatistics: TotalStatistics;
 }
-
-export const PropertyChart: React.FC = () => {
+const PropertyChart: React.FC = () => {
   const [propertyData, setPropertyData] = useState<NextData | null>(null);
 
   useEffect(() => {
@@ -169,3 +168,4 @@ export const PropertyChart: React.FC = () => {
     </>
   );
 };
+export default PropertyChart;

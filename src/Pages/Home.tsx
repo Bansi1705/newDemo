@@ -24,7 +24,7 @@ import { MultipleWeekPicker } from "../Components/CommonComponents/MultiWeekSele
 import { startOfWeek } from "date-fns";
 import Loader from "../Components/CommonComponents/Loader";
 
-export const Home = () => {
+const Home = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const navigate = useNavigate();
@@ -406,3 +406,5 @@ export const Home = () => {
     </>
   );
 };
+
+export default Home;

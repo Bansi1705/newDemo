@@ -86,7 +86,7 @@ const reducer = (state: State, action: Action): State => {
       return state;
   }
 };
-export const Login: React.FC = () => {
+const Login: React.FC = () => {
   const navigate = useNavigate();
   const [state, dispatch] = useReducer(reducer, initialState);
 
@@ -235,3 +235,4 @@ export const Login: React.FC = () => {
     </div>
   );
 };
+export default Login;

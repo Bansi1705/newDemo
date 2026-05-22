@@ -120,26 +120,26 @@ export const COMMON_SERVICES = {
     return replacedText.charAt(0).toUpperCase() + replacedText.slice(1);
   },
 
-  sortData<T>(
-    data: T[],
-    sortOrder: "asc" | "desc",
-    sortKey:string,
-  ) {
+  sortData<T>(data: T[], sortOrder: "asc" | "desc", sortKey: string) {
     return [...data].sort((a, b) => {
-      const valueA =a[sortKey as keyof T] ;
-      const valueB =b[sortKey as keyof T] ;
+      const currentValue = a[sortKey as keyof T];
+      const nextValue = b[sortKey as keyof T];
 
-      if (typeof valueA === "string" && typeof valueB === "string") {
+      if (typeof currentValue === "string" && typeof nextValue === "string") {
         return sortOrder === "asc"
-          ? valueA.localeCompare(valueB)
-          : valueB.localeCompare(valueA);
+          ? currentValue.localeCompare(nextValue)
+          : nextValue.localeCompare(currentValue);
       }
 
-      if (typeof valueA === "number" && typeof valueB === "number") {
-        return sortOrder === "asc" ? valueA - valueB : valueB - valueA;
+      if (typeof currentValue === "number" && typeof nextValue === "number") {
+        return sortOrder === "asc"
+          ? currentValue - nextValue
+          : nextValue - currentValue;
       }
 
       return 0;
     });
   },
+
+  
 };

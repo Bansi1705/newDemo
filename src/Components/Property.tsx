@@ -29,7 +29,7 @@ interface propertyInterface {
   createdAt: string;
 }
 
-export const Property: React.FC = () => {
+const Property: React.FC = () => {
   const [data, setData] = useState<propertyInterface[]>([]);
   const [loadingData, setLodingData] = useState<boolean>(true);
 
@@ -114,3 +114,4 @@ export const Property: React.FC = () => {
     </>
   );
 };
+export default Property;

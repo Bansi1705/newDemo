@@ -20,7 +20,7 @@ interface PropertyDataInterface {
   departments: DepartmentData[];
 }
 
-export const PropertyData: React.FC = () => {
+const PropertyData: React.FC = () => {
   const [propertyData, setPropertyData] = useState<PropertyDataInterface[]>([]);
   const [loadData, setLoadData] = useState<boolean>(true);
 
@@ -207,3 +207,4 @@ export const PropertyData: React.FC = () => {
     </div>
   );
 };
+export default PropertyData;

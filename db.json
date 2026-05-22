@@ -16639,5 +16639,44 @@
     "totalElements": 27,
     "totalPages": 3
   },
+  "UserProfile": [
+    {
+      "firstName": "Bansi",
+      "lastName": "Chudasama",
+      "fullName": "Bansi Chudasama",
+      "email": "bansi.chudasama@example.com",
+      "phoneNumber": "9876543210",
+      "alternatePhoneNumber": "9123456780",
+      "gender": "Male",
+      "dateOfBirth": "2000-05-15",
+
+      "companyName": "Tech Solutions Pvt Ltd",
+      "department": "Software Development",
+      "designation": "Frontend Developer",
+      "employeeId": "EMP1025",
+
+      "address": [
+        {
+          "city": "Rajkot",
+          "state": "Gujarat",
+          "country": "India",
+          "zipcode": "360001",
+          "district": "Rajkot"
+        }
+      ],
+
+      "username": "bansi_123",
+      "password": "Bansi@123",
+      "confirmPassword": "Bansi@123",
+
+      "website": "https://www.techsolutions.com",
+      "description": "Experienced frontend developer working with React and TypeScript.",
+      "notes": "Available for new internal projects.",
+      "status": "Active",
+      "profileImage": "https://randomuser.me/api/portraits/men/75.jpg",
+      "createdBy": "Admin",
+      "updatedBy": "HR Manager"
+    }
+  ],
   "$schema": "./node_modules/json-server/schema.json"
 }

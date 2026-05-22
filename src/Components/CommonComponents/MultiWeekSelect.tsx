@@ -1,6 +1,7 @@
 import { endOfWeek, format, startOfWeek, isWithinInterval } from "date-fns";
 import DatePicker from "react-datepicker";
 import "../../Styles/MultiWeekSelect.css";
+import "react-datepicker/dist/react-datepicker.css";
 
 type Props = {
   placeholder?: string;

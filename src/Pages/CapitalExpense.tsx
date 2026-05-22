@@ -108,7 +108,7 @@ const CapitalExpense = () => {
       item.vendorName.toLowerCase().includes(serchTerm.toLowerCase()) ||
       item.invoiceNumber.toLowerCase().includes(serchTerm.toLowerCase()),
   );
-
+  
   return (
     <>
       {loadCapEx ? (
@@ -170,7 +170,9 @@ const CapitalExpense = () => {
                           <>
                             <tr key={index}>
                               <td>{index + 1}</td>
-                              <td>{item.propertyName}</td>
+                              <td>
+                                {item.propertyName}
+                              </td>
                               <td>{item.projectName || "-"}</td>
                               <td>
                                 {COMMON_SERVICES.formatCreateDate(

@@ -31,8 +31,7 @@ interface ListViewInterface {
   totalElements: number;
   totalPages: number;
 }
-
-export const PropertyWiseCard = () => {
+ const PropertyWiseCard = () => {
   const [listProperty, setListProperty] = useState<ListViewInterface | null>(
     null,
   );
@@ -315,3 +314,4 @@ export const PropertyWiseCard = () => {
     </div>
   );
 };
+export default PropertyWiseCard;

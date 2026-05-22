@@ -15,7 +15,7 @@ import Checkbox from "@mui/material/Checkbox";
 import Loader from "../Components/CommonComponents/Loader";
 import { COMMON_SERVICES } from "../Services/CommonService/CommonServices";
 
-export const RoomData = () => {
+const RoomData = () => {
   const [roomData, setRoomsData] = useState<RoomDataInterface[]>([]);
   const [loadRoomData, setLoadRoomData] = useState<boolean>(true);
   const [showSubArray, setShowSubArray] = useState<boolean>(false);
@@ -397,3 +397,4 @@ export const RoomData = () => {
     </>
   );
 };
+export default RoomData;

@@ -141,6 +141,16 @@ console.log("header renders")
                 Capital Expense
               </NavLink>
             </MenuItem>
+
+            <MenuItem>
+              <NavLink
+                to="/userProfile"
+                onClick={() => setSelectedTab("Property Card")}
+                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-black"
+              >
+                User Profile
+              </NavLink>
+            </MenuItem>
           </MenuItems>
         </Menu>
 

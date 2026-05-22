@@ -29,7 +29,7 @@ interface ListViewInterface {
   totalPages: number;
 }
 
-export const PropertyCard = () => {
+ const PropertyCard = () => {
   const [listProperty, setListProperty] = useState<ListViewInterface | null>(
     null,
   );
@@ -78,7 +78,6 @@ export const PropertyCard = () => {
         <Loader />
       ) : (
         <>
-          {" "}
           <Header />
           <div>
             <div className="propertyCard">
@@ -141,3 +140,4 @@ export const PropertyCard = () => {
     </div>
   );
 };
+export default PropertyCard;

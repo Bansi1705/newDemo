@@ -642,10 +642,55 @@
 }
 
 [data-theme="dark"] .menu-container .menu-items,
-[data-theme="dark"] .menu-container .menu-items .menu-item ,
+[data-theme="dark"] .menu-container .menu-items .menu-item,
 [data-theme="dark"] .status-menu-container .status-menu-items,
-[data-theme="dark"] .status-menu-container .status-menu-items .status-menu-item
-{
+[data-theme="dark"]
+  .status-menu-container
+  .status-menu-items
+  .status-menu-item {
   background-color: #1e293b;
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .userProfile-form-data {
+  color: #f5f7fa;
+  background-color: #0f172a;
+}
+
+[data-theme="dark"] .userProfile-form {
+  color: #f5f7fa;
+  background-color: #1e293b;
+}
+
+[data-theme="dark"] .userProfile-title {
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .userProfile-form .input-field {
+  border-color: #475569;
+  background-color: #334155;
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .userProfile-form .input-field:focus {
+  border-color: #60a5fa;
+  box-shadow: 0 0 5px rgba(96, 165, 250, 0.5);
+}
+
+[data-theme="dark"] .userProfile-form label {
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .userProfile-form .error {
+  color: #f87171;
+}
+
+[data-theme="dark"] .userProfile-form .submit-btn {
+  background-color: #2563eb;
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .userProfile-form .cancel-btn {
+  background-color: #475569;
   color: #f8fafc;
 }

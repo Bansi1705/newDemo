@@ -11,7 +11,7 @@ import { CONSTANT } from "../Services/Constant";
 import type { ApiResponse, User } from "../Interface/types";
 import FileUpload from "./CommonComponents/FileUpload";
 
-export const Form = () => {
+const Form = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -221,3 +221,4 @@ export const Form = () => {
     </>
   );
 };
+export default Form;

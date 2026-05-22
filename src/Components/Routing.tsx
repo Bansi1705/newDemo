@@ -1,25 +1,32 @@
 import { createBrowserRouter } from "react-router-dom";
-import { Home } from "../Pages/Home";
-import { Form } from "./Form";
-import { Login } from "./Login";
 import { AuthGuard } from "./Auth/AuthGuard";
-import UserExpense from "../Pages/UserExpense";
-import Data from "../Pages/Data";
-import { RoomData } from "../Pages/RoomData";
-import { PropertyData } from "../Pages/PropertyData";
-import { Property } from "./Property";
-import { ApexChart } from "../Pages/ApexChart";
-import { PropertyCard } from "../Pages/PropertyCard";
-import { PropertyWiseCard } from "../Pages/PropertWiseCard";
-import MonthlyReports from "../Pages/MonthlyReports";
-import CapitalExpense from "../Pages/CapitalExpense";
+import { Suspense } from "react";
+import Loader from "./CommonComponents/Loader";
+import {
+  ApexChart,
+  CapitalExpense,
+  Data,
+  Form,
+  Home,
+  Login,
+  MonthlyReports,
+  Property,
+  PropertyCard,
+  PropertyData,
+  PropertyWiseCard,
+  RoomData,
+  UserExpense,
+  UserProfile,
+} from "./LazyLoading";
 
 export const Routing = createBrowserRouter([
   {
     path: "/",
     element: (
       <AuthGuard required={false}>
-        <Login />
+        <Suspense fallback={<Loader />}>
+          <Login />
+        </Suspense>
       </AuthGuard>
     ),
   },
@@ -27,7 +34,9 @@ export const Routing = createBrowserRouter([
     path: "/home",
     element: (
       <AuthGuard required={true}>
-        <Home />
+        <Suspense fallback={<Loader />}>
+          <Home />
+        </Suspense>
       </AuthGuard>
     ),
   },
@@ -35,7 +44,9 @@ export const Routing = createBrowserRouter([
     path: "/add-user",
     element: (
       <AuthGuard required={true}>
-        <Form />
+        <Suspense fallback={<Loader />}>
+          <Form />
+        </Suspense>
       </AuthGuard>
     ),
   },
@@ -43,7 +54,9 @@ export const Routing = createBrowserRouter([
     path: "/edit-user/:id",
     element: (
       <AuthGuard required={true}>
-        <Form />
+        <Suspense fallback={<Loader />}>
+          <Form />
+        </Suspense>
       </AuthGuard>
     ),
   },
@@ -51,7 +64,9 @@ export const Routing = createBrowserRouter([
     path: "userExpense",
     element: (
       <AuthGuard required={true}>
-        <UserExpense />
+        <Suspense fallback={<Loader />}>
+          <UserExpense />
+        </Suspense>
       </AuthGuard>
     ),
   },
@@ -59,7 +74,9 @@ export const Routing = createBrowserRouter([
     path: "/data",
     element: (
       <AuthGuard required={true}>
-        <Data />
+        <Suspense fallback={<Loader />}>
+          <Data />
+        </Suspense>
       </AuthGuard>
     ),
   },
@@ -67,7 +84,9 @@ export const Routing = createBrowserRouter([
     path: "/roomData",
     element: (
       <AuthGuard required={true}>
-        <RoomData />
+        <Suspense fallback={<Loader />}>
+          <RoomData />
+        </Suspense>
       </AuthGuard>
     ),
   },
@@ -75,15 +94,19 @@ export const Routing = createBrowserRouter([
     path: "/propertyData",
     element: (
       <AuthGuard required={true}>
-        <PropertyData />
+        <Suspense fallback={<Loader />}>
+          <PropertyData />
+        </Suspense>{" "}
       </AuthGuard>
     ),
   },
   {
     path: "/property",
     element: (
-      <AuthGuard required={true}>
-        <Property />
+      <AuthGuard required={true}>                                 
+        <Suspense fallback={<Loader />}>
+          <Property />
+        </Suspense>
       </AuthGuard>
     ),
   },
@@ -91,7 +114,9 @@ export const Routing = createBrowserRouter([
     path: "/chartData",
     element: (
       <AuthGuard required={true}>
-        <ApexChart />
+        <Suspense fallback={<Loader />}>
+          <ApexChart />
+        </Suspense>{" "}
       </AuthGuard>
     ),
   },
@@ -99,7 +124,9 @@ export const Routing = createBrowserRouter([
     path: "/propertyCard",
     element: (
       <AuthGuard required={true}>
-        <PropertyCard />
+        <Suspense fallback={<Loader />}>
+          <PropertyCard />
+        </Suspense>
       </AuthGuard>
     ),
   },
@@ -107,7 +134,9 @@ export const Routing = createBrowserRouter([
     path: "/propertyWiseCard",
     element: (
       <AuthGuard required={true}>
-        <PropertyWiseCard />
+        <Suspense fallback={<Loader />}>
+          <PropertyWiseCard />
+        </Suspense>
       </AuthGuard>
     ),
   },
@@ -115,7 +144,9 @@ export const Routing = createBrowserRouter([
     path: "/monthlyReport",
     element: (
       <AuthGuard required={true}>
-        <MonthlyReports />
+        <Suspense fallback={<Loader />}>
+          <MonthlyReports />
+        </Suspense>
       </AuthGuard>
     ),
   },
@@ -123,7 +154,19 @@ export const Routing = createBrowserRouter([
     path: "/capitalExpense",
     element: (
       <AuthGuard required={true}>
-        <CapitalExpense />
+        <Suspense fallback={<Loader />}>
+          <CapitalExpense />
+        </Suspense>
+      </AuthGuard>
+    ),
+  },
+  {
+    path: "/userProfile",
+    element: (
+      <AuthGuard required={true}>
+        <Suspense fallback={<Loader />}>
+          <UserProfile />
+        </Suspense>
       </AuthGuard>
     ),
   },

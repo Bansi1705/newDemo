@@ -116,3 +116,41 @@ export interface PropertyDataInterface {
   ab: number;
   ttm: number;
 }
+
+export interface UserProfile {
+  firstName: string;
+  lastName: string;
+  fullName: string;
+  email: string;
+  phoneNumber: string;
+  alternatePhoneNumber: string;
+  gender: string;
+  dateOfBirth: Date | null;
+
+  companyName: string;
+  department: string;
+  designation: string;
+  employeeId: string;
+
+  address: [
+    {
+      city: string;
+      state: string;
+      country: string;
+      zipcode: string;
+      district: string;
+    },
+  ];
+
+  username: string;
+  password: string;
+  confirmPassword: string;
+
+  website: string;
+  description: string;
+  notes: string;
+  status: string;
+  profileImage: string | null;
+  createdBy: string;
+  updatedBy: string;
+}

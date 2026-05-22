@@ -4,7 +4,7 @@ import { Apiservice } from "../Services/ApiService";
 import type { ApiResponse } from "../Interface/types";
 import type { ApexOptions } from "apexcharts";
 import "../Styles/ApexChart.css";
-import { PropertyChart } from "./PropertyChart";
+import  PropertyChart  from "./PropertyChart";
 import CommonChart from "../Components/CommonComponents/Chart";
 import { CONSTANT } from "../Services/Constant";
 import { toast } from "react-toastify";
@@ -25,8 +25,7 @@ interface chartDataInterface {
     total: number;
   };
 }
-
-export const ApexChart: React.FC = () => {
+ const ApexChart: React.FC = () => {
   const [chartData, setChartData] = useState<chartDataInterface>({
     distributionAnalysis: [],
     occupancyStatistics: {
@@ -222,3 +221,5 @@ export const ApexChart: React.FC = () => {
     </>
   );
 };
+
+export default ApexChart;
