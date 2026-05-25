@@ -141,5 +141,27 @@ export const COMMON_SERVICES = {
     });
   },
 
-  
+  formtePhoneNumber(value: string) {
+    const digit=value.replace(/\D/g,"");
+    let formatted = "";
+
+    if (digit.length > 0) {
+      formatted = `+${digit.slice(0, 1)}`;
+    }
+
+    if (digit.length > 1) {
+      formatted += `-(${digit.slice(1, 4)})`;
+    }
+
+    if (digit.length > 4) {
+      formatted += `-(${digit.slice(4, 7)})`;
+    }
+
+    if (digit.length > 7) {
+      formatted += `-${digit.slice(7, 11)}`;
+    }
+
+    return formatted;
+  },
+
 };

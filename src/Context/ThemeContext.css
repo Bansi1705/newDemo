@@ -694,3 +694,28 @@
   background-color: #475569;
   color: #f8fafc;
 }
+
+
+[data-theme="dark"] .userProfile-form .gender-section {
+  background-color: #334155;
+  border-color:  #334155;
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .userProfileTable {
+  background-color: #1e293b;
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .userProfileTable tbody tr:hover {
+  background-color: #334155;
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .userProfileTable td {
+  color: #eaedf1;
+}
+
+[data-theme="dark"] .main-userProfileDiv {
+  background-color: #1e293b;
+}

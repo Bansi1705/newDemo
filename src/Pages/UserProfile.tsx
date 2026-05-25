@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { UserProfile } from "../Interface/types";
 import InputField from "../Components/CommonComponents/InputFeild";
 import { DropDown } from "../Components/CommonComponents/DropDown";
@@ -8,6 +8,13 @@ import Header from "../Components/Header";
 import "../Styles/UserProfile.css";
 import FileUpload from "../Components/CommonComponents/FileUpload";
 import { CONSTANT } from "../Services/Constant";
+import { COMMON_SERVICES } from "../Services/CommonService/CommonServices";
+import { MdDeleteOutline, MdOutlinePreview } from "react-icons/md";
+import FilePreview from "../Components/CommonComponents/FilePreview";
+import { toast } from "react-toastify";
+import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
+import { CiEdit } from "react-icons/ci";
+import { FaChevronDown } from "react-icons/fa6";
 
 function UserProfile() {
   const initialState: UserProfile = {
@@ -50,8 +57,10 @@ function UserProfile() {
 
   const [userData, setUserData] = useState<UserProfile[]>([]);
   const [formData, setFormData] = useState<UserProfile>(initialState);
-
+  const [imagePreView, setImagePreView] = useState<File | string | null>(null);
+  const [showPreView, setShowPreView] = useState<boolean>(false);
   const [error, setError] = useState<Record<string, string>>({});
+  const [editId, setEditId] = useState<string | null>(null);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -77,7 +86,7 @@ function UserProfile() {
       address: [
         {
           ...prev.address[0],
-          [name]: value,
+          [name]: name === "zipcode" ? value.slice(0, 6) : value,
         },
       ],
     }));
@@ -113,15 +122,6 @@ function UserProfile() {
 
     if (!formData.phoneNumber.trim()) {
       newError.phoneNumber = CONSTANT.VALIDATION.PHONENUMBER;
-    } else if (!/^\d{10}$/.test(formData.phoneNumber)) {
-      newError.phoneNumber = "Phone Number must be 10 digits";
-    }
-
-    if (
-      formData.alternatePhoneNumber &&
-      !/^\d{10}$/.test(formData.alternatePhoneNumber)
-    ) {
-      newError.alternatePhoneNumber = CONSTANT.VALIDATION.ALTERNATEPHONENUMBER;
     }
 
     if (!formData.gender) {
@@ -130,6 +130,17 @@ function UserProfile() {
 
     if (!formData.dateOfBirth) {
       newError.dateOfBirth = CONSTANT.VALIDATION.DATEOFBIRTH;
+    }
+
+    const today = new Date();
+    const minAgeDate = new Date(
+      today.getFullYear() - 14,
+      today.getMonth(),
+      today.getDate(),
+    );
+
+    if (formData.dateOfBirth && formData.dateOfBirth > minAgeDate) {
+      newError.dateOfBirth = "User must be at least 14 years old";
     }
 
     if (!formData.companyName.trim()) {
@@ -166,12 +177,13 @@ function UserProfile() {
 
     if (!formData.website.trim()) {
       newError.website = CONSTANT.VALIDATION.WEBSITE;
+    } else if (
+      !/^(https?:\/\/)?([a-z\d]([a-z\d-]*[a-z\d])*\.)+[a-z]{2,}(\/.*)?$/i.test(
+        formData.website,
+      )
+    ) {
+      newError.website = "Enter proper website";
     }
-    // } else if (
-    //   !/^(https?:\/\/)?([\w-]+\.)+[\w-]{2,}(\/.*)?$/i.test(userData.website)
-    // ) {
-    //   newError.website = "Invalid Website URL";
-    // }
 
     if (!formData.description.trim()) {
       newError.description = CONSTANT.VALIDATION.DESCRIPTION;
@@ -183,6 +195,10 @@ function UserProfile() {
 
     if (!formData.status.trim()) {
       newError.status = CONSTANT.VALIDATION.STATUS;
+    }
+
+    if (!formData.profileImage?.trim()) {
+      newError.status = CONSTANT.VALIDATION.PROFILEIMAGE;
     }
 
     if (!formData.createdBy.trim()) {
@@ -211,6 +227,8 @@ function UserProfile() {
 
     if (!formData.address[0].zipcode.trim()) {
       newError.zipcode = CONSTANT.VALIDATION.ZIPCODE;
+    } else if (formData.address[0].zipcode.length > 6) {
+      newError.zipcode = "ZipCode Must be 6 digit";
     }
 
     setError(newError);
@@ -228,10 +246,21 @@ function UserProfile() {
       return;
     }
 
-    const updatedData = [...userData, formData];
-    setUserData(updatedData);
+    let updatedData;
+    if (editId !== null) {
+      updatedData = userData.map((item) =>
+        item.employeeId == editId ? formData : item,
+      );
+      toast.success(CONSTANT.SUCCESS.UPDATE);
+    } else {
+      updatedData = [...userData, formData];
+      toast.success(CONSTANT.SUCCESS.CREATE);
+    }
 
-    console.log("Submitted Data:", updatedData);
+    setUserData(updatedData);
+    localStorage.setItem("UserProfiles", JSON.stringify(updatedData));
+    setEditId(null);
+    resetForm();
   };
 
   const resetForm = () => {
@@ -243,6 +272,71 @@ function UserProfile() {
     { key: "active", label: "Active" },
     { key: "inactive", label: "Inactive" },
   ];
+
+  const userProfileTableHeader = [
+    { key: "srNo", label: "Sr No" },
+    { key: "firstName", label: "First Name" },
+    { key: "lastName", label: "Last Name" },
+    { key: "fullName", label: "Full Name" },
+    { key: "email", label: "Email" },
+    { key: "phoneNumber", label: "Phone Number" },
+    { key: "alternatePhoneNumber", label: "Alternate Phone Number" },
+    { key: "gender", label: "Gender" },
+    { key: "dateOfBirth", label: "Birth Date" },
+    { key: "companyName", label: "Company Name" },
+    { key: "department", label: "Department" },
+    { key: "designation", label: "Designation" },
+    { key: "employeeId", label: "Employee Id" },
+    { key: "city", label: "City" },
+    { key: "state", label: "State" },
+    { key: "country", label: "Country" },
+    { key: "zipcode", label: "Zipcode" },
+    { key: "district", label: "District" },
+    { key: "username", label: "Username" },
+    { key: "website", label: "Website" },
+    { key: "status", label: "Status" },
+    { key: "profileImage", label: "Profile Image" },
+    { key: "description", label: "Description" },
+    { key: "notes", label: "Notes" },
+    { key: "createdBy", label: "Created By" },
+    { key: "updatedBy", label: "Updated By" },
+     { key: "operations", label: "Operations" },
+  ];
+
+  const handleShowPreview = (image: File | string) => {
+    setShowPreView(true);
+    setImagePreView(image);
+  };
+  const handleClosePreview = () => {
+    setShowPreView(false);
+    setImagePreView(null);
+  };
+
+  useEffect(() => {
+    const storedData = localStorage.getItem("UserProfiles");
+    if (storedData) {
+      setUserData(JSON.parse(storedData));
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!editId) return;
+    const editData = userData.find((item) => item.employeeId === editId);
+    if (editData) {
+      setFormData(editData);
+    }
+  }, [editId, userData]);
+
+  const handleEdit = (id: string) => {
+    setEditId(id);
+  };
+
+  const handleDelete = (id: string) => {
+    const filteredUser = userData.filter((item) => item.employeeId !== id);
+    setUserData(filteredUser);
+    localStorage.setItem("UserProfiles", JSON.stringify(filteredUser));
+    toast.success(CONSTANT.SUCCESS.DELETE);
+  };
 
   return (
     <>
@@ -310,9 +404,14 @@ function UserProfile() {
             type="tel"
             name="phoneNumber"
             id="phoneNumber"
-            placeholder="9876543210"
+            placeholder="+1-212-456-7890"
             value={formData.phoneNumber}
-            onChange={handleChange}
+            onChange={(e) =>
+              setFormData((prev) => ({
+                ...prev,
+                phoneNumber: COMMON_SERVICES.formtePhoneNumber(e.target.value),
+              }))
+            }
             error={error.phoneNumber}
             classname="input-field"
           />
@@ -322,9 +421,16 @@ function UserProfile() {
             type="tel"
             name="alternatePhoneNumber"
             id="alternatePhoneNumber"
-            placeholder="9876543210"
+            placeholder="+1-212-456-7890"
             value={formData.alternatePhoneNumber}
-            onChange={handleChange}
+            onChange={(e) =>
+              setFormData((prev) => ({
+                ...prev,
+                alternatePhoneNumber: COMMON_SERVICES.formtePhoneNumber(
+                  e.target.value,
+                ),
+              }))
+            }
             error={error.alternatePhoneNumber}
             classname="input-field"
           />
@@ -357,6 +463,7 @@ function UserProfile() {
 
           <ReactDatePicker
             selectedDate={formData.dateOfBirth}
+            className="w-full rounded-md border border-slate-300 bg-white py-2 pl-10 pr-3 text-sm text-slate-800 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:border-slate-600 dark:bg-slate-700 dark:text-white"
             onChange={(d) => {
               setFormData({
                 ...formData,
@@ -639,6 +746,133 @@ function UserProfile() {
             />
           </div>
         </form>
+
+        <div className="main-userProfileDiv">
+          <table className="userProfileTable">
+            <thead>
+              <tr>
+                {userProfileTableHeader.map((head) => (
+                  <th>{head.label}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {userData.length === 0 ? (
+                <tr>
+                  <td
+                    colSpan={userProfileTableHeader.length}
+                    className="text-center"
+                  >
+                    No Data Found
+                  </td>
+                </tr>
+              ) : (
+                userData.map((user, index) => (
+                  <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td>{COMMON_SERVICES.formatText(user.firstName)}</td>
+                    <td>{COMMON_SERVICES.formatText(user.lastName)}</td>
+                    <td>{COMMON_SERVICES.formatText(user.fullName)}</td>
+                    <td>{user.email}</td>
+                    <td>{user.phoneNumber}</td>
+                    <td>
+                      {user.alternatePhoneNumber.length === 0
+                        ? "-"
+                        : user.alternatePhoneNumber}
+                    </td>
+                    <td>{user.gender}</td>
+                    <td>
+                      {user.dateOfBirth
+                        ? COMMON_SERVICES.formatCreateDate(
+                            new Date(user.dateOfBirth)
+                              .toISOString()
+                              .split("T")[0],
+                          )
+                        : "-"}
+                    </td>
+                    <td>{COMMON_SERVICES.formatText(user.companyName)}</td>
+                    <td>{COMMON_SERVICES.formatText(user.department)}</td>
+                    <td>{COMMON_SERVICES.formatText(user.designation)}</td>
+                    <td>{user.employeeId}</td>
+                    <td>{COMMON_SERVICES.formatText(user.address[0].city)}</td>
+                    <td>{COMMON_SERVICES.formatText(user.address[0].state)}</td>
+                    <td>
+                      {COMMON_SERVICES.formatText(user.address[0].country)}
+                    </td>
+                    <td>
+                      {COMMON_SERVICES.formatText(user.address[0].zipcode)}
+                    </td>
+                    <td>
+                      {COMMON_SERVICES.formatText(user.address[0].district)}
+                    </td>
+                    <td>{COMMON_SERVICES.formatText(user.username)}</td>
+                    <td>{COMMON_SERVICES.formatText(user.website)}</td>
+                    <td>{user.status}</td>
+                    <td>
+                      {user.profileImage && (
+                        <div className="imagePreviewIcon">
+                          <MdOutlinePreview
+                            size={30}
+                            onClick={() => handleShowPreview(user.profileImage)}
+                          />
+                        </div>
+                      )}
+                    </td>
+                    <td>{COMMON_SERVICES.formatText(user.description)}</td>
+                    <td>{COMMON_SERVICES.formatText(user.notes)}</td>
+                    <td>{COMMON_SERVICES.formatText(user.createdBy)}</td>
+                    <td>{COMMON_SERVICES.formatText(user.updatedBy)}</td>
+                    <td className="action-buttons">
+                      <Menu
+                        as="div"
+                        className="relative inline-block text-left"
+                      >
+                        <MenuButton className="inline-flex items-center rounded bg-blue-500 px-3 py-2 text-sm font-medium text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300">
+                          Actions
+                          <FaChevronDown />
+                        </MenuButton>
+                        <MenuItems className="absolute bottom-full right-0 mb-2 w-40 overflow-hidden rounded-md border border-gray-200 bg-white shadow-lg z-50">
+                          <MenuItem>
+                            {() => (
+                              <Buttons
+                                onClick={() => handleEdit(user.employeeId)}
+                                label={
+                                  <>
+                                    <CiEdit />
+                                    Edit
+                                  </>
+                                }
+                                className="flex w-full items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                              />
+                            )}
+                          </MenuItem>
+
+                          <MenuItem>
+                            {() => (
+                              <Buttons
+                                onClick={() => handleDelete(user.employeeId)}
+                                label={
+                                  <>
+                                    <MdDeleteOutline />
+                                    Delete
+                                  </>
+                                }
+                                className="flex w-full items-center gap-2 px-4 py-2 text-sm text-red-600 hover:bg-red-50"
+                              />
+                            )}
+                          </MenuItem>
+                        </MenuItems>
+                      </Menu>
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+          {showPreView && (
+            <FilePreview file={imagePreView} onClose={handleClosePreview} />
+          )}
+        </div>
       </div>
     </>
   );
