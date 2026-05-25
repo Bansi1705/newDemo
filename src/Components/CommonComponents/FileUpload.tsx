@@ -6,17 +6,20 @@ type FileUploadProps = {
   onFileSelect: (file: File) => void;
   label?: string;
   accept?: string;
+  required?: boolean;
 };
 
 const FileUpload = ({
   onFileSelect,
   label = "Upload File",
   accept = "*/*",
+  required = false,
 }: FileUploadProps) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-   
-    console.log(file)
+
+    console.log(file);
+
     if (!file) return;
 
     if (file.size <= CONSTANT.MAX_FILE_SIZE) {
@@ -27,8 +30,12 @@ const FileUpload = ({
   };
 
   return (
-    <div>
-      <label>{label}</label>
+    <div className="form-group">
+      <label className="form-label">
+        {label}
+        {required && <span className="required-mark">*</span>}
+      </label>
+
       <input type="file" accept={accept} onChange={handleChange} />
     </div>
   );

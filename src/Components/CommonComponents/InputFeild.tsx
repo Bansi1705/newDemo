@@ -9,10 +9,19 @@ const InputField: React.FC<inputProps> = ({
   error,
   classname,
   placeholder,
-  onKeyDown
+  onKeyDown,
+  label,
+  required = false,
 }) => {
   return (
-    <>
+    <div className="form-group">
+      {label && (
+        <label htmlFor={id} className="form-label">
+          {label}
+          {required && <span className="required-mark">*</span>}
+        </label>
+      )}
+
       <input
         type={type}
         id={id}
@@ -24,8 +33,9 @@ const InputField: React.FC<inputProps> = ({
         onKeyDown={onKeyDown}
         autoComplete="off"
       />
+
       {error && <span className="error-message">{error}</span>}
-    </>
+    </div>
   );
 };
 

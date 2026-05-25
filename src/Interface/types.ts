@@ -49,6 +49,8 @@ export interface inputProps {
   classname?: string;
   id?: string;
   onKeyDown?: React.KeyboardEventHandler<HTMLInputElement>;
+  label?:string;
+  required?:boolean;
 }
 
 export interface dropdownOption {
@@ -60,6 +62,8 @@ export interface dropdownOption {
   optionsLabel?: string[];
   error?: string;
   placeholder?: string;
+  label?:string;
+  required?:boolean;
 }
 
 export interface searchBarProps {

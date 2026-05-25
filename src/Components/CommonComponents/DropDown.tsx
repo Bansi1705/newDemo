@@ -9,9 +9,19 @@ export const DropDown: React.FC<dropdownOption> = ({
   error,
   dropDownChange,
   placeholder,
+  label,
+  required = false,
 }) => {
   return (
-    <>
+    <div className="form-group">
+      {label && (
+        <label htmlFor="selectFeild" className="form-label">
+          {label}
+
+          {required && <span className="required-mark">*</span>}
+        </label>
+      )}
+
       <select
         name={selectName}
         id="selectFeild"
@@ -21,12 +31,12 @@ export const DropDown: React.FC<dropdownOption> = ({
       >
         {placeholder && <option value="">{placeholder}</option>}
         {optionsLabel?.map((optionLabel, index) => (
-          <option key={index} value={optionLabel} disabled={disabled} >
+          <option key={index} value={optionLabel} disabled={disabled}>
             {optionLabel}
           </option>
         ))}
       </select>
       {error && <p className="form-error">{error}</p>}
-    </>
+    </div>
   );
 };

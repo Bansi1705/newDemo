@@ -20,13 +20,11 @@ function UserProfile() {
     gender: "",
     dateOfBirth: null,
 
-    // Company Details
     companyName: "",
     department: "",
     designation: "",
     employeeId: "",
 
-    // Address Details
     address: [
       {
         country: "",
@@ -37,22 +35,21 @@ function UserProfile() {
       },
     ],
 
-    // Account Details
     username: "",
     password: "",
     confirmPassword: "",
 
-    // Other Details
     website: "",
     description: "",
     notes: "",
-    status: "",
+    status: "Active",
     profileImage: null,
     createdBy: "",
     updatedBy: "",
   };
 
-  const [userData, setUserData] = useState<UserProfile>(initialState);
+  const [userData, setUserData] = useState<UserProfile[]>([]);
+  const [formData, setFormData] = useState<UserProfile>(initialState);
 
   const [error, setError] = useState<Record<string, string>>({});
 
@@ -61,7 +58,7 @@ function UserProfile() {
   ) => {
     const { name, value } = e.target;
 
-    setUserData((prev) => ({
+    setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
@@ -75,7 +72,7 @@ function UserProfile() {
   const handleAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    setUserData((prev) => ({
+    setFormData((prev) => ({
       ...prev,
       address: [
         {
@@ -94,124 +91,125 @@ function UserProfile() {
   const validate = () => {
     const newError: Record<string, string> = {};
 
-    if (!userData.firstName.trim()) {
+    if (!formData.firstName.trim()) {
       newError.firstName = CONSTANT.VALIDATION.FIRSTNAME;
     }
 
-    if (!userData.lastName.trim()) {
+    if (!formData.lastName.trim()) {
       newError.lastName = CONSTANT.VALIDATION.LASTNAME;
     }
 
-    if (!userData.fullName.trim()) {
+    if (!formData.fullName.trim()) {
       newError.fullName = CONSTANT.VALIDATION.FULLNAME;
     }
 
-    if (!userData.email.trim()) {
+    if (!formData.email.trim()) {
       newError.email = CONSTANT.VALIDATION.EMAIL;
     } else if (
-      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(userData.email)
+      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(formData.email)
     ) {
       newError.email = "Invalid Email Address";
     }
 
-    if (!userData.phoneNumber.trim()) {
+    if (!formData.phoneNumber.trim()) {
       newError.phoneNumber = CONSTANT.VALIDATION.PHONENUMBER;
-    } else if (!/^\d{10}$/.test(userData.phoneNumber)) {
+    } else if (!/^\d{10}$/.test(formData.phoneNumber)) {
       newError.phoneNumber = "Phone Number must be 10 digits";
     }
 
     if (
-      userData.alternatePhoneNumber &&
-      !/^\d{10}$/.test(userData.alternatePhoneNumber)
+      formData.alternatePhoneNumber &&
+      !/^\d{10}$/.test(formData.alternatePhoneNumber)
     ) {
       newError.alternatePhoneNumber = CONSTANT.VALIDATION.ALTERNATEPHONENUMBER;
     }
 
-    if (!userData.gender) {
+    if (!formData.gender) {
       newError.gender = CONSTANT.VALIDATION.GENDER;
     }
 
-    if (!userData.dateOfBirth) {
+    if (!formData.dateOfBirth) {
       newError.dateOfBirth = CONSTANT.VALIDATION.DATEOFBIRTH;
     }
 
-    if (!userData.companyName.trim()) {
+    if (!formData.companyName.trim()) {
       newError.companyName = CONSTANT.VALIDATION.COMPANYNAME;
     }
 
-    if (!userData.department.trim()) {
+    if (!formData.department.trim()) {
       newError.department = CONSTANT.VALIDATION.DEPARTMENT;
     }
 
-    if (!userData.designation.trim()) {
+    if (!formData.designation.trim()) {
       newError.designation = CONSTANT.VALIDATION.DESIGNATION;
     }
 
-    if (!userData.employeeId.trim()) {
+    if (!formData.employeeId.trim()) {
       newError.employeeId = CONSTANT.VALIDATION.EMPLOYEEID;
     }
 
-    if (!userData.username.trim()) {
+    if (!formData.username.trim()) {
       newError.username = CONSTANT.VALIDATION.USERNAME;
     }
 
-    if (!userData.password.trim()) {
+    if (!formData.password.trim()) {
       newError.password = CONSTANT.VALIDATION.PASSWORD;
-    } else if (userData.password.length < 6) {
+    } else if (formData.password.length < 6) {
       newError.password = "Password must be at least 6 characters";
     }
 
-    if (!userData.confirmPassword.trim()) {
+    if (!formData.confirmPassword.trim()) {
       newError.confirmPassword = CONSTANT.VALIDATION.CONFIRMPASSWORD;
-    } else if (userData.password !== userData.confirmPassword) {
+    } else if (formData.password !== formData.confirmPassword) {
       newError.confirmPassword = "Passwords do not match";
     }
 
-    if (!userData.website.trim()) {
+    if (!formData.website.trim()) {
       newError.website = CONSTANT.VALIDATION.WEBSITE;
-    } else if (
-      !/^(https?:\/\/)?([\w-]+\.)+[\w-]{2,}(\/.*)?$/i.test(userData.website)
-    ) {
-      newError.website = "Invalid Website URL";
     }
+    // } else if (
+    //   !/^(https?:\/\/)?([\w-]+\.)+[\w-]{2,}(\/.*)?$/i.test(userData.website)
+    // ) {
+    //   newError.website = "Invalid Website URL";
+    // }
 
-    if (!userData.description.trim()) {
+    if (!formData.description.trim()) {
       newError.description = CONSTANT.VALIDATION.DESCRIPTION;
     }
 
-    if (!userData.notes.trim()) {
+    if (!formData.notes.trim()) {
       newError.notes = CONSTANT.VALIDATION.NOTES;
     }
 
-    if (!userData.status.trim()) {
+    if (!formData.status.trim()) {
       newError.status = CONSTANT.VALIDATION.STATUS;
     }
 
-    if (!userData.createdBy.trim()) {
+    if (!formData.createdBy.trim()) {
       newError.createdBy = CONSTANT.VALIDATION.CREATEDBY;
     }
 
-    if (!userData.updatedBy.trim()) {
+    if (!formData.updatedBy.trim()) {
       newError.updatedBy = CONSTANT.VALIDATION.UPDATEDBY;
     }
 
-    if (!userData.address[0].country.trim()) {
+    if (!formData.address[0].country.trim()) {
       newError.country = CONSTANT.VALIDATION.COUNTRY;
     }
 
-    if (!userData.address[0].state.trim()) {
+    if (!formData.address[0].state.trim()) {
       newError.state = CONSTANT.VALIDATION.STATE;
     }
 
-    if (!userData.address[0].city.trim()) {
+    if (!formData.address[0].city.trim()) {
       newError.city = CONSTANT.VALIDATION.CITY;
     }
 
-    if (!userData.address[0].district.trim()) {
+    if (!formData.address[0].district.trim()) {
       newError.district = CONSTANT.VALIDATION.DISTRICT;
     }
 
-    if (!userData.address[0].zipcode.trim()) {
+    if (!formData.address[0].zipcode.trim()) {
       newError.zipcode = CONSTANT.VALIDATION.ZIPCODE;
     }
 
@@ -230,11 +228,14 @@ function UserProfile() {
       return;
     }
 
-    console.log("Submitted Data:", userData);
+    const updatedData = [...userData, formData];
+    setUserData(updatedData);
+
+    console.log("Submitted Data:", updatedData);
   };
 
   const resetForm = () => {
-    setUserData(initialState);
+    setFormData(initialState);
     setError({});
   };
 
@@ -252,66 +253,77 @@ function UserProfile() {
           <h2 className="userProfile-title">Add New User</h2>
 
           <InputField
+            label="First Name"
+            required={true}
             type="text"
             name="firstName"
             id="firstName"
             placeholder="First Name"
-            value={userData.firstName}
+            value={formData.firstName}
             onChange={handleChange}
             error={error.firstName}
             classname="input-field"
           />
 
           <InputField
+            label="Last Name"
+            required={true}
             type="text"
             name="lastName"
             id="lastName"
             placeholder="Last Name"
-            value={userData.lastName}
+            value={formData.lastName}
             onChange={handleChange}
             error={error.lastName}
             classname="input-field"
           />
 
           <InputField
+            label="Full Name"
+            required={true}
             type="text"
             name="fullName"
             id="fullName"
             placeholder="Full Name"
-            value={userData.fullName}
+            value={formData.fullName}
             onChange={handleChange}
             error={error.fullName}
             classname="input-field"
           />
 
           <InputField
+            label="Email"
+            required={true}
             type="email"
             name="email"
             id="email"
             placeholder="example@gmail.com"
-            value={userData.email}
+            value={formData.email}
             onChange={handleChange}
             error={error.email}
             classname="input-field"
           />
 
           <InputField
+            label="Phone Number"
+            required={true}
             type="tel"
             name="phoneNumber"
             id="phoneNumber"
             placeholder="9876543210"
-            value={userData.phoneNumber}
+            value={formData.phoneNumber}
             onChange={handleChange}
             error={error.phoneNumber}
             classname="input-field"
           />
 
           <InputField
+            label="Alternate Phone Number"
             type="tel"
             name="alternatePhoneNumber"
             id="alternatePhoneNumber"
             placeholder="9876543210"
-            value={userData.alternatePhoneNumber}
+            value={formData.alternatePhoneNumber}
             onChange={handleChange}
             error={error.alternatePhoneNumber}
             classname="input-field"
@@ -323,7 +335,7 @@ function UserProfile() {
                 type="radio"
                 name="gender"
                 value="male"
-                checked={userData.gender === "male"}
+                checked={formData.gender === "male"}
                 onChange={handleChange}
               />
               Male
@@ -334,7 +346,7 @@ function UserProfile() {
                 type="radio"
                 name="gender"
                 value="female"
-                checked={userData.gender === "female"}
+                checked={formData.gender === "female"}
                 onChange={handleChange}
               />
               Female
@@ -344,10 +356,10 @@ function UserProfile() {
           </div>
 
           <ReactDatePicker
-            selectedDate={userData.dateOfBirth}
+            selectedDate={formData.dateOfBirth}
             onChange={(d) => {
-              setUserData({
-                ...userData,
+              setFormData({
+                ...formData,
                 dateOfBirth: d,
               });
 
@@ -364,110 +376,130 @@ function UserProfile() {
           )}
 
           <InputField
+            label="Company Name"
+            required={true}
             type="text"
             name="companyName"
             id="companyName"
             placeholder="Company Name"
-            value={userData.companyName}
+            value={formData.companyName}
             onChange={handleChange}
             error={error.companyName}
             classname="input-field"
           />
 
           <InputField
+            label="Department"
+            required={true}
             type="text"
             name="department"
             id="department"
             placeholder="Department"
-            value={userData.department}
+            value={formData.department}
             onChange={handleChange}
             error={error.department}
             classname="input-field"
           />
 
           <InputField
+            label="Designation"
+            required={true}
             type="text"
             name="designation"
             id="designation"
             placeholder="Designation"
-            value={userData.designation}
+            value={formData.designation}
             onChange={handleChange}
             error={error.designation}
             classname="input-field"
           />
 
           <InputField
+            label="Employee ID"
+            required={true}
             type="text"
             name="employeeId"
             id="employeeId"
             placeholder="Employee ID"
-            value={userData.employeeId}
+            value={formData.employeeId}
             onChange={handleChange}
             error={error.employeeId}
             classname="input-field"
           />
 
           <InputField
+            label="Username"
+            required={true}
             type="text"
             name="username"
             id="username"
             placeholder="Username"
-            value={userData.username}
+            value={formData.username}
             onChange={handleChange}
             error={error.username}
             classname="input-field"
           />
 
           <InputField
+            label="Password"
+            required={true}
             type="password"
             name="password"
             id="password"
             placeholder="Password"
-            value={userData.password}
+            value={formData.password}
             onChange={handleChange}
             error={error.password}
             classname="input-field"
           />
 
           <InputField
+            label="Confirm Password"
+            required={true}
             type="password"
             name="confirmPassword"
             id="confirmPassword"
             placeholder="Confirm Password"
-            value={userData.confirmPassword}
+            value={formData.confirmPassword}
             onChange={handleChange}
             error={error.confirmPassword}
             classname="input-field"
           />
 
           <InputField
+            label="Website"
+            required={true}
             type="text"
             name="website"
             id="website"
             placeholder="Website"
-            value={userData.website}
+            value={formData.website}
             onChange={handleChange}
             error={error.website}
             classname="input-field"
           />
 
           <InputField
+            label="Description"
+            required={true}
             type="text"
             name="description"
             id="description"
             placeholder="Description"
-            value={userData.description}
+            value={formData.description}
             onChange={handleChange}
             error={error.description}
             classname="input-field"
           />
 
           <InputField
+            label="Notes"
+            required={true}
             type="text"
             name="notes"
             id="notes"
             placeholder="Notes"
-            value={userData.notes}
+            value={formData.notes}
             onChange={handleChange}
             error={error.notes}
             classname="input-field"
@@ -476,9 +508,11 @@ function UserProfile() {
           <DropDown
             optionsLabel={statusOptions.map((i) => i.label)}
             selectClasName="input-field"
-            selectValue={userData.status}
+            selectValue={formData.status}
             dropDownChange={handleChange}
             selectName="status"
+            label="Status"
+            required={true}
           />
 
           {error.status && <span className="error">{error.status}</span>}
@@ -486,13 +520,14 @@ function UserProfile() {
           <FileUpload
             label="Upload Image"
             accept="image/*"
+            required={true}
             onFileSelect={(file) => {
               if (!file) return;
 
               const reader = new FileReader();
 
               reader.onloadend = () => {
-                setUserData((prev) => ({
+                setFormData((prev) => ({
                   ...prev,
                   profileImage: reader.result as string,
                 }));
@@ -503,77 +538,91 @@ function UserProfile() {
           />
 
           <InputField
+            label="Created By"
+            required={true}
             type="text"
             name="createdBy"
             id="createdBy"
             placeholder="Created By"
-            value={userData.createdBy}
+            value={formData.createdBy}
             onChange={handleChange}
             error={error.createdBy}
             classname="input-field"
           />
 
           <InputField
+            label="Updated By"
+            required={true}
             type="text"
             name="updatedBy"
             id="updatedBy"
             placeholder="Updated By"
-            value={userData.updatedBy}
+            value={formData.updatedBy}
             onChange={handleChange}
             error={error.updatedBy}
             classname="input-field"
           />
 
           <InputField
+            label="Country"
+            required={true}
             type="text"
             name="country"
             id="country"
             placeholder="Country"
-            value={userData.address[0].country}
+            value={formData.address[0].country}
             onChange={handleAddressChange}
             error={error.country}
             classname="input-field"
           />
 
           <InputField
+            label="State"
+            required={true}
             type="text"
             name="state"
             id="state"
             placeholder="State"
-            value={userData.address[0].state}
+            value={formData.address[0].state}
             onChange={handleAddressChange}
             error={error.state}
             classname="input-field"
           />
 
           <InputField
+            label="City"
+            required={true}
             type="text"
             name="city"
             id="city"
             placeholder="City"
-            value={userData.address[0].city}
+            value={formData.address[0].city}
             onChange={handleAddressChange}
             error={error.city}
             classname="input-field"
           />
 
           <InputField
+            label="District"
+            required={true}
             type="text"
             name="district"
             id="district"
             placeholder="District"
-            value={userData.address[0].district}
+            value={formData.address[0].district}
             onChange={handleAddressChange}
             error={error.district}
             classname="input-field"
           />
 
           <InputField
+            label="Zipcode"
+            required={true}
             type="text"
             name="zipcode"
             id="zipcode"
             placeholder="Zipcode"
-            value={userData.address[0].zipcode}
+            value={formData.address[0].zipcode}
             onChange={handleAddressChange}
             error={error.zipcode}
             classname="input-field"
