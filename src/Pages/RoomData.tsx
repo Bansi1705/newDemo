@@ -200,7 +200,10 @@ const RoomData = () => {
       ? COMMON_SERVICES.sortData(roomData, sortOrder, sortKey)
       : roomData;
 
-    return sortedRooms.map((room, index) => ({ room, index }));
+    return sortedRooms.map((room, originalIndex) => ({
+      room,
+      originalIndex,
+    }));
   };
   return (
     <>

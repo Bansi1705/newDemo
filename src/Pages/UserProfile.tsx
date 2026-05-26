@@ -15,6 +15,8 @@ import { toast } from "react-toastify";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { CiEdit } from "react-icons/ci";
 import { FaChevronDown } from "react-icons/fa6";
+import Confirmation from "../Components/CommonComponents/Confirmation";
+import PasswordInput from "../Components/CommonComponents/PasswordInput";
 
 function UserProfile() {
   const initialState: UserProfile = {
@@ -61,6 +63,12 @@ function UserProfile() {
   const [showPreView, setShowPreView] = useState<boolean>(false);
   const [error, setError] = useState<Record<string, string>>({});
   const [editId, setEditId] = useState<string | null>(null);
+  const [deletId, setDeleteId] = useState<string | null>(null);
+  const [showConfirm, setShowConfirm] = useState<boolean>(false);
+  const [confirmMsg, setConfirmMsg] = useState<string>("");
+  const [addUser, setAddUser] = useState<boolean>(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -72,10 +80,38 @@ function UserProfile() {
       [name]: value,
     }));
 
-    setError((prev) => ({
-      ...prev,
-      [name]: "",
-    }));
+    if (isSubmitted) {
+      if (name === "password") {
+        setError((prev) => ({
+          ...prev,
+          password:
+            value.trim() === ""
+              ? CONSTANT.VALIDATION.PASSWORD
+              : value.length < 6
+                ? "Password must be at least 6 characters"
+                : "",
+        }));
+      }
+
+      if (name === "confirmPassword") {
+        setError((prev) => ({
+          ...prev,
+          confirmPassword:
+            value.trim() === ""
+              ? CONSTANT.VALIDATION.CONFIRMPASSWORD
+              : value !== formData.password
+                ? "Passwords do not match"
+                : "",
+        }));
+      }
+
+      if (name !== "password" && name !== "confirmPassword") {
+        setError((prev) => ({
+          ...prev,
+          [name]: "",
+        }));
+      }
+    }
   };
 
   const handleAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -193,12 +229,8 @@ function UserProfile() {
       newError.notes = CONSTANT.VALIDATION.NOTES;
     }
 
-    if (!formData.status.trim()) {
-      newError.status = CONSTANT.VALIDATION.STATUS;
-    }
-
     if (!formData.profileImage?.trim()) {
-      newError.status = CONSTANT.VALIDATION.PROFILEIMAGE;
+      newError.profileImage = CONSTANT.VALIDATION.PROFILEIMAGE;
     }
 
     if (!formData.createdBy.trim()) {
@@ -240,6 +272,7 @@ function UserProfile() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsSubmitted(true);
 
     if (!validate()) {
       console.log("Form Validation Failed");
@@ -248,10 +281,8 @@ function UserProfile() {
 
     let updatedData;
     if (editId !== null) {
-      updatedData = userData.map((item) =>
-        item.employeeId == editId ? formData : item,
-      );
-      toast.success(CONSTANT.SUCCESS.UPDATE);
+      setShowConfirm(true);
+      return;
     } else {
       updatedData = [...userData, formData];
       toast.success(CONSTANT.SUCCESS.CREATE);
@@ -266,6 +297,8 @@ function UserProfile() {
   const resetForm = () => {
     setFormData(initialState);
     setError({});
+    setAddUser(false);
+    setIsSubmitted(false);
   };
 
   const statusOptions = [
@@ -300,7 +333,7 @@ function UserProfile() {
     { key: "notes", label: "Notes" },
     { key: "createdBy", label: "Created By" },
     { key: "updatedBy", label: "Updated By" },
-     { key: "operations", label: "Operations" },
+    { key: "operations", label: "Operations" },
   ];
 
   const handleShowPreview = (image: File | string) => {
@@ -319,433 +352,499 @@ function UserProfile() {
     }
   }, []);
 
-  useEffect(() => {
-    if (!editId) return;
-    const editData = userData.find((item) => item.employeeId === editId);
+  const handleEdit = (id: string) => {
+    setAddUser(true);
+    const editData = userData.find((item) => item.employeeId === id);
+    const name = COMMON_SERVICES.formatText(editData?.fullName);
     if (editData) {
       setFormData(editData);
     }
-  }, [editId, userData]);
-
-  const handleEdit = (id: string) => {
     setEditId(id);
+    setConfirmMsg(`Do You Really Want To Edit ${name} User ??`);
   };
 
   const handleDelete = (id: string) => {
-    const filteredUser = userData.filter((item) => item.employeeId !== id);
-    setUserData(filteredUser);
-    localStorage.setItem("UserProfiles", JSON.stringify(filteredUser));
-    toast.success(CONSTANT.SUCCESS.DELETE);
+    const data = userData.find((user) => user.employeeId == id);
+    const name = COMMON_SERVICES.formatText(data?.fullName);
+    setConfirmMsg(`Do You Want To Delete ${name} User`);
+    setShowConfirm(true);
+    setDeleteId(id);
   };
 
+  const handleConfirm = () => {
+    if (deletId) {
+      const filteredUser = userData.filter(
+        (item) => item.employeeId !== deletId,
+      );
+      setUserData(filteredUser);
+      localStorage.setItem("UserProfiles", JSON.stringify(filteredUser));
+      toast.success(CONSTANT.SUCCESS.DELETE);
+      setDeleteId(null);
+    } else if (editId) {
+      const updatedUser = userData.map((user) => {
+        return user.employeeId == editId ? formData : user;
+      });
+
+      setUserData(updatedUser);
+      localStorage.setItem("UserProfiles", JSON.stringify(updatedUser));
+      toast.success(CONSTANT.SUCCESS.UPDATE);
+      setEditId(null);
+      resetForm();
+    }
+
+    setShowConfirm(false);
+  };
+
+  const handleCancel = () => {
+    setShowConfirm(false);
+    setEditId(null);
+    setDeleteId(null);
+    resetForm();
+  };
+
+  const designationType: string[] = [
+    "Intern",
+    "Trainee",
+    "Team Lead",
+    "Manager",
+    "Senior Manager",
+    "Project Manager",
+    "Business Analyst",
+    "Software Developer",
+    "Senior Software Developer",
+    "QA Engineer",
+    "UI/UX Designer",
+    "HR Executive",
+    "Accountant",
+    "Administrator",
+    "Director",
+    "Vice President",
+    "CEO",
+  ];
   return (
     <>
       <Header />
 
       <div className="userProfile-form-data">
-        <form className="userProfile-form" onSubmit={handleSubmit}>
-          <h2 className="userProfile-title">Add New User</h2>
-
-          <InputField
-            label="First Name"
-            required={true}
-            type="text"
-            name="firstName"
-            id="firstName"
-            placeholder="First Name"
-            value={formData.firstName}
-            onChange={handleChange}
-            error={error.firstName}
-            classname="input-field"
+        <div className="flex align-center justify-between">
+          <h1 className="userProfile-title">User Records</h1>
+          <Buttons
+            label={!addUser ? "Add User" : "Close"}
+            onClick={() => setAddUser(!addUser)}
+            className="px-3 py-2 bg-blue-600 text-white rounded hover:bg-blue-800 transition-colors whitespace-nowrap my-auto"
           />
+        </div>
 
-          <InputField
-            label="Last Name"
-            required={true}
-            type="text"
-            name="lastName"
-            id="lastName"
-            placeholder="Last Name"
-            value={formData.lastName}
-            onChange={handleChange}
-            error={error.lastName}
-            classname="input-field"
-          />
+        {addUser && (
+          <form className="userProfile-form">
+            <h3 className="userProfile-title">
+              {!editId ? "Add New User" : "Edit user"}
+            </h3>
 
-          <InputField
-            label="Full Name"
-            required={true}
-            type="text"
-            name="fullName"
-            id="fullName"
-            placeholder="Full Name"
-            value={formData.fullName}
-            onChange={handleChange}
-            error={error.fullName}
-            classname="input-field"
-          />
+            <InputField
+              label="First Name"
+              required={true}
+              type="text"
+              name="firstName"
+              id="firstName"
+              placeholder="First Name"
+              value={formData.firstName}
+              onChange={handleChange}
+              error={error.firstName}
+              classname="input-field"
+            />
 
-          <InputField
-            label="Email"
-            required={true}
-            type="email"
-            name="email"
-            id="email"
-            placeholder="example@gmail.com"
-            value={formData.email}
-            onChange={handleChange}
-            error={error.email}
-            classname="input-field"
-          />
+            <InputField
+              label="Last Name"
+              required={true}
+              type="text"
+              name="lastName"
+              id="lastName"
+              placeholder="Last Name"
+              value={formData.lastName}
+              onChange={handleChange}
+              error={error.lastName}
+              classname="input-field"
+            />
 
-          <InputField
-            label="Phone Number"
-            required={true}
-            type="tel"
-            name="phoneNumber"
-            id="phoneNumber"
-            placeholder="+1-212-456-7890"
-            value={formData.phoneNumber}
-            onChange={(e) =>
-              setFormData((prev) => ({
-                ...prev,
-                phoneNumber: COMMON_SERVICES.formtePhoneNumber(e.target.value),
-              }))
-            }
-            error={error.phoneNumber}
-            classname="input-field"
-          />
+            <InputField
+              label="Full Name"
+              required={true}
+              type="text"
+              name="fullName"
+              id="fullName"
+              placeholder="Full Name"
+              value={formData.fullName}
+              onChange={handleChange}
+              error={error.fullName}
+              classname="input-field"
+            />
 
-          <InputField
-            label="Alternate Phone Number"
-            type="tel"
-            name="alternatePhoneNumber"
-            id="alternatePhoneNumber"
-            placeholder="+1-212-456-7890"
-            value={formData.alternatePhoneNumber}
-            onChange={(e) =>
-              setFormData((prev) => ({
-                ...prev,
-                alternatePhoneNumber: COMMON_SERVICES.formtePhoneNumber(
-                  e.target.value,
-                ),
-              }))
-            }
-            error={error.alternatePhoneNumber}
-            classname="input-field"
-          />
+            <InputField
+              label="Email"
+              required={true}
+              type="email"
+              name="email"
+              id="email"
+              placeholder="example@gmail.com"
+              value={formData.email}
+              onChange={handleChange}
+              error={error.email}
+              classname="input-field"
+            />
 
-          <div className="gender-section">
-            <label>
-              <input
-                type="radio"
-                name="gender"
-                value="male"
-                checked={formData.gender === "male"}
-                onChange={handleChange}
-              />
-              Male
-            </label>
-
-            <label>
-              <input
-                type="radio"
-                name="gender"
-                value="female"
-                checked={formData.gender === "female"}
-                onChange={handleChange}
-              />
-              Female
-            </label>
-
-            {error.gender && <p className="error">{error.gender}</p>}
-          </div>
-
-          <ReactDatePicker
-            selectedDate={formData.dateOfBirth}
-            className="w-full rounded-md border border-slate-300 bg-white py-2 pl-10 pr-3 text-sm text-slate-800 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:border-slate-600 dark:bg-slate-700 dark:text-white"
-            onChange={(d) => {
-              setFormData({
-                ...formData,
-                dateOfBirth: d,
-              });
-
-              setError((prev) => ({
-                ...prev,
-                dateOfBirth: "",
-              }));
-            }}
-            placeholder="Select Birth Date"
-          />
-
-          {error.dateOfBirth && (
-            <span className="error">{error.dateOfBirth}</span>
-          )}
-
-          <InputField
-            label="Company Name"
-            required={true}
-            type="text"
-            name="companyName"
-            id="companyName"
-            placeholder="Company Name"
-            value={formData.companyName}
-            onChange={handleChange}
-            error={error.companyName}
-            classname="input-field"
-          />
-
-          <InputField
-            label="Department"
-            required={true}
-            type="text"
-            name="department"
-            id="department"
-            placeholder="Department"
-            value={formData.department}
-            onChange={handleChange}
-            error={error.department}
-            classname="input-field"
-          />
-
-          <InputField
-            label="Designation"
-            required={true}
-            type="text"
-            name="designation"
-            id="designation"
-            placeholder="Designation"
-            value={formData.designation}
-            onChange={handleChange}
-            error={error.designation}
-            classname="input-field"
-          />
-
-          <InputField
-            label="Employee ID"
-            required={true}
-            type="text"
-            name="employeeId"
-            id="employeeId"
-            placeholder="Employee ID"
-            value={formData.employeeId}
-            onChange={handleChange}
-            error={error.employeeId}
-            classname="input-field"
-          />
-
-          <InputField
-            label="Username"
-            required={true}
-            type="text"
-            name="username"
-            id="username"
-            placeholder="Username"
-            value={formData.username}
-            onChange={handleChange}
-            error={error.username}
-            classname="input-field"
-          />
-
-          <InputField
-            label="Password"
-            required={true}
-            type="password"
-            name="password"
-            id="password"
-            placeholder="Password"
-            value={formData.password}
-            onChange={handleChange}
-            error={error.password}
-            classname="input-field"
-          />
-
-          <InputField
-            label="Confirm Password"
-            required={true}
-            type="password"
-            name="confirmPassword"
-            id="confirmPassword"
-            placeholder="Confirm Password"
-            value={formData.confirmPassword}
-            onChange={handleChange}
-            error={error.confirmPassword}
-            classname="input-field"
-          />
-
-          <InputField
-            label="Website"
-            required={true}
-            type="text"
-            name="website"
-            id="website"
-            placeholder="Website"
-            value={formData.website}
-            onChange={handleChange}
-            error={error.website}
-            classname="input-field"
-          />
-
-          <InputField
-            label="Description"
-            required={true}
-            type="text"
-            name="description"
-            id="description"
-            placeholder="Description"
-            value={formData.description}
-            onChange={handleChange}
-            error={error.description}
-            classname="input-field"
-          />
-
-          <InputField
-            label="Notes"
-            required={true}
-            type="text"
-            name="notes"
-            id="notes"
-            placeholder="Notes"
-            value={formData.notes}
-            onChange={handleChange}
-            error={error.notes}
-            classname="input-field"
-          />
-
-          <DropDown
-            optionsLabel={statusOptions.map((i) => i.label)}
-            selectClasName="input-field"
-            selectValue={formData.status}
-            dropDownChange={handleChange}
-            selectName="status"
-            label="Status"
-            required={true}
-          />
-
-          {error.status && <span className="error">{error.status}</span>}
-
-          <FileUpload
-            label="Upload Image"
-            accept="image/*"
-            required={true}
-            onFileSelect={(file) => {
-              if (!file) return;
-
-              const reader = new FileReader();
-
-              reader.onloadend = () => {
+            <InputField
+              label="Phone Number"
+              required={true}
+              type="tel"
+              name="phoneNumber"
+              id="phoneNumber"
+              placeholder="+1-212-456-7890"
+              value={formData.phoneNumber}
+              onChange={(e) =>
                 setFormData((prev) => ({
                   ...prev,
-                  profileImage: reader.result as string,
-                }));
-              };
-
-              reader.readAsDataURL(file);
-            }}
-          />
-
-          <InputField
-            label="Created By"
-            required={true}
-            type="text"
-            name="createdBy"
-            id="createdBy"
-            placeholder="Created By"
-            value={formData.createdBy}
-            onChange={handleChange}
-            error={error.createdBy}
-            classname="input-field"
-          />
-
-          <InputField
-            label="Updated By"
-            required={true}
-            type="text"
-            name="updatedBy"
-            id="updatedBy"
-            placeholder="Updated By"
-            value={formData.updatedBy}
-            onChange={handleChange}
-            error={error.updatedBy}
-            classname="input-field"
-          />
-
-          <InputField
-            label="Country"
-            required={true}
-            type="text"
-            name="country"
-            id="country"
-            placeholder="Country"
-            value={formData.address[0].country}
-            onChange={handleAddressChange}
-            error={error.country}
-            classname="input-field"
-          />
-
-          <InputField
-            label="State"
-            required={true}
-            type="text"
-            name="state"
-            id="state"
-            placeholder="State"
-            value={formData.address[0].state}
-            onChange={handleAddressChange}
-            error={error.state}
-            classname="input-field"
-          />
-
-          <InputField
-            label="City"
-            required={true}
-            type="text"
-            name="city"
-            id="city"
-            placeholder="City"
-            value={formData.address[0].city}
-            onChange={handleAddressChange}
-            error={error.city}
-            classname="input-field"
-          />
-
-          <InputField
-            label="District"
-            required={true}
-            type="text"
-            name="district"
-            id="district"
-            placeholder="District"
-            value={formData.address[0].district}
-            onChange={handleAddressChange}
-            error={error.district}
-            classname="input-field"
-          />
-
-          <InputField
-            label="Zipcode"
-            required={true}
-            type="text"
-            name="zipcode"
-            id="zipcode"
-            placeholder="Zipcode"
-            value={formData.address[0].zipcode}
-            onChange={handleAddressChange}
-            error={error.zipcode}
-            classname="input-field"
-          />
-
-          <div className="form-buttons flex gap-4 mt-4">
-            <Buttons label="Add User" type="submit" className="submit-btn" />
-
-            <Buttons
-              label="Cancel"
-              type="button"
-              onClick={resetForm}
-              className="cancel-btn"
+                  phoneNumber: COMMON_SERVICES.formtePhoneNumber(
+                    e.target.value,
+                  ),
+                }))
+              }
+              error={error.phoneNumber}
+              classname="input-field"
             />
-          </div>
-        </form>
+
+            <InputField
+              label="Alternate Phone Number"
+              type="tel"
+              name="alternatePhoneNumber"
+              id="alternatePhoneNumber"
+              placeholder="+1-212-456-7890"
+              value={formData.alternatePhoneNumber}
+              onChange={(e) =>
+                setFormData((prev) => ({
+                  ...prev,
+                  alternatePhoneNumber: COMMON_SERVICES.formtePhoneNumber(
+                    e.target.value,
+                  ),
+                }))
+              }
+              error={error.alternatePhoneNumber}
+              classname="input-field"
+            />
+
+            <div className="gender-section">
+              <label>
+                <input
+                  type="radio"
+                  name="gender"
+                  value="male"
+                  checked={formData.gender === "male"}
+                  onChange={handleChange}
+                />
+                Male
+              </label>
+
+              <label>
+                <input
+                  type="radio"
+                  name="gender"
+                  value="female"
+                  checked={formData.gender === "female"}
+                  onChange={handleChange}
+                />
+                Female
+              </label>
+
+              {error.gender && <p className="error-message">{error.gender}</p>}
+            </div>
+
+            <ReactDatePicker
+              selectedDate={formData.dateOfBirth}
+              className="w-full rounded-md border border-slate-300 bg-white py-2 pl-10 pr-3 text-sm text-slate-800 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:border-slate-600 dark:bg-slate-700 dark:text-white"
+              onChange={(d) => {
+                setFormData({
+                  ...formData,
+                  dateOfBirth: d,
+                });
+
+                setError((prev) => ({
+                  ...prev,
+                  dateOfBirth: "",
+                }));
+              }}
+              placeholder="Select Birth Date"
+              error={error.dateOfBirth}
+            />
+
+            <InputField
+              label="Company Name"
+              required={true}
+              type="text"
+              name="companyName"
+              id="companyName"
+              placeholder="Company Name"
+              value={formData.companyName}
+              onChange={handleChange}
+              error={error.companyName}
+              classname="input-field"
+            />
+
+            <InputField
+              label="Department"
+              required={true}
+              type="text"
+              name="department"
+              id="department"
+              placeholder="Department"
+              value={formData.department}
+              onChange={handleChange}
+              error={error.department}
+              classname="input-field"
+            />
+
+            <DropDown
+              optionsLabel={designationType.map((i) => i)}
+              selectClasName="input-field"
+              selectValue={formData.designation}
+              dropDownChange={handleChange}
+              selectName="designation"
+              label="Designation"
+              required={true}
+            />
+
+            <InputField
+              label="Employee ID"
+              required={true}
+              type="text"
+              name="employeeId"
+              id="employeeId"
+              placeholder="Employee ID"
+              value={formData.employeeId}
+              onChange={handleChange}
+              error={error.employeeId}
+              classname="input-field"
+            />
+
+            <InputField
+              label="Username"
+              required={true}
+              type="text"
+              name="username"
+              id="username"
+              placeholder="Username"
+              value={formData.username}
+              onChange={handleChange}
+              error={error.username}
+              classname="input-field"
+            />
+
+            <PasswordInput
+              name="password"
+              value={formData.password}
+              handleChange={handleChange}
+              showPassword={showPassword}
+              setShowPassword={setShowPassword}
+              label="Password"
+              required={true}
+              classname="input-field"
+            />
+            {error.password && (
+              <span className="error-message">{error.password}</span>
+            )}
+
+            <PasswordInput
+              name="confirmPassword"
+              value={formData.confirmPassword}
+              handleChange={handleChange}
+              showPassword={showPassword}
+              setShowPassword={setShowPassword}
+              label="Confirmation Password"
+              required={true}
+              classname="input-field"
+            />
+            {error.confirmPassword && (
+              <span className="error-message">{error.confirmPassword}</span>
+            )}
+            <InputField
+              label="Website"
+              required={true}
+              type="text"
+              name="website"
+              id="website"
+              placeholder="Website"
+              value={formData.website}
+              onChange={handleChange}
+              error={error.website}
+              classname="input-field"
+            />
+
+            <InputField
+              label="Description"
+              required={true}
+              type="text"
+              name="description"
+              id="description"
+              placeholder="Description"
+              value={formData.description}
+              onChange={handleChange}
+              error={error.description}
+              classname="input-field"
+            />
+
+            <InputField
+              label="Notes"
+              required={true}
+              type="text"
+              name="notes"
+              id="notes"
+              placeholder="Notes"
+              value={formData.notes}
+              onChange={handleChange}
+              error={error.notes}
+              classname="input-field"
+            />
+
+            <DropDown
+              optionsLabel={statusOptions.map((i) => i.label)}
+              selectClasName="input-field"
+              selectValue={formData.status}
+              dropDownChange={handleChange}
+              selectName="status"
+              label="Status"
+              required={true}
+            />
+
+            <FileUpload
+              label="Upload Image"
+              accept="image/*"
+              required={true}
+              onFileSelect={(file) => {
+                if (!file) return;
+
+                const reader = new FileReader();
+
+                reader.onloadend = () => {
+                  setFormData((prev) => ({
+                    ...prev,
+                    profileImage: reader.result as string,
+                  }));
+                };
+
+                reader.readAsDataURL(file);
+              }}
+            />
+
+            {error.profileImage && (
+              <span className="error-message">{error.profileImage}</span>
+            )}
+
+            <InputField
+              label="Created By"
+              required={true}
+              type="text"
+              name="createdBy"
+              id="createdBy"
+              placeholder="Created By"
+              value={formData.createdBy}
+              onChange={handleChange}
+              error={error.createdBy}
+              classname="input-field"
+            />
+
+            <InputField
+              label="Updated By"
+              required={true}
+              type="text"
+              name="updatedBy"
+              id="updatedBy"
+              placeholder="Updated By"
+              value={formData.updatedBy}
+              onChange={handleChange}
+              error={error.updatedBy}
+              classname="input-field"
+            />
+
+            <InputField
+              label="Country"
+              required={true}
+              type="text"
+              name="country"
+              id="country"
+              placeholder="Country"
+              value={formData.address[0].country}
+              onChange={handleAddressChange}
+              error={error.country}
+              classname="input-field"
+            />
+
+            <InputField
+              label="State"
+              required={true}
+              type="text"
+              name="state"
+              id="state"
+              placeholder="State"
+              value={formData.address[0].state}
+              onChange={handleAddressChange}
+              error={error.state}
+              classname="input-field"
+            />
+
+            <InputField
+              label="City"
+              required={true}
+              type="text"
+              name="city"
+              id="city"
+              placeholder="City"
+              value={formData.address[0].city}
+              onChange={handleAddressChange}
+              error={error.city}
+              classname="input-field"
+            />
+
+            <InputField
+              label="District"
+              required={true}
+              type="text"
+              name="district"
+              id="district"
+              placeholder="District"
+              value={formData.address[0].district}
+              onChange={handleAddressChange}
+              error={error.district}
+              classname="input-field"
+            />
+
+            <InputField
+              label="Zipcode"
+              required={true}
+              type="text"
+              name="zipcode"
+              id="zipcode"
+              placeholder="Zipcode"
+              value={formData.address[0].zipcode}
+              onChange={handleAddressChange}
+              error={error.zipcode}
+              classname="input-field"
+            />
+
+            <div className="form-buttons flex gap-4 mt-4">
+              <Buttons
+                label={!editId ? "Add User" : "Edit User"}
+                className="submit-btn"
+                onClick={handleSubmit}
+              />
+
+              <Buttons
+                label="Cancel"
+                type="button"
+                onClick={resetForm}
+                className="cancel-btn"
+              />
+            </div>
+          </form>
+        )}
 
         <div className="main-userProfileDiv">
           <table className="userProfileTable">
@@ -813,7 +912,10 @@ function UserProfile() {
                         <div className="imagePreviewIcon">
                           <MdOutlinePreview
                             size={30}
-                            onClick={() => handleShowPreview(user.profileImage)}
+                            onClick={() =>
+                              user.profileImage &&
+                              handleShowPreview(user.profileImage)
+                            }
                           />
                         </div>
                       )}
@@ -874,6 +976,14 @@ function UserProfile() {
           )}
         </div>
       </div>
+      {showConfirm && (
+        <Confirmation
+          confirm={handleConfirm}
+          cancel={handleCancel}
+          type={editId ? "edit" : "delete"}
+          message={confirmMsg}
+        />
+      )}
     </>
   );
 }

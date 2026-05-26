@@ -36,7 +36,7 @@ export const DropDown: React.FC<dropdownOption> = ({
           </option>
         ))}
       </select>
-      {error && <p className="form-error">{error}</p>}
+      {error && <p className="error-message">{error}</p>}
     </div>
   );
 };

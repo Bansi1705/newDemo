@@ -33,7 +33,7 @@ export function ReactDatePicker({
         placeholderText={placeholder}
         name="datePicker"
       />
-      {error && <span className="error">{error}</span>}
+      {error && <span className="error-message">{error}</span>}
     </div>
   );
 }
