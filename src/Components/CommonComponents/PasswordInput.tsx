@@ -40,7 +40,7 @@ function PasswordInput({
           value={value}
           onChange={handleChange}
           placeholder={placeholder}
-          className={`${classname} w-full px-3 py-2 pr-10 rounded-lg text-base outline-none`}
+          className={`${classname} w-full px-3 py-2 pr-10 rounded-lg text-base outline`}
         />
 
         <span

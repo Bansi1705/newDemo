@@ -154,7 +154,7 @@ export interface UserProfile {
   description: string;
   notes: string;
   status: string;
-  profileImage: string | null;
+  profileImage: string[];
   createdBy: string;
   updatedBy: string;
 }

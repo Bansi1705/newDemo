@@ -31,7 +31,7 @@ function UserProfile() {
 
     companyName: "",
     department: "",
-    designation: "",
+    designation: "Intern",
     employeeId: "",
 
     address: [
@@ -52,14 +52,14 @@ function UserProfile() {
     description: "",
     notes: "",
     status: "Active",
-    profileImage: null,
+    profileImage: [],
     createdBy: "",
     updatedBy: "",
   };
 
   const [userData, setUserData] = useState<UserProfile[]>([]);
   const [formData, setFormData] = useState<UserProfile>(initialState);
-  const [imagePreView, setImagePreView] = useState<File | string | null>(null);
+  const [imagePreView, setImagePreView] = useState<string[] | null>(null);
   const [showPreView, setShowPreView] = useState<boolean>(false);
   const [error, setError] = useState<Record<string, string>>({});
   const [editId, setEditId] = useState<string | null>(null);
@@ -75,42 +75,71 @@ function UserProfile() {
   ) => {
     const { name, value } = e.target;
 
+    const updatedValue =
+      name === "password" || name === "confirmPassword"
+        ? value.slice(0, 6)
+        : value;
+
     setFormData((prev) => ({
       ...prev,
-      [name]: value,
+      [name]: updatedValue,
     }));
 
+    if (name === "employeeId") {
+      setError((prev) => ({
+        ...prev,
+        employeeId: userData.find((id) => value === id.employeeId)
+          ? "Enter Unique Id"
+          : "",
+      }));
+    }
+
+    if (name === "password") {
+      setError((prev) => ({
+        ...prev,
+
+        password:
+          updatedValue.trim() === ""
+            ? CONSTANT.VALIDATION.PASSWORD
+            : updatedValue.length < 6
+              ? "Password must be at least 6 characters"
+              : "",
+
+        confirmPassword:
+          formData.confirmPassword && updatedValue !== formData.confirmPassword
+            ? "Passwords do not match"
+            : "",
+      }));
+
+      return;
+    }
+
+    if (name === "confirmPassword") {
+      setError((prev) => ({
+        ...prev,
+
+        confirmPassword:
+          updatedValue.trim() === ""
+            ? CONSTANT.VALIDATION.CONFIRMPASSWORD
+            : updatedValue !== formData.password
+              ? "Passwords do not match"
+              : "",
+      }));
+
+      return;
+    }
+
     if (isSubmitted) {
-      if (name === "password") {
-        setError((prev) => ({
-          ...prev,
-          password:
-            value.trim() === ""
-              ? CONSTANT.VALIDATION.PASSWORD
-              : value.length < 6
-                ? "Password must be at least 6 characters"
-                : "",
-        }));
-      }
+      setError((prev) => ({
+        ...prev,
 
-      if (name === "confirmPassword") {
-        setError((prev) => ({
-          ...prev,
-          confirmPassword:
-            value.trim() === ""
-              ? CONSTANT.VALIDATION.CONFIRMPASSWORD
-              : value !== formData.password
-                ? "Passwords do not match"
-                : "",
-        }));
-      }
-
-      if (name !== "password" && name !== "confirmPassword") {
-        setError((prev) => ({
-          ...prev,
-          [name]: "",
-        }));
-      }
+        [name]:
+          updatedValue.trim() === ""
+            ? CONSTANT.VALIDATION[
+                name.toUpperCase() as keyof typeof CONSTANT.VALIDATION
+              ]
+            : "",
+      }));
     }
   };
 
@@ -229,7 +258,7 @@ function UserProfile() {
       newError.notes = CONSTANT.VALIDATION.NOTES;
     }
 
-    if (!formData.profileImage?.trim()) {
+    if (formData.profileImage?.length == 0) {
       newError.profileImage = CONSTANT.VALIDATION.PROFILEIMAGE;
     }
 
@@ -270,7 +299,7 @@ function UserProfile() {
     return Object.keys(newError).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setIsSubmitted(true);
 
@@ -336,7 +365,7 @@ function UserProfile() {
     { key: "operations", label: "Operations" },
   ];
 
-  const handleShowPreview = (image: File | string) => {
+  const handleShowPreview = (image: string[]) => {
     setShowPreView(true);
     setImagePreView(image);
   };
@@ -353,6 +382,7 @@ function UserProfile() {
   }, []);
 
   const handleEdit = (id: string) => {
+    resetForm();
     setAddUser(true);
     const editData = userData.find((item) => item.employeeId === id);
     const name = COMMON_SERVICES.formatText(editData?.fullName);
@@ -429,8 +459,14 @@ function UserProfile() {
         <div className="flex align-center justify-between">
           <h1 className="userProfile-title">User Records</h1>
           <Buttons
-            label={!addUser ? "Add User" : "Close"}
-            onClick={() => setAddUser(!addUser)}
+            label="Add User"
+            onClick={() => {
+              if (addUser) {
+                resetForm();
+              } else {
+                setAddUser(true);
+              }
+            }}
             className="px-3 py-2 bg-blue-600 text-white rounded hover:bg-blue-800 transition-colors whitespace-nowrap my-auto"
           />
         </div>
@@ -716,17 +752,18 @@ function UserProfile() {
 
             <FileUpload
               label="Upload Image"
-              accept="image/*"
+              accept="*/*"
               required={true}
+              multipleFile={true}
               onFileSelect={(file) => {
                 if (!file) return;
-
                 const reader = new FileReader();
-
                 reader.onloadend = () => {
                   setFormData((prev) => ({
                     ...prev,
-                    profileImage: reader.result as string,
+                    profileImage: editId
+                      ? [reader.result as string]
+                      : [...prev.profileImage, reader.result as string],
                   }));
                 };
 
@@ -908,17 +945,12 @@ function UserProfile() {
                     <td>{COMMON_SERVICES.formatText(user.website)}</td>
                     <td>{user.status}</td>
                     <td>
-                      {user.profileImage && (
-                        <div className="imagePreviewIcon">
-                          <MdOutlinePreview
-                            size={30}
-                            onClick={() =>
-                              user.profileImage &&
-                              handleShowPreview(user.profileImage)
-                            }
-                          />
-                        </div>
-                      )}
+                      <div className="imagePreviewIcon">
+                        <MdOutlinePreview
+                          size={30}
+                          onClick={() => handleShowPreview(user.profileImage)}
+                        />
+                      </div>
                     </td>
                     <td>{COMMON_SERVICES.formatText(user.description)}</td>
                     <td>{COMMON_SERVICES.formatText(user.notes)}</td>

@@ -1,68 +1,80 @@
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import "../../Styles/ImagePreview.css";
 import { useEffect, useState } from "react";
-// import * as XLSX from "xlsx";
 import ExcelJS from "exceljs";
 import { CONSTANT } from "../../Services/Constant";
 import { toast } from "react-toastify";
 
 type FilePreviewProps = {
-  file: File | string | null;
+  file: File | string | (File | string)[] | null;
   onClose: () => void;
 };
 
 function FilePreview({ file, onClose }: FilePreviewProps) {
   const [excelHtml, setExcelHtml] = useState("");
   const [objectUrl, setObjectUrl] = useState<string>("");
+  const [previewIndex, setPreviewIndex] = useState(0);
+  const previewFiles = file ? (Array.isArray(file) ? file : [file]) : [];
+  const currentFile = previewFiles[previewIndex];
 
   useEffect(() => {
-    if (!file || typeof file === "string") {
+    if (!currentFile || typeof currentFile === "string") {
       setObjectUrl("");
       return;
     }
-    const url = URL.createObjectURL(file);
+
+    const url = URL.createObjectURL(currentFile);
+
     setObjectUrl(url);
 
     return () => {
       URL.revokeObjectURL(url);
     };
-  }, [file]);
+  }, [currentFile]);
 
-  const fileUrl = typeof file === "string" ? file : objectUrl;
+  const fileUrl = typeof currentFile === "string" ? currentFile : objectUrl;
 
   const isImage =
-    typeof file === "string"
-      ? file.startsWith("data:image")
-      : file
-        ? CONSTANT.MIME_TYPES.IMAGE.includes(file.type)
+    typeof currentFile === "string"
+      ? currentFile.startsWith("data:image")
+      : currentFile
+        ? CONSTANT.MIME_TYPES.IMAGE.includes(currentFile.type)
         : false;
 
   const isPdf =
-    typeof file === "string"
-      ? file.startsWith("data:application/pdf")
-      : file?.type === CONSTANT.MIME_TYPES.PDF;
+    typeof currentFile === "string"
+      ? currentFile.startsWith("data:application/pdf")
+      : currentFile?.type === CONSTANT.MIME_TYPES.PDF;
 
   const isExcel =
-    typeof file === "string"
-      ? file.toLowerCase().includes(CONSTANT.MIME_TYPES.XLSX.toLowerCase()) ||
-        file.toLowerCase().includes(CONSTANT.MIME_TYPES.XLS.toLowerCase()) ||
-        file.toLowerCase().endsWith(".xlsx") ||
-        file.toLowerCase().endsWith(".xls")
-      : file
-        ? file.type === CONSTANT.MIME_TYPES.XLSX ||
-          file.type === CONSTANT.MIME_TYPES.XLS
+    typeof currentFile === "string"
+      ? currentFile
+          .toLowerCase()
+          .includes(CONSTANT.MIME_TYPES.XLSX.toLowerCase()) ||
+        currentFile
+          .toLowerCase()
+          .includes(CONSTANT.MIME_TYPES.XLS.toLowerCase()) ||
+        currentFile.toLowerCase().endsWith(".xlsx") ||
+        currentFile.toLowerCase().endsWith(".xls")
+      : currentFile
+        ? currentFile.type === CONSTANT.MIME_TYPES.XLSX ||
+          currentFile.type === CONSTANT.MIME_TYPES.XLS
         : false;
 
   useEffect(() => {
     if (!isExcel) return;
-    if (!file) return;
+
+    if (!currentFile) return;
 
     const loadExcel = async () => {
       try {
         let data: ArrayBuffer;
 
-        if (typeof file === "string") {
-          const base64 = file.includes(",") ? file.split(",")[1] : file;
+        if (typeof currentFile === "string") {
+          const base64 = currentFile.includes(",")
+            ? currentFile.split(",")[1]
+            : currentFile;
+
           const binary = atob(base64);
 
           const byte = new Uint8Array(binary.length);
@@ -72,13 +84,8 @@ function FilePreview({ file, onClose }: FilePreviewProps) {
 
           data = byte.buffer;
         } else {
-          data = await file.arrayBuffer();
+          data = await currentFile.arrayBuffer();
         }
-
-        //  const workbook = XLSX.read(data, { type: "array" });
-        //   const sheetName = workbook.SheetNames[0];
-        //   const sheet = workbook.Sheets[sheetName];
-        //   const html = XLSX.utils.sheet_to_html(sheet);
 
         const workbook = new ExcelJS.Workbook();
         await workbook.xlsx.load(data);
@@ -110,36 +117,51 @@ function FilePreview({ file, onClose }: FilePreviewProps) {
       toast.error(CONSTANT.ERROR.PREVIEW_FAIL);
       setExcelHtml("");
     });
-  }, [file, isExcel]);
+  }, [currentFile, isExcel]);
 
   if (!file) return null;
 
   return (
     <div className="imagePreview-model">
-      <div className="main-preview">
-        <div className="preview-header">
-          <IoIosCloseCircleOutline onClick={onClose} className="close-btn" />
-        </div>
+      <div className="main-preview flex ">
+        {previewFiles.map((item, index) => {
+          return (
+            <div
+              key={index}
+              className={`sidebar-item text-black w-1/4 ${
+                previewIndex === index ? "active-file" : ""
+              }`}
+              onClick={() => setPreviewIndex(index)}
+            >
+              <ul>{item.toString().substring(0.5)}</ul>
+            </div>
+          );
+        })}
 
-        {isImage && (
-          <img src={fileUrl} alt="Preview" className="preview-image" />
-        )}
+        <div className="preview-content">
+          <div className="preview-header">
+            <IoIosCloseCircleOutline onClick={onClose} className="close-btn" />
+          </div>
 
-        {isPdf && (
-          <iframe
-            src={fileUrl}
-            title="PDF Preview"
-            width="100%"
-            height="500px"
-          />
-        )}
+          {isImage && (
+            <img src={fileUrl} alt="Preview" className="preview-image" />
+          )}
 
-        {isExcel && (
-          <iframe
-            title="Excel Preview"
-            width="100%"
-            height="500px"
-            srcDoc={`
+          {isPdf && (
+            <iframe
+              src={fileUrl}
+              title="PDF Preview"
+              width="100%"
+              height="500px"
+            />
+          )}
+
+          {isExcel && (
+            <iframe
+              title="Excel Preview"
+              width="100%"
+              height="500px"
+              srcDoc={`
               <html>
                 <head>
                   <style>
@@ -153,10 +175,11 @@ function FilePreview({ file, onClose }: FilePreviewProps) {
                 </body>
               </html>
             `}
-          />
-        )}
+            />
+          )}
 
-        {!isImage && !isPdf && !isExcel && <h3>Unsupported File Type</h3>}
+          {!isImage && !isPdf && !isExcel && <h3>Unsupported File Type</h3>}
+        </div>
       </div>
     </div>
   );

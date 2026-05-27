@@ -2,11 +2,11 @@ import React, { useReducer } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Otp } from "./CommonComponents/Otp";
-import { FaEye, FaEyeSlash } from "react-icons/fa6";
 import { Buttons } from "./CommonComponents/Buttons";
 import InputField from "./CommonComponents/InputFeild";
 import type { LoginData } from "../Interface/types";
 import { CONSTANT } from "../Services/Constant";
+import PasswordInput from "./CommonComponents/PasswordInput";
 interface FormError {
   email?: string;
   password?: string;
@@ -168,13 +168,19 @@ const Login: React.FC = () => {
           </div>
 
           <div className="mb-4 flex flex-col">
-            <label
-              htmlFor="password"
-              className="mb-1 font-medium text-gray-800"
-            >
-              Password:
-            </label>
-            <div className="relative flex items-center">
+            <PasswordInput
+              name="password"
+              value={state.data.password}
+              handleChange={handleChange}
+              showPassword={state.showPassword}
+              setShowPassword={() => dispatch({ type: "TOGGLE_PASSWORD" })}
+              label="Password"
+              required={true}
+            />
+            {state.error.password && (
+              <span className="error-message">{state.error.password}</span>
+            )}
+            {/* <div className="relative flex items-center">
               <InputField
                 id="password"
                 type={state.showPassword ? "text" : "password"}
@@ -191,7 +197,7 @@ const Login: React.FC = () => {
               >
                 {state.showPassword ? <FaEyeSlash /> : <FaEye />}
               </span>
-            </div>
+            </div> */}
 
             {state.error.password && (
               <p className="mt-1 text-red-600 text-sm">

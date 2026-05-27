@@ -7,6 +7,7 @@ type FileUploadProps = {
   label?: string;
   accept?: string;
   required?: boolean;
+  multipleFile?: boolean;
 };
 
 const FileUpload = ({
@@ -14,18 +15,20 @@ const FileUpload = ({
   label = "Upload File",
   accept = "*/*",
   required = false,
+  multipleFile = false,
 }: FileUploadProps) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-
-    console.log(file);
+    const file = e.target.files;
 
     if (!file) return;
 
-    if (file.size <= CONSTANT.MAX_FILE_SIZE) {
-      onFileSelect(file);
-    } else {
-      toast.error(CONSTANT.ERROR.LARGE_FILE);
+    for (let i = 0; i < file.length; i++) {
+      const data=file[i]
+      if (data.size <= CONSTANT.MAX_FILE_SIZE) {
+        onFileSelect(data);
+      } else {
+        toast.error(CONSTANT.ERROR.LARGE_FILE);
+      }
     }
   };
 
@@ -36,7 +39,12 @@ const FileUpload = ({
         {required && <span className="required-mark">*</span>}
       </label>
 
-      <input type="file" accept={accept} onChange={handleChange} />
+      <input
+        type="file"
+        accept={accept}
+        onChange={handleChange}
+        multiple={multipleFile}
+      />
     </div>
   );
 };
