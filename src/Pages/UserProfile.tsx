@@ -59,7 +59,12 @@ function UserProfile() {
 
   const [userData, setUserData] = useState<UserProfile[]>([]);
   const [formData, setFormData] = useState<UserProfile>(initialState);
-  const [imagePreView, setImagePreView] = useState<string[] | null>(null);
+  const [imagePreView, setImagePreView] = useState<
+    { name: string; url: string }[] | null
+  >(null);
+  const [previewEmployeeId, setPreviewEmployeeId] = useState<string | null>(
+    null,
+  );
   const [showPreView, setShowPreView] = useState<boolean>(false);
   const [error, setError] = useState<Record<string, string>>({});
   const [editId, setEditId] = useState<string | null>(null);
@@ -365,9 +370,13 @@ function UserProfile() {
     { key: "operations", label: "Operations" },
   ];
 
-  const handleShowPreview = (image: string[]) => {
+  const handleShowPreview = (
+    image: { name: string; url: string }[],
+    id: string,
+  ) => {
     setShowPreView(true);
     setImagePreView(image);
+    setPreviewEmployeeId(id);
   };
   const handleClosePreview = () => {
     setShowPreView(false);
@@ -451,6 +460,22 @@ function UserProfile() {
     "Vice President",
     "CEO",
   ];
+
+  const handleRemoveFile = (index: number) => {
+    const updatedUsers = userData.map((user) =>
+      user.employeeId === previewEmployeeId
+        ? {
+            ...user,
+            profileImage: user.profileImage.filter((_, i) => i !== index),
+          }
+        : user,
+    );
+
+    setUserData(updatedUsers);
+    localStorage.setItem("UserProfiles", JSON.stringify(updatedUsers));
+
+    setImagePreView((prev) => prev?.filter((_, i) => i !== index) ?? null);
+  };
   return (
     <>
       <Header />
@@ -752,24 +777,36 @@ function UserProfile() {
 
             <FileUpload
               label="Upload Image"
-              accept="*/*"
+              accept="image/*,.pdf,.xls,.xlsx"
               required={true}
               multipleFile={true}
-              onFileSelect={(file) => {
-                if (!file) return;
-                const reader = new FileReader();
-                reader.onloadend = () => {
-                  setFormData((prev) => ({
-                    ...prev,
-                    profileImage: editId
-                      ? [reader.result as string]
-                      : [...prev.profileImage, reader.result as string],
-                  }));
-                };
+              onFileSelect={(files) => {
+                if (!files) return;
 
-                reader.readAsDataURL(file);
+                const fileArray = Array.isArray(files) ? files : [files];
+
+                fileArray.forEach((file) => {
+                  const reader = new FileReader();
+
+                  reader.onloadend = () => {
+                    const fileData = {
+                      name: file.name,
+                      url: reader.result as string,
+                    };
+
+                    setFormData((prev) => ({
+                      ...prev,
+                      profileImage: [...prev.profileImage, fileData],
+                    }));
+                  };
+
+                  reader.readAsDataURL(file);
+                });
               }}
             />
+            {formData.profileImage.map((file, index) => (
+              <p key={index}>{file.name}</p>
+            ))}
 
             {error.profileImage && (
               <span className="error-message">{error.profileImage}</span>
@@ -948,7 +985,12 @@ function UserProfile() {
                       <div className="imagePreviewIcon">
                         <MdOutlinePreview
                           size={30}
-                          onClick={() => handleShowPreview(user.profileImage)}
+                          onClick={() =>
+                            handleShowPreview(
+                              user.profileImage,
+                              user.employeeId,
+                            )
+                          }
                         />
                       </div>
                     </td>
@@ -1004,7 +1046,11 @@ function UserProfile() {
             </tbody>
           </table>
           {showPreView && (
-            <FilePreview file={imagePreView} onClose={handleClosePreview} />
+            <FilePreview
+              file={imagePreView}
+              onClose={handleClosePreview}
+              handleRemoveFile={handleRemoveFile}
+            />
           )}
         </div>
       </div>

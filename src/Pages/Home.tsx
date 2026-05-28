@@ -36,7 +36,7 @@ const Home = () => {
   const [editId, setEditID] = useState<number | undefined>(undefined);
   const [showPreView, setShowPreview] = useState<boolean>(false);
   const [showPreviewImage, setShowPreviewImage] = useState<
-    File | string | null
+    { name: string; url: string }[] | null
   >(null);
   const [weeks, setWeeks] = useState<Date[]>([
     startOfWeek(new Date(), { weekStartsOn: 1 }),
@@ -147,7 +147,7 @@ const Home = () => {
       name: "bansi",
       age: 20,
       birthdate: "2026-04-12",
-      uploadFile: null,
+      uploadFile: [],
     };
 
     try {
@@ -199,14 +199,14 @@ const Home = () => {
     { label: "BVOC", value: "bvoc" },
   ]);
 
-  const handleShowPreview = (file: File | string | null) => {
+  const handleShowPreview = (file: { name: string; url: string }[]) => {
     setShowPreview(true);
     setShowPreviewImage(file);
   };
 
   const handleClosePreview = () => {
     setShowPreview(false);
-    setShowPreviewImage(null);
+    setShowPreviewImage([]);
   };
 
   const handleCheckBoxDeleteChange = (id: number | undefined) => {

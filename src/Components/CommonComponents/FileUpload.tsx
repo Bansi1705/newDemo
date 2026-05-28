@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { CONSTANT } from "../../Services/Constant";
 
 type FileUploadProps = {
-  onFileSelect: (file: File) => void;
+  onFileSelect: (files: File | File[]) => void;
   label?: string;
   accept?: string;
   required?: boolean;
@@ -17,20 +17,40 @@ const FileUpload = ({
   required = false,
   multipleFile = false,
 }: FileUploadProps) => {
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files;
+  const [fileName, setFileName] = useState("No file selected");
+  const [selectedFileCount, setSelectedFileCount] = useState(0);
 
-    if (!file) return;
+ const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const files = e.target.files;
 
-    for (let i = 0; i < file.length; i++) {
-      const data=file[i]
-      if (data.size <= CONSTANT.MAX_FILE_SIZE) {
-        onFileSelect(data);
-      } else {
-        toast.error(CONSTANT.ERROR.LARGE_FILE);
-      }
+  if (!files) return;
+
+  const validFiles: File[] = [];
+
+  for (let i = 0; i < files.length; i++) {
+    const file = files[i];
+
+    if (file.size <= CONSTANT.MAX_FILE_SIZE) {
+      validFiles.push(file);
+    } else {
+      toast.error(CONSTANT.ERROR.LARGE_FILE);
     }
-  };
+  }
+
+  if (validFiles.length > 0) {
+    onFileSelect(multipleFile ? validFiles : validFiles[0]);
+
+    const newCount = selectedFileCount + validFiles.length;
+
+    setSelectedFileCount(newCount);
+
+    setFileName(
+      multipleFile
+        ? `${newCount} files selected`
+        : validFiles[0].name
+    );
+  }
+};
 
   return (
     <div className="form-group">
@@ -39,12 +59,18 @@ const FileUpload = ({
         {required && <span className="required-mark">*</span>}
       </label>
 
-      <input
-        type="file"
-        accept={accept}
-        onChange={handleChange}
-        multiple={multipleFile}
-      />
+      <label className="custom-file-upload">
+        Choose Files
+        <input
+          type="file"
+          accept={accept}
+          onChange={handleChange}
+          multiple={multipleFile}
+          hidden
+        />
+      </label>
+
+      <span>{fileName}</span>
     </div>
   );
 };

@@ -5,7 +5,10 @@ export interface User {
   name: string;
   age: number;
   birthdate: string;
-  uploadFile: File | string | null;
+  uploadFile: {
+    name:string;
+    url:string;
+  }[];
 }
 export interface ExpenseData {
   id?: number;
@@ -49,8 +52,8 @@ export interface inputProps {
   classname?: string;
   id?: string;
   onKeyDown?: React.KeyboardEventHandler<HTMLInputElement>;
-  label?:string;
-  required?:boolean;
+  label?: string;
+  required?: boolean;
 }
 
 export interface dropdownOption {
@@ -62,8 +65,8 @@ export interface dropdownOption {
   optionsLabel?: string[];
   error?: string;
   placeholder?: string;
-  label?:string;
-  required?:boolean;
+  label?: string;
+  required?: boolean;
 }
 
 export interface searchBarProps {
@@ -154,7 +157,10 @@ export interface UserProfile {
   description: string;
   notes: string;
   status: string;
-  profileImage: string[];
+  profileImage: {
+    name: string;
+    url: string;
+  }[];
   createdBy: string;
   updatedBy: string;
 }

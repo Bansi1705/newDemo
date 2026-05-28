@@ -19,14 +19,17 @@ const Form = () => {
     name: string;
     age: number | "";
     birthdate: Date | null;
-    uploadFile: File | string | null;
+    uploadFile: {
+      name: string;
+      url: string;
+    }[];
   };
 
   const [data, setData] = useState<FromData>({
     name: "",
     age: "",
     birthdate: null,
-    uploadFile: null,
+    uploadFile: [],
   });
 
   type FormErrors = {
@@ -200,9 +203,13 @@ const Form = () => {
                 const reader = new FileReader();
 
                 reader.onloadend = () => {
+                  const fileData = {
+                    name: file.name,
+                    url: reader.result as string,
+                  };
                   setData((prev) => ({
                     ...prev,
-                    uploadFile: reader.result as string,
+                    uploadFile: [fileData],
                   }));
                 };
 

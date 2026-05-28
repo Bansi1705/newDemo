@@ -5,90 +5,53 @@ import ExcelJS from "exceljs";
 import { CONSTANT } from "../../Services/Constant";
 import { toast } from "react-toastify";
 
-type FilePreviewProps = {
-  file: File | string | (File | string)[] | null;
-  onClose: () => void;
+type PreviewFile = {
+  name: string;
+  url: string;
 };
 
-function FilePreview({ file, onClose }: FilePreviewProps) {
+type FilePreviewProps = {
+  file: PreviewFile | PreviewFile[] | null;
+  onClose: () => void;
+  handleRemoveFile?: (index: number) => void;
+};
+
+function FilePreview({ file, onClose, handleRemoveFile }: FilePreviewProps) {
   const [excelHtml, setExcelHtml] = useState("");
-  const [objectUrl, setObjectUrl] = useState<string>("");
   const [previewIndex, setPreviewIndex] = useState(0);
   const previewFiles = file ? (Array.isArray(file) ? file : [file]) : [];
   const currentFile = previewFiles[previewIndex];
 
-  useEffect(() => {
-    if (!currentFile || typeof currentFile === "string") {
-      setObjectUrl("");
-      return;
-    }
+  const fileUrl = currentFile?.url || "";
 
-    const url = URL.createObjectURL(currentFile);
+  const isImage = fileUrl.startsWith("data:image");
 
-    setObjectUrl(url);
-
-    return () => {
-      URL.revokeObjectURL(url);
-    };
-  }, [currentFile]);
-
-  const fileUrl = typeof currentFile === "string" ? currentFile : objectUrl;
-
-  const isImage =
-    typeof currentFile === "string"
-      ? currentFile.startsWith("data:image")
-      : currentFile
-        ? CONSTANT.MIME_TYPES.IMAGE.includes(currentFile.type)
-        : false;
-
-  const isPdf =
-    typeof currentFile === "string"
-      ? currentFile.startsWith("data:application/pdf")
-      : currentFile?.type === CONSTANT.MIME_TYPES.PDF;
+  const isPdf = fileUrl.startsWith("data:application/pdf");
 
   const isExcel =
-    typeof currentFile === "string"
-      ? currentFile
-          .toLowerCase()
-          .includes(CONSTANT.MIME_TYPES.XLSX.toLowerCase()) ||
-        currentFile
-          .toLowerCase()
-          .includes(CONSTANT.MIME_TYPES.XLS.toLowerCase()) ||
-        currentFile.toLowerCase().endsWith(".xlsx") ||
-        currentFile.toLowerCase().endsWith(".xls")
-      : currentFile
-        ? currentFile.type === CONSTANT.MIME_TYPES.XLSX ||
-          currentFile.type === CONSTANT.MIME_TYPES.XLS
-        : false;
+    currentFile?.name.toLowerCase().endsWith(".xlsx") ||
+    currentFile?.name.toLowerCase().endsWith(".xls");
 
   useEffect(() => {
-    if (!isExcel) return;
-
-    if (!currentFile) return;
+    if (!isExcel || !currentFile) return;
 
     const loadExcel = async () => {
       try {
-        let data: ArrayBuffer;
+        const base64 = currentFile.url.includes(",")
+          ? currentFile.url.split(",")[1]
+          : currentFile.url;
 
-        if (typeof currentFile === "string") {
-          const base64 = currentFile.includes(",")
-            ? currentFile.split(",")[1]
-            : currentFile;
+        const binary = atob(base64);
 
-          const binary = atob(base64);
+        const bytes = new Uint8Array(binary.length);
 
-          const byte = new Uint8Array(binary.length);
-          for (let i = 0; i < binary.length; i++) {
-            byte[i] = binary.charCodeAt(i);
-          }
-
-          data = byte.buffer;
-        } else {
-          data = await currentFile.arrayBuffer();
+        for (let i = 0; i < binary.length; i++) {
+          bytes[i] = binary.charCodeAt(i);
         }
 
         const workbook = new ExcelJS.Workbook();
-        await workbook.xlsx.load(data);
+
+        await workbook.xlsx.load(bytes.buffer);
 
         const worksheet = workbook.worksheets[0];
 
@@ -108,13 +71,13 @@ function FilePreview({ file, onClose }: FilePreviewProps) {
 
         setExcelHtml(html);
       } catch {
-        toast.error(CONSTANT.ERROR.NOT_FOUND);
+        toast.error(CONSTANT.ERROR.PREVIEW_FAIL);
         setExcelHtml("");
       }
     };
 
     loadExcel().catch(() => {
-      toast.error(CONSTANT.ERROR.PREVIEW_FAIL);
+      toast.error(CONSTANT.ERROR.NOT_FOUND);
       setExcelHtml("");
     });
   }, [currentFile, isExcel]);
@@ -123,62 +86,115 @@ function FilePreview({ file, onClose }: FilePreviewProps) {
 
   return (
     <div className="imagePreview-model">
-      <div className="main-preview flex ">
-        {previewFiles.map((item, index) => {
-          return (
-            <div
-              key={index}
-              className={`sidebar-item text-black w-1/4 ${
-                previewIndex === index ? "active-file" : ""
-              }`}
-              onClick={() => setPreviewIndex(index)}
-            >
-              <ul>{item.toString().substring(0.5)}</ul>
-            </div>
-          );
-        })}
+      <div className="main-preview">
+        <div className="preview-body">
+          <div className="sidebar">
+            {previewFiles.map((item, index) => (
+              <div
+                key={index}
+                className={`sidebar-item ${
+                  previewIndex === index ? "active-file" : ""
+                }`}
+                onClick={() => setPreviewIndex(index)}
+              >
+                {item.name}
 
-        <div className="preview-content">
-          <div className="preview-header">
-            <IoIosCloseCircleOutline onClick={onClose} className="close-btn" />
+                {handleRemoveFile && (
+                  <button
+                    className="text-black-300 bg-blue-400"
+                    onClick={(e) => {
+                      e.stopPropagation();
+
+                      setPreviewIndex((prev) => {
+                        if (prev === index) {
+                          if (prev === previewFiles.length - 1) {
+                            return prev > 0 ? prev - 1 : 0;
+                          }
+
+                          return prev;
+                        }
+
+                        if (index < prev) {
+                          return prev - 1;
+                        }
+
+                        return prev;
+                      });
+
+                      handleRemoveFile(index);
+                    }}
+                  >
+                    Remove
+                  </button>
+                )}
+              </div>
+            ))}
           </div>
 
-          {isImage && (
-            <img src={fileUrl} alt="Preview" className="preview-image" />
-          )}
+          <div className="preview-content">
+            <div className="preview-header">
+              <IoIosCloseCircleOutline
+                onClick={onClose}
+                className="close-btn"
+              />
+            </div>
 
-          {isPdf && (
-            <iframe
-              src={fileUrl}
-              title="PDF Preview"
-              width="100%"
-              height="500px"
-            />
-          )}
+            <div className="preview-viewer">
+              {isImage && (
+                <img
+                  src={fileUrl}
+                  alt={currentFile?.name}
+                  className="preview-image"
+                />
+              )}
 
-          {isExcel && (
-            <iframe
-              title="Excel Preview"
-              width="100%"
-              height="500px"
-              srcDoc={`
-              <html>
-                <head>
-                  <style>
-                    body { font-family: Arial; font-size: 13px; }
-                    table { border-collapse: collapse; width: 100%; }
-                    td, th { border: 1px solid #ccc; padding: 6px; }
-                  </style>
-                </head>
-                <body>
-                  ${excelHtml}
-                </body>
-              </html>
-            `}
-            />
-          )}
+              {isPdf && (
+                <iframe
+                  src={fileUrl}
+                  title="PDF Preview"
+                  className="preview-frame"
+                />
+              )}
 
-          {!isImage && !isPdf && !isExcel && <h3>Unsupported File Type</h3>}
+              {isExcel && (
+                <iframe
+                  title="Excel Preview"
+                  className="preview-frame"
+                  srcDoc={`
+                <html>
+                  <head>
+                    <style>
+                      body {
+                        font-family: Arial;
+                        font-size: 13px;
+                        padding: 10px;
+                      }
+
+                      table {
+                        border-collapse: collapse;
+                        width: 100%;
+                      }
+
+                      td, th {
+                        border: 1px solid #ccc;
+                        padding: 6px;
+                      }
+                    </style>
+                  </head>
+
+                  <body>
+                    ${excelHtml}
+                  </body>
+                </html>
+             `}
+                />
+              )}
+
+              {!isImage && !isPdf && !isExcel && (
+                <div className="unsupported-file">Unsupported File Type</div>
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </div>
