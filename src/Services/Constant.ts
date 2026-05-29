@@ -18,8 +18,10 @@ export const CONSTANT = {
   MIME_TYPES: {
     IMAGE: ["image/jpg", "image/png", "image/jpeg"],
     PDF: "application/pdf",
-    XLSX: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-    XLS: "application/vnd.ms-excel",
+    EXCEL: [
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    "application/vnd.ms-excel",
+  ],
   },
   VALIDATION: {
   EMAIL: "Email is required!",

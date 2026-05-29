@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import ExcelJS from "exceljs";
 import { CONSTANT } from "../../Services/Constant";
 import { toast } from "react-toastify";
+import Confirmation from "./Confirmation";
 
 type PreviewFile = {
   name: string;
@@ -21,16 +22,18 @@ function FilePreview({ file, onClose, handleRemoveFile }: FilePreviewProps) {
   const [previewIndex, setPreviewIndex] = useState(0);
   const previewFiles = file ? (Array.isArray(file) ? file : [file]) : [];
   const currentFile = previewFiles[previewIndex];
+  const [showConfirmDelete, setShowConfirmDelete] = useState<boolean>(false);
+  const [deletId, setDeleteId] = useState<number | null>(null);
 
   const fileUrl = currentFile?.url || "";
 
-  const isImage = fileUrl.startsWith("data:image");
+  const mimeType = fileUrl.split(";")[0].replace("data:", "");
 
-  const isPdf = fileUrl.startsWith("data:application/pdf");
+  const isImage = CONSTANT.MIME_TYPES.IMAGE.includes(mimeType);
 
-  const isExcel =
-    currentFile?.name.toLowerCase().endsWith(".xlsx") ||
-    currentFile?.name.toLowerCase().endsWith(".xls");
+  const isPdf = mimeType === CONSTANT.MIME_TYPES.PDF;
+
+  const isExcel = CONSTANT.MIME_TYPES.EXCEL.includes(mimeType);
 
   useEffect(() => {
     if (!isExcel || !currentFile) return;
@@ -84,6 +87,31 @@ function FilePreview({ file, onClose, handleRemoveFile }: FilePreviewProps) {
 
   if (!file) return null;
 
+  const handleDeleteConfirm = () => {
+    if (deletId !== null && handleRemoveFile) {
+      setPreviewIndex((prev) => {
+        if (prev === deletId) {
+          if (prev === previewFiles.length - 1) {
+            return prev > 0 ? prev - 1 : 0;
+          }
+          return prev;
+        }
+        if (deletId < prev) {
+          return prev - 1;
+        }
+        return prev;
+      });
+      handleRemoveFile(deletId);
+    }
+
+    setShowConfirmDelete(false);
+    setDeleteId(null);
+  };
+  const handleDeleteCancel = () => {
+    setShowConfirmDelete(false);
+    setDeleteId(null);
+  };
+
   return (
     <div className="imagePreview-model">
       <div className="main-preview">
@@ -104,24 +132,8 @@ function FilePreview({ file, onClose, handleRemoveFile }: FilePreviewProps) {
                     className="text-black-300 bg-blue-400"
                     onClick={(e) => {
                       e.stopPropagation();
-
-                      setPreviewIndex((prev) => {
-                        if (prev === index) {
-                          if (prev === previewFiles.length - 1) {
-                            return prev > 0 ? prev - 1 : 0;
-                          }
-
-                          return prev;
-                        }
-
-                        if (index < prev) {
-                          return prev - 1;
-                        }
-
-                        return prev;
-                      });
-
-                      handleRemoveFile(index);
+                      setShowConfirmDelete(true);
+                      setDeleteId(index);
                     }}
                   >
                     Remove
@@ -195,6 +207,14 @@ function FilePreview({ file, onClose, handleRemoveFile }: FilePreviewProps) {
               )}
             </div>
           </div>
+          {showConfirmDelete && (
+            <Confirmation
+              message="Do You Want To Delete This Item ??"
+              type="delete"
+              confirm={handleDeleteConfirm}
+              cancel={handleDeleteCancel}
+            />
+          )}
         </div>
       </div>
     </div>
