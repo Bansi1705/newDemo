@@ -20,37 +20,50 @@ const FileUpload = ({
   const [fileName, setFileName] = useState("No file selected");
   const [selectedFileCount, setSelectedFileCount] = useState(0);
 
- const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  const files = e.target.files;
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
 
-  if (!files) return;
+    if (!files) return;
 
-  const validFiles: File[] = [];
+    const validFiles: File[] = [];
 
-  for (let i = 0; i < files.length; i++) {
-    const file = files[i];
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
 
-    if (file.size <= CONSTANT.MAX_FILE_SIZE) {
-      validFiles.push(file);
-    } else {
-      toast.error(CONSTANT.ERROR.LARGE_FILE);
+      console.log(file.type);
+
+      if (
+        CONSTANT.MIME_TYPES.IMAGE.includes(file.type) ||
+        CONSTANT.MIME_TYPES.PDF.includes(file.type)
+      ) {
+        if (file.size <= CONSTANT.MAX_FILE_SIZE.SMALL) {
+          validFiles.push(file);
+        } else {
+          toast.error(CONSTANT.ERROR.LARGE_IMAGE_FILE);
+        }
+      } else if (CONSTANT.MIME_TYPES.VIDEO.includes(file.type)) {
+        if (file.size <= CONSTANT.MAX_FILE_SIZE.LARGE) {
+          validFiles.push(file);
+        } else {
+          toast.error(CONSTANT.ERROR.LARGE_VIDEO_FILE);
+        }
+      } else {
+        toast.error("Invalid file type");
+      }
     }
-  }
 
-  if (validFiles.length > 0) {
-    onFileSelect(multipleFile ? validFiles : validFiles[0]);
+    if (validFiles.length > 0) {
+      onFileSelect(multipleFile ? validFiles : validFiles[0]);
 
-    const newCount = selectedFileCount + validFiles.length;
+      const newCount = selectedFileCount + validFiles.length;
 
-    setSelectedFileCount(newCount);
+      setSelectedFileCount(newCount);
 
-    setFileName(
-      multipleFile
-        ? `${newCount} files selected`
-        : validFiles[0].name
-    );
-  }
-};
+      setFileName(
+        multipleFile ? `${newCount} files selected` : validFiles[0].name,
+      );
+    }
+  };
 
   return (
     <div className="form-group">

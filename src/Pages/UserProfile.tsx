@@ -17,6 +17,7 @@ import { CiEdit } from "react-icons/ci";
 import { FaChevronDown } from "react-icons/fa6";
 import Confirmation from "../Components/CommonComponents/Confirmation";
 import PasswordInput from "../Components/CommonComponents/PasswordInput";
+// import InfiniteScroll from "react-infinite-scroll-component";
 
 function UserProfile() {
   const initialState: UserProfile = {
@@ -74,6 +75,7 @@ function UserProfile() {
   const [addUser, setAddUser] = useState<boolean>(false);
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [searchName, setSearchName] = useState<string>("");
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -93,7 +95,9 @@ function UserProfile() {
     if (name === "employeeId") {
       setError((prev) => ({
         ...prev,
-        employeeId: userData.find((id) => value === id.employeeId)
+        employeeId: userData.find(
+          (u) => u.employeeId === value && u.employeeId !== editId,
+        )
           ? "Enter Unique Id"
           : "",
       }));
@@ -476,9 +480,29 @@ function UserProfile() {
 
     setImagePreView((prev) => prev?.filter((_, i) => i !== index) ?? null);
   };
+
+  const filterByName = userData.filter((user) =>
+    user.firstName.toLowerCase().includes(searchName.toLowerCase()),
+  );
+
+  // const [visibleCount, setVisibleCount] = useState(5);
+  // const fetchMoreData = () => {
+  //   setVisibleCount((prev) => prev + 5);
+  // };
+  const [visibleCount, setVisibleCount] = useState(5);
+
+  const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    const { scrollTop, scrollHeight, clientHeight } = e.currentTarget;
+
+    if (scrollTop + clientHeight >= scrollHeight - 1) {
+      setVisibleCount((prev) => prev + 3);
+    }
+  };
+  const visibleUsers = filterByName.slice(0, visibleCount);
+
   return (
     <>
-      <Header />
+      <Header searchShow={true} search={searchName} setSearch={setSearchName} />
 
       <div className="userProfile-form-data">
         <div className="flex align-center justify-between">
@@ -777,7 +801,7 @@ function UserProfile() {
 
             <FileUpload
               label="Upload Image"
-              accept="image/*,.pdf,.xls,.xlsx"
+              accept="image/*,.pdf,.xls,.xlsx,video/*"
               required={true}
               multipleFile={true}
               onFileSelect={(files) => {
@@ -920,15 +944,30 @@ function UserProfile() {
           </form>
         )}
 
-        <div className="main-userProfileDiv">
+        <div
+          className="main-userProfileDiv"
+          id="scrollableDiv"
+          onScroll={handleScroll}
+          style={{
+            height: "380px",
+            overflowY: "auto",
+          }}
+        >
+          {/* <InfiniteScroll
+            dataLength={visibleUsers.length}
+            next={fetchMoreData}
+            hasMore={visibleUsers.length < filterByName.length}
+            loader={<h4 style={{ textAlign: "center" }}>Loading...</h4>}
+          > */}
           <table className="userProfileTable">
             <thead>
               <tr>
                 {userProfileTableHeader.map((head) => (
-                  <th>{head.label}</th>
+                  <th key={head.key}>{head.label}</th>
                 ))}
               </tr>
             </thead>
+
             <tbody>
               {userData.length === 0 ? (
                 <tr>
@@ -940,20 +979,25 @@ function UserProfile() {
                   </td>
                 </tr>
               ) : (
-                userData.map((user, index) => (
-                  <tr key={index}>
+                visibleUsers.map((user, index) => (
+                  <tr key={user.employeeId}>
                     <td>{index + 1}</td>
+
                     <td>{COMMON_SERVICES.formatText(user.firstName)}</td>
                     <td>{COMMON_SERVICES.formatText(user.lastName)}</td>
                     <td>{COMMON_SERVICES.formatText(user.fullName)}</td>
+
                     <td>{user.email}</td>
                     <td>{user.phoneNumber}</td>
+
                     <td>
                       {user.alternatePhoneNumber.length === 0
                         ? "-"
                         : user.alternatePhoneNumber}
                     </td>
+
                     <td>{user.gender}</td>
+
                     <td>
                       {user.dateOfBirth
                         ? COMMON_SERVICES.formatCreateDate(
@@ -963,24 +1007,33 @@ function UserProfile() {
                           )
                         : "-"}
                     </td>
+
                     <td>{COMMON_SERVICES.formatText(user.companyName)}</td>
                     <td>{COMMON_SERVICES.formatText(user.department)}</td>
                     <td>{COMMON_SERVICES.formatText(user.designation)}</td>
                     <td>{user.employeeId}</td>
+
                     <td>{COMMON_SERVICES.formatText(user.address[0].city)}</td>
+
                     <td>{COMMON_SERVICES.formatText(user.address[0].state)}</td>
+
                     <td>
                       {COMMON_SERVICES.formatText(user.address[0].country)}
                     </td>
+
                     <td>
                       {COMMON_SERVICES.formatText(user.address[0].zipcode)}
                     </td>
+
                     <td>
                       {COMMON_SERVICES.formatText(user.address[0].district)}
                     </td>
+
                     <td>{COMMON_SERVICES.formatText(user.username)}</td>
                     <td>{COMMON_SERVICES.formatText(user.website)}</td>
+
                     <td>{user.status}</td>
+
                     <td>
                       <div className="imagePreviewIcon">
                         <MdOutlinePreview
@@ -994,19 +1047,22 @@ function UserProfile() {
                         />
                       </div>
                     </td>
+
                     <td>{COMMON_SERVICES.formatText(user.description)}</td>
                     <td>{COMMON_SERVICES.formatText(user.notes)}</td>
                     <td>{COMMON_SERVICES.formatText(user.createdBy)}</td>
                     <td>{COMMON_SERVICES.formatText(user.updatedBy)}</td>
+
                     <td className="action-buttons">
                       <Menu
                         as="div"
                         className="relative inline-block text-left"
                       >
-                        <MenuButton className="inline-flex items-center rounded bg-blue-500 px-3 py-2 text-sm font-medium text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300">
+                        <MenuButton className="inline-flex items-center rounded bg-blue-500 px-3 py-2 text-sm font-medium text-white hover:bg-blue-600">
                           Actions
                           <FaChevronDown />
                         </MenuButton>
+
                         <MenuItems className="absolute bottom-full right-0 mb-2 w-40 overflow-hidden rounded-md border border-gray-200 bg-white shadow-lg z-50">
                           <MenuItem>
                             {() => (
@@ -1045,6 +1101,8 @@ function UserProfile() {
               )}
             </tbody>
           </table>
+          {/* </InfiniteScroll> */}
+
           {showPreView && (
             <FilePreview
               file={imagePreView}

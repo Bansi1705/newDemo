@@ -35,6 +35,8 @@ function FilePreview({ file, onClose, handleRemoveFile }: FilePreviewProps) {
 
   const isExcel = CONSTANT.MIME_TYPES.EXCEL.includes(mimeType);
 
+  const isVideo = CONSTANT.MIME_TYPES.VIDEO.includes(mimeType);
+
   useEffect(() => {
     if (!isExcel || !currentFile) return;
 
@@ -202,7 +204,13 @@ function FilePreview({ file, onClose, handleRemoveFile }: FilePreviewProps) {
                 />
               )}
 
-              {!isImage && !isPdf && !isExcel && (
+              {isVideo && (
+                <video className="preview-image" controls>
+                  <source src={fileUrl} />
+                </video>
+              )}
+
+              {!isImage && !isPdf && !isExcel && !isVideo && (
                 <div className="unsupported-file">Unsupported File Type</div>
               )}
             </div>
