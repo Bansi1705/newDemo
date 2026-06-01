@@ -20,7 +20,7 @@ import PasswordInput from "../Components/CommonComponents/PasswordInput";
 // import InfiniteScroll from "react-infinite-scroll-component";
 
 function UserProfile() {
-  const initialState: UserProfile = {
+  const initialUserProfileState: UserProfile = {
     firstName: "",
     lastName: "",
     fullName: "",
@@ -58,26 +58,37 @@ function UserProfile() {
     updatedBy: "",
   };
 
-  const [userData, setUserData] = useState<UserProfile[]>([]);
-  const [formData, setFormData] = useState<UserProfile>(initialState);
-  const [imagePreView, setImagePreView] = useState<
+  const [userProfiles, setUserProfiles] = useState<UserProfile[]>([]);
+  const [userProfileForm, setUserProfileForm] = useState<UserProfile>(
+    initialUserProfileState,
+  );
+  const [userProfileImagePreView, setUserProfileImagePreView] = useState<
     { name: string; url: string }[] | null
   >(null);
-  const [previewEmployeeId, setPreviewEmployeeId] = useState<string | null>(
+  const [previewImageUserProfileId, setPreviewImageUserProfileId] = useState<
+    string | null
+  >(null);
+  const [showUserProfileImagePreView, setShowUserProfileImagePreView] =
+    useState<boolean>(false);
+  const [userProfileFormAddEditError, setUserProfileFormAddEditError] = useState<
+    Record<string, string>
+  >({});
+  const [editUserProfileId, setEditUserProfileId] = useState<string | null>(
     null,
   );
-  const [showPreView, setShowPreView] = useState<boolean>(false);
-  const [error, setError] = useState<Record<string, string>>({});
-  const [editId, setEditId] = useState<string | null>(null);
-  const [deletId, setDeleteId] = useState<string | null>(null);
-  const [showConfirm, setShowConfirm] = useState<boolean>(false);
-  const [confirmMsg, setConfirmMsg] = useState<string>("");
-  const [addUser, setAddUser] = useState<boolean>(false);
+  const [deletingUserProfileId, setDeletingUserProfileId] = useState<
+    string | null
+  >(null);
+  const [showConfirmModel, setShowConfirmModel] = useState<boolean>(false);
+  const [confirmModelMsg, setConfirmModelMsg] = useState<string>("");
+  const [IsEditAbleUser, setIsEditAbleUser] = useState<boolean>(false);
   const [showPassword, setShowPassword] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [searchName, setSearchName] = useState<string>("");
+  const [isUserProfileFormSubmitted, setIsUserProfileFormSubmitted] =
+    useState(false);
+  const [searchUserProfileByName, setSearchUserProfileByName] =
+    useState<string>("");
 
-  const handleChange = (
+  const handleUserProfileFormChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
     const { name, value } = e.target;
@@ -87,16 +98,16 @@ function UserProfile() {
         ? value.slice(0, 6)
         : value;
 
-    setFormData((prev) => ({
+    setUserProfileForm((prev) => ({
       ...prev,
       [name]: updatedValue,
     }));
 
     if (name === "employeeId") {
-      setError((prev) => ({
+      setUserProfileFormAddEditError((prev) => ({
         ...prev,
-        employeeId: userData.find(
-          (u) => u.employeeId === value && u.employeeId !== editId,
+        employeeId: userProfiles.find(
+          (u) => u.employeeId === value && u.employeeId !== editUserProfileId,
         )
           ? "Enter Unique Id"
           : "",
@@ -104,7 +115,7 @@ function UserProfile() {
     }
 
     if (name === "password") {
-      setError((prev) => ({
+      setUserProfileFormAddEditError((prev) => ({
         ...prev,
 
         password:
@@ -115,7 +126,8 @@ function UserProfile() {
               : "",
 
         confirmPassword:
-          formData.confirmPassword && updatedValue !== formData.confirmPassword
+          userProfileForm.confirmPassword &&
+          updatedValue !== userProfileForm.confirmPassword
             ? "Passwords do not match"
             : "",
       }));
@@ -124,13 +136,13 @@ function UserProfile() {
     }
 
     if (name === "confirmPassword") {
-      setError((prev) => ({
+      setUserProfileFormAddEditError((prev) => ({
         ...prev,
 
         confirmPassword:
           updatedValue.trim() === ""
             ? CONSTANT.VALIDATION.CONFIRMPASSWORD
-            : updatedValue !== formData.password
+            : updatedValue !== userProfileForm.password
               ? "Passwords do not match"
               : "",
       }));
@@ -138,8 +150,8 @@ function UserProfile() {
       return;
     }
 
-    if (isSubmitted) {
-      setError((prev) => ({
+    if (isUserProfileFormSubmitted) {
+      setUserProfileFormAddEditError((prev) => ({
         ...prev,
 
         [name]:
@@ -152,10 +164,12 @@ function UserProfile() {
     }
   };
 
-  const handleAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleUserProfileAddressChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     const { name, value } = e.target;
 
-    setFormData((prev) => ({
+    setUserProfileForm((prev) => ({
       ...prev,
       address: [
         {
@@ -165,7 +179,7 @@ function UserProfile() {
       ],
     }));
 
-    setError((prev) => ({
+    setUserProfileFormAddEditError((prev) => ({
       ...prev,
       [name]: "",
     }));
@@ -174,35 +188,35 @@ function UserProfile() {
   const validate = () => {
     const newError: Record<string, string> = {};
 
-    if (!formData.firstName.trim()) {
+    if (!userProfileForm.firstName.trim()) {
       newError.firstName = CONSTANT.VALIDATION.FIRSTNAME;
     }
 
-    if (!formData.lastName.trim()) {
+    if (!userProfileForm.lastName.trim()) {
       newError.lastName = CONSTANT.VALIDATION.LASTNAME;
     }
 
-    if (!formData.fullName.trim()) {
+    if (!userProfileForm.fullName.trim()) {
       newError.fullName = CONSTANT.VALIDATION.FULLNAME;
     }
 
-    if (!formData.email.trim()) {
+    if (!userProfileForm.email.trim()) {
       newError.email = CONSTANT.VALIDATION.EMAIL;
     } else if (
-      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(formData.email)
+      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(userProfileForm.email)
     ) {
       newError.email = "Invalid Email Address";
     }
 
-    if (!formData.phoneNumber.trim()) {
+    if (!userProfileForm.phoneNumber.trim()) {
       newError.phoneNumber = CONSTANT.VALIDATION.PHONENUMBER;
     }
 
-    if (!formData.gender) {
+    if (!userProfileForm.gender) {
       newError.gender = CONSTANT.VALIDATION.GENDER;
     }
 
-    if (!formData.dateOfBirth) {
+    if (!userProfileForm.dateOfBirth) {
       newError.dateOfBirth = CONSTANT.VALIDATION.DATEOFBIRTH;
     }
 
@@ -213,104 +227,110 @@ function UserProfile() {
       today.getDate(),
     );
 
-    if (formData.dateOfBirth && formData.dateOfBirth > minAgeDate) {
+    if (
+      userProfileForm.dateOfBirth &&
+      userProfileForm.dateOfBirth > minAgeDate
+    ) {
       newError.dateOfBirth = "User must be at least 14 years old";
     }
 
-    if (!formData.companyName.trim()) {
+    if (!userProfileForm.companyName.trim()) {
       newError.companyName = CONSTANT.VALIDATION.COMPANYNAME;
     }
 
-    if (!formData.department.trim()) {
+    if (!userProfileForm.department.trim()) {
       newError.department = CONSTANT.VALIDATION.DEPARTMENT;
     }
 
-    if (!formData.designation.trim()) {
+    if (!userProfileForm.designation.trim()) {
       newError.designation = CONSTANT.VALIDATION.DESIGNATION;
     }
 
-    if (!formData.employeeId.trim()) {
+    if (!userProfileForm.employeeId.trim()) {
       newError.employeeId = CONSTANT.VALIDATION.EMPLOYEEID;
     }
 
-    if (!formData.username.trim()) {
+    if (!userProfileForm.username.trim()) {
       newError.username = CONSTANT.VALIDATION.USERNAME;
     }
 
-    if (!formData.password.trim()) {
+    if (!userProfileForm.password.trim()) {
       newError.password = CONSTANT.VALIDATION.PASSWORD;
-    } else if (formData.password.length < 6) {
-      newError.password = "Password must be at least 6 characters";
+    } else if (userProfileForm.password.length < 6) {
+      newError.passwuserProfileFormord =
+        "Password must be at least 6 characters";
     }
 
-    if (!formData.confirmPassword.trim()) {
+    if (!userProfileForm.confirmPassword.trim()) {
       newError.confirmPassword = CONSTANT.VALIDATION.CONFIRMPASSWORD;
-    } else if (formData.password !== formData.confirmPassword) {
+    } else if (userProfileForm.password !== userProfileForm.confirmPassword) {
       newError.confirmPassword = "Passwords do not match";
     }
 
-    if (!formData.website.trim()) {
+    if (!userProfileForm.website.trim()) {
       newError.website = CONSTANT.VALIDATION.WEBSITE;
     } else if (
       !/^(https?:\/\/)?([a-z\d]([a-z\d-]*[a-z\d])*\.)+[a-z]{2,}(\/.*)?$/i.test(
-        formData.website,
+        userProfileForm.website,
       )
     ) {
       newError.website = "Enter proper website";
     }
 
-    if (!formData.description.trim()) {
+    if (!userProfileForm.description.trim()) {
       newError.description = CONSTANT.VALIDATION.DESCRIPTION;
     }
 
-    if (!formData.notes.trim()) {
+    if (!userProfileForm.notes.trim()) {
       newError.notes = CONSTANT.VALIDATION.NOTES;
     }
 
-    if (formData.profileImage?.length == 0) {
+    if (userProfileForm.profileImage?.length == 0) {
       newError.profileImage = CONSTANT.VALIDATION.PROFILEIMAGE;
     }
 
-    if (!formData.createdBy.trim()) {
+    if (!userProfileForm.createdBy.trim()) {
       newError.createdBy = CONSTANT.VALIDATION.CREATEDBY;
     }
 
-    if (!formData.updatedBy.trim()) {
+    if (!userProfileForm.updatedBy.trim()) {
       newError.updatedBy = CONSTANT.VALIDATION.UPDATEDBY;
     }
 
-    if (!formData.address[0].country.trim()) {
+    if (!userProfileForm.address[0].country.trim()) {
       newError.country = CONSTANT.VALIDATION.COUNTRY;
     }
 
-    if (!formData.address[0].state.trim()) {
+    if (!userProfileForm.address[0].state.trim()) {
       newError.state = CONSTANT.VALIDATION.STATE;
     }
 
-    if (!formData.address[0].city.trim()) {
+    if (!userProfileForm.address[0].city.trim()) {
       newError.city = CONSTANT.VALIDATION.CITY;
     }
 
-    if (!formData.address[0].district.trim()) {
+    if (!userProfileForm.address[0].district.trim()) {
       newError.district = CONSTANT.VALIDATION.DISTRICT;
     }
 
-    if (!formData.address[0].zipcode.trim()) {
+    if (!userProfileForm.address[0].zipcode.trim()) {
       newError.zipcode = CONSTANT.VALIDATION.ZIPCODE;
-    } else if (formData.address[0].zipcode.length > 6) {
+    } else if (userProfileForm.address[0].zipcode.length > 6) {
       newError.zipcode = "ZipCode Must be 6 digit";
     }
 
-    setError(newError);
+    setUserProfileFormAddEditError(newError);
 
     console.log("Validation Errors:", newError);
 
     return Object.keys(newError).length === 0;
   };
 
-  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleUserProfileFormSubmit = (
+    e: React.MouseEvent<HTMLButtonElement>,
+  ) => {
     e.preventDefault();
-    setIsSubmitted(true);
+    setIsUserProfileFormSubmitted(true);
 
     if (!validate()) {
       console.log("Form Validation Failed");
@@ -318,25 +338,25 @@ function UserProfile() {
     }
 
     let updatedData;
-    if (editId !== null) {
-      setShowConfirm(true);
+    if (editUserProfileId !== null) {
+      setShowConfirmModel(true);
       return;
     } else {
-      updatedData = [...userData, formData];
+      updatedData = [...userProfiles, userProfileForm];
       toast.success(CONSTANT.SUCCESS.CREATE);
     }
 
-    setUserData(updatedData);
+    setUserProfiles(updatedData);
     localStorage.setItem("UserProfiles", JSON.stringify(updatedData));
-    setEditId(null);
-    resetForm();
+    setEditUserProfileId(null);
+    resetUserProfileForm();
   };
 
-  const resetForm = () => {
-    setFormData(initialState);
-    setError({});
-    setAddUser(false);
-    setIsSubmitted(false);
+  const resetUserProfileForm = () => {
+    setUserProfileForm(initialUserProfileState);
+    setUserProfileFormAddEditError({});
+    setIsEditAbleUser(false);
+    setIsUserProfileFormSubmitted(false);
   };
 
   const statusOptions = [
@@ -374,75 +394,75 @@ function UserProfile() {
     { key: "operations", label: "Operations" },
   ];
 
-  const handleShowPreview = (
+  const handleShowUserProfilePreview = (
     image: { name: string; url: string }[],
     id: string,
   ) => {
-    setShowPreView(true);
-    setImagePreView(image);
-    setPreviewEmployeeId(id);
+    setShowUserProfileImagePreView(true);
+    setUserProfileImagePreView(image);
+    setPreviewImageUserProfileId(id);
   };
   const handleClosePreview = () => {
-    setShowPreView(false);
-    setImagePreView(null);
+    setShowUserProfileImagePreView(false);
+    setUserProfileImagePreView(null);
   };
 
   useEffect(() => {
     const storedData = localStorage.getItem("UserProfiles");
     if (storedData) {
-      setUserData(JSON.parse(storedData));
+      setUserProfiles(JSON.parse(storedData));
     }
   }, []);
 
-  const handleEdit = (id: string) => {
-    resetForm();
-    setAddUser(true);
-    const editData = userData.find((item) => item.employeeId === id);
+  const handleUserProfileEdit = (id: string) => {
+    resetUserProfileForm();
+    setIsEditAbleUser(true);
+    const editData = userProfiles.find((item) => item.employeeId === id);
     const name = COMMON_SERVICES.formatText(editData?.fullName);
     if (editData) {
-      setFormData(editData);
+      setUserProfileForm(editData);
     }
-    setEditId(id);
-    setConfirmMsg(`Do You Really Want To Edit ${name} User ??`);
+    setEditUserProfileId(id);
+    setConfirmModelMsg(`Do You Really Want To Edit ${name} User ??`);
   };
 
-  const handleDelete = (id: string) => {
-    const data = userData.find((user) => user.employeeId == id);
+  const handleUserProfileDelete = (id: string) => {
+    const data = userProfiles.find((user) => user.employeeId == id);
     const name = COMMON_SERVICES.formatText(data?.fullName);
-    setConfirmMsg(`Do You Want To Delete ${name} User`);
-    setShowConfirm(true);
-    setDeleteId(id);
+    setConfirmModelMsg(`Do You Want To Delete ${name} User`);
+    setShowConfirmModel(true);
+    setDeletingUserProfileId(id);
   };
 
-  const handleConfirm = () => {
-    if (deletId) {
-      const filteredUser = userData.filter(
-        (item) => item.employeeId !== deletId,
+  const handleConfirmDeleteOrEdit = () => {
+    if (deletingUserProfileId) {
+      const filteredUser = userProfiles.filter(
+        (item) => item.employeeId !== deletingUserProfileId,
       );
-      setUserData(filteredUser);
+      setUserProfiles(filteredUser);
       localStorage.setItem("UserProfiles", JSON.stringify(filteredUser));
       toast.success(CONSTANT.SUCCESS.DELETE);
-      setDeleteId(null);
-    } else if (editId) {
-      const updatedUser = userData.map((user) => {
-        return user.employeeId == editId ? formData : user;
+      setDeletingUserProfileId(null);
+    } else if (editUserProfileId) {
+      const updatedUser = userProfiles.map((user) => {
+        return user.employeeId == editUserProfileId ? userProfileForm : user;
       });
 
-      setUserData(updatedUser);
+      setUserProfiles(updatedUser);
       localStorage.setItem("UserProfiles", JSON.stringify(updatedUser));
       toast.success(CONSTANT.SUCCESS.UPDATE);
-      setEditId(null);
-      resetForm();
+      setEditUserProfileId(null);
+      resetUserProfileForm();
     }
 
-    setShowConfirm(false);
+    setShowConfirmModel(false);
   };
 
-  const handleCancel = () => {
-    setShowConfirm(false);
-    setEditId(null);
-    setDeleteId(null);
-    resetForm();
+  const handleConfrimCancelDeleteOrEdit = () => {
+    setShowConfirmModel(false);
+    setEditUserProfileId(null);
+    setDeletingUserProfileId(null);
+    resetUserProfileForm();
   };
 
   const designationType: string[] = [
@@ -466,8 +486,8 @@ function UserProfile() {
   ];
 
   const handleRemoveFile = (index: number) => {
-    const updatedUsers = userData.map((user) =>
-      user.employeeId === previewEmployeeId
+    const updatedUsers = userProfiles.map((user) =>
+      user.employeeId === previewImageUserProfileId
         ? {
             ...user,
             profileImage: user.profileImage.filter((_, i) => i !== index),
@@ -475,14 +495,18 @@ function UserProfile() {
         : user,
     );
 
-    setUserData(updatedUsers);
+    setUserProfiles(updatedUsers);
     localStorage.setItem("UserProfiles", JSON.stringify(updatedUsers));
 
-    setImagePreView((prev) => prev?.filter((_, i) => i !== index) ?? null);
+    setUserProfileImagePreView(
+      (prev) => prev?.filter((_, i) => i !== index) ?? null,
+    );
   };
 
-  const filterByName = userData.filter((user) =>
-    user.firstName.toLowerCase().includes(searchName.toLowerCase()),
+  const filterByName = userProfiles.filter((user) =>
+    user.firstName
+      .toLowerCase()
+      .includes(searchUserProfileByName.toLowerCase()),
   );
 
   // const [visibleCount, setVisibleCount] = useState(5);
@@ -491,7 +515,7 @@ function UserProfile() {
   // };
   const [visibleCount, setVisibleCount] = useState(5);
 
-  const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
+  const handleProfileListScroll = (e: React.UIEvent<HTMLDivElement>) => {
     const { scrollTop, scrollHeight, clientHeight } = e.currentTarget;
 
     if (scrollTop + clientHeight >= scrollHeight - 1) {
@@ -502,7 +526,11 @@ function UserProfile() {
 
   return (
     <>
-      <Header searchShow={true} search={searchName} setSearch={setSearchName} />
+      <Header
+        searchShow={true}
+        search={searchUserProfileByName}
+        setSearch={setSearchUserProfileByName}
+      />
 
       <div className="userProfile-form-data">
         <div className="flex align-center justify-between">
@@ -510,20 +538,20 @@ function UserProfile() {
           <Buttons
             label="Add User"
             onClick={() => {
-              if (addUser) {
-                resetForm();
+              if (IsEditAbleUser) {
+                resetUserProfileForm();
               } else {
-                setAddUser(true);
+                setIsEditAbleUser(true);
               }
             }}
             className="px-3 py-2 bg-blue-600 text-white rounded hover:bg-blue-800 transition-colors whitespace-nowrap my-auto"
           />
         </div>
 
-        {addUser && (
+        {IsEditAbleUser && (
           <form className="userProfile-form">
             <h3 className="userProfile-title">
-              {!editId ? "Add New User" : "Edit user"}
+              {!editUserProfileId ? "Add New User" : "Edit user"}
             </h3>
 
             <InputField
@@ -533,9 +561,9 @@ function UserProfile() {
               name="firstName"
               id="firstName"
               placeholder="First Name"
-              value={formData.firstName}
-              onChange={handleChange}
-              error={error.firstName}
+              value={userProfileForm.firstName}
+              onChange={handleUserProfileFormChange}
+              error={userProfileFormAddEditError.firstName}
               classname="input-field"
             />
 
@@ -546,9 +574,9 @@ function UserProfile() {
               name="lastName"
               id="lastName"
               placeholder="Last Name"
-              value={formData.lastName}
-              onChange={handleChange}
-              error={error.lastName}
+              value={userProfileForm.lastName}
+              onChange={handleUserProfileFormChange}
+              error={userProfileFormAddEditError.lastName}
               classname="input-field"
             />
 
@@ -559,9 +587,9 @@ function UserProfile() {
               name="fullName"
               id="fullName"
               placeholder="Full Name"
-              value={formData.fullName}
-              onChange={handleChange}
-              error={error.fullName}
+              value={userProfileForm.fullName}
+              onChange={handleUserProfileFormChange}
+              error={userProfileFormAddEditError.fullName}
               classname="input-field"
             />
 
@@ -572,9 +600,9 @@ function UserProfile() {
               name="email"
               id="email"
               placeholder="example@gmail.com"
-              value={formData.email}
-              onChange={handleChange}
-              error={error.email}
+              value={userProfileForm.email}
+              onChange={handleUserProfileFormChange}
+              error={userProfileFormAddEditError.email}
               classname="input-field"
             />
 
@@ -585,16 +613,16 @@ function UserProfile() {
               name="phoneNumber"
               id="phoneNumber"
               placeholder="+1-212-456-7890"
-              value={formData.phoneNumber}
+              value={userProfileForm.phoneNumber}
               onChange={(e) =>
-                setFormData((prev) => ({
+                setUserProfileForm((prev) => ({
                   ...prev,
                   phoneNumber: COMMON_SERVICES.formtePhoneNumber(
                     e.target.value,
                   ),
                 }))
               }
-              error={error.phoneNumber}
+              error={userProfileFormAddEditError.phoneNumber}
               classname="input-field"
             />
 
@@ -604,16 +632,16 @@ function UserProfile() {
               name="alternatePhoneNumber"
               id="alternatePhoneNumber"
               placeholder="+1-212-456-7890"
-              value={formData.alternatePhoneNumber}
+              value={userProfileForm.alternatePhoneNumber}
               onChange={(e) =>
-                setFormData((prev) => ({
+                setUserProfileForm((prev) => ({
                   ...prev,
                   alternatePhoneNumber: COMMON_SERVICES.formtePhoneNumber(
                     e.target.value,
                   ),
                 }))
               }
-              error={error.alternatePhoneNumber}
+              error={userProfileFormAddEditError.alternatePhoneNumber}
               classname="input-field"
             />
 
@@ -623,8 +651,8 @@ function UserProfile() {
                   type="radio"
                   name="gender"
                   value="male"
-                  checked={formData.gender === "male"}
-                  onChange={handleChange}
+                  checked={userProfileForm.gender === "male"}
+                  onChange={handleUserProfileFormChange}
                 />
                 Male
               </label>
@@ -634,31 +662,33 @@ function UserProfile() {
                   type="radio"
                   name="gender"
                   value="female"
-                  checked={formData.gender === "female"}
-                  onChange={handleChange}
+                  checked={userProfileForm.gender === "female"}
+                  onChange={handleUserProfileFormChange}
                 />
                 Female
               </label>
 
-              {error.gender && <p className="error-message">{error.gender}</p>}
+              {userProfileFormAddEditError.gender && (
+                <p className="error-message">{userProfileFormAddEditError.gender}</p>
+              )}
             </div>
 
             <ReactDatePicker
-              selectedDate={formData.dateOfBirth}
+              selectedDate={userProfileForm.dateOfBirth}
               className="w-full rounded-md border border-slate-300 bg-white py-2 pl-10 pr-3 text-sm text-slate-800 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:border-slate-600 dark:bg-slate-700 dark:text-white"
               onChange={(d) => {
-                setFormData({
-                  ...formData,
+                setUserProfileForm({
+                  ...userProfileForm,
                   dateOfBirth: d,
                 });
 
-                setError((prev) => ({
+                setUserProfileFormAddEditError((prev) => ({
                   ...prev,
                   dateOfBirth: "",
                 }));
               }}
               placeholder="Select Birth Date"
-              error={error.dateOfBirth}
+              error={userProfileFormAddEditError.dateOfBirth}
             />
 
             <InputField
@@ -668,9 +698,9 @@ function UserProfile() {
               name="companyName"
               id="companyName"
               placeholder="Company Name"
-              value={formData.companyName}
-              onChange={handleChange}
-              error={error.companyName}
+              value={userProfileForm.companyName}
+              onChange={handleUserProfileFormChange}
+              error={userProfileFormAddEditError.companyName}
               classname="input-field"
             />
 
@@ -681,17 +711,17 @@ function UserProfile() {
               name="department"
               id="department"
               placeholder="Department"
-              value={formData.department}
-              onChange={handleChange}
-              error={error.department}
+              value={userProfileForm.department}
+              onChange={handleUserProfileFormChange}
+              error={userProfileFormAddEditError.department}
               classname="input-field"
             />
 
             <DropDown
               optionsLabel={designationType.map((i) => i)}
               selectClasName="input-field"
-              selectValue={formData.designation}
-              dropDownChange={handleChange}
+              selectValue={userProfileForm.designation}
+              dropDownChange={handleUserProfileFormChange}
               selectName="designation"
               label="Designation"
               required={true}
@@ -704,9 +734,9 @@ function UserProfile() {
               name="employeeId"
               id="employeeId"
               placeholder="Employee ID"
-              value={formData.employeeId}
-              onChange={handleChange}
-              error={error.employeeId}
+              value={userProfileForm.employeeId}
+              onChange={handleUserProfileFormChange}
+              error={userProfileFormAddEditError.employeeId}
               classname="input-field"
             />
 
@@ -717,38 +747,42 @@ function UserProfile() {
               name="username"
               id="username"
               placeholder="Username"
-              value={formData.username}
-              onChange={handleChange}
-              error={error.username}
+              value={userProfileForm.username}
+              onChange={handleUserProfileFormChange}
+              error={userProfileFormAddEditError.username}
               classname="input-field"
             />
 
             <PasswordInput
               name="password"
-              value={formData.password}
-              handleChange={handleChange}
+              value={userProfileForm.password}
+              handleChange={handleUserProfileFormChange}
               showPassword={showPassword}
               setShowPassword={setShowPassword}
               label="Password"
               required={true}
               classname="input-field"
             />
-            {error.password && (
-              <span className="error-message">{error.password}</span>
+            {userProfileFormAddEditError.password && (
+              <span className="error-message">
+                {userProfileFormAddEditError.password}
+              </span>
             )}
 
             <PasswordInput
               name="confirmPassword"
-              value={formData.confirmPassword}
-              handleChange={handleChange}
+              value={userProfileForm.confirmPassword}
+              handleChange={handleUserProfileFormChange}
               showPassword={showPassword}
               setShowPassword={setShowPassword}
               label="Confirmation Password"
               required={true}
               classname="input-field"
             />
-            {error.confirmPassword && (
-              <span className="error-message">{error.confirmPassword}</span>
+            {userProfileFormAddEditError.confirmPassword && (
+              <span className="error-message">
+                {userProfileFormAddEditError.confirmPassword}
+              </span>
             )}
             <InputField
               label="Website"
@@ -757,9 +791,9 @@ function UserProfile() {
               name="website"
               id="website"
               placeholder="Website"
-              value={formData.website}
-              onChange={handleChange}
-              error={error.website}
+              value={userProfileForm.website}
+              onChange={handleUserProfileFormChange}
+              error={userProfileFormAddEditError.website}
               classname="input-field"
             />
 
@@ -770,9 +804,9 @@ function UserProfile() {
               name="description"
               id="description"
               placeholder="Description"
-              value={formData.description}
-              onChange={handleChange}
-              error={error.description}
+              value={userProfileForm.description}
+              onChange={handleUserProfileFormChange}
+              error={userProfileFormAddEditError.description}
               classname="input-field"
             />
 
@@ -783,17 +817,17 @@ function UserProfile() {
               name="notes"
               id="notes"
               placeholder="Notes"
-              value={formData.notes}
-              onChange={handleChange}
-              error={error.notes}
+              value={userProfileForm.notes}
+              onChange={handleUserProfileFormChange}
+              error={userProfileFormAddEditError.notes}
               classname="input-field"
             />
 
             <DropDown
               optionsLabel={statusOptions.map((i) => i.label)}
               selectClasName="input-field"
-              selectValue={formData.status}
-              dropDownChange={handleChange}
+              selectValue={userProfileForm.status}
+              dropDownChange={handleUserProfileFormChange}
               selectName="status"
               label="Status"
               required={true}
@@ -818,7 +852,7 @@ function UserProfile() {
                       url: reader.result as string,
                     };
 
-                    setFormData((prev) => ({
+                    setUserProfileForm((prev) => ({
                       ...prev,
                       profileImage: [...prev.profileImage, fileData],
                     }));
@@ -828,12 +862,14 @@ function UserProfile() {
                 });
               }}
             />
-            {formData.profileImage.map((file, index) => (
+            {userProfileForm.profileImage.map((file, index) => (
               <p key={index}>{file.name}</p>
             ))}
 
-            {error.profileImage && (
-              <span className="error-message">{error.profileImage}</span>
+            {userProfileFormAddEditError.profileImage && (
+              <span className="error-message">
+                {userProfileFormAddEditError.profileImage}
+              </span>
             )}
 
             <InputField
@@ -843,9 +879,9 @@ function UserProfile() {
               name="createdBy"
               id="createdBy"
               placeholder="Created By"
-              value={formData.createdBy}
-              onChange={handleChange}
-              error={error.createdBy}
+              value={userProfileForm.createdBy}
+              onChange={handleUserProfileFormChange}
+              error={userProfileFormAddEditError.createdBy}
               classname="input-field"
             />
 
@@ -856,9 +892,9 @@ function UserProfile() {
               name="updatedBy"
               id="updatedBy"
               placeholder="Updated By"
-              value={formData.updatedBy}
-              onChange={handleChange}
-              error={error.updatedBy}
+              value={userProfileForm.updatedBy}
+              onChange={handleUserProfileFormChange}
+              error={userProfileFormAddEditError.updatedBy}
               classname="input-field"
             />
 
@@ -869,9 +905,9 @@ function UserProfile() {
               name="country"
               id="country"
               placeholder="Country"
-              value={formData.address[0].country}
-              onChange={handleAddressChange}
-              error={error.country}
+              value={userProfileForm.address[0].country}
+              onChange={handleUserProfileAddressChange}
+              error={userProfileFormAddEditError.country}
               classname="input-field"
             />
 
@@ -882,9 +918,9 @@ function UserProfile() {
               name="state"
               id="state"
               placeholder="State"
-              value={formData.address[0].state}
-              onChange={handleAddressChange}
-              error={error.state}
+              value={userProfileForm.address[0].state}
+              onChange={handleUserProfileAddressChange}
+              error={userProfileFormAddEditError.state}
               classname="input-field"
             />
 
@@ -895,9 +931,9 @@ function UserProfile() {
               name="city"
               id="city"
               placeholder="City"
-              value={formData.address[0].city}
-              onChange={handleAddressChange}
-              error={error.city}
+              value={userProfileForm.address[0].city}
+              onChange={handleUserProfileAddressChange}
+              error={userProfileFormAddEditError.city}
               classname="input-field"
             />
 
@@ -908,9 +944,9 @@ function UserProfile() {
               name="district"
               id="district"
               placeholder="District"
-              value={formData.address[0].district}
-              onChange={handleAddressChange}
-              error={error.district}
+              value={userProfileForm.address[0].district}
+              onChange={handleUserProfileAddressChange}
+              error={userProfileFormAddEditError.district}
               classname="input-field"
             />
 
@@ -921,23 +957,23 @@ function UserProfile() {
               name="zipcode"
               id="zipcode"
               placeholder="Zipcode"
-              value={formData.address[0].zipcode}
-              onChange={handleAddressChange}
-              error={error.zipcode}
+              value={userProfileForm.address[0].zipcode}
+              onChange={handleUserProfileAddressChange}
+              error={userProfileFormAddEditError.zipcode}
               classname="input-field"
             />
 
             <div className="form-buttons flex gap-4 mt-4">
               <Buttons
-                label={!editId ? "Add User" : "Edit User"}
+                label={!editUserProfileId ? "Add User" : "Edit User"}
                 className="submit-btn"
-                onClick={handleSubmit}
+                onClick={handleUserProfileFormSubmit}
               />
 
               <Buttons
                 label="Cancel"
                 type="button"
-                onClick={resetForm}
+                onClick={resetUserProfileForm}
                 className="cancel-btn"
               />
             </div>
@@ -947,7 +983,7 @@ function UserProfile() {
         <div
           className="main-userProfileDiv"
           id="scrollableDiv"
-          onScroll={handleScroll}
+          onScroll={handleProfileListScroll}
           style={{
             height: "380px",
             overflowY: "auto",
@@ -969,7 +1005,7 @@ function UserProfile() {
             </thead>
 
             <tbody>
-              {userData.length === 0 ? (
+              {userProfiles.length === 0 ? (
                 <tr>
                   <td
                     colSpan={userProfileTableHeader.length}
@@ -1039,7 +1075,7 @@ function UserProfile() {
                         <MdOutlinePreview
                           size={30}
                           onClick={() =>
-                            handleShowPreview(
+                            handleShowUserProfilePreview(
                               user.profileImage,
                               user.employeeId,
                             )
@@ -1067,7 +1103,9 @@ function UserProfile() {
                           <MenuItem>
                             {() => (
                               <Buttons
-                                onClick={() => handleEdit(user.employeeId)}
+                                onClick={() =>
+                                  handleUserProfileEdit(user.employeeId)
+                                }
                                 label={
                                   <>
                                     <CiEdit />
@@ -1082,7 +1120,9 @@ function UserProfile() {
                           <MenuItem>
                             {() => (
                               <Buttons
-                                onClick={() => handleDelete(user.employeeId)}
+                                onClick={() =>
+                                  handleUserProfileDelete(user.employeeId)
+                                }
                                 label={
                                   <>
                                     <MdDeleteOutline />
@@ -1103,21 +1143,21 @@ function UserProfile() {
           </table>
           {/* </InfiniteScroll> */}
 
-          {showPreView && (
+          {showUserProfileImagePreView && (
             <FilePreview
-              file={imagePreView}
+              file={userProfileImagePreView}
               onClose={handleClosePreview}
               handleRemoveFile={handleRemoveFile}
             />
           )}
         </div>
       </div>
-      {showConfirm && (
+      {showConfirmModel && (
         <Confirmation
-          confirm={handleConfirm}
-          cancel={handleCancel}
-          type={editId ? "edit" : "delete"}
-          message={confirmMsg}
+          confirm={handleConfirmDeleteOrEdit}
+          cancel={handleConfrimCancelDeleteOrEdit}
+          type={editUserProfileId ? "edit" : "delete"}
+          message={confirmModelMsg}
         />
       )}
     </>
