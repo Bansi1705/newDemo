@@ -2,7 +2,7 @@
   "users": [
     {
       "name": "bansi",
-      "age": 21,
+      "age": 23,
       "birthdate": "2026-05-09",
       "uploadFile": [
         {
@@ -16933,5 +16933,51 @@
       "id": "t4LxXPrKq4k"
     }
   ],
+  "paymentDetails": {
+    "propertyWisePaymentDetails": {
+      "Embassy Suites Indianapolis North": {
+        "propertyId": 7,
+        "totalInvoices": "1",
+        "paidThroughWellsFargoCount": "0",
+        "m3AutoPayCount": "0",
+        "underApprovalCount": "1",
+        "faildPaymentCount": "0",
+        "totalInvoiceAmount": "1442.94",
+        "paidThroughWellsFargoAmount": "0.00",
+        "m3AutoPayAmount": "0.00",
+        "underApprovalAmount": "1442.94",
+        "faildPaymentAmount": "0.00"
+      },
+      "Pensacola-Home 2 Suites": {
+        "propertyId": 10,
+        "totalInvoices": "1",
+        "paidThroughWellsFargoCount": "0",
+        "m3AutoPayCount": "0",
+        "underApprovalCount": "1",
+        "faildPaymentCount": "0",
+        "totalInvoiceAmount": "1225.86",
+        "paidThroughWellsFargoAmount": "0.00",
+        "m3AutoPayAmount": "0.00",
+        "underApprovalAmount": "1225.86",
+        "faildPaymentAmount": "0.00"
+      }
+    },
+    "totals": {
+      "totalInvoices": 2,
+      "paidThroughWellsFargoCount": 0,
+      "m3AutoPayCount": 0,
+      "underApprovalCount": 2,
+      "faildPaymentCount": 0,
+      "totalInvoiceAmount": 2668.8,
+      "paidThroughWellsFargoAmount": 0,
+      "m3AutoPayAmount": 0,
+      "underApprovalAmount": 2668.8,
+      "faildPaymentAmount": 0,
+      "paidThroughWellsFargoPercentage": "0.00%",
+      "m3AutoPayPercentage": "0.00%",
+      "underApprovalPercentage": "100.00%",
+      "faildPaymentPercentage": "0.00%"
+    }
+  },
   "$schema": "./node_modules/json-server/schema.json"
 }

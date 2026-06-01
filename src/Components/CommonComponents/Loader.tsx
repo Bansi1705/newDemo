@@ -12,12 +12,8 @@ const Loader = ({
   size = 50,
 }: LoaderProps) => {
   return (
-    <div className="flex justify-center items-center min-h-screen">
-      <ClipLoader
-        loading={loading}
-        color={color}
-        size={size}
-      />
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+      <ClipLoader loading={loading} color={color} size={size} />
     </div>
   );
 };
