@@ -39,7 +39,7 @@ export const COMMON_SERVICES = {
     ];
 
     for (let i = 0; i < 12; i++) {
-      months[i + 1] = monthNames[i % 12];
+      months[i + 1] = monthNames[i];
     }
     return months;
   },

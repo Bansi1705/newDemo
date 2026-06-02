@@ -1005,7 +1005,7 @@ function UserProfile() {
             </thead>
 
             <tbody>
-              {userProfiles.length === 0 ? (
+              {visibleUsers.length === 0 ? (
                 <tr>
                   <td
                     colSpan={userProfileTableHeader.length}

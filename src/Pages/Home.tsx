@@ -189,7 +189,7 @@ const Home = () => {
     setSelectedMonth(value);
   };
 
-  // console.log(selectedMonth);
+  console.log(selectedMonth);
 
   const [showItems, setShowItems] = useState([
     { label: "BCA", value: "bca" },
@@ -217,91 +217,94 @@ const Home = () => {
     );
   };
 
-  const handleCheckedDelete = () => {
-    setShowConfirm(true);
-  };
+  const handleCheckedDelete = () =>
+    checkedDelete.length != 0
+      ? setShowConfirm(true)
+      : toast.error("Please Select Item First !");
 
   // console.log(weeks);
   return (
     <>
-      {loading ? (
-        <Loader />
-      ) : (
-        <>
-          <Header search={search} setSearch={setSearch} searchShow={true} />
-          <div className="user-data">
-            <div className="table-section">
-              <div className="apiButtons mb-4 flex gap-4 justify-center items-center">
-                <Buttons
-                  label="Get"
-                  onClick={() => handleApiTest("Get", "/users")}
-                  className="bg-blue-500 px-3 py-2 rounded cursor-pointer"
-                />
-                <Buttons
-                  label="Post"
-                  onClick={() => handleApiTest("Post", "/users")}
-                  className="bg-blue-500 px-3 py-2 rounded cursor-pointer"
-                />
-                <Buttons
-                  label="Put"
-                  onClick={() => handleApiTest("Put", "/users/1")}
-                  className="bg-blue-500 px-3 py-2 rounded cursor-pointer"
-                />
-                <Buttons
-                  label="Delete"
-                  onClick={() => handleApiTest("Delete", "/users/2")}
-                  className="bg-blue-500 px-3 py-2 rounded cursor-pointer"
-                />
+      <>
+        <Header search={search} setSearch={setSearch} searchShow={true} />
+        <div className="user-data">
+          <div className="table-section">
+            <div className="apiButtons mb-4 flex gap-4 justify-center items-center">
+              <Buttons
+                label="Get"
+                onClick={() => handleApiTest("Get", "/users")}
+                className="bg-blue-500 px-3 py-2 rounded cursor-pointer"
+              />
+              <Buttons
+                label="Post"
+                onClick={() => handleApiTest("Post", "/users")}
+                className="bg-blue-500 px-3 py-2 rounded cursor-pointer"
+              />
+              <Buttons
+                label="Put"
+                onClick={() => handleApiTest("Put", "/users/1")}
+                className="bg-blue-500 px-3 py-2 rounded cursor-pointer"
+              />
+              <Buttons
+                label="Delete"
+                onClick={() => handleApiTest("Delete", "/users/2")}
+                className="bg-blue-500 px-3 py-2 rounded cursor-pointer"
+              />
 
-                <DropDown
-                  optionsLabel={months}
-                  selectClasName="setectBirth m-4 outline-1 color-white bg-#f9f9f9"
-                  selectValue={selectedMonth}
-                  dropDownChange={handleMonthChange}
-                  selectName="userMonth"
-                />
+              <DropDown
+                optionsLabel={months}
+                selectClasName="setectBirth m-4 outline-1 color-white bg-#f9f9f9"
+                selectValue={selectedMonth}
+                dropDownChange={handleMonthChange}
+                selectName="userMonth"
+              />
 
-                <CommonMultiSelect
-                  options={showItems}
-                  setOption={setShowItems}
-                  placeHolder="Select Course"
-                  isAdd={true}
-                  isDelete={true}
-                />
-                <Buttons
-                  label={"Delete Selected Item"}
-                  className="p-3 bg-blue-600"
-                  onClick={handleCheckedDelete}
-                />
-              </div>
+              <CommonMultiSelect
+                options={showItems}
+                setOption={setShowItems}
+                placeHolder="Select Course"
+                isAdd={true}
+                isDelete={true}
+              />
+              <Buttons
+                label={"Delete Selected Item"}
+                className="p-3 bg-blue-600"
+                onClick={handleCheckedDelete}
+              />
+            </div>
 
-              <div className="date-picker-section">
-                <CustomDateRangePicker />
+            <div className="date-picker-section">
+              <CustomDateRangePicker />
 
-                <WeekPicker
-                  startYear={2025}
-                  startMonth={1}
-                  endYear={2027}
-                  endMonth={10}
-                />
+              <WeekPicker
+                startYear={2025}
+                startMonth={1}
+                endYear={2027}
+                endMonth={10}
+              />
 
-                <MultipleWeekPicker selectedWeeks={weeks} onChange={setWeeks} />
-              </div>
+              <MultipleWeekPicker selectedWeeks={weeks} onChange={setWeeks} />
+            </div>
 
-              <h2 className="main-title">Users List</h2>
+            <h2 className="main-title">Users List</h2>
 
-              <div className="table-wrapper">
-                <table border={2} className="data-table">
-                  <thead>
+            <div className="table-wrapper">
+              <table border={2} className="data-table">
+                <thead>
+                  <tr>
+                    {title.map((head, index) => (
+                      <th key={index}>{head}</th>
+                    ))}
+                  </tr>
+                </thead>
+
+                <tbody>
+                  {currentRecords.length === 0 ? (
                     <tr>
-                      {title.map((head, index) => (
-                        <th key={index}>{head}</th>
-                      ))}
+                      <td colSpan={title.length}>No Data Found</td>
                     </tr>
-                  </thead>
-
-                  <tbody>
-                    {currentRecords.map((user, index) => (
+                  ) : (
+                    currentRecords.map((user, index) => (
                       <tr key={user.id}>
                         <td>
                           <FormControlLabel
@@ -370,39 +373,42 @@ const Home = () => {
                           </Menu>
                         </td>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
+                    ))
+                  )}
+                  {}
+                </tbody>
+              </table>
 
-                <Pagination
-                  currentPage={currentPage}
-                  totalPages={totalPages}
-                  onPageChange={setCurrentPage}
-                />
-              </div>
+              <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={setCurrentPage}
+              />
             </div>
           </div>
+        </div>
 
-          {showPreView && (
-            <FilePreview file={showPreviewImage} onClose={handleClosePreview} />
-          )}
+        {showPreView && (
+          <FilePreview file={showPreviewImage} onClose={handleClosePreview} />
+        )}
 
-          {showConfirm && (
-            <Confirmation
-              confirm={handleConfirm}
-              cancel={handleCancel}
-              type={deleteId !== undefined ? "delete" : "edit"}
-              message={
-                deleteId !== undefined
-                  ? "Do You Really Want To Delete This Item ??"
-                  : editId !== undefined
-                    ? "Do You Want To Edit This Item ??"
-                    : "Do You Want To Delete All Selected Items ??"
-              }
-            />
-          )}
-        </>
-      )}
+        {showConfirm && (
+          <Confirmation
+            confirm={handleConfirm}
+            cancel={handleCancel}
+            type={deleteId !== undefined ? "delete" : "edit"}
+            message={
+              deleteId !== undefined
+                ? "Do You Really Want To Delete This Item ??"
+                : editId !== undefined
+                  ? "Do You Want To Edit This Item ??"
+                  : "Do You Want To Delete All Selected Items ??"
+            }
+          />
+        )}
+      </>
+
+      {loading && <Loader />}
     </>
   );
 };

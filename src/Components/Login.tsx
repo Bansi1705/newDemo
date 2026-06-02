@@ -176,6 +176,7 @@ const Login: React.FC = () => {
               setShowPassword={() => dispatch({ type: "TOGGLE_PASSWORD" })}
               label="Password"
               required={true}
+              classname="px-3 py-2 border border-gray-300 rounded-lg text-base outline-none focus:border-blue-600 transition-colors duration-200"
             />
             {state.error.password && (
               <span className="error-message">{state.error.password}</span>
@@ -199,11 +200,11 @@ const Login: React.FC = () => {
               </span>
             </div> */}
 
-            {state.error.password && (
+            {/* {state.error.password && (
               <p className="mt-1 text-red-600 text-sm">
                 {state.error.password}
               </p>
-            )}
+            )} */}
           </div>
           <div className="mb-4 flex flex-col">
             <label

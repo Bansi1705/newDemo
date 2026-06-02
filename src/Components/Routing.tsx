@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import { AuthGuard } from "./Auth/AuthGuard";
 import { Suspense } from "react";
 import Loader from "./CommonComponents/Loader";
+
 import {
   ApexChart,
   CapitalExpense,
@@ -19,155 +20,33 @@ import {
   UserProfile,
 } from "./LazyLoading";
 
-export const Routing = createBrowserRouter([
-  {
-    path: "/",
+const routingPages = [
+  { path: "/", component: Login, required: false },
+  { path: "/home", component: Home, required: true },
+  { path: "/add-user", component: Form, required: true },
+  { path: "/edit-user/:id", component: Form, required: true },
+  { path: "/userExpense", component: UserExpense, required: true },
+  { path: "/data", component: Data, required: true },
+  { path: "/roomData", component: RoomData, required: true },
+  { path: "/propertyData", component: PropertyData, required: true },
+  { path: "/property", component: Property, required: true },
+  { path: "/chartData", component: ApexChart, required: true },
+  { path: "/propertyCard", component: PropertyCard, required: true },
+  { path: "/propertyWiseCard", component: PropertyWiseCard, required: true },
+  { path: "/monthlyReport", component: MonthlyReports, required: true },
+  { path: "/capitalExpense", component: CapitalExpense, required: true },
+  { path: "/userProfile", component: UserProfile, required: true },
+];
+
+export const Routing = createBrowserRouter(
+  routingPages.map((item) => ({
+    path: item.path,
     element: (
-      <AuthGuard required={false}>
+      <AuthGuard required={item.required}>
         <Suspense fallback={<Loader />}>
-          <Login />
+          <item.component />
         </Suspense>
       </AuthGuard>
     ),
-  },
-  {
-    path: "/home",
-    element: (
-      <AuthGuard required={true}>
-        <Suspense fallback={<Loader />}>
-          <Home />
-        </Suspense>
-      </AuthGuard>
-    ),
-  },
-  {
-    path: "/add-user",
-    element: (
-      <AuthGuard required={true}>
-        <Suspense fallback={<Loader />}>
-          <Form />
-        </Suspense>
-      </AuthGuard>
-    ),
-  },
-  {
-    path: "/edit-user/:id",
-    element: (
-      <AuthGuard required={true}>
-        <Suspense fallback={<Loader />}>
-          <Form />
-        </Suspense>
-      </AuthGuard>
-    ),
-  },
-  {
-    path: "userExpense",
-    element: (
-      <AuthGuard required={true}>
-        <Suspense fallback={<Loader />}>
-          <UserExpense />
-        </Suspense>
-      </AuthGuard>
-    ),
-  },
-  {
-    path: "/data",
-    element: (
-      <AuthGuard required={true}>
-        <Suspense fallback={<Loader />}>
-          <Data />
-        </Suspense>
-      </AuthGuard>
-    ),
-  },
-  {
-    path: "/roomData",
-    element: (
-      <AuthGuard required={true}>
-        <Suspense fallback={<Loader />}>
-          <RoomData />
-        </Suspense>
-      </AuthGuard>
-    ),
-  },
-  {
-    path: "/propertyData",
-    element: (
-      <AuthGuard required={true}>
-        <Suspense fallback={<Loader />}>
-          <PropertyData />
-        </Suspense>{" "}
-      </AuthGuard>
-    ),
-  },
-  {
-    path: "/property",
-    element: (
-      <AuthGuard required={true}>                                 
-        <Suspense fallback={<Loader />}>
-          <Property />
-        </Suspense>
-      </AuthGuard>
-    ),
-  },
-  {
-    path: "/chartData",
-    element: (
-      <AuthGuard required={true}>
-        <Suspense fallback={<Loader />}>
-          <ApexChart />
-        </Suspense>{" "}
-      </AuthGuard>
-    ),
-  },
-  {
-    path: "/propertyCard",
-    element: (
-      <AuthGuard required={true}>
-        <Suspense fallback={<Loader />}>
-          <PropertyCard />
-        </Suspense>
-      </AuthGuard>
-    ),
-  },
-  {
-    path: "/propertyWiseCard",
-    element: (
-      <AuthGuard required={true}>
-        <Suspense fallback={<Loader />}>
-          <PropertyWiseCard />
-        </Suspense>
-      </AuthGuard>
-    ),
-  },
-  {
-    path: "/monthlyReport",
-    element: (
-      <AuthGuard required={true}>
-        <Suspense fallback={<Loader />}>
-          <MonthlyReports />
-        </Suspense>
-      </AuthGuard>
-    ),
-  },
-  {
-    path: "/capitalExpense",
-    element: (
-      <AuthGuard required={true}>
-        <Suspense fallback={<Loader />}>
-          <CapitalExpense />
-        </Suspense>
-      </AuthGuard>
-    ),
-  },
-  {
-    path: "/userProfile",
-    element: (
-      <AuthGuard required={true}>
-        <Suspense fallback={<Loader />}>
-          <UserProfile />
-        </Suspense>
-      </AuthGuard>
-    ),
-  },
-]);
+  })),
+);

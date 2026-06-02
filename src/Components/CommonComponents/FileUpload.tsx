@@ -54,11 +54,8 @@ const FileUpload = ({
 
     if (validFiles.length > 0) {
       onFileSelect(multipleFile ? validFiles : validFiles[0]);
-
       const newCount = selectedFileCount + validFiles.length;
-
       setSelectedFileCount(newCount);
-
       setFileName(
         multipleFile ? `${newCount} files selected` : validFiles[0].name,
       );

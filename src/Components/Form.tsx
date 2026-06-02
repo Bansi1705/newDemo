@@ -181,7 +181,7 @@ const Form = () => {
             />
           </div>
 
-          <div className="form-group">
+          <div className="form-group mb-4">
             <label
               htmlFor="datePicker"
               className="form-label block mb-1 font-medium text-gray-800"
@@ -193,6 +193,7 @@ const Form = () => {
               onChange={(date) => setData({ ...data, birthdate: date })}
               selectedDate={data.birthdate}
               placeholder="Select BirthDate"
+              className="input-field px-3 py-2 border border-gray-300 rounded-lg text-base outline-none focus:border-blue-600 transition-colors duration-200"
             />
           </div>
           <div className="form-group mb-4">

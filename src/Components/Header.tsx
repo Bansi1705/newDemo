@@ -9,7 +9,17 @@ import { toast } from "react-toastify";
 import { Buttons } from "./CommonComponents/Buttons";
 import { SearchBar } from "./CommonComponents/SearchComponent";
 import { CONSTANT } from "../Services/Constant";
-import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
+import {
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuItems,
+  Tab,
+  TabGroup,
+  TabList,
+  TabPanel,
+  TabPanels,
+} from "@headlessui/react";
 
 type HeaderProps = {
   search?: string;
@@ -22,6 +32,7 @@ function Header({ search, setSearch, searchShow }: HeaderProps) {
   const [showCofirm, setShowConfirm] = useState<boolean>(false);
   const [selectedTab, setSelectedTab] = useState("Pages");
   const navigate = useNavigate();
+  const [selectedTabIndex, setSelectedTabIndex] = useState<number>(0);
 
   const handleLogout = () => {
     setShowConfirm(true);
@@ -36,57 +47,44 @@ function Header({ search, setSearch, searchShow }: HeaderProps) {
   const handleCancel = () => {
     setShowConfirm(false);
   };
-console.log("header renders")
+  // console.log("header renders")
+  const navLinkList = [
+    { to: "/home", name: "Home" },
+    { to: "/add-user", name: "+ User" },
+    { to: "/userExpense", name: "+ Expense" },
+    { to: "/data", name: "Data" },
+    { to: "/roomData", name: "RoomData" },
+    { to: "/propertyData", name: "Property Data" },
+    { to: "/chartData", name: "Charts" },
+  ];
   return (
     <div className="navbar flex items-center justify-between px-[15px] py-[30px] bg-blue-500 text-white w-full">
       <div className="text-2xl font-bold">
         <h1>UserDetail</h1>
       </div>
       <div className="navbar-links flex items-center justify-between gap-1 flex-nowrap text-sm">
-        <NavLink
-          to="/"
-          className="nav-item text-white font-medium hover:text-gray-300 px-3 py-2 ml-2 whitespace-nowrap"
+        <TabGroup
+          selectedIndex={selectedTabIndex}
+          onChange={setSelectedTabIndex}
         >
-          Home
-        </NavLink>
+          <TabList>
+            {navLinkList.map((item) => (
+              <Tab
+                key={item.to}
+                onClick={() => navigate(item.to)}
+                className="nav-item text-white font-medium hover:text-gray-300 px-3 py-2 ml-2 whitespace-nowrap"
+              >
+                {item.name}
+              </Tab>
+            ))}
+          </TabList>
 
-        <NavLink
-          to="/add-user"
-          className="nav-item text-white font-medium hover:text-gray-300 px-3 py-2 ml-2 whitespace-nowrap"
-        >
-          + User
-        </NavLink>
-
-        <NavLink
-          to="/userExpense"
-          className="nav-item text-white font-medium hover:text-gray-300 px-3 py-2 ml-2 whitespace-nowrap"
-        >
-          + Expense
-        </NavLink>
-        <NavLink
-          to="/data"
-          className="nav-item text-white font-medium hover:text-gray-300 px-3 py-2 ml-2 whitespace-nowrap"
-        >
-          Data
-        </NavLink>
-        <NavLink
-          to="/roomData"
-          className="nav-item text-white font-medium hover:text-gray-300 px-3 py-2 ml-2 whitespace-nowrap"
-        >
-          Room Data
-        </NavLink>
-        <NavLink
-          to="/propertyData"
-          className="nav-item text-white font-medium hover:text-gray-300 px-3 py-2 ml-2 whitespace-nowrap"
-        >
-          Property Data
-        </NavLink>
-        <NavLink
-          to="/chartData"
-          className="nav-item text-white font-medium hover:text-gray-300 px-3 py-2 ml-2 whitespace-nowrap"
-        >
-          Chart
-        </NavLink>
+          <TabPanels className="hidden">
+            {navLinkList.map((item) => (
+              <TabPanel key={item.to}>{item.name}</TabPanel>
+            ))}
+          </TabPanels>
+        </TabGroup>
         <Menu as="div" className="relative inline-block text-left">
           <MenuButton className="flex items-center gap-1 text-white font-medium hover:text-gray-300 px-3 py-2 ml-2 whitespace-nowrap">
             {selectedTab}
@@ -123,7 +121,7 @@ console.log("header renders")
                 PropertyWise Card
               </NavLink>
             </MenuItem>
-             <MenuItem>
+            <MenuItem>
               <NavLink
                 to="/monthlyReport"
                 onClick={() => setSelectedTab("MonthlyReport")}
@@ -132,7 +130,7 @@ console.log("header renders")
                 Monthly Report
               </NavLink>
             </MenuItem>
-             <MenuItem>
+            <MenuItem>
               <NavLink
                 to="/capitalExpense"
                 onClick={() => setSelectedTab("MonthlyReport")}
