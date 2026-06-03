@@ -34,6 +34,7 @@ export interface LoginData {
 export interface OtpProps {
   otpValue: string;
   setOtpValue: (value: string) => void;
+  className?:string;
 }
 export interface buttonProps {
   onClick?: React.MouseEventHandler<HTMLButtonElement>;

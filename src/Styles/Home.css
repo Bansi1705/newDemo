@@ -85,7 +85,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width:100%;
+  width: 100%;
 }
 
 .delete-btn {
@@ -106,34 +106,7 @@
   background-color: #1e7e34;
 }
 
-.pagination-controls {
-  text-align: center;
-  margin: auto;
-  margin-top: 20px;
-  display: flex;
-  width: 70%;
-  align-items: center;
-  justify-content: center;
-}
-
-.pagination-button {
-  padding: 6px 12px;
-  margin: 0 5px;
-  border: 1px solid #ccc;
-  background-color: white;
-  cursor: pointer;
-  width: 30%;
-}
-
-.pagination-button:disabled {
-  color: rgb(222, 157, 157);
-  cursor: not-allowed;
-}
-
-.pagination-controls span {
-  margin: 0 10px;
-}
-.imagePreviewIcon{
+.imagePreviewIcon {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -253,31 +226,4 @@
   height: 18px;
   flex: 0 0 auto;
   color: #2563eb;
-}
-
-@media (max-width: 760px) {
-  .date-picker-section {
-    justify-content: stretch;
-    padding: 12px;
-  }
-
-  .date-picker-section > div,
-  .date-picker-section__summary {
-    flex-basis: 100%;
-    max-width: 100%;
-  }
-
-  .propertyCard {
-    padding: 14px;
-  }
-
-  .property-date-cards {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (min-width: 761px) and (max-width: 1024px) {
-  .property-date-cards {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
 }

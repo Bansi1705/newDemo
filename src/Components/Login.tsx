@@ -88,7 +88,7 @@ const reducer = (state: State, action: Action): State => {
 };
 const Login: React.FC = () => {
   const navigate = useNavigate();
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [loginState, dispatch] = useReducer(reducer, initialState);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -106,20 +106,20 @@ const Login: React.FC = () => {
 
   const validate = (): boolean => {
     const newError: FormError = {};
-    if (!state.data.email.trim()) {
+    if (!loginState.data.email.trim()) {
       newError.email = "Email is required!";
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(state.data.email)) {
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(loginState.data.email)) {
       newError.email = "Invalid email format";
     }
-    if (!state.data.password.trim()) {
+    if (!loginState.data.password.trim()) {
       newError.password = "Password is required!";
-    } else if (state.data.password.length < 6) {
+    } else if (loginState.data.password.length < 6) {
       newError.password = "Minimum 6 characters required";
     }
-    if (!state.otpValue.trim()) {
+    if (!loginState.otpValue.trim()) {
       newError.otp = "Otp Required!";
     }
-    if (state.otpValue !== localStorage.getItem("loginOtp")) {
+    if (loginState.otpValue !== localStorage.getItem("loginOtp")) {
       newError.otp = "Invalid OTP!";
     }
     dispatch({
@@ -134,7 +134,7 @@ const Login: React.FC = () => {
     if (validate()) {
       sessionStorage.setItem(
         "LoginUser",
-        JSON.stringify({ ...state.data, token: "123abc" }),
+        JSON.stringify({ ...loginState.data, token: "123abc" }),
       );
       toast.success(CONSTANT.SUCCESS.LOGIN);
       navigate("/home");
@@ -159,27 +159,28 @@ const Login: React.FC = () => {
               type="email"
               name="email"
               id="email"
-              value={state.data.email}
+              value={loginState.data.email}
               onChange={handleChange}
               placeholder="bansi@gmail.com"
-              error={state.error.email}
+              error={loginState.error.email}
               classname="px-3 py-2 border border-gray-300 rounded-lg text-base outline-none focus:border-blue-600 transition-colors duration-200"
             />
           </div>
 
-          <div className="mb-4 flex flex-col">
+          <div className="mb-4 flex flex-col text-black-400">
+            <label htmlFor="email" className="mb-1 font-medium text-gray-800">
+              Password:
+            </label>
             <PasswordInput
               name="password"
-              value={state.data.password}
+              value={loginState.data.password}
               handleChange={handleChange}
-              showPassword={state.showPassword}
+              showPassword={loginState.showPassword}
               setShowPassword={() => dispatch({ type: "TOGGLE_PASSWORD" })}
-              label="Password"
-              required={true}
               classname="px-3 py-2 border border-gray-300 rounded-lg text-base outline-none focus:border-blue-600 transition-colors duration-200"
             />
-            {state.error.password && (
-              <span className="error-message">{state.error.password}</span>
+            {loginState.error.password && (
+              <span className="error-message">{loginState.error.password}</span>
             )}
             {/* <div className="relative flex items-center">
               <InputField
@@ -214,13 +215,16 @@ const Login: React.FC = () => {
               Otp :
             </label>
             <Otp
-              otpValue={state.otpValue}
+              otpValue={loginState.otpValue}
               setOtpValue={(value: string) =>
                 dispatch({ type: "SET_OTP", payload: value })
               }
+              className="px-3 py-2 border border-gray-300 rounded-lg text-base outline-none focus:border-blue-600 transition-colors duration-200"
             />
-            {state.error.otp && (
-              <p className="mt-1 text-red-600 text-sm">{state.error.otp}</p>
+            {loginState.error.otp && (
+              <p className="error-message">
+                {loginState.error.otp}
+              </p>
             )}
           </div>
 

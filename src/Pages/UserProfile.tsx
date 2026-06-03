@@ -527,9 +527,9 @@ function UserProfile() {
   return (
     <>
       <Header
-        searchShow={true}
-        search={searchUserProfileByName}
-        setSearch={setSearchUserProfileByName}
+        showSearchInput={true}
+        searchTerm={searchUserProfileByName}
+        setSearchTerm={setSearchUserProfileByName}
       />
 
       <div className="userProfile-form-data">

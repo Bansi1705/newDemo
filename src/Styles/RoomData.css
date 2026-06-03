@@ -70,3 +70,14 @@
 .delete-selected-btn:hover {
   background: #c62828;
 }
+.deleteRoom-btn {
+  width: 100%;
+  background: #e53935;
+  color: #eef4fb;
+  border: none;
+  padding: 8px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}

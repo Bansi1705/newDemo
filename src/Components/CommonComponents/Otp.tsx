@@ -1,6 +1,6 @@
 import type { OtpProps } from "../../Interface/types";
 
-export const Otp: React.FC<OtpProps> = ({ otpValue, setOtpValue }) => {
+export const Otp: React.FC<OtpProps> = ({ otpValue, setOtpValue ,className }) => {
   return (
     <input
       type="text"
@@ -9,7 +9,7 @@ export const Otp: React.FC<OtpProps> = ({ otpValue, setOtpValue }) => {
       value={otpValue}
       onChange={(e) => setOtpValue(e.target.value)}
       placeholder="Enter OTP"
-      className="form-input"
+      className={className}
     />
   );
 };

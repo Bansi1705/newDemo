@@ -22,30 +22,30 @@ import {
 } from "@headlessui/react";
 
 type HeaderProps = {
-  search?: string;
-  setSearch?: React.Dispatch<React.SetStateAction<string>>;
-  searchShow?: boolean;
+  searchTerm?: string;
+  setSearchTerm?: React.Dispatch<React.SetStateAction<string>>;
+  showSearchInput?: boolean;
 };
 
-function Header({ search, setSearch, searchShow }: HeaderProps) {
+function Header({ searchTerm, setSearchTerm, showSearchInput }: HeaderProps) {
   const { theme, toggleTheme } = useTheme();
-  const [showCofirm, setShowConfirm] = useState<boolean>(false);
-  const [selectedTab, setSelectedTab] = useState("Pages");
+  const [showLogOutCofirm, setShowLogOutConfirm] = useState<boolean>(false);
+  const [selectedNavTab, setSelectedNavTab] = useState("Pages");
   const navigate = useNavigate();
   const [selectedTabIndex, setSelectedTabIndex] = useState<number>(0);
 
-  const handleLogout = () => {
-    setShowConfirm(true);
+  const handleUserLogout = () => {
+    setShowLogOutConfirm(true);
   };
 
-  const handleConfirm = () => {
+  const handleUserLogOutConfirm = () => {
     sessionStorage.removeItem("LoginUser");
     toast.success(CONSTANT.SUCCESS.LOGOUT);
     navigate("/");
   };
 
-  const handleCancel = () => {
-    setShowConfirm(false);
+  const handleUserLogOutConfirmCancel = () => {
+    setShowLogOutConfirm(false);
   };
   // console.log("header renders")
   const navLinkList = [
@@ -87,7 +87,7 @@ function Header({ search, setSearch, searchShow }: HeaderProps) {
         </TabGroup>
         <Menu as="div" className="relative inline-block text-left">
           <MenuButton className="flex items-center gap-1 text-white font-medium hover:text-gray-300 px-3 py-2 ml-2 whitespace-nowrap">
-            {selectedTab}
+            {selectedNavTab}
             <FaChevronDown size={14} />
           </MenuButton>
 
@@ -95,7 +95,7 @@ function Header({ search, setSearch, searchShow }: HeaderProps) {
             <MenuItem>
               <NavLink
                 to="/property"
-                onClick={() => setSelectedTab("Property")}
+                onClick={() => setSelectedNavTab("Property")}
                 className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-black"
               >
                 Property
@@ -105,7 +105,7 @@ function Header({ search, setSearch, searchShow }: HeaderProps) {
             <MenuItem>
               <NavLink
                 to="/propertyCard"
-                onClick={() => setSelectedTab("Property Card")}
+                onClick={() => setSelectedNavTab("Property Card")}
                 className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-black"
               >
                 Property Card
@@ -115,7 +115,7 @@ function Header({ search, setSearch, searchShow }: HeaderProps) {
             <MenuItem>
               <NavLink
                 to="/propertyWiseCard"
-                onClick={() => setSelectedTab("PropertyWise Card")}
+                onClick={() => setSelectedNavTab("PropertyWise Card")}
                 className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-black"
               >
                 PropertyWise Card
@@ -124,7 +124,7 @@ function Header({ search, setSearch, searchShow }: HeaderProps) {
             <MenuItem>
               <NavLink
                 to="/monthlyReport"
-                onClick={() => setSelectedTab("MonthlyReport")}
+                onClick={() => setSelectedNavTab("MonthlyReport")}
                 className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-black"
               >
                 Monthly Report
@@ -133,7 +133,7 @@ function Header({ search, setSearch, searchShow }: HeaderProps) {
             <MenuItem>
               <NavLink
                 to="/capitalExpense"
-                onClick={() => setSelectedTab("MonthlyReport")}
+                onClick={() => setSelectedNavTab("Capital Expense")}
                 className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-black"
               >
                 Capital Expense
@@ -143,7 +143,7 @@ function Header({ search, setSearch, searchShow }: HeaderProps) {
             <MenuItem>
               <NavLink
                 to="/userProfile"
-                onClick={() => setSelectedTab("Property Card")}
+                onClick={() => setSelectedNavTab("User Profile")}
                 className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-black"
               >
                 User Profile
@@ -153,7 +153,7 @@ function Header({ search, setSearch, searchShow }: HeaderProps) {
         </Menu>
 
         <Buttons
-          onClick={handleLogout}
+          onClick={handleUserLogout}
           label="LogOut"
           type="button"
           className="px-3 py-2 bg-blue-600 text-white rounded hover:bg-blue-800 transition-colors whitespace-nowrap"
@@ -161,13 +161,13 @@ function Header({ search, setSearch, searchShow }: HeaderProps) {
       </div>
 
       <div className="flex items-center gap-1">
-        {searchShow && (
+        {showSearchInput && (
           <div className="search-container flex items-center gap-2 border border-gray-300 rounded px-2 py-1 bg-white text-black">
             <FaSearch className="search-icon text-base text-gray-500" />
             <SearchBar
-              searchTerm={search}
+              searchTerm={searchTerm}
               searchPlaceholder="Search...."
-              searchOnChange={(e) => setSearch && setSearch(e.target.value)}
+              searchOnChange={(e) => setSearchTerm?.(e.target.value)}
               searchClssName="text-sm focus:outline-none border-none bg-transparent"
             />
           </div>
@@ -180,11 +180,11 @@ function Header({ search, setSearch, searchShow }: HeaderProps) {
         </div>
       </div>
 
-      {showCofirm && (
+      {showLogOutCofirm && (
         <Confirmation
           type="Logout"
-          confirm={handleConfirm}
-          cancel={handleCancel}
+          confirm={handleUserLogOutConfirm}
+          cancel={handleUserLogOutConfirmCancel}
           message="Do You Really Want To LogOut ??"
         />
       )}

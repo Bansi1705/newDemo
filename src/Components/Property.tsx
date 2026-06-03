@@ -33,15 +33,27 @@ const Property: React.FC = () => {
   const [data, setData] = useState<propertyInterface[]>([]);
   const [loadingData, setLodingData] = useState<boolean>(true);
 
-  const getOptions = (item: propertyInterface) => [
-    ...item.defaultSupportEmails.map((e) => ({ label: e, value: e })),
-    ...item.expense.expenseApprovalWorkFlow
-      .filter((wf) => wf.approvalName)
-      .map((wf) => ({
-        label: wf.approvalName!,
-        value: wf.approvalName!,
-      })),
-  ];
+  const getOptions = (item: propertyInterface) => {
+    const options: { label: string; value: string }[] = [];
+
+    item.defaultSupportEmails.forEach((email) => {
+      options.push({
+        label: email,
+        value: email,
+      });
+    });
+
+    item.expense.expenseApprovalWorkFlow.forEach((workflow) => {
+      if (workflow.approvalName) {
+        options.push({
+          label: workflow.approvalName,
+          value: workflow.approvalName,
+        });
+      }
+    });
+
+    return options;
+  };
 
   useEffect(() => {
     const fetchData = async () => {

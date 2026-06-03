@@ -14,10 +14,11 @@ interface DepartmentData {
   ab: number;
   ttm: number;
 }
-
 interface PropertyDataInterface {
   propertyName: string;
-  departments: DepartmentData[];
+  data: {
+    departments: DepartmentData[];
+  };
 }
 
 const PropertyData: React.FC = () => {
@@ -34,7 +35,7 @@ const PropertyData: React.FC = () => {
     const categoryNames: string[] = [];
 
     propertyData.forEach((property) => {
-      property.departments.forEach((department) => {
+      property.data.departments.forEach((department) => {
         if (!categoryNames.includes(department.categoryName)) {
           categoryNames.push(department.categoryName);
         }
@@ -48,7 +49,7 @@ const PropertyData: React.FC = () => {
     property: PropertyDataInterface,
     categoryName: string,
   ) => {
-    return property.departments.find(
+    return property.data.departments.find(
       (department) => department.categoryName === categoryName,
     );
   };
@@ -57,10 +58,12 @@ const PropertyData: React.FC = () => {
     const fetchData = async () => {
       try {
         setLoadData(true);
-        const res: ApiResponse<any[]> = await Apiservice.get("/propertyData");
+        const res: ApiResponse<PropertyDataInterface[]> =
+          await Apiservice.get("/propertyData");
 
         const formattedData: PropertyDataInterface[] = res.data.map((item) => {
           const dashboardData = item.data.dashboardData;
+          console.log(dashboardData);
           const departments: DepartmentData[] = [];
 
           Object.keys(dashboardData).forEach((key) => {
@@ -82,7 +85,7 @@ const PropertyData: React.FC = () => {
           const categories = dashboardData.categories;
 
           Object.keys(categories).forEach((key) => {
-            categories[key].forEach((row: any) => {
+            categories[key].forEach((row: DepartmentData) => {
               departments.push({
                 categoryName: row.categoryName,
                 departmentTotalBudget: row.departmentTotalBudget || 0,
@@ -93,29 +96,35 @@ const PropertyData: React.FC = () => {
           });
 
           if (dashboardData.fixedEpenseArray?.data) {
-            dashboardData.fixedEpenseArray.data.forEach((row: any) => {
-              departments.push({
-                categoryName: row.categoryName,
-                departmentTotalBudget: row.departmentTotalBudget || 0,
-                ab: row.ab || 0,
-                ttm: row.ttm || 0,
-              });
-            });
+            dashboardData.fixedEpenseArray.data.forEach(
+              (row: DepartmentData) => {
+                departments.push({
+                  categoryName: row.categoryName,
+                  departmentTotalBudget: row.departmentTotalBudget || 0,
+                  ab: row.ab || 0,
+                  ttm: row.ttm || 0,
+                });
+              },
+            );
           }
 
           if (dashboardData.nonOperatingExpense?.data) {
-            dashboardData.nonOperatingExpense.data.forEach((row: any) => {
-              departments.push({
-                categoryName: row.categoryName,
-                departmentTotalBudget: row.departmentTotalBudget || 0,
-                ab: row.ab || 0,
-                ttm: row.ttm || 0,
-              });
-            });
+            dashboardData.nonOperatingExpense.data.forEach(
+              (row: DepartmentData) => {
+                departments.push({
+                  categoryName: row.categoryName,
+                  departmentTotalBudget: row.departmentTotalBudget || 0,
+                  ab: row.ab || 0,
+                  ttm: row.ttm || 0,
+                });
+              },
+            );
           }
           return {
             propertyName: item.propertyName,
-            departments,
+            data: {
+              departments,
+            },
           };
         });
 
@@ -132,78 +141,75 @@ const PropertyData: React.FC = () => {
 
   return (
     <div>
-      {loadData ? (
-        <Loader />
-      ) : (
-        <>
-          <Header />
+      <>
+        <Header />
 
-          <div className="user-data">
-            <div className="table-data">
-              <div className="table-wrapper">
-                <table border={2} className="data-table property-data-table">
-                  <thead>
-                    <tr>
-                      <th rowSpan={2}>Category</th>
-                      {propertyData.map((property, index) => (
-                        <th key={index} colSpan={propertyColumnHeader.length}>
-                          {property.propertyName}
-                        </th>
-                      ))}
-                    </tr>
-                    <tr>
-                      {propertyData.map((property) =>
-                        propertyColumnHeader.map((header) => (
-                          <th key={`${property.propertyName}-${header.key}`}>
-                            {header.label}
-                          </th>
-                        )),
-                      )}
-                    </tr>
-                  </thead>
-
-                  <tbody>
-                    {getCategoryNames().map((categoryName) => (
-                      <tr key={categoryName}>
-                        <td className="category-cell">{categoryName}</td>
-                        {propertyData.map((property) => {
-                          const department = getDepartmentData(
-                            property,
-                            categoryName,
-                          );
-
-                          return (
-                            <Fragment key={property.propertyName}>
-                              <td>
-                                {COMMON_SERVICES.formatValue(
-                                  department?.categoryName,
-                                  department?.departmentTotalBudget,
-                                )}
-                              </td>
-                              <td>
-                                {COMMON_SERVICES.formatValue(
-                                  department?.categoryName,
-                                  department?.ab,
-                                )}
-                              </td>
-                              <td>
-                                {COMMON_SERVICES.formatValue(
-                                  department?.categoryName,
-                                  department?.ttm,
-                                )}
-                              </td>
-                            </Fragment>
-                          );
-                        })}
-                      </tr>
+        <div className="property-data">
+          <div className="propertyData-table-section">
+            <div className="propertyData-table-wrapper">
+              <table border={2} className="property-data-table">
+                <thead>
+                  <tr>
+                    <th rowSpan={2}>Category</th>
+                    {propertyData.map((property, index) => (
+                      <th key={index} colSpan={propertyColumnHeader.length}>
+                        {property.propertyName}
+                      </th>
                     ))}
-                  </tbody>
-                </table>
-              </div>
+                  </tr>
+                  <tr>
+                    {propertyData.map((property) =>
+                      propertyColumnHeader.map((header) => (
+                        <th key={`${property.propertyName}-${header.key}`}>
+                          {header.label}
+                        </th>
+                      )),
+                    )}
+                  </tr>
+                </thead>
+
+                <tbody>
+                  {getCategoryNames().map((categoryName) => (
+                    <tr key={categoryName}>
+                      <td className="category-cell">{categoryName}</td>
+                      {propertyData.map((property) => {
+                        const department = getDepartmentData(
+                          property,
+                          categoryName,
+                        );
+
+                        return (
+                          <Fragment key={property.propertyName}>
+                            <td>
+                              {COMMON_SERVICES.formatValue(
+                                department?.categoryName,
+                                department?.departmentTotalBudget,
+                              )}
+                            </td>
+                            <td>
+                              {COMMON_SERVICES.formatValue(
+                                department?.categoryName,
+                                department?.ab,
+                              )}
+                            </td>
+                            <td>
+                              {COMMON_SERVICES.formatValue(
+                                department?.categoryName,
+                                department?.ttm,
+                              )}
+                            </td>
+                          </Fragment>
+                        );
+                      })}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </div>
-        </>
-      )}
+        </div>
+      </>
+      {loadData && <Loader />}
     </div>
   );
 };

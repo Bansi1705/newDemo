@@ -26,12 +26,12 @@ import Loader from "../Components/CommonComponents/Loader";
 
 const Home = () => {
   const [users, setUsers] = useState<User[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [IsLoadingUserList, setIsLoadingUserList] = useState<boolean>(true);
   const navigate = useNavigate();
-  const [checkedDelete, setCheckedDelete] = useState<number[]>([]);
-  const [selectedMonth, setSelectedMonth] = useState<string>("");
-  const [search, setSearch] = useState<string>("");
-  const [showConfirm, setShowConfirm] = useState<boolean>(false);
+  const [checkedDeleteUsers, setCheckedDeleteUsers] = useState<number[]>([]);
+  const [selectedDropDownMonth, setSelectedDropDownMonth] = useState<string>("");
+  const [searchUserByName, setSearchUserByName] = useState<string>("");
+  const [isShowConfirmModel, setIsShowConfirmModel] = useState<boolean>(false);
   const [deleteId, setDeleteId] = useState<number | undefined>(undefined);
   const [editId, setEditID] = useState<number | undefined>(undefined);
   const [showPreView, setShowPreview] = useState<boolean>(false);
@@ -46,7 +46,7 @@ const Home = () => {
   const itemsPerPage = 5;
 
   const filteredUsers = users.filter((user) =>
-    user.name.toLowerCase().includes(search.toLowerCase()),
+    user.name.toLowerCase().includes(searchUserByName.toLowerCase()),
   );
 
   const lastIndex = currentPage * itemsPerPage;
@@ -55,18 +55,18 @@ const Home = () => {
   const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
   useEffect(() => {
     setCurrentPage(1);
-  }, [search]);
+  }, [searchUserByName]);
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        setLoading(true);
+        setIsLoadingUserList(true);
         const response: ApiResponse<User[]> = await Apiservice.get("/users");
         setUsers(response.data);
       } catch {
         toast.error(CONSTANT.ERROR.COMMON);
       } finally {
-        setLoading(false);
+        setIsLoadingUserList(false);
       }
     };
 
@@ -75,7 +75,7 @@ const Home = () => {
 
   const handleDelete = (id: number | undefined) => {
     setDeleteId(id);
-    setShowConfirm(true);
+    setIsShowConfirmModel(true);
   };
 
   // useEffect(() => {
@@ -94,23 +94,23 @@ const Home = () => {
       } catch {
         toast.error(CONSTANT.ERROR.COMMON);
       } finally {
-        setShowConfirm(false);
+        setIsShowConfirmModel(false);
         setDeleteId(undefined);
       }
     } else if (editId !== undefined) {
       navigate(`/edit-user/${editId}`);
-      setShowConfirm(false);
+      setIsShowConfirmModel(false);
       setEditID(undefined);
-    } else if (checkedDelete.length > 0) {
+    } else if (checkedDeleteUsers.length > 0) {
       try {
-        checkedDelete.map(async (id) => {
+        checkedDeleteUsers.map(async (id) => {
           await Apiservice.delete<ApiResponse<User[]>>(`/users/${id}`);
           setUsers((prev) =>
-            prev.filter((user) => !checkedDelete.includes(user.id ?? 0)),
+            prev.filter((user) => !checkedDeleteUsers.includes(user.id ?? 0)),
           );
         });
-        setCheckedDelete([]);
-        setShowConfirm(false);
+        setCheckedDeleteUsers([]);
+        setIsShowConfirmModel(false);
         toast.success(CONSTANT.SUCCESS.DELETE);
       } catch {
         toast.error(CONSTANT.ERROR.COMMON);
@@ -119,14 +119,14 @@ const Home = () => {
   };
 
   const handleCancel = () => {
-    setShowConfirm(false);
+    setIsShowConfirmModel(false);
     setDeleteId(undefined);
     setEditID(undefined);
-    setCheckedDelete([]);
+    setCheckedDeleteUsers([]);
   };
 
   const handleEdit = (id: number | undefined) => {
-    setShowConfirm(true);
+    setIsShowConfirmModel(true);
     setEditID(id);
   };
 
@@ -186,10 +186,10 @@ const Home = () => {
 
   const handleMonthChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { value } = e.target;
-    setSelectedMonth(value);
+   setSelectedDropDownMonth(value);
   };
 
-  console.log(selectedMonth);
+  console.log(selectedDropDownMonth);
 
   const [showItems, setShowItems] = useState([
     { label: "BCA", value: "bca" },
@@ -210,7 +210,7 @@ const Home = () => {
   };
 
   const handleCheckBoxDeleteChange = (id: number | undefined) => {
-    setCheckedDelete((prev) =>
+    setCheckedDeleteUsers((prev) =>
       prev.includes(id ?? 0)
         ? prev.filter((item) => item !== id)
         : [...prev, id ?? 0],
@@ -218,15 +218,15 @@ const Home = () => {
   };
 
   const handleCheckedDelete = () =>
-    checkedDelete.length != 0
-      ? setShowConfirm(true)
+    checkedDeleteUsers.length != 0
+      ? setIsShowConfirmModel(true)
       : toast.error("Please Select Item First !");
 
   // console.log(weeks);
   return (
     <>
       <>
-        <Header search={search} setSearch={setSearch} searchShow={true} />
+        <Header searchTerm={searchUserByName} setSearchTerm={setSearchUserByName} showSearchInput={true} />
         <div className="user-data">
           <div className="table-section">
             <div className="apiButtons mb-4 flex gap-4 justify-center items-center">
@@ -254,7 +254,7 @@ const Home = () => {
               <DropDown
                 optionsLabel={months}
                 selectClasName="setectBirth m-4 outline-1 color-white bg-#f9f9f9"
-                selectValue={selectedMonth}
+                selectValue={selectedDropDownMonth}
                 dropDownChange={handleMonthChange}
                 selectName="userMonth"
               />
@@ -313,7 +313,7 @@ const Home = () => {
                                 onChange={() =>
                                   handleCheckBoxDeleteChange(user.id ?? 0)
                                 }
-                                checked={checkedDelete.includes(user.id ?? 0)}
+                                checked={checkedDeleteUsers.includes(user.id ?? 0)}
                               />
                             }
                             label=""
@@ -375,7 +375,6 @@ const Home = () => {
                       </tr>
                     ))
                   )}
-                  {}
                 </tbody>
               </table>
 
@@ -392,7 +391,7 @@ const Home = () => {
           <FilePreview file={showPreviewImage} onClose={handleClosePreview} />
         )}
 
-        {showConfirm && (
+        {isShowConfirmModel && (
           <Confirmation
             confirm={handleConfirm}
             cancel={handleCancel}
@@ -408,7 +407,7 @@ const Home = () => {
         )}
       </>
 
-      {loading && <Loader />}
+      {IsLoadingUserList && <Loader />}
     </>
   );
 };

@@ -8,12 +8,12 @@ interface PasswordInputProps {
   showPassword: boolean;
   setShowPassword: React.Dispatch<React.SetStateAction<boolean>>;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  required: boolean;
+  required?: boolean;
   classname?:string;
 }
 
 function PasswordInput({
-  label = "Password",
+  label ,
   name,
   value,
   placeholder = "********",

@@ -132,7 +132,7 @@ const Form = () => {
 
   return (
     <>
-      <Header searchShow={false} />
+      <Header showSearchInput={false} />
       <div className="form-data flex items-center justify-center h-screen bg-white-100">
         <form
           className="form bg-white p-6 rounded shadow-xl-30 w-full max-w-md"
@@ -201,11 +201,13 @@ const Form = () => {
               label="Upload File"
               accept="image/*,.pdf,.xls,.xlsx"
               onFileSelect={(file) => {
+                const selectedFile = Array.isArray(file) ? file[0] : file;
+
                 const reader = new FileReader();
 
                 reader.onloadend = () => {
                   const fileData = {
-                    name: file.name,
+                    name: selectedFile.name,
                     url: reader.result as string,
                   };
                   setData((prev) => ({
@@ -214,7 +216,7 @@ const Form = () => {
                   }));
                 };
 
-                reader.readAsDataURL(file);
+                reader.readAsDataURL(selectedFile);
               }}
             />
           </div>

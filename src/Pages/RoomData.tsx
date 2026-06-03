@@ -318,7 +318,7 @@ const RoomData = () => {
                                 <Buttons
                                   onClick={() => handleDelete(originalIndex)}
                                   label={<MdDeleteOutline />}
-                                  className="delete-btn"
+                                  className="deleteRoom-btn"
                                 />
                               </td>
                             </tr>
@@ -371,7 +371,7 @@ const RoomData = () => {
                                             )
                                           }
                                           label={<MdDeleteOutline />}
-                                          className="delete-btn"
+                                          className="deleteRoom-btn"
                                         />
                                       </td>
                                     </tr>

@@ -695,10 +695,9 @@
   color: #f8fafc;
 }
 
-
 [data-theme="dark"] .userProfile-form .gender-section {
   background-color: #334155;
-  border-color:  #334155;
+  border-color: #334155;
   color: #f8fafc;
 }
 
@@ -719,3 +718,27 @@
 [data-theme="dark"] .main-userProfileDiv {
   background-color: #1e293b;
 }
+
+[data-theme="dark"] .property-data {
+  background-color: #0f172a;
+}
+[data-theme="dark"] .property-data-table {
+  background-color: #1e293b;
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .property-data-table tr:hover {
+  background-color: #334155;
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .property-data-table td {
+  color: #eaedf1;
+}
+[data-theme="dark"] .property-data-table th {
+  background-color: #2563eb;
+  color: #f8fafc;
+}
+
+
+

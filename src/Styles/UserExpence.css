@@ -126,10 +126,6 @@
   overflow: hidden;
 }
 
-.expense-user-data .pagination-controls {
-  margin-top: 14px;
-}
-
 .expense-data-table td {
   padding: 10px;
   text-align: center;

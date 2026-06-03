@@ -368,6 +368,7 @@ const UserExpense = () => {
             selectedDate={form.expenseDate}
             onChange={(d) => setForm({ ...form, expenseDate: d })}
             placeholder="Select Expense Date"
+            className="input-field"
           />
           {error.expenseDate && (
             <span className="error">{error.expenseDate}</span>
@@ -377,6 +378,7 @@ const UserExpense = () => {
             selectedDate={form.submissionDate}
             onChange={(d) => setForm({ ...form, submissionDate: d })}
             placeholder="Select Submission Date"
+            className="input-field"
           />
           {error.submissionDate && (
             <span className="error">{error.submissionDate}</span>
@@ -557,11 +559,12 @@ const UserExpense = () => {
               </tbody>
             </table>
 
-            <Pagination
-              currentPage={currentPage}
-              totalPages={totalPages}
-              onPageChange={setCurrentPage}
-            />
+            
+              <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={setCurrentPage}
+              />
 
             {showConfirm && (
               <Confirmation
