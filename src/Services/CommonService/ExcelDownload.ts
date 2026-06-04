@@ -1,7 +1,6 @@
 import type { Workbook } from "exceljs";
 import { CONSTANT } from "../Constant";
-import { TOASTER } from "./ToasterHelper";
-
+import Toaster from "./ToasterHelper";
 interface excelDownloadProps {
   workBook: Workbook;
   fileName: string;
@@ -15,11 +14,11 @@ export const ExcelDownload = async ({
   const blob = new Blob([buffer], {
     type: CONSTANT.MIME_TYPES.EXCEL[0],
   });
-  const url = window.URL.createObjectURL(blob);
+  const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
   a.download = fileName;
   a.click();
-  window.URL.revokeObjectURL(url);
-  TOASTER.SUCCESS.FILE_DOWNLOAD();
+  URL.revokeObjectURL(url);
+  Toaster.success(CONSTANT.TOAST_SUCCESS_MSG.FILE_DOWNLOADED);
 };

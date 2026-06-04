@@ -5,7 +5,8 @@ import { COMMON_SERVICES } from "../Services/CommonService/CommonServices";
 import Loader from "../Components/CommonComponents/Loader";
 import Header from "../Components/Header";
 import CommonMultiSelect from "../Components/CommonComponents/MultipleDropDowm";
-import { TOASTER } from "../Services/CommonService/ToasterHelper";
+import Toaster from "../Services/CommonService/ToasterHelper";
+import { CONSTANT } from "../Services/Constant";
 
 interface ApprovelName {
   approvalName: string;
@@ -60,11 +61,10 @@ const Property: React.FC = () => {
         setLodingData(true);
         const res: ApiResponse<propertyInterface[]> =
           await Apiservice.get("/property");
-
         console.log(res.data);
         setData(res.data);
       } catch {
-        TOASTER.ERROR.NOT_FOUND()
+        Toaster.error(CONSTANT.TOAST_ERROR_MSG.NOT_FOUND);
       } finally {
         setLodingData(false);
       }

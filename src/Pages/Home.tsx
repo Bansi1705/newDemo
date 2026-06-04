@@ -21,7 +21,8 @@ import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { MultipleWeekPicker } from "../Components/CommonComponents/MultiWeekSelect";
 import { startOfWeek } from "date-fns";
 import Loader from "../Components/CommonComponents/Loader";
-import { TOASTER } from "../Services/CommonService/ToasterHelper";
+import Toaster from "../Services/CommonService/ToasterHelper";
+import { CONSTANT } from "../Services/Constant";
 
 const Home = () => {
   const [users, setUsers] = useState<User[]>([]);
@@ -32,8 +33,10 @@ const Home = () => {
     useState<string>("");
   const [searchUserByName, setSearchUserByName] = useState<string>("");
   const [isShowConfirmModel, setIsShowConfirmModel] = useState<boolean>(false);
-  const [deleteId, setDeleteId] = useState<number | undefined>(undefined);
-  const [editId, setEditID] = useState<number | undefined>(undefined);
+  const [deleteUserId, setDeleteUserId] = useState<number | undefined>(
+    undefined,
+  );
+  const [editUserId, setEditUserID] = useState<number | undefined>(undefined);
   const [showPreView, setShowPreview] = useState<boolean>(false);
   const [showPreviewImage, setShowPreviewImage] = useState<
     { name: string; url: string }[] | null
@@ -64,7 +67,7 @@ const Home = () => {
         const response: ApiResponse<User[]> = await Apiservice.get("/users");
         setUsers(response.data);
       } catch {
-        TOASTER.ERROR.COMMON();
+        Toaster.error(CONSTANT.TOAST_ERROR_MSG.COMMON);
       } finally {
         setIsLoadingUserList(false);
       }
@@ -73,8 +76,8 @@ const Home = () => {
     fetchUser();
   }, []);
 
-  const handleDelete = (id: number | undefined) => {
-    setDeleteId(id);
+  const handleDeleteUser = (id: number | undefined) => {
+    setDeleteUserId(id);
     setIsShowConfirmModel(true);
   };
 
@@ -85,22 +88,22 @@ const Home = () => {
   //   // console.log(data, NextData, NextMonths);
   // }, []);
 
-  const handleConfirm = async () => {
-    if (deleteId !== undefined) {
+  const handleConfirmDeleteEditUser = async () => {
+    if (deleteUserId !== undefined) {
       try {
-        await Apiservice.delete<ApiResponse<User[]>>(`/users/${deleteId}`);
-        setUsers((prev) => prev.filter((user) => user.id !== deleteId));
-        TOASTER.SUCCESS.DELETE();
+        await Apiservice.delete<ApiResponse<User[]>>(`/users/${deleteUserId}`);
+        setUsers((prev) => prev.filter((user) => user.id !== deleteUserId));
+        Toaster.success(CONSTANT.TOAST_SUCCESS_MSG.DELETE);
       } catch {
-        TOASTER.ERROR.COMMON();
+        Toaster.error(CONSTANT.TOAST_ERROR_MSG.COMMON);
       } finally {
         setIsShowConfirmModel(false);
-        setDeleteId(undefined);
+        setDeleteUserId(undefined);
       }
-    } else if (editId !== undefined) {
-      navigate(`/edit-user/${editId}`);
+    } else if (editUserId !== undefined) {
+      navigate(`/edit-user/${editUserId}`);
       setIsShowConfirmModel(false);
-      setEditID(undefined);
+      setEditUserID(undefined);
     } else if (checkedDeleteUsers.length > 0) {
       try {
         checkedDeleteUsers.map(async (id) => {
@@ -111,26 +114,26 @@ const Home = () => {
         });
         setCheckedDeleteUsers([]);
         setIsShowConfirmModel(false);
-        TOASTER.SUCCESS.DELETE();
+        Toaster.success(CONSTANT.TOAST_SUCCESS_MSG.DELETE);
       } catch {
-        TOASTER.ERROR.COMMON();
+        Toaster.error(CONSTANT.TOAST_ERROR_MSG.COMMON);
       }
     }
   };
 
-  const handleCancel = () => {
+  const handleConfirmCancelDeleteEditUser = () => {
     setIsShowConfirmModel(false);
-    setDeleteId(undefined);
-    setEditID(undefined);
+    setDeleteUserId(undefined);
+    setEditUserID(undefined);
     setCheckedDeleteUsers([]);
   };
 
-  const handleEdit = (id: number | undefined) => {
+  const handleEditUser = (id: number | undefined) => {
     setIsShowConfirmModel(true);
-    setEditID(id);
+    setEditUserID(id);
   };
 
-  const title = [
+  const userTableTitle = [
     "Sr.No",
     "Name",
     "Age",
@@ -154,22 +157,22 @@ const Home = () => {
       const apiActions = {
         Get: () => {
           Apiservice.get<ApiResponse<User[]>>(url).then(() => {
-            TOASTER.SUCCESS.FETCH()
+            Toaster.success(CONSTANT.TOAST_SUCCESS_MSG.FETCH);
           });
         },
         Post: () => {
           Apiservice.post<ApiResponse<User>>(url, newUser).then(() => {
-            TOASTER.SUCCESS.CREATE()
+            Toaster.success(CONSTANT.TOAST_SUCCESS_MSG.CREATE);
           });
         },
         Put: () => {
           Apiservice.put<ApiResponse<User>>(url, newUser).then(() => {
-            TOASTER.SUCCESS.UPDATE();
+            Toaster.success(CONSTANT.TOAST_SUCCESS_MSG.UPDATE);
           });
         },
         Delete: () => {
           Apiservice.delete<ApiResponse<null>>(url).then(() => {
-            TOASTER.SUCCESS.DELETE();
+            Toaster.success(CONSTANT.TOAST_SUCCESS_MSG.DELETE);
           });
         },
       };
@@ -177,7 +180,7 @@ const Home = () => {
       apiActions[method]();
     } catch (error) {
       console.error(error);
-      TOASTER.ERROR.COMMON();
+      Toaster.error(CONSTANT.TOAST_ERROR_MSG.COMMON)
     }
   };
 
@@ -220,7 +223,7 @@ const Home = () => {
   const handleCheckedDelete = () =>
     checkedDeleteUsers.length != 0
       ? setIsShowConfirmModel(true)
-      : TOASTER.error("Please Select Item First !");
+      : Toaster.error(CONSTANT.TOAST_ERROR_MSG.DATA_NOT_SELECTED);
 
   // console.log(weeks);
   return (
@@ -296,7 +299,7 @@ const Home = () => {
               <table border={2} className="data-table">
                 <thead>
                   <tr>
-                    {title.map((head, index) => (
+                    {userTableTitle.map((head, index) => (
                       <th key={index}>{head}</th>
                     ))}
                   </tr>
@@ -305,7 +308,7 @@ const Home = () => {
                 <tbody>
                   {currentRecords.length === 0 ? (
                     <tr>
-                      <td colSpan={title.length}>No Data Found</td>
+                      <td colSpan={userTableTitle.length}>No Data Found</td>
                     </tr>
                   ) : (
                     currentRecords.map((user, index) => (
@@ -349,7 +352,7 @@ const Home = () => {
                               <MenuItem>
                                 {() => (
                                   <Buttons
-                                    onClick={() => handleEdit(user.id)}
+                                    onClick={() => handleEditUser(user.id)}
                                     label={
                                       <>
                                         <CiEdit />
@@ -364,7 +367,7 @@ const Home = () => {
                               <MenuItem>
                                 {() => (
                                   <Buttons
-                                    onClick={() => handleDelete(user.id)}
+                                    onClick={() => handleDeleteUser(user.id)}
                                     label={
                                       <>
                                         <MdDeleteOutline />
@@ -399,13 +402,13 @@ const Home = () => {
 
         {isShowConfirmModel && (
           <Confirmation
-            confirm={handleConfirm}
-            cancel={handleCancel}
-            type={deleteId !== undefined ? "delete" : "edit"}
+            confirm={handleConfirmDeleteEditUser}
+            cancel={handleConfirmCancelDeleteEditUser}
+            type={deleteUserId !== undefined ? "delete" : "edit"}
             message={
-              deleteId !== undefined
+              deleteUserId !== undefined
                 ? "Do You Really Want To Delete This Item ??"
-                : editId !== undefined
+                : editUserId !== undefined
                   ? "Do You Want To Edit This Item ??"
                   : "Do You Want To Delete All Selected Items ??"
             }

@@ -1,5 +1,9 @@
 import { useState } from "react";
-import { DateRangePicker, type Range, type RangeKeyDict } from "react-date-range";
+import {
+  DateRangePicker,
+  type Range,
+  type RangeKeyDict,
+} from "react-date-range";
 import { SlCalender } from "react-icons/sl";
 
 import "react-date-range/dist/styles.css";
@@ -8,9 +12,9 @@ import "../../Styles/DatePickerBasic.css";
 import { format } from "date-fns";
 
 export default function CustomDateRangePicker() {
-  const [open, setOpen] = useState(false);
+  const [openDateRangePicker, setOpenDateRangePicker] = useState(false);
 
-  const [range, setRange] = useState<Range[]>([
+  const [dateRange, setDateRange] = useState<Range[]>([
     {
       startDate: new Date(),
       endDate: new Date(),
@@ -18,32 +22,32 @@ export default function CustomDateRangePicker() {
     },
   ]);
 
-  const [tempState, setTempState] = useState<Range[]>(range);
+  const [tempState, setTempState] = useState<Range[]>(dateRange);
 
-  const handleOpen = () => {
-    setTempState(range);
-    setOpen(true);
+  const handleDateRangePickerOpen = () => {
+    setTempState(dateRange);
+    setOpenDateRangePicker(true);
   };
 
-  const handleApply = () => {
-    setRange(tempState);
-    setOpen(false);
+  const handleSelecteDateRangeApply = () => {
+    setDateRange(tempState);
+    setOpenDateRangePicker(false);
   };
 
-  const handleCancel = () => {
-    setTempState(range);
-    setOpen(false);
+  const handleSelectedDateRangeCancel = () => {
+    setTempState(dateRange);
+    setOpenDateRangePicker(false);
   };
 
-  const startDate : Date  = range[0]?.startDate || new Date();
-  const endDate : Date = range[0]?.endDate || new Date();
+  const startDate: Date = dateRange[0]?.startDate || new Date();
+  const endDate: Date = dateRange[0]?.endDate || new Date();
 
   return (
     <div className="date-range-picker">
       <div className="date-range-picker__field">
         <input
           readOnly
-          onClick={handleOpen}
+          onClick={handleDateRangePickerOpen}
           value={`${format(startDate, "dd/MM/yyyy")} - ${format(endDate, "dd/MM/yyyy")}`}
           placeholder="Select date range"
           className="date-range-picker__input"
@@ -51,7 +55,7 @@ export default function CustomDateRangePicker() {
         <SlCalender size={20} className="date-range-picker__icon" />
       </div>
 
-      {open && (
+      {openDateRangePicker && (
         <div className="date-range-picker__popover">
           <DateRangePicker
             onChange={(item: RangeKeyDict) => setTempState([item.selection])}
@@ -63,14 +67,14 @@ export default function CustomDateRangePicker() {
           />
           <div className="date-range-picker__actions">
             <button
-              onClick={handleCancel}
+              onClick={handleSelectedDateRangeCancel}
               className="date-range-picker__button date-range-picker__button--secondary"
             >
               Cancel
             </button>
 
             <button
-              onClick={handleApply}
+              onClick={handleSelecteDateRangeApply}
               className="date-range-picker__button date-range-picker__button--primary"
             >
               Apply

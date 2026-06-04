@@ -6,7 +6,8 @@ import Loader from "../Components/CommonComponents/Loader";
 import "../Styles/CapitalExpense.css";
 import { COMMON_SERVICES } from "../Services/CommonService/CommonServices";
 import { FaArrowDown, FaArrowUp } from "react-icons/fa6";
-import { TOASTER } from "../Services/CommonService/ToasterHelper";
+import Toaster from "../Services/CommonService/ToasterHelper";
+import { CONSTANT } from "../Services/Constant";
 
 interface ApprovalPersonList {
   approvalName: string[];
@@ -46,7 +47,7 @@ const CapitalExpense = () => {
   const [loadCapEx, setLoadCapEx] = useState<boolean>(true);
   const [sortKey, setSortKey] = useState<string>("");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
-  const [serchTerm, setSerchTerm] = useState<string>("");
+  const [serchCapExTerm, setSerchCapExTerm] = useState<string>("");
 
   useEffect(() => {
     const fetchCapEx = async () => {
@@ -54,7 +55,7 @@ const CapitalExpense = () => {
         const res: ApiResponse<CapEx> = await Apiservice.get("/capitalExpense");
         setCapExData(res.data);
       } catch {
-        TOASTER.ERROR.NOT_FOUND();
+        Toaster.error(CONSTANT.TOAST_ERROR_MSG.NOT_FOUND)
       } finally {
         setLoadCapEx(false);
       }
@@ -63,7 +64,7 @@ const CapitalExpense = () => {
     fetchCapEx();
   }, []);
 
-  const tableHeaders = [
+  const capExTableHeaders = [
     { key: "srNo", label: "Sr No." },
     { key: "propertyName", label: "Property Name" },
     { key: "projectName", label: "Project Name" },
@@ -87,7 +88,7 @@ const CapitalExpense = () => {
       setSortOrder("asc");
     }
   };
-  const formattedData = capExData.content.map((item) => ({
+  const formattedCapExData = capExData.content.map((item) => ({
     ...item,
     propertyName: item.property.propertyName,
     projectName: item.project?.projectName,
@@ -96,18 +97,18 @@ const CapitalExpense = () => {
   }));
 
   const sortCapExData = COMMON_SERVICES.sortData(
-    formattedData,
+    formattedCapExData,
     sortOrder,
     sortKey,
   );
 
-  const filteredUsers = sortCapExData.filter(
+  const filteredCapEx = sortCapExData.filter(
     (item) =>
-      item.propertyName.toLowerCase().includes(serchTerm.toLowerCase()) ||
-      item.vendorName.toLowerCase().includes(serchTerm.toLowerCase()) ||
-      item.invoiceNumber.toLowerCase().includes(serchTerm.toLowerCase()),
+      item.propertyName.toLowerCase().includes(serchCapExTerm.toLowerCase()) ||
+      item.vendorName.toLowerCase().includes(serchCapExTerm.toLowerCase()) ||
+      item.invoiceNumber.toLowerCase().includes(serchCapExTerm.toLowerCase()),
   );
-  
+
   return (
     <>
       {loadCapEx ? (
@@ -116,8 +117,8 @@ const CapitalExpense = () => {
         <>
           <Header
             showSearchInput={true}
-            searchTerm={serchTerm}
-            setSearchTerm={setSerchTerm}
+            searchTerm={serchCapExTerm}
+            setSearchTerm={setSerchCapExTerm}
           />
           <main className="capital-expense-page">
             <section className="capital-expense-section">
@@ -127,7 +128,7 @@ const CapitalExpense = () => {
                 <table className="capital-expense-table">
                   <thead>
                     <tr>
-                      {tableHeaders.map((head) => (
+                      {capExTableHeaders.map((head) => (
                         <th key={head.key}>
                           <div className="flex items-center gap-1">
                             {head.label !== "Sr No." && (
@@ -150,17 +151,17 @@ const CapitalExpense = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {filteredUsers.length === 0 ? (
+                    {filteredCapEx.length === 0 ? (
                       <tr>
                         <td
                           className="capital-expense-empty"
-                          colSpan={tableHeaders.length}
+                          colSpan={capExTableHeaders.length}
                         >
                           No Data Found
                         </td>
                       </tr>
                     ) : (
-                      filteredUsers.map((item, index) => {
+                      filteredCapEx.map((item, index) => {
                         const formatedStatus = COMMON_SERVICES.formatText(
                           item.approvalStatus,
                         );
@@ -169,9 +170,7 @@ const CapitalExpense = () => {
                           <>
                             <tr key={index}>
                               <td>{index + 1}</td>
-                              <td>
-                                {item.propertyName}
-                              </td>
+                              <td>{item.propertyName}</td>
                               <td>{item.projectName || "-"}</td>
                               <td>
                                 {COMMON_SERVICES.formatCreateDate(

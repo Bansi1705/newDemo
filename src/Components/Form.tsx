@@ -8,7 +8,8 @@ import { Apiservice } from "../Services/ApiService";
 import { Buttons } from "./CommonComponents/Buttons";
 import type { ApiResponse, User } from "../Interface/types";
 import FileUpload from "./CommonComponents/FileUpload";
-import { TOASTER } from "../Services/CommonService/ToasterHelper";
+import Toaster from "../Services/CommonService/ToasterHelper";
+import { CONSTANT } from "../Services/Constant";
 
 const Form = () => {
   const { id } = useParams();
@@ -93,7 +94,7 @@ const Form = () => {
         });
       } catch (err) {
         console.log(err);
-        TOASTER.ERROR.NOT_FOUND();
+        Toaster.success(CONSTANT.TOAST_ERROR_MSG.NOT_FOUND);
       }
     };
     fetchUser();
@@ -116,16 +117,16 @@ const Form = () => {
     try {
       if (id) {
         await Apiservice.put<ApiResponse<User>>(`/users/${id}`, payLoad);
-        TOASTER.SUCCESS.UPDATE();
+        Toaster.success(CONSTANT.TOAST_SUCCESS_MSG.UPDATE)
       } else {
         await Apiservice.post<ApiResponse<User>>(`/users`, payLoad);
-        TOASTER.SUCCESS.CREATE();
+        Toaster.success(CONSTANT.TOAST_SUCCESS_MSG.CREATE)
       }
 
       navigate("/home");
     } catch (error) {
       console.error("Error saving user:", error);
-      TOASTER.ERROR.COMMON();
+      Toaster.error(CONSTANT.TOAST_ERROR_MSG.COMMON)
     }
   };
 

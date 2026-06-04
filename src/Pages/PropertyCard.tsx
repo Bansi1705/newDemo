@@ -4,7 +4,8 @@ import "../Styles/PropertyCard.css";
 import type { ApiResponse } from "../Interface/types";
 import { Apiservice } from "../Services/ApiService";
 import Loader from "../Components/CommonComponents/Loader";
-import { TOASTER } from "../Services/CommonService/ToasterHelper";
+import Toaster from "../Services/CommonService/ToasterHelper";
+import { CONSTANT } from "../Services/Constant";
 
 interface ContentInterface {
   date: string;
@@ -28,7 +29,7 @@ interface ListViewInterface {
   totalPages: number;
 }
 
- const PropertyCard = () => {
+const PropertyCard = () => {
   const [listProperty, setListProperty] = useState<ListViewInterface | null>(
     null,
   );
@@ -43,7 +44,7 @@ interface ListViewInterface {
         setListProperty(listResponse.data);
       } catch (error) {
         console.log(error);
-        TOASTER.ERROR.COMMON()
+        Toaster.error(CONSTANT.TOAST_ERROR_MSG.COMMON);
       } finally {
         setLoadPropertyData(false);
       }

@@ -3,7 +3,8 @@ import { GoTriangleDown } from "react-icons/go";
 import InputField from "./InputFeild";
 import { ImCancelCircle } from "react-icons/im";
 import Button from "@mui/material/Button";
-import { TOASTER } from "../../Services/CommonService/ToasterHelper";
+import Toaster from "../../Services/CommonService/ToasterHelper";
+import { CONSTANT } from "../../Services/Constant";
 type options = { label: string; value: string };
 interface Props {
   options: options[];
@@ -37,7 +38,7 @@ const CommonMultiSelect: React.FC<Props> = ({
   const handleAdd = (e: React.KeyboardEvent) => {
     if (e.key == "Enter") {
       if (!dropDownData.trim()) {
-        return TOASTER.ERROR.COMMON();
+        return Toaster.error(CONSTANT.TOAST_ERROR_MSG.COMMON);
       }
       const newItem = {
         label: dropDownData.toUpperCase(),

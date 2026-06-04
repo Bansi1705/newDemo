@@ -16,7 +16,7 @@ import { CiEdit } from "react-icons/ci";
 import { FaChevronDown } from "react-icons/fa6";
 import Confirmation from "../Components/CommonComponents/Confirmation";
 import PasswordInput from "../Components/CommonComponents/PasswordInput";
-import { TOASTER } from "../Services/CommonService/ToasterHelper";
+import Toaster from "../Services/CommonService/ToasterHelper";
 // import InfiniteScroll from "react-infinite-scroll-component";
 
 function UserProfile() {
@@ -70,9 +70,8 @@ function UserProfile() {
   >(null);
   const [showUserProfileImagePreView, setShowUserProfileImagePreView] =
     useState<boolean>(false);
-  const [userProfileFormAddEditError, setUserProfileFormAddEditError] = useState<
-    Record<string, string>
-  >({});
+  const [userProfileFormAddEditError, setUserProfileFormAddEditError] =
+    useState<Record<string, string>>({});
   const [editUserProfileId, setEditUserProfileId] = useState<string | null>(
     null,
   );
@@ -343,7 +342,7 @@ function UserProfile() {
       return;
     } else {
       updatedData = [...userProfiles, userProfileForm];
-      TOASTER.SUCCESS.CREATE()
+      Toaster.success(CONSTANT.TOAST_SUCCESS_MSG.CREATE);
     }
 
     setUserProfiles(updatedData);
@@ -441,7 +440,7 @@ function UserProfile() {
       );
       setUserProfiles(filteredUser);
       localStorage.setItem("UserProfiles", JSON.stringify(filteredUser));
-      TOASTER.SUCCESS.DELETE()
+      Toaster.success(CONSTANT.TOAST_SUCCESS_MSG.DELETE);
       setDeletingUserProfileId(null);
     } else if (editUserProfileId) {
       const updatedUser = userProfiles.map((user) => {
@@ -450,7 +449,7 @@ function UserProfile() {
 
       setUserProfiles(updatedUser);
       localStorage.setItem("UserProfiles", JSON.stringify(updatedUser));
-      TOASTER.SUCCESS.UPDATE()
+      Toaster.success(CONSTANT.TOAST_SUCCESS_MSG.UPDATE);
       setEditUserProfileId(null);
       resetUserProfileForm();
     }
@@ -669,7 +668,9 @@ function UserProfile() {
               </label>
 
               {userProfileFormAddEditError.gender && (
-                <p className="error-message">{userProfileFormAddEditError.gender}</p>
+                <p className="error-message">
+                  {userProfileFormAddEditError.gender}
+                </p>
               )}
             </div>
 

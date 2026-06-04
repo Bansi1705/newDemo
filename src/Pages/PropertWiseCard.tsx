@@ -7,7 +7,8 @@ import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { ReactDatePicker } from "../Components/CommonComponents/DatePicker";
 import { COMMON_SERVICES } from "../Services/CommonService/CommonServices";
 import Loader from "../Components/CommonComponents/Loader";
-import { TOASTER } from "../Services/CommonService/ToasterHelper";
+import Toaster from "../Services/CommonService/ToasterHelper";
+import { CONSTANT } from "../Services/Constant";
 
 interface ContentInterface {
   date: string;
@@ -49,7 +50,7 @@ const PropertyWiseCard = () => {
         setListProperty(listResponse.data);
       } catch (error) {
         console.log(error);
-        TOASTER.ERROR.COMMON();
+        Toaster.error(CONSTANT.TOAST_ERROR_MSG.COMMON);
       } finally {
         setLoadProperty(false);
       }

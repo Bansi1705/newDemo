@@ -18,7 +18,8 @@ import {
   TabPanel,
   TabPanels,
 } from "@headlessui/react";
-import { TOASTER } from "../Services/CommonService/ToasterHelper";
+import Toaster from "../Services/CommonService/ToasterHelper";
+import { CONSTANT } from "../Services/Constant";
 
 type HeaderProps = {
   searchTerm?: string;
@@ -39,7 +40,7 @@ function Header({ searchTerm, setSearchTerm, showSearchInput }: HeaderProps) {
 
   const handleUserLogOutConfirm = () => {
     sessionStorage.removeItem("LoginUser");
-    TOASTER.SUCCESS.LOGOUT();
+    Toaster.success(CONSTANT.TOAST_SUCCESS_MSG.LOGOUT)
     navigate("/");
   };
 

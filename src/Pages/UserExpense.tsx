@@ -13,8 +13,9 @@ import Header from "../Components/Header";
 import { Apiservice } from "../Services/ApiService";
 import Pagination from "../Components/CommonComponents/Pagination";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
-import { TOASTER } from "../Services/CommonService/ToasterHelper";
 import { toast } from "react-toastify";
+import Toaster from "../Services/CommonService/ToasterHelper";
+import { CONSTANT } from "../Services/Constant";
 interface StatusChangeData {
   id: number | string;
   newStatus: string;
@@ -67,7 +68,7 @@ const UserExpense = () => {
           await Apiservice.get("/UserExpenses");
         setExpenses(response.data);
       } catch {
-        TOASTER.ERROR.COMMON();
+        Toaster.error(CONSTANT.TOAST_ERROR_MSG.COMMON);
       }
     };
 
@@ -150,14 +151,14 @@ const UserExpense = () => {
           payload,
         );
         savedExpense = res.data;
-        TOASTER.SUCCESS.UPDATE();
+        Toaster.success(CONSTANT.TOAST_SUCCESS_MSG.UPDATE);
       } else {
         const res: ApiResponse<ExpenseData> = await Apiservice.post(
           "/UserExpenses",
           payload,
         );
         savedExpense = res.data;
-        TOASTER.SUCCESS.CREATE();
+        Toaster.success(CONSTANT.TOAST_SUCCESS_MSG.CREATE);
       }
 
       setExpenses((prev) =>
@@ -199,7 +200,7 @@ const UserExpense = () => {
         setShowConfirm(false);
       });
     } catch {
-      TOASTER.ERROR.COMMON();
+      Toaster.error(CONSTANT.TOAST_ERROR_MSG.COMMON);
     }
     setDeleteExpenseId(undefined);
     setShowConfirm(false);
@@ -256,7 +257,7 @@ const UserExpense = () => {
         ),
       );
     } catch {
-      TOASTER.ERROR.COMMON();
+      Toaster.error(CONSTANT.TOAST_ERROR_MSG.COMMON);
     }
 
     setStatusChangeData(null);

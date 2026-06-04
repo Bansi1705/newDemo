@@ -5,7 +5,8 @@ import type { ApiResponse } from "../Interface/types";
 import { Apiservice } from "../Services/ApiService";
 import { COMMON_SERVICES } from "../Services/CommonService/CommonServices";
 import Loader from "../Components/CommonComponents/Loader";
-import { TOASTER } from "../Services/CommonService/ToasterHelper";
+import Toaster from "../Services/CommonService/ToasterHelper";
+import { CONSTANT } from "../Services/Constant";
 
 interface DepartmentData {
   categoryName: string;
@@ -129,7 +130,7 @@ const PropertyData: React.FC = () => {
 
         setPropertyData(formattedData);
       } catch {
-        TOASTER.ERROR.NOT_FOUND()
+        Toaster.error(CONSTANT.TOAST_ERROR_MSG.NOT_FOUND)
       } finally {
         setLoadData(false);
       }

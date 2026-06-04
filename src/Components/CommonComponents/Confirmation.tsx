@@ -15,45 +15,25 @@ function Confirmation({ confirm, cancel, message, type }: props) {
         <div className="main-confirm">
           <h2 className="confirm-msg">{message}</h2>
           <div className="confirm-actions flex justify-center gap-4">
-            {type === "edit" ? (
-              <>
-                <Buttons label="Yes" onClick={confirm} className="yes-btn" />
+            <>
+              <Buttons
+                label={
+                  type == "edit"
+                    ? "Yes"
+                    : type == "delete"
+                      ? "Delete"
+                      : "Logout"
+                }
+                onClick={confirm}
+                className="yes-btn"
+              />
 
-                <Buttons label="No" onClick={cancel} className="no-btn" />
-              </>
-            ) : (
-              <>
-                {type === "delete" ? (
-                  <>
-                    <Buttons
-                      label="Delete"
-                      onClick={confirm}
-                      className="yes-btn"
-                    />
-
-                    <Buttons
-                      label="Cancel"
-                      onClick={cancel}
-                      className="no-btn"
-                    />
-                  </>
-                ) : (
-                  <>
-                    <Buttons
-                      label="Logout"
-                      onClick={confirm}
-                      className="yes-btn"
-                    />
-
-                    <Buttons
-                      label="Cancel"
-                      onClick={cancel}
-                      className="no-btn"
-                    />
-                  </>
-                )}
-              </>
-            )}
+              <Buttons
+                label={type == "edit" ? "NO" : "Cancel"}
+                onClick={cancel}
+                className="no-btn"
+              />
+            </>
           </div>
         </div>
       </div>

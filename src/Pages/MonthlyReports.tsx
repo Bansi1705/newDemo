@@ -8,7 +8,8 @@ import ApprovalMenu from "../Components/CommonComponents/ApprovalMenu";
 import { COMMON_SERVICES } from "../Services/CommonService/CommonServices";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { FaChevronDown } from "react-icons/fa6";
-import { TOASTER } from "../Services/CommonService/ToasterHelper";
+import Toaster from "../Services/CommonService/ToasterHelper";
+import { CONSTANT } from "../Services/Constant";
 
 interface NextApprover {
   status: string;
@@ -48,7 +49,7 @@ const MonthlyReports = () => {
         const res: ApiResponse<Reports> = await Apiservice.get("/reports");
         setMonthData(res.data);
       } catch {
-        TOASTER.ERROR.NOT_FOUND();
+        Toaster.error(CONSTANT.TOAST_ERROR_MSG.NOT_FOUND)
       } finally {
         setLoadMonth(false);
       }

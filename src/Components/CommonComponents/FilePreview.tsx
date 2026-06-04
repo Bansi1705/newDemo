@@ -3,7 +3,7 @@ import "../../Styles/ImagePreview.css";
 import { useEffect, useState } from "react";
 import ExcelJS from "exceljs";
 import Confirmation from "./Confirmation";
-import { TOASTER } from "../../Services/CommonService/ToasterHelper";
+import Toaster from "../../Services/CommonService/ToasterHelper";
 import { CONSTANT } from "../../Services/Constant";
 
 type PreviewFile = {
@@ -76,13 +76,13 @@ function FilePreview({ file, onClose, handleRemoveFile }: FilePreviewProps) {
 
         setExcelHtml(html);
       } catch {
-        TOASTER.ERROR.PREVIEW_FAIL();
+        Toaster.error(CONSTANT.ERROR.PREVIEW_FAIL)
         setExcelHtml("");
       }
     };
 
     loadExcel().catch(() => {
-      TOASTER.ERROR.NOT_FOUND();
+      Toaster.error(CONSTANT.ERROR.NOT_FOUND)
       setExcelHtml("");
     });
   }, [currentFile, isExcel]);

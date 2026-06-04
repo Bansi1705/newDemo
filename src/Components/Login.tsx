@@ -5,8 +5,10 @@ import { Buttons } from "./CommonComponents/Buttons";
 import InputField from "./CommonComponents/InputFeild";
 import type { LoginData } from "../Interface/types";
 import PasswordInput from "./CommonComponents/PasswordInput";
-import { TOASTER } from "../Services/CommonService/ToasterHelper";
-interface FormError {
+import Toaster from "../Services/CommonService/ToasterHelper";
+import { CONSTANT } from "../Services/Constant";
+
+ interface FormError {
   email?: string;
   password?: string;
   otp?: string;
@@ -100,7 +102,7 @@ const Login: React.FC = () => {
   const handleOtp = () => {
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
     localStorage.setItem("loginOtp", otp);
-    TOASTER.success(`OTP Generated ${otp}`);
+    Toaster.success(`OTP Generated ${otp}`)
   };
 
   const validate = (): boolean => {
@@ -135,10 +137,10 @@ const Login: React.FC = () => {
         "LoginUser",
         JSON.stringify({ ...loginState.data, token: "123abc" }),
       );
-      TOASTER.SUCCESS.LOGIN();
+      Toaster.success(CONSTANT.SUCCESS.LOGIN)
       navigate("/home");
     } else {
-      TOASTER.ERROR.COMMON();
+      Toaster.error(CONSTANT.ERROR.COMMON)
     }
   };
 
