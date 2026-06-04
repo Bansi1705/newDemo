@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { Apiservice } from "../Services/ApiService";
 import type { ApiResponse } from "../Interface/types";
-import { toast } from "react-toastify";
-import { CONSTANT } from "../Services/Constant";
 import Loader from "../Components/CommonComponents/Loader";
 import Header from "../Components/Header";
 import "../Styles/MonthlyReports.css";
@@ -10,6 +8,7 @@ import ApprovalMenu from "../Components/CommonComponents/ApprovalMenu";
 import { COMMON_SERVICES } from "../Services/CommonService/CommonServices";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { FaChevronDown } from "react-icons/fa6";
+import { TOASTER } from "../Services/CommonService/ToasterHelper";
 
 interface NextApprover {
   status: string;
@@ -49,7 +48,7 @@ const MonthlyReports = () => {
         const res: ApiResponse<Reports> = await Apiservice.get("/reports");
         setMonthData(res.data);
       } catch {
-        toast.error(CONSTANT.ERROR.NOT_FOUND);
+        TOASTER.ERROR.NOT_FOUND();
       } finally {
         setLoadMonth(false);
       }

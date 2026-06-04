@@ -1,12 +1,11 @@
 import React, { useReducer } from "react";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import { Otp } from "./CommonComponents/Otp";
 import { Buttons } from "./CommonComponents/Buttons";
 import InputField from "./CommonComponents/InputFeild";
 import type { LoginData } from "../Interface/types";
-import { CONSTANT } from "../Services/Constant";
 import PasswordInput from "./CommonComponents/PasswordInput";
+import { TOASTER } from "../Services/CommonService/ToasterHelper";
 interface FormError {
   email?: string;
   password?: string;
@@ -101,7 +100,7 @@ const Login: React.FC = () => {
   const handleOtp = () => {
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
     localStorage.setItem("loginOtp", otp);
-    toast.success(`Otp Generated ${otp}`);
+    TOASTER.success(`OTP Generated ${otp}`);
   };
 
   const validate = (): boolean => {
@@ -136,10 +135,10 @@ const Login: React.FC = () => {
         "LoginUser",
         JSON.stringify({ ...loginState.data, token: "123abc" }),
       );
-      toast.success(CONSTANT.SUCCESS.LOGIN);
+      TOASTER.SUCCESS.LOGIN();
       navigate("/home");
     } else {
-      toast.error(CONSTANT.ERROR.COMMON);
+      TOASTER.ERROR.COMMON();
     }
   };
 
@@ -222,9 +221,7 @@ const Login: React.FC = () => {
               className="px-3 py-2 border border-gray-300 rounded-lg text-base outline-none focus:border-blue-600 transition-colors duration-200"
             />
             {loginState.error.otp && (
-              <p className="error-message">
-                {loginState.error.otp}
-              </p>
+              <p className="error-message">{loginState.error.otp}</p>
             )}
           </div>
 

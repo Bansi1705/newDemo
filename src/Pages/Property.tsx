@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
-import Header from "./Header";
 import { Apiservice } from "../Services/ApiService";
 import type { ApiResponse } from "../Interface/types";
-import CommonMultiSelect from "./CommonComponents/MultipleDropDowm";
 import { COMMON_SERVICES } from "../Services/CommonService/CommonServices";
-import { toast } from "react-toastify";
-import { CONSTANT } from "../Services/Constant";
-import Loader from "./CommonComponents/Loader";
+import Loader from "../Components/CommonComponents/Loader";
+import Header from "../Components/Header";
+import CommonMultiSelect from "../Components/CommonComponents/MultipleDropDowm";
+import { TOASTER } from "../Services/CommonService/ToasterHelper";
 
 interface ApprovelName {
   approvalName: string;
@@ -65,7 +64,7 @@ const Property: React.FC = () => {
         console.log(res.data);
         setData(res.data);
       } catch {
-        toast.error(CONSTANT.ERROR.NOT_FOUND);
+        TOASTER.ERROR.NOT_FOUND()
       } finally {
         setLodingData(false);
       }

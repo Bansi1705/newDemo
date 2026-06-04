@@ -1,22 +1,4 @@
 export const CONSTANT = {
-  SUCCESS: {
-    CREATE: "Data created successfully",
-    UPDATE: "Data updated successfully",
-    DELETE: "Data deleted successfully",
-    FETCH: "Data fetched successfully",
-    LOGOUT: "User LogOut successfully",
-    LOGIN: "User LogIn successfully",
-    FILE_DOWNLOAD:"File Downloaded Succesfully !"
-  },
-  ERROR: {
-    NETWORK: "Network error, please try again",
-    NOT_FOUND: "Data not found",
-    COMMON: "Something Went Wrong!",
-    LARGE_IMAGE_FILE: "File size must be less than 5 MB",
-    LARGE_VIDEO_FILE: "File size must be less than 10 MB",
-    DATA_NOT_SELECTED: "Please Select a Data",
-    PREVIEW_FAIL: "File Preview Fail",
-  },
   MIME_TYPES: {
     IMAGE: ["image/jpg", "image/png", "image/jpeg", "image/webp"],
     PDF: "application/pdf",

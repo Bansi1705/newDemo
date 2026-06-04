@@ -11,12 +11,12 @@ import { CONSTANT } from "../Services/Constant";
 import { COMMON_SERVICES } from "../Services/CommonService/CommonServices";
 import { MdDeleteOutline, MdOutlinePreview } from "react-icons/md";
 import FilePreview from "../Components/CommonComponents/FilePreview";
-import { toast } from "react-toastify";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { CiEdit } from "react-icons/ci";
 import { FaChevronDown } from "react-icons/fa6";
 import Confirmation from "../Components/CommonComponents/Confirmation";
 import PasswordInput from "../Components/CommonComponents/PasswordInput";
+import { TOASTER } from "../Services/CommonService/ToasterHelper";
 // import InfiniteScroll from "react-infinite-scroll-component";
 
 function UserProfile() {
@@ -343,7 +343,7 @@ function UserProfile() {
       return;
     } else {
       updatedData = [...userProfiles, userProfileForm];
-      toast.success(CONSTANT.SUCCESS.CREATE);
+      TOASTER.SUCCESS.CREATE()
     }
 
     setUserProfiles(updatedData);
@@ -441,7 +441,7 @@ function UserProfile() {
       );
       setUserProfiles(filteredUser);
       localStorage.setItem("UserProfiles", JSON.stringify(filteredUser));
-      toast.success(CONSTANT.SUCCESS.DELETE);
+      TOASTER.SUCCESS.DELETE()
       setDeletingUserProfileId(null);
     } else if (editUserProfileId) {
       const updatedUser = userProfiles.map((user) => {
@@ -450,7 +450,7 @@ function UserProfile() {
 
       setUserProfiles(updatedUser);
       localStorage.setItem("UserProfiles", JSON.stringify(updatedUser));
-      toast.success(CONSTANT.SUCCESS.UPDATE);
+      TOASTER.SUCCESS.UPDATE()
       setEditUserProfileId(null);
       resetUserProfileForm();
     }

@@ -2,12 +2,11 @@ import Header from "../Components/Header";
 import { useEffect, useState } from "react";
 import type { ApiResponse } from "../Interface/types";
 import { Apiservice } from "../Services/ApiService";
-import { toast } from "react-toastify";
-import { CONSTANT } from "../Services/Constant";
 import Loader from "../Components/CommonComponents/Loader";
 import "../Styles/CapitalExpense.css";
 import { COMMON_SERVICES } from "../Services/CommonService/CommonServices";
 import { FaArrowDown, FaArrowUp } from "react-icons/fa6";
+import { TOASTER } from "../Services/CommonService/ToasterHelper";
 
 interface ApprovalPersonList {
   approvalName: string[];
@@ -55,7 +54,7 @@ const CapitalExpense = () => {
         const res: ApiResponse<CapEx> = await Apiservice.get("/capitalExpense");
         setCapExData(res.data);
       } catch {
-        toast.error(CONSTANT.ERROR.NOT_FOUND);
+        TOASTER.ERROR.NOT_FOUND();
       } finally {
         setLoadCapEx(false);
       }
@@ -116,9 +115,9 @@ const CapitalExpense = () => {
       ) : (
         <>
           <Header
-            searchShow={true}
-            search={serchTerm}
-            setSearch={setSerchTerm}
+            showSearchInput={true}
+            searchTerm={serchTerm}
+            setSearchTerm={setSerchTerm}
           />
           <main className="capital-expense-page">
             <section className="capital-expense-section">

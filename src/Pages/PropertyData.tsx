@@ -3,10 +3,9 @@ import Header from "../Components/Header";
 import "../Styles/PropertyData.css";
 import type { ApiResponse } from "../Interface/types";
 import { Apiservice } from "../Services/ApiService";
-import { toast } from "react-toastify";
-import { CONSTANT } from "../Services/Constant";
 import { COMMON_SERVICES } from "../Services/CommonService/CommonServices";
 import Loader from "../Components/CommonComponents/Loader";
+import { TOASTER } from "../Services/CommonService/ToasterHelper";
 
 interface DepartmentData {
   categoryName: string;
@@ -130,7 +129,7 @@ const PropertyData: React.FC = () => {
 
         setPropertyData(formattedData);
       } catch {
-        toast.error(CONSTANT.ERROR.NOT_FOUND);
+        TOASTER.ERROR.NOT_FOUND()
       } finally {
         setLoadData(false);
       }

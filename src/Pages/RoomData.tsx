@@ -3,8 +3,6 @@ import Header from "../Components/Header";
 import "../Styles/RoomData.css";
 import type { ApiResponse, RoomDataInterface } from "../Interface/types";
 import { Apiservice } from "../Services/ApiService";
-import { toast } from "react-toastify";
-import { CONSTANT } from "../Services/Constant";
 import { FaPlus } from "react-icons/fa";
 import { FaArrowDown, FaArrowUp, FaMinus } from "react-icons/fa6";
 import { Buttons } from "../Components/CommonComponents/Buttons";
@@ -14,6 +12,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import Loader from "../Components/CommonComponents/Loader";
 import { COMMON_SERVICES } from "../Services/CommonService/CommonServices";
+import { TOASTER } from "../Services/CommonService/ToasterHelper";
 
 const RoomData = () => {
   const [roomData, setRoomsData] = useState<RoomDataInterface[]>([]);
@@ -56,7 +55,7 @@ const RoomData = () => {
           await Apiservice.get("/dataRoom");
         setRoomsData(res.data);
       } catch {
-        toast.error(CONSTANT.ERROR.NOT_FOUND);
+        TOASTER.ERROR.NOT_FOUND();
       } finally {
         setLoadRoomData(false);
       }
@@ -121,7 +120,7 @@ const RoomData = () => {
     setRoomsData(newData);
     setShowConfirm(false);
     setConfirmMsg("");
-    toast.success(CONSTANT.SUCCESS.DELETE);
+    TOASTER.SUCCESS.DELETE();
   };
 
   const handleCheckBoxDeleteChange = (index: number, subIndex?: number) => {
@@ -166,7 +165,7 @@ const RoomData = () => {
 
   const handleCheckedDelete = () => {
     if (checkedDelete.index.length == 0 && checkedDelete.subIndex.length == 0)
-      return toast.error(CONSTANT.ERROR.DATA_NOT_SELECTED);
+      return TOASTER.ERROR.DATA_NOT_SELECTED();
     const roomCounts = checkedDelete.index.map(
       (index) => roomData[index].roomsCount,
     );

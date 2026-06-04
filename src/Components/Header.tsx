@@ -5,10 +5,8 @@ import { FaRegMoon, FaSearch } from "react-icons/fa";
 import { useTheme } from "../Context/ThemeContext";
 import React, { useState } from "react";
 import Confirmation from "./CommonComponents/Confirmation";
-import { toast } from "react-toastify";
 import { Buttons } from "./CommonComponents/Buttons";
 import { SearchBar } from "./CommonComponents/SearchComponent";
-import { CONSTANT } from "../Services/Constant";
 import {
   Menu,
   MenuButton,
@@ -20,6 +18,7 @@ import {
   TabPanel,
   TabPanels,
 } from "@headlessui/react";
+import { TOASTER } from "../Services/CommonService/ToasterHelper";
 
 type HeaderProps = {
   searchTerm?: string;
@@ -40,7 +39,7 @@ function Header({ searchTerm, setSearchTerm, showSearchInput }: HeaderProps) {
 
   const handleUserLogOutConfirm = () => {
     sessionStorage.removeItem("LoginUser");
-    toast.success(CONSTANT.SUCCESS.LOGOUT);
+    TOASTER.SUCCESS.LOGOUT();
     navigate("/");
   };
 

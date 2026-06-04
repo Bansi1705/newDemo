@@ -6,9 +6,8 @@ import type { ApexOptions } from "apexcharts";
 import "../Styles/ApexChart.css";
 import PropertyChart from "./PropertyChart";
 import CommonChart from "../Components/CommonComponents/Chart";
-import { CONSTANT } from "../Services/Constant";
-import { toast } from "react-toastify";
 import Loader from "../Components/CommonComponents/Loader";
+import { TOASTER } from "../Services/CommonService/ToasterHelper";
 interface DistributionAnalysis {
   propertyName: string;
   punchIns: number;
@@ -75,7 +74,7 @@ const ApexChart: React.FC = () => {
         setPaymentDetailsChartData(paymentRes.data);
         setChartData(res.data);
       } catch {
-        toast.error(CONSTANT.ERROR.NOT_FOUND);
+       TOASTER.ERROR.NOT_FOUND();
       } finally {
         setTimeout(() => {
           setLoadingChart(false);

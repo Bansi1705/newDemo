@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { toast } from "react-toastify";
 import { CONSTANT } from "../../Services/Constant";
+import { TOASTER } from "../../Services/CommonService/ToasterHelper";
 
 type FileUploadProps = {
   onFileSelect: (files: File | File[]) => void;
@@ -39,16 +39,16 @@ const FileUpload = ({
         if (file.size <= CONSTANT.MAX_FILE_SIZE.SMALL) {
           validFiles.push(file);
         } else {
-          toast.error(CONSTANT.ERROR.LARGE_IMAGE_FILE);
+          TOASTER.WARNING.LARGE_IMAGE_FILE();
         }
       } else if (CONSTANT.MIME_TYPES.VIDEO.includes(file.type)) {
         if (file.size <= CONSTANT.MAX_FILE_SIZE.LARGE) {
           validFiles.push(file);
         } else {
-          toast.error(CONSTANT.ERROR.LARGE_VIDEO_FILE);
+          TOASTER.WARNING.LARGE_VIDEO_FILE();
         }
       } else {
-        toast.error("Invalid file type");
+        TOASTER.WARNING.INVALID_FILE_TYPE();
       }
     }
 

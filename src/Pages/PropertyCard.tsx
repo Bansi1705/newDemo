@@ -3,9 +3,8 @@ import Header from "../Components/Header";
 import "../Styles/PropertyCard.css";
 import type { ApiResponse } from "../Interface/types";
 import { Apiservice } from "../Services/ApiService";
-import { toast } from "react-toastify";
-import { CONSTANT } from "../Services/Constant";
 import Loader from "../Components/CommonComponents/Loader";
+import { TOASTER } from "../Services/CommonService/ToasterHelper";
 
 interface ContentInterface {
   date: string;
@@ -44,7 +43,7 @@ interface ListViewInterface {
         setListProperty(listResponse.data);
       } catch (error) {
         console.log(error);
-        toast.error(CONSTANT.ERROR.COMMON);
+        TOASTER.ERROR.COMMON()
       } finally {
         setLoadPropertyData(false);
       }

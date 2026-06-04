@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Header from "./Header";
-import { toast } from "react-toastify";
 import "react-datepicker/dist/react-datepicker.css";
 import { ReactDatePicker } from "./CommonComponents/DatePicker";
 import InputField from "./CommonComponents/InputFeild";
 import { Apiservice } from "../Services/ApiService";
 import { Buttons } from "./CommonComponents/Buttons";
-import { CONSTANT } from "../Services/Constant";
 import type { ApiResponse, User } from "../Interface/types";
 import FileUpload from "./CommonComponents/FileUpload";
+import { TOASTER } from "../Services/CommonService/ToasterHelper";
 
 const Form = () => {
   const { id } = useParams();
@@ -94,7 +93,7 @@ const Form = () => {
         });
       } catch (err) {
         console.log(err);
-        toast.error(CONSTANT.ERROR.NOT_FOUND);
+        TOASTER.ERROR.NOT_FOUND();
       }
     };
     fetchUser();
@@ -117,16 +116,16 @@ const Form = () => {
     try {
       if (id) {
         await Apiservice.put<ApiResponse<User>>(`/users/${id}`, payLoad);
-        toast.success(CONSTANT.SUCCESS.UPDATE);
+        TOASTER.SUCCESS.UPDATE();
       } else {
         await Apiservice.post<ApiResponse<User>>(`/users`, payLoad);
-        toast.success(CONSTANT.SUCCESS.CREATE);
+        TOASTER.SUCCESS.CREATE();
       }
 
       navigate("/home");
     } catch (error) {
       console.error("Error saving user:", error);
-      toast.error(CONSTANT.ERROR.COMMON);
+      TOASTER.ERROR.COMMON();
     }
   };
 

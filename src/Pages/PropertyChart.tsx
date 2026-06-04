@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import type { ApiResponse } from "../Interface/types";
 import { Apiservice } from "../Services/ApiService";
-import { toast } from "react-toastify";
-import { CONSTANT } from "../Services/Constant";
 import type { ApexOptions } from "apexcharts";
 import CommonChart from "../Components/CommonComponents/Chart";
+import { TOASTER } from "../Services/CommonService/ToasterHelper";
 
 interface PmFormItem {
   id: number;
@@ -52,7 +51,7 @@ const PropertyChart: React.FC = () => {
         const res: ApiResponse<NextData> = await Apiservice.get("/NextData");
         setPropertyData(res.data);
       } catch {
-        toast.error(CONSTANT.ERROR.NOT_FOUND);
+        TOASTER.ERROR.NOT_FOUND();
       }
     };
 

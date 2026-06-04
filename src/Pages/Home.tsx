@@ -4,13 +4,11 @@ import { useNavigate } from "react-router-dom";
 import { MdDeleteOutline, MdOutlinePreview } from "react-icons/md";
 import { CiEdit } from "react-icons/ci";
 import "../Styles/Home.css";
-import { toast } from "react-toastify";
 import Confirmation from "../Components/CommonComponents/Confirmation";
 import { Buttons } from "../Components/CommonComponents/Buttons";
 import Pagination from "../Components/CommonComponents/Pagination";
 import { Apiservice } from "../Services/ApiService";
 import type { ApiResponse, User } from "../Interface/types";
-import { CONSTANT } from "../Services/Constant";
 import { COMMON_SERVICES } from "../Services/CommonService/CommonServices";
 import { DropDown } from "../Components/CommonComponents/DropDown";
 import CommonMultiSelect from "../Components/CommonComponents/MultipleDropDowm";
@@ -23,13 +21,15 @@ import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { MultipleWeekPicker } from "../Components/CommonComponents/MultiWeekSelect";
 import { startOfWeek } from "date-fns";
 import Loader from "../Components/CommonComponents/Loader";
+import { TOASTER } from "../Services/CommonService/ToasterHelper";
 
 const Home = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [IsLoadingUserList, setIsLoadingUserList] = useState<boolean>(true);
   const navigate = useNavigate();
   const [checkedDeleteUsers, setCheckedDeleteUsers] = useState<number[]>([]);
-  const [selectedDropDownMonth, setSelectedDropDownMonth] = useState<string>("");
+  const [selectedDropDownMonth, setSelectedDropDownMonth] =
+    useState<string>("");
   const [searchUserByName, setSearchUserByName] = useState<string>("");
   const [isShowConfirmModel, setIsShowConfirmModel] = useState<boolean>(false);
   const [deleteId, setDeleteId] = useState<number | undefined>(undefined);
@@ -64,7 +64,7 @@ const Home = () => {
         const response: ApiResponse<User[]> = await Apiservice.get("/users");
         setUsers(response.data);
       } catch {
-        toast.error(CONSTANT.ERROR.COMMON);
+        TOASTER.ERROR.COMMON();
       } finally {
         setIsLoadingUserList(false);
       }
@@ -90,9 +90,9 @@ const Home = () => {
       try {
         await Apiservice.delete<ApiResponse<User[]>>(`/users/${deleteId}`);
         setUsers((prev) => prev.filter((user) => user.id !== deleteId));
-        toast.success(CONSTANT.SUCCESS.DELETE);
+        TOASTER.SUCCESS.DELETE();
       } catch {
-        toast.error(CONSTANT.ERROR.COMMON);
+        TOASTER.ERROR.COMMON();
       } finally {
         setIsShowConfirmModel(false);
         setDeleteId(undefined);
@@ -111,9 +111,9 @@ const Home = () => {
         });
         setCheckedDeleteUsers([]);
         setIsShowConfirmModel(false);
-        toast.success(CONSTANT.SUCCESS.DELETE);
+        TOASTER.SUCCESS.DELETE();
       } catch {
-        toast.error(CONSTANT.ERROR.COMMON);
+        TOASTER.ERROR.COMMON();
       }
     }
   };
@@ -154,22 +154,22 @@ const Home = () => {
       const apiActions = {
         Get: () => {
           Apiservice.get<ApiResponse<User[]>>(url).then(() => {
-            toast.success(CONSTANT.SUCCESS.FETCH);
+            TOASTER.SUCCESS.FETCH()
           });
         },
         Post: () => {
           Apiservice.post<ApiResponse<User>>(url, newUser).then(() => {
-            toast.success(CONSTANT.SUCCESS.CREATE);
+            TOASTER.SUCCESS.CREATE()
           });
         },
         Put: () => {
           Apiservice.put<ApiResponse<User>>(url, newUser).then(() => {
-            toast.success(CONSTANT.SUCCESS.UPDATE);
+            TOASTER.SUCCESS.UPDATE();
           });
         },
         Delete: () => {
           Apiservice.delete<ApiResponse<null>>(url).then(() => {
-            toast.success(CONSTANT.SUCCESS.DELETE);
+            TOASTER.SUCCESS.DELETE();
           });
         },
       };
@@ -177,7 +177,7 @@ const Home = () => {
       apiActions[method]();
     } catch (error) {
       console.error(error);
-      toast.error(CONSTANT.ERROR.COMMON);
+      TOASTER.ERROR.COMMON();
     }
   };
 
@@ -186,7 +186,7 @@ const Home = () => {
 
   const handleMonthChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { value } = e.target;
-   setSelectedDropDownMonth(value);
+    setSelectedDropDownMonth(value);
   };
 
   console.log(selectedDropDownMonth);
@@ -220,13 +220,17 @@ const Home = () => {
   const handleCheckedDelete = () =>
     checkedDeleteUsers.length != 0
       ? setIsShowConfirmModel(true)
-      : toast.error("Please Select Item First !");
+      : TOASTER.error("Please Select Item First !");
 
   // console.log(weeks);
   return (
     <>
       <>
-        <Header searchTerm={searchUserByName} setSearchTerm={setSearchUserByName} showSearchInput={true} />
+        <Header
+          searchTerm={searchUserByName}
+          setSearchTerm={setSearchUserByName}
+          showSearchInput={true}
+        />
         <div className="user-data">
           <div className="table-section">
             <div className="apiButtons mb-4 flex gap-4 justify-center items-center">
@@ -313,7 +317,9 @@ const Home = () => {
                                 onChange={() =>
                                   handleCheckBoxDeleteChange(user.id ?? 0)
                                 }
-                                checked={checkedDeleteUsers.includes(user.id ?? 0)}
+                                checked={checkedDeleteUsers.includes(
+                                  user.id ?? 0,
+                                )}
                               />
                             }
                             label=""

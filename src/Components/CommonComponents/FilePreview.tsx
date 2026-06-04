@@ -2,9 +2,9 @@ import { IoIosCloseCircleOutline } from "react-icons/io";
 import "../../Styles/ImagePreview.css";
 import { useEffect, useState } from "react";
 import ExcelJS from "exceljs";
-import { CONSTANT } from "../../Services/Constant";
-import { toast } from "react-toastify";
 import Confirmation from "./Confirmation";
+import { TOASTER } from "../../Services/CommonService/ToasterHelper";
+import { CONSTANT } from "../../Services/Constant";
 
 type PreviewFile = {
   name: string;
@@ -76,13 +76,13 @@ function FilePreview({ file, onClose, handleRemoveFile }: FilePreviewProps) {
 
         setExcelHtml(html);
       } catch {
-        toast.error(CONSTANT.ERROR.PREVIEW_FAIL);
+        TOASTER.ERROR.PREVIEW_FAIL();
         setExcelHtml("");
       }
     };
 
     loadExcel().catch(() => {
-      toast.error(CONSTANT.ERROR.NOT_FOUND);
+      TOASTER.ERROR.NOT_FOUND();
       setExcelHtml("");
     });
   }, [currentFile, isExcel]);

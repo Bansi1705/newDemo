@@ -8,8 +8,7 @@ import { COMMON_SERVICES } from "../Services/CommonService/CommonServices";
 import { FaRegCommentDots } from "react-icons/fa";
 import Loader from "../Components/CommonComponents/Loader";
 import ExcelJS from "exceljs";
-import { CONSTANT } from "../Services/Constant";
-import { toast } from "react-toastify";
+import { ExcelDownload } from "../Services/CommonService/ExcelDownload";
 
 function Data() {
   const [data, setData] = useState<tableData[]>([]);
@@ -39,31 +38,25 @@ function Data() {
     return COMMON_SERVICES.sortData(onlyRows, sortOrder, sortKey);
   };
 
-  const tableHeader = [
-    { label: "Name", key: "categoryName" },
-    { label: "ActualMTD", key: "actualMTD" },
-    { label: "BudgetMTD", key: "budgetMTD" },
-    { label: "Variance", key: "variance" },
-    { label: "CommentCoutn", key: "commentCounts" },
-    { label: "BudgetMTH", key: "budgetMTH" },
-    { label: "VarianceMTH", key: "varianceMTH" },
-    { label: "ForecastMTH", key: "forecastMTH" },
+  const dataListTableHeader = [
+    { header: "Name", key: "categoryName" },
+    { header: "ActualMTD", key: "actualMTD" },
+    { header: "BudgetMTD", key: "budgetMTD" },
+    { header: "Variance", key: "variance" },
+    { header: "CommentCount", key: "commentCounts" },
+    { header: "BudgetMTH", key: "budgetMTH" },
+    { header: "VarianceMTH", key: "varianceMTH" },
+    { header: "ForecastMTH", key: "forecastMTH" },
   ];
 
   const downloadDataListExcel = async () => {
     const workBook = new ExcelJS.Workbook();
     const worksheets = workBook.addWorksheet("Data File Excel");
 
-    worksheets.columns = [
-      { header: "Name", key: "categoryName" },
-      { header: "ActualMTD", key: "actualMTD" },
-      { header: "BudgetMTD", key: "budgetMTD" },
-      { header: "Variance", key: "variance" },
-      { header: "CommentCoutn", key: "commentCounts" },
-      { header: "BudgetMTH", key: "budgetMTH" },
-      { header: "VarianceMTH", key: "varianceMTH" },
-      { header: "ForecastMTH", key: "forecastMTH" },
-    ];
+    worksheets.columns = dataListTableHeader.map((i) => ({
+      header: i.header,
+      key: i.key,
+    }));
 
     sortedUsers().forEach((row) => {
       if (row.isHeader) {
@@ -82,17 +75,10 @@ function Data() {
       }
     });
 
-    const buffer = await workBook.xlsx.writeBuffer();
-    const blob = new Blob([buffer], {
-      type: CONSTANT.MIME_TYPES.EXCEL[0],
+    await ExcelDownload({
+      workBook,
+      fileName: "Data_Report.xlsx",
     });
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "Data_Report.xlsx";
-    a.click();
-    window.URL.revokeObjectURL(url);
-    toast.success(CONSTANT.SUCCESS.FILE_DOWNLOAD)
   };
 
   useEffect(() => {
@@ -171,13 +157,13 @@ function Data() {
                 <table border={2} className="data-table">
                   <thead>
                     <tr>
-                      {tableHeader.map((head, index) => (
+                      {dataListTableHeader.map((head, index) => (
                         <th
                           key={index}
                           onClick={() => handleSortClick(head.key)}
                         >
                           <div className="flex items-center gap-1">
-                            {head.label}
+                            {head.header}
                             {sortKey === head.key ? (
                               sortOrder === "asc" ? (
                                 <FaArrowDown size={15} />

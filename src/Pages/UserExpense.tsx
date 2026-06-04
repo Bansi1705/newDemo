@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { toast } from "react-toastify";
 import type { ApiResponse, ExpenseData } from "../Interface/types";
 import { ReactDatePicker } from "../Components/CommonComponents/DatePicker";
 import { MdDeleteOutline } from "react-icons/md";
@@ -13,8 +12,9 @@ import { SearchBar } from "../Components/CommonComponents/SearchComponent";
 import Header from "../Components/Header";
 import { Apiservice } from "../Services/ApiService";
 import Pagination from "../Components/CommonComponents/Pagination";
-import { CONSTANT } from "../Services/Constant";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
+import { TOASTER } from "../Services/CommonService/ToasterHelper";
+import { toast } from "react-toastify";
 interface StatusChangeData {
   id: number | string;
   newStatus: string;
@@ -67,7 +67,7 @@ const UserExpense = () => {
           await Apiservice.get("/UserExpenses");
         setExpenses(response.data);
       } catch {
-        toast.error(CONSTANT.ERROR.COMMON);
+        TOASTER.ERROR.COMMON();
       }
     };
 
@@ -150,14 +150,14 @@ const UserExpense = () => {
           payload,
         );
         savedExpense = res.data;
-        toast.success(CONSTANT.SUCCESS.UPDATE);
+        TOASTER.SUCCESS.UPDATE();
       } else {
         const res: ApiResponse<ExpenseData> = await Apiservice.post(
           "/UserExpenses",
           payload,
         );
         savedExpense = res.data;
-        toast.success(CONSTANT.SUCCESS.CREATE);
+        TOASTER.SUCCESS.CREATE();
       }
 
       setExpenses((prev) =>
@@ -199,7 +199,7 @@ const UserExpense = () => {
         setShowConfirm(false);
       });
     } catch {
-      toast.error(CONSTANT.ERROR.COMMON);
+      TOASTER.ERROR.COMMON();
     }
     setDeleteExpenseId(undefined);
     setShowConfirm(false);
@@ -256,7 +256,7 @@ const UserExpense = () => {
         ),
       );
     } catch {
-      toast.error(CONSTANT.ERROR.NETWORK);
+      TOASTER.ERROR.COMMON();
     }
 
     setStatusChangeData(null);
@@ -559,12 +559,11 @@ const UserExpense = () => {
               </tbody>
             </table>
 
-            
-              <Pagination
-                currentPage={currentPage}
-                totalPages={totalPages}
-                onPageChange={setCurrentPage}
-              />
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={setCurrentPage}
+            />
 
             {showConfirm && (
               <Confirmation

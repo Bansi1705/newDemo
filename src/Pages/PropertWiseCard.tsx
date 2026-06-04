@@ -3,12 +3,11 @@ import Header from "../Components/Header";
 import "../Styles/PropertyCard.css";
 import type { ApiResponse } from "../Interface/types";
 import { Apiservice } from "../Services/ApiService";
-import { toast } from "react-toastify";
-import { CONSTANT } from "../Services/Constant";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { ReactDatePicker } from "../Components/CommonComponents/DatePicker";
 import { COMMON_SERVICES } from "../Services/CommonService/CommonServices";
 import Loader from "../Components/CommonComponents/Loader";
+import { TOASTER } from "../Services/CommonService/ToasterHelper";
 
 interface ContentInterface {
   date: string;
@@ -31,7 +30,7 @@ interface ListViewInterface {
   totalElements: number;
   totalPages: number;
 }
- const PropertyWiseCard = () => {
+const PropertyWiseCard = () => {
   const [listProperty, setListProperty] = useState<ListViewInterface | null>(
     null,
   );
@@ -50,7 +49,7 @@ interface ListViewInterface {
         setListProperty(listResponse.data);
       } catch (error) {
         console.log(error);
-        toast.error(CONSTANT.ERROR.COMMON);
+        TOASTER.ERROR.COMMON();
       } finally {
         setLoadProperty(false);
       }
