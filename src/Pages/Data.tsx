@@ -7,6 +7,9 @@ import { FaArrowDown, FaArrowUp } from "react-icons/fa";
 import { COMMON_SERVICES } from "../Services/CommonService/CommonServices";
 import { FaRegCommentDots } from "react-icons/fa";
 import Loader from "../Components/CommonComponents/Loader";
+import ExcelJS from "exceljs";
+import { CONSTANT } from "../Services/Constant";
+import { toast } from "react-toastify";
 
 function Data() {
   const [data, setData] = useState<tableData[]>([]);
@@ -33,7 +36,7 @@ function Data() {
   const sortedUsers = () => {
     if (!sortKey) return filteredUsers;
     const onlyRows = filteredUsers.filter((row) => !row.isHeader);
-    return COMMON_SERVICES.sortData(onlyRows,sortOrder,sortKey)
+    return COMMON_SERVICES.sortData(onlyRows, sortOrder, sortKey);
   };
 
   const tableHeader = [
@@ -46,6 +49,51 @@ function Data() {
     { label: "VarianceMTH", key: "varianceMTH" },
     { label: "ForecastMTH", key: "forecastMTH" },
   ];
+
+  const downloadDataListExcel = async () => {
+    const workBook = new ExcelJS.Workbook();
+    const worksheets = workBook.addWorksheet("Data File Excel");
+
+    worksheets.columns = [
+      { header: "Name", key: "categoryName" },
+      { header: "ActualMTD", key: "actualMTD" },
+      { header: "BudgetMTD", key: "budgetMTD" },
+      { header: "Variance", key: "variance" },
+      { header: "CommentCoutn", key: "commentCounts" },
+      { header: "BudgetMTH", key: "budgetMTH" },
+      { header: "VarianceMTH", key: "varianceMTH" },
+      { header: "ForecastMTH", key: "forecastMTH" },
+    ];
+
+    sortedUsers().forEach((row) => {
+      if (row.isHeader) {
+        worksheets.addRow([row.categoryTitle]);
+      } else {
+        worksheets.addRow({
+          categoryName: row.categoryName,
+          actualMTD: row.actualMTD,
+          budgetMTD: row.budgetMTD,
+          variance: row.variance,
+          commentCount: row.commentCount,
+          budgetMTH: row.budgetMTH,
+          varianceMTH: row.varianceMTH,
+          forecastMTH: row.forecastMTH,
+        });
+      }
+    });
+
+    const buffer = await workBook.xlsx.writeBuffer();
+    const blob = new Blob([buffer], {
+      type: CONSTANT.MIME_TYPES.EXCEL[0],
+    });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "Data_Report.xlsx";
+    a.click();
+    window.URL.revokeObjectURL(url);
+    toast.success(CONSTANT.SUCCESS.FILE_DOWNLOAD)
+  };
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -106,10 +154,20 @@ function Data() {
         <Loader />
       ) : (
         <>
-          <Header search={search} setSearch={setSearch} searchShow={true} />
+          <Header
+            searchTerm={search}
+            setSearchTerm={setSearch}
+            showSearchInput={true}
+          />
           <div className="user-data">
             <div className="table-data">
               <div className="table-wrapper">
+                <button
+                  onClick={downloadDataListExcel}
+                  className="bg-blue-500 px-3 py-2 mb-2 rounded cursor-pointer"
+                >
+                  Export Data
+                </button>
                 <table border={2} className="data-table">
                   <thead>
                     <tr>

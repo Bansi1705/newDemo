@@ -6,6 +6,7 @@ export const CONSTANT = {
     FETCH: "Data fetched successfully",
     LOGOUT: "User LogOut successfully",
     LOGIN: "User LogIn successfully",
+    FILE_DOWNLOAD:"File Downloaded Succesfully !"
   },
   ERROR: {
     NETWORK: "Network error, please try again",
