@@ -149,6 +149,15 @@ function Header({ searchTerm, setSearchTerm, showSearchInput }: HeaderProps) {
                 User Profile
               </NavLink>
             </MenuItem>
+             <MenuItem>
+              <NavLink
+                to="/payRollData"
+                onClick={() => setSelectedNavTab("Pay Roll Data")}
+                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-black"
+              >
+                Pay Roll Data
+              </NavLink>
+            </MenuItem>
           </MenuItems>
         </Menu>
 

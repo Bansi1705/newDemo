@@ -137,10 +137,10 @@ const Login: React.FC = () => {
         "LoginUser",
         JSON.stringify({ ...loginState.data, token: "123abc" }),
       );
-      Toaster.success(CONSTANT.SUCCESS.LOGIN)
+      Toaster.success(CONSTANT.TOAST_SUCCESS_MSG.LOGIN)
       navigate("/home");
     } else {
-      Toaster.error(CONSTANT.ERROR.COMMON)
+      Toaster.error(CONSTANT.TOAST_ERROR_MSG.COMMON)
     }
   };
 

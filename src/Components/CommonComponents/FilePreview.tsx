@@ -76,13 +76,13 @@ function FilePreview({ file, onClose, handleRemoveFile }: FilePreviewProps) {
 
         setExcelHtml(html);
       } catch {
-        Toaster.error(CONSTANT.ERROR.PREVIEW_FAIL)
+        Toaster.error(CONSTANT.TOAST_ERROR_MSG.PREVIEW_FAIL)
         setExcelHtml("");
       }
     };
 
     loadExcel().catch(() => {
-      Toaster.error(CONSTANT.ERROR.NOT_FOUND)
+      Toaster.error(CONSTANT.TOAST_ERROR_MSG.NOT_FOUND)
       setExcelHtml("");
     });
   }, [currentFile, isExcel]);

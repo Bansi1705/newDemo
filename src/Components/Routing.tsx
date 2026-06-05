@@ -11,6 +11,7 @@ import {
   Home,
   Login,
   MonthlyReports,
+  PayRollData,
   Property,
   PropertyCard,
   PropertyData,
@@ -36,6 +37,7 @@ const routingPages = [
   { path: "/monthlyReport", component: MonthlyReports, required: true },
   { path: "/capitalExpense", component: CapitalExpense, required: true },
   { path: "/userProfile", component: UserProfile, required: true },
+  { path: "/payRollData", component: PayRollData, required: true },
 ];
 
 export const Routing = createBrowserRouter(

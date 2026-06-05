@@ -740,5 +740,40 @@
   color: #f8fafc;
 }
 
+[data-theme="dark"] .payRollPage {
+  background-color: #0f172a;
+  color: #f8fafc;
+}
 
+[data-theme="dark"] .payRollPage-table-div {
+  background-color: #1e293b;
+  color: #f8fafc;
+}
 
+[data-theme="dark"] .payRollPage .bg-white {
+  background-color: #1e293b;
+}
+
+[data-theme="dark"] .payRollTable {
+  background-color: #1e293b;
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .payRollTable thead tr,
+[data-theme="dark"] .payRollTable .bg-blue-400 {
+  background-color: #2563eb;
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .payRollTable th {
+  border-bottom-color: #1d4ed8;
+}
+
+[data-theme="dark"] .payRollTable td {
+  border-bottom-color: #475569;
+  color: #e2e8f0;
+}
+
+[data-theme="dark"] .payRollTable tbody tr:hover {
+  background-color: #334155;
+}

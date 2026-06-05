@@ -150,7 +150,7 @@ function Data() {
               <div className="table-wrapper">
                 <button
                   onClick={downloadDataListExcel}
-                  className="bg-blue-500 px-3 py-2 mb-2 rounded cursor-pointer"
+                  className="bg-blue-500 px-3 py-2 mb-2 rounded cursor-pointer w-1/8"
                 >
                   Export Data
                 </button>

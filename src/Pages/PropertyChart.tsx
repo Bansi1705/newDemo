@@ -52,7 +52,7 @@ const PropertyChart: React.FC = () => {
         const res: ApiResponse<NextData> = await Apiservice.get("/NextData");
         setPropertyData(res.data);
       } catch {
-        Toaster.error(CONSTANT.TOAST_ERROR_MSG.NOT_FOUND)
+        Toaster.error(CONSTANT.TOAST_ERROR_MSG.NOT_FOUND);
       }
     };
 
