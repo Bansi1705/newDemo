@@ -7,6 +7,7 @@ export const CONSTANT = {
     LOGOUT: "User LogOut successfully",
     LOGIN: "User LogIn successfully",
     FILE_DOWNLOADED: "File Downloaded successfully",
+    COMMENT_ADDED: "Comment Added",
   },
   TOAST_ERROR_MSG: {
     NETWORK: "Network error, please try again",
@@ -19,7 +20,7 @@ export const CONSTANT = {
   TOAST_WARNING_MSG: {
     LARGE_IMAGE_FILE: "File Size Must Be Under 5 MB",
     LARGE_VIDEO_FILE: "File Size Must Be Under 10 MB",
-    INVALID_FILE_TYPE:"InValide File Type"
+    INVALID_FILE_TYPE: "InValide File Type",
   },
   MIME_TYPES: {
     IMAGE: ["image/jpg", "image/png", "image/jpeg", "image/webp"],

@@ -7,7 +7,14 @@ import { CONSTANT } from "../Services/Constant";
 import Header from "../Components/Header";
 import Loader from "../Components/CommonComponents/Loader";
 import { COMMON_SERVICES } from "../Services/CommonService/CommonServices";
-import { FaArrowDown, FaArrowUp, FaMinus, FaPlus } from "react-icons/fa6";
+import {
+  FaArrowDown,
+  FaArrowUp,
+  FaMinus,
+  FaPlus,
+  FaRegCommentDots,
+} from "react-icons/fa6";
+import AddComment from "../Components/CommonComponents/AddComment";
 
 interface payRollExpense {
   accountNumber: string;
@@ -19,8 +26,9 @@ interface payRollExpense {
   forecastMTH: number;
   budgetMTH: number;
   varianceMTH: number;
-  commentCount: number;
+  commentCount: number | undefined;
   subAccounts?: payRollExpense[];
+  comments: string[] | null;
 }
 
 interface payRollInterFace {
@@ -39,6 +47,12 @@ const PayRollData: React.FC = () => {
   const [showPayRollSubAccount, setShowPayRollSubAccount] =
     useState<boolean>(false);
 
+  const [showAddCommentModel, setShowAddCommentModel] =
+    useState<boolean>(false);
+  const [payRollCommentText, setPayRollCommentText] = useState<string>("");
+  const [selectedCommentItem, setSelectedCommentItem] =
+    useState<payRollExpense | null>(null);
+
   useEffect(() => {
     const fetchPayRoll = async () => {
       try {
@@ -56,6 +70,9 @@ const PayRollData: React.FC = () => {
     };
     fetchPayRoll();
   }, []);
+  console.log("API Data", PayRollData);
+  console.log("Selected Item", selectedCommentItem);
+  console.log(PayRollData);
 
   const payRollTableHeader = [
     { key: "srNo", header: "Sr No" },
@@ -71,8 +88,8 @@ const PayRollData: React.FC = () => {
     { key: "commentCount", header: "CommentCount" },
   ];
 
-  console.log(Object.keys(PayRollData.data));
-  console.log(Object.values(PayRollData.data));
+  // console.log(Object.keys(PayRollData.data));
+  // console.log(Object.values(PayRollData.data));
 
   const TotalOFPayRollsExpense = (name: string) => {
     return (
@@ -109,6 +126,62 @@ const PayRollData: React.FC = () => {
     };
   };
   console.log(sortedPayRollData());
+
+  const handleAddCommentConfirm = async () => {
+    console.log("confirm Clicked");
+
+    if (!selectedCommentItem || !payRollCommentText.trim()) return;
+    const commentWithDate = `${payRollCommentText} - ${COMMON_SERVICES.formatCreateDate(new Date().toDateString())} ${new Date().toLocaleTimeString()}`;
+    let updatedSelectedCommentItem: payRollExpense | null = null;
+
+    const updatedPayrollData = {
+      ...PayRollData,
+      data: Object.fromEntries(
+        Object.entries(PayRollData.data).map(([key, rows]) => [
+          key,
+          rows.map((row) => {
+            if (row.categoryName === selectedCommentItem?.categoryName) {
+              updatedSelectedCommentItem = {
+                ...row,
+                comments: [...(row.comments ?? []), commentWithDate],
+                commentCount: row.comments?.length,
+              };
+              return updatedSelectedCommentItem;
+            }
+
+            return {
+              ...row,
+              subAccounts: row.subAccounts?.map((sub) =>
+                sub.categoryName === selectedCommentItem?.categoryName
+                  ? (updatedSelectedCommentItem = {
+                      ...sub,
+                      comments: [...(sub.comments ?? []), commentWithDate],
+                      commentCount: sub.comments?.length,
+                    })
+                  : sub,
+              ),
+            };
+          }),
+        ]),
+      ),
+    };
+
+    await Apiservice.put<ApiResponse<payRollInterFace[]>>(
+      "/PayrollData",
+      updatedPayrollData,
+    );
+    Toaster.success(CONSTANT.TOAST_SUCCESS_MSG.COMMENT_ADDED);
+
+    setPayRollData(updatedPayrollData);
+    setPayRollCommentText("");
+    setSelectedCommentItem(updatedSelectedCommentItem);
+  };
+
+  const hadlePayRollAddCommentCancel = () => {
+    setPayRollCommentText("");
+    setShowAddCommentModel(false);
+    setSelectedCommentItem(null);
+  };
 
   return (
     <div className="payRollPage">
@@ -213,7 +286,23 @@ const PayRollData: React.FC = () => {
                           <td>{item.varianceMTH}</td>
 
                           <td>
-                            {item.commentCount === 0 ? "-" : item.commentCount}
+                            <div
+                              style={{
+                                position: "relative",
+                                display: "inline-block",
+                                cursor: "pointer",
+                              }}
+                              onClick={() => {
+                                setShowAddCommentModel(true);
+                                setSelectedCommentItem(item);
+                              }}
+                            >
+                              <FaRegCommentDots />
+
+                              <span className="absolute -top-2 -right-2.5 bg-red-500 text-white rounded-full px-1.5 py-0.5 text-[10px]">
+                                {item.commentCount}
+                              </span>
+                            </div>
                           </td>
                         </tr>
 
@@ -255,9 +344,22 @@ const PayRollData: React.FC = () => {
                               <td>{sub.varianceMTH}</td>
 
                               <td>
-                                {sub.commentCount === 0
-                                  ? "-"
-                                  : sub.commentCount}
+                                <div
+                                  style={{
+                                    position: "relative",
+                                    display: "inline-block",
+                                  }}
+                                  onClick={() => {
+                                    setShowAddCommentModel(true);
+                                    setSelectedCommentItem(sub);
+                                  }}
+                                >
+                                  <FaRegCommentDots />
+
+                                  <span className="absolute -top-2 -right-2.5 bg-red-500 text-white rounded-full px-1.5 py-0.5 text-[10px]">
+                                    {sub.commentCount}
+                                  </span>
+                                </div>
                               </td>
                             </tr>
                           ))}
@@ -270,6 +372,16 @@ const PayRollData: React.FC = () => {
           </tbody>
         </table>
       </div>
+      {showAddCommentModel && selectedCommentItem && (
+        <AddComment
+          commentText={payRollCommentText}
+          setCommentText={setPayRollCommentText}
+          handleAddComment={handleAddCommentConfirm}
+          handleCancelAddComment={hadlePayRollAddCommentCancel}
+          commentCategoryName={selectedCommentItem?.categoryName}
+          commentsList={selectedCommentItem?.comments ?? null}
+        />
+      )}
     </div>
   );
 };

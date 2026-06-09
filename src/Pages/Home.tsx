@@ -180,7 +180,7 @@ const Home = () => {
       apiActions[method]();
     } catch (error) {
       console.error(error);
-      Toaster.error(CONSTANT.TOAST_ERROR_MSG.COMMON)
+      Toaster.error(CONSTANT.TOAST_ERROR_MSG.COMMON);
     }
   };
 
