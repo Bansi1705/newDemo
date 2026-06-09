@@ -17037,10 +17037,10 @@
           "budgetMTH": 4698.6,
           "varianceMTH": -22.14,
           "invoiceTypeIncluded": false,
-          "commentCount": 1,
+          "commentCount": 2,
           "comments": [
-            "hello - 06 Aug 2026",
-            "hi - 08 Jun 2026 7:21:49 pm"
+            "hi - 08 Jun 2026 7:21:49 pm",
+            "hello - 09 Jun 2026 10:57:27 am"
           ],
           "expenseSyncEnabled": false,
           "softDelete": false,
@@ -17349,7 +17349,7 @@
           "varianceMTH": -95.42,
           "invoiceTypeIncluded": false,
           "commentCount": 0,
-          "comments": null,
+          "comments": [],
           "expenseSyncEnabled": true,
           "softDelete": false,
           "inActive": false,
@@ -17375,10 +17375,11 @@
           "budgetMTH": 34.91,
           "varianceMTH": 0,
           "invoiceTypeIncluded": false,
-          "commentCount": 1,
+          "commentCount": 3,
           "comments": [
-            "hello - 08 Jun 2026 6:20:26 pm",
-            "hi - 08 Jun 2026 7:13:42 pm"
+            "hi - 08 Jun 2026 7:13:42 pm",
+            "new - 09 Jun 2026 10:39:19 am",
+            "hello - 09 Jun 2026 10:40:20 am"
           ],
           "expenseSyncEnabled": true,
           "softDelete": false,
@@ -17404,14 +17405,9 @@
           "budgetMTH": 7237.08,
           "varianceMTH": -1526.07,
           "invoiceTypeIncluded": false,
-          "commentCount": 6,
+          "commentCount": 1,
           "comments": [
-            "last Comment - 8/6/2026, 5:34:49 pm",
-            "hello - 08 Jun 2026",
-            "hi - 08 Jun 2026 12:39:00.150Z",
-            "hello - 08 Jun 2026 undefined",
-            "hi - 08 Jun 2026 undefined",
-            "hi - 08 Jun 2026 6:12:40 pm"
+            "bansi - 09 Jun 2026 11:21:16 am"
           ],
           "expenseSyncEnabled": false,
           "softDelete": false,

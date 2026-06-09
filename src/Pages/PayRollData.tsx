@@ -144,7 +144,7 @@ const PayRollData: React.FC = () => {
               updatedSelectedCommentItem = {
                 ...row,
                 comments: [...(row.comments ?? []), commentWithDate],
-                commentCount: row.comments?.length,
+                commentCount: [...(row.comments ?? []), commentWithDate].length,
               };
               return updatedSelectedCommentItem;
             }
@@ -156,7 +156,8 @@ const PayRollData: React.FC = () => {
                   ? (updatedSelectedCommentItem = {
                       ...sub,
                       comments: [...(sub.comments ?? []), commentWithDate],
-                      commentCount: sub.comments?.length,
+                      commentCount: [...(sub.comments ?? []), commentWithDate]
+                        .length,
                     })
                   : sub,
               ),
@@ -181,6 +182,61 @@ const PayRollData: React.FC = () => {
     setPayRollCommentText("");
     setShowAddCommentModel(false);
     setSelectedCommentItem(null);
+  };
+
+  const handleDeleteComment = async (commentIndex: number) => {
+    if (!selectedCommentItem) return;
+
+    let updatedSelectedCommentItem: payRollExpense | null = null;
+
+    const updatedPayrollData = {
+      ...PayRollData,
+      data: Object.fromEntries(
+        Object.entries(PayRollData.data).map(([key, rows]) => [
+          key,
+          rows.map((row) => {
+            if (row.categoryName === selectedCommentItem.categoryName) {
+              const updatedComments =
+                row.comments?.filter((_, i) => i !== commentIndex) ?? [];
+
+              updatedSelectedCommentItem = {
+                ...row,
+                comments: updatedComments,
+                commentCount: updatedComments.length,
+              };
+
+              return updatedSelectedCommentItem;
+            }
+
+            return {
+              ...row,
+              subAccounts: row.subAccounts?.map((sub) => {
+                if (sub.categoryName === selectedCommentItem.categoryName) {
+                  const updatedComments =
+                    sub.comments?.filter((_, i) => i !== commentIndex) ?? [];
+
+                  updatedSelectedCommentItem = {
+                    ...sub,
+                    comments: updatedComments,
+                    commentCount: updatedComments.length,
+                  };
+
+                  return updatedSelectedCommentItem;
+                }
+
+                return sub;
+              }),
+            };
+          }),
+        ]),
+      ),
+    };
+
+    await Apiservice.put("/PayrollData", updatedPayrollData);
+
+    setPayRollData(updatedPayrollData);
+    setSelectedCommentItem(updatedSelectedCommentItem);
+    Toaster.success(CONSTANT.TOAST_SUCCESS_MSG.DELETE);
   };
 
   return (
@@ -300,7 +356,7 @@ const PayRollData: React.FC = () => {
                               <FaRegCommentDots />
 
                               <span className="absolute -top-2 -right-2.5 bg-red-500 text-white rounded-full px-1.5 py-0.5 text-[10px]">
-                                {item.commentCount}
+                                {item.comments?.length ?? "0"}
                               </span>
                             </div>
                           </td>
@@ -377,7 +433,8 @@ const PayRollData: React.FC = () => {
           commentText={payRollCommentText}
           setCommentText={setPayRollCommentText}
           handleAddComment={handleAddCommentConfirm}
-          handleCancelAddComment={hadlePayRollAddCommentCancel}
+          handleCancelPayRollAddComment={hadlePayRollAddCommentCancel}
+          handleDeleteComment={handleDeleteComment}
           commentCategoryName={selectedCommentItem?.categoryName}
           commentsList={selectedCommentItem?.comments ?? null}
         />
