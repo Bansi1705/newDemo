@@ -750,17 +750,12 @@
   color: #f8fafc;
 }
 
-[data-theme="dark"] .payRollPage .bg-white {
-  background-color: #1e293b;
-}
-
 [data-theme="dark"] .payRollTable {
   background-color: #1e293b;
   color: #f8fafc;
 }
 
-[data-theme="dark"] .payRollTable thead tr,
-[data-theme="dark"] .payRollTable .bg-blue-400 {
+[data-theme="dark"] .payRollTable thead tr {
   background-color: #2563eb;
   color: #f8fafc;
 }

@@ -1,0 +1,165 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f8f8f8;
+}
+
+h1 {
+  color: #333;
+}
+/* 
+body {
+  padding: 12px;
+} */
+
+.main_box {
+  width: 750px;
+  margin: auto;
+}
+
+/* Add more CSS rules here */
+.underline-input {
+  border: none;
+  border-bottom: 1.5px solid #333;
+  background: transparent;
+  width: 60px;
+  margin: 0 2px;
+  font-size: 14px;
+  outline: none;
+}
+
+.underline-input.short {
+  width: 30px;
+}
+
+.underline-input.long {
+  width: 120px;
+}
+
+.underline-input.xlSize {
+  width: 222px;
+}
+
+.label-bold {
+  font-weight: bold;
+}
+
+.label-small {
+  font-size: 12px;
+  color: #333;
+}
+
+.td-label-vertical {
+  width: 180px;
+  font-weight: bold;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 18px;
+  letter-spacing: 0.5px;
+  line-height: 1.1;
+}
+
+.td-label-vertical span {
+  font-size: 12px;
+  font-weight: normal;
+}
+
+.purpose-label {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.purpose-small {
+  font-size: 12px;
+  color: #333;
+}
+
+.attitude-label {
+  font-size: 13px;
+}
+
+.dotted-underline {
+  border-bottom: 1px dotted #333;
+  display: inline-block;
+  min-width: 60px;
+  height: 1.2em;
+  vertical-align: middle;
+}
+
+.section-header {
+  font-weight: bold;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 18px;
+  width: 180px;
+  line-height: 1.1;
+}
+
+.witness-line {
+  border-bottom: 1px solid #333;
+  display: inline-block;
+  width: 90%;
+  height: 1.2em;
+  vertical-align: middle;
+}
+
+.body-img {
+  display: block;
+  margin: 0 auto 4px auto;
+}
+
+.illness-label {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  vertical-align: middle;
+  width: 141px;
+  line-height: 1.1;
+}
+
+.illness-note {
+  font-size: 12px;
+  text-align: center;
+  display: block;
+}
+
+.w-full {
+  width: 100%;
+}
+
+input[type="radio" i] {
+  background-color: initial;
+  cursor: default;
+  appearance: auto;
+  box-sizing: border-box;
+  margin: 0 5px;
+  padding: initial;
+  border: initial;
+}
+
+.focus-none:focus-visible {
+  outline: none;
+}
+
+.no-spinner::-webkit-outer-spin-button,
+.no-spinner::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+.no-spinner {
+  -moz-appearance: textfield;
+}
+.flex-center {
+  display: flex;
+  align-items: center;
+}
+tr,
+td {
+  border: 1px solid #333;
+  padding: 3px;
+}
+.pdf-hide {
+  position: absolute;
+  bottom: 0px;
+}

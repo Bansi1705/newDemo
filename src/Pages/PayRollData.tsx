@@ -356,7 +356,7 @@ const PayRollData: React.FC = () => {
                               <FaRegCommentDots />
 
                               <span className="absolute -top-2 -right-2.5 bg-red-500 text-white rounded-full px-1.5 py-0.5 text-[10px]">
-                                {item.comments?.length ?? "0"}
+                                {item.commentCount ?? "0"}
                               </span>
                             </div>
                           </td>

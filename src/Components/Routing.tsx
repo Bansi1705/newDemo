@@ -9,6 +9,7 @@ import {
   Data,
   Form,
   Home,
+  IncidentReport,
   Login,
   MonthlyReports,
   PayRollData,
@@ -38,6 +39,7 @@ const routingPages = [
   { path: "/capitalExpense", component: CapitalExpense, required: true },
   { path: "/userProfile", component: UserProfile, required: true },
   { path: "/payRollData", component: PayRollData, required: true },
+  {path:"/incidentReport" ,component:IncidentReport , required:true}
 ];
 
 export const Routing = createBrowserRouter(

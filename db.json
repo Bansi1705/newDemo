@@ -17008,10 +17008,11 @@
           "budgetMTH": 4698.6,
           "varianceMTH": -22.14,
           "invoiceTypeIncluded": false,
-          "commentCount": 2,
+          "commentCount": 3,
           "comments": [
-            "bansi - 8/6/2026, 4:37:26 pm",
-            "hello - 8/6/2026, 5:33:41 pm"
+            "hello - 8/6/2026, 5:33:41 pm",
+            "hiiiii - 09 Jun 2026 3:07:17 pm",
+            "bansi - 09 Jun 2026 3:19:29 pm"
           ],
           "expenseSyncEnabled": true,
           "softDelete": false,
@@ -17070,7 +17071,7 @@
           "invoiceTypeIncluded": false,
           "commentCount": 1,
           "comments": [
-            "bansi"
+            "hello - 09 Jun 2026 3:31:19 pm"
           ],
           "expenseSyncEnabled": true,
           "softDelete": false,
@@ -17097,9 +17098,10 @@
           "budgetMTH": 433.67,
           "varianceMTH": -433.67,
           "invoiceTypeIncluded": false,
-          "commentCount": 1,
+          "commentCount": 2,
           "comments": [
-            "main comment - 8/6/2026, 4:49:07 pm"
+            "main comment - 8/6/2026, 4:49:07 pm",
+            "hi - 09 Jun 2026 3:06:57 pm"
           ],
           "expenseSyncEnabled": false,
           "softDelete": false,
@@ -17123,9 +17125,10 @@
               "budgetMTH": 433.67,
               "varianceMTH": -433.67,
               "invoiceTypeIncluded": false,
-              "commentCount": 1,
+              "commentCount": 2,
               "comments": [
-                "sub acoount comment - 8/6/2026, 4:57:29 pm"
+                "sub acoount comment - 8/6/2026, 4:57:29 pm",
+                "hello - 09 Jun 2026 3:06:35 pm"
               ],
               "expenseSyncEnabled": true,
               "softDelete": false,
@@ -17375,10 +17378,9 @@
           "budgetMTH": 34.91,
           "varianceMTH": 0,
           "invoiceTypeIncluded": false,
-          "commentCount": 3,
+          "commentCount": 2,
           "comments": [
             "hi - 08 Jun 2026 7:13:42 pm",
-            "new - 09 Jun 2026 10:39:19 am",
             "hello - 09 Jun 2026 10:40:20 am"
           ],
           "expenseSyncEnabled": true,
