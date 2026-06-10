@@ -34,7 +34,9 @@ const FileUpload = ({
 
       if (
         CONSTANT.MIME_TYPES.IMAGE.includes(file.type) ||
-        CONSTANT.MIME_TYPES.PDF.includes(file.type)
+        CONSTANT.MIME_TYPES.PDF.includes(file.type) ||
+        CONSTANT.MIME_TYPES.TXT.includes(file.type) ||
+        CONSTANT.MIME_TYPES.EXCEL.includes(file.type)
       ) {
         if (file.size <= CONSTANT.MAX_FILE_SIZE.SMALL) {
           validFiles.push(file);

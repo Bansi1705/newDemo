@@ -14,16 +14,21 @@ type PreviewFile = {
 type FilePreviewProps = {
   file: PreviewFile | PreviewFile[] | null;
   onClose: () => void;
-  handleRemoveFile?: (index: number) => void;
+  handleRemovePreViewFile?: (index: number) => void;
 };
 
-function FilePreview({ file, onClose, handleRemoveFile }: FilePreviewProps) {
+function FilePreview({
+  file,
+  onClose,
+  handleRemovePreViewFile,
+}: FilePreviewProps) {
   const [excelHtml, setExcelHtml] = useState("");
   const [previewIndex, setPreviewIndex] = useState(0);
   const previewFiles = file ? (Array.isArray(file) ? file : [file]) : [];
   const currentFile = previewFiles[previewIndex];
   const [showConfirmDelete, setShowConfirmDelete] = useState<boolean>(false);
   const [deletId, setDeleteId] = useState<number | null>(null);
+  const [previewTxtFileContent, setPreviewTxtFileContent] = useState("");
 
   const fileUrl = currentFile?.url || "";
 
@@ -37,60 +42,76 @@ function FilePreview({ file, onClose, handleRemoveFile }: FilePreviewProps) {
 
   const isVideo = CONSTANT.MIME_TYPES.VIDEO.includes(mimeType);
 
+  const isTxtFile = mimeType === CONSTANT.MIME_TYPES.TXT;
+
   useEffect(() => {
-    if (!isExcel || !currentFile) return;
+    if (!currentFile) return;
 
-    const loadExcel = async () => {
-      try {
-        const base64 = currentFile.url.includes(",")
-          ? currentFile.url.split(",")[1]
-          : currentFile.url;
+    console.log(currentFile);
 
-        const binary = atob(base64);
+    if (isExcel) {
+      const loadExcel = async () => {
+        try {
+          const base64 = currentFile.url.split(",")[1];
+          const binary = atob(base64);
 
-        const bytes = new Uint8Array(binary.length);
+          console.log("xsl", binary);
 
-        for (let i = 0; i < binary.length; i++) {
-          bytes[i] = binary.charCodeAt(i);
-        }
+          const bytes = new Uint8Array(binary.length);
 
-        const workbook = new ExcelJS.Workbook();
+          for (let i = 0; i < binary.length; i++) {
+            bytes[i] = binary.charCodeAt(i);
+          }
 
-        await workbook.xlsx.load(bytes.buffer);
+          const workbook = new ExcelJS.Workbook();
 
-        const worksheet = workbook.worksheets[0];
+          await workbook.xlsx.load(bytes.buffer);
 
-        let html = "<table>";
+          const worksheet = workbook.worksheets[0];
 
-        worksheet.eachRow((row) => {
-          html += "<tr>";
+          let html = "<table>";
 
-          row.eachCell((cell) => {
-            html += `<td>${cell.value ?? ""}</td>`;
+          worksheet.eachRow((row) => {
+            html += "<tr>";
+
+            row.eachCell((cell) => {
+              html += `<td>${cell.value ?? "-"}</td>`;
+            });
+
+            html += "</tr>";
           });
 
-          html += "</tr>";
-        });
+          html += "</table>";
 
-        html += "</table>";
+          setExcelHtml(html);
+        } catch {
+          Toaster.error(CONSTANT.TOAST_ERROR_MSG.PREVIEW_FAIL);
+          setExcelHtml("");
+        }
+      };
 
-        setExcelHtml(html);
-      } catch {
-        Toaster.error(CONSTANT.TOAST_ERROR_MSG.PREVIEW_FAIL)
+      loadExcel().catch(() => {
+        Toaster.error(CONSTANT.TOAST_ERROR_MSG.NOT_FOUND);
         setExcelHtml("");
-      }
-    };
+      });
+    } else {
+      try {
+        const base64 = currentFile.url.split(",")[1];
+        const text = atob(base64);
 
-    loadExcel().catch(() => {
-      Toaster.error(CONSTANT.TOAST_ERROR_MSG.NOT_FOUND)
-      setExcelHtml("");
-    });
-  }, [currentFile, isExcel]);
+        console.log("txt", text);
+
+        setPreviewTxtFileContent(text);
+      } catch {
+        setPreviewTxtFileContent("Unable to preview text file");
+      }
+    }
+  }, [currentFile, isExcel, isTxtFile]);
 
   if (!file) return null;
 
   const handleDeleteConfirm = () => {
-    if (deletId !== null && handleRemoveFile) {
+    if (deletId !== null && handleRemovePreViewFile) {
       setPreviewIndex((prev) => {
         if (prev === deletId) {
           if (prev === previewFiles.length - 1) {
@@ -103,7 +124,7 @@ function FilePreview({ file, onClose, handleRemoveFile }: FilePreviewProps) {
         }
         return prev;
       });
-      handleRemoveFile(deletId);
+      handleRemovePreViewFile(deletId);
     }
 
     setShowConfirmDelete(false);
@@ -113,6 +134,73 @@ function FilePreview({ file, onClose, handleRemoveFile }: FilePreviewProps) {
     setShowConfirmDelete(false);
     setDeleteId(null);
   };
+
+  const previewFileItems = [
+    {
+      condition: isImage,
+      element: (
+        <img src={fileUrl} alt={currentFile?.name} className="preview-image" />
+      ),
+    },
+    {
+      condition: isPdf,
+      element: (
+        <iframe src={fileUrl} title="PDF Preview" className="preview-frame" />
+      ),
+    },
+    {
+      condition: isExcel,
+      element: (
+        <iframe
+          title="Excel Preview"
+          className="preview-frame"
+          srcDoc={`
+                <html>
+                  <head>
+                    <style>
+                      body {
+                        font-family: sans-serif;
+                        font-size: 13px;
+                        padding: 10px;
+                      }
+
+                      table {
+                        border-collapse: collapse;
+                        width: 100%;
+                      }
+
+                      td, th {
+                        border: 1px solid #191717;
+                        padding: 6px;
+                      }
+                    </style>
+                  </head>
+
+                  <body>
+                    ${excelHtml}
+                  </body>
+                </html>
+             `}
+        />
+      ),
+    },
+    {
+      condition: isVideo,
+      element: (
+        <video className="preview-image" controls>
+          <source src={fileUrl} />
+        </video>
+      ),
+    },
+    {
+      condition: isTxtFile,
+      element: (
+        <div className="txt-preview">
+          <pre>{previewTxtFileContent}</pre>
+        </div>
+      ),
+    },
+  ];
 
   return (
     <div className="imagePreview-model">
@@ -129,7 +217,7 @@ function FilePreview({ file, onClose, handleRemoveFile }: FilePreviewProps) {
               >
                 {item.name}
 
-                {handleRemoveFile && (
+                {handleRemovePreViewFile && (
                   <button
                     className="text-black-300 bg-blue-400"
                     onClick={(e) => {
@@ -154,65 +242,7 @@ function FilePreview({ file, onClose, handleRemoveFile }: FilePreviewProps) {
             </div>
 
             <div className="preview-viewer">
-              {isImage && (
-                <img
-                  src={fileUrl}
-                  alt={currentFile?.name}
-                  className="preview-image"
-                />
-              )}
-
-              {isPdf && (
-                <iframe
-                  src={fileUrl}
-                  title="PDF Preview"
-                  className="preview-frame"
-                />
-              )}
-
-              {isExcel && (
-                <iframe
-                  title="Excel Preview"
-                  className="preview-frame"
-                  srcDoc={`
-                <html>
-                  <head>
-                    <style>
-                      body {
-                        font-family: Arial;
-                        font-size: 13px;
-                        padding: 10px;
-                      }
-
-                      table {
-                        border-collapse: collapse;
-                        width: 100%;
-                      }
-
-                      td, th {
-                        border: 1px solid #ccc;
-                        padding: 6px;
-                      }
-                    </style>
-                  </head>
-
-                  <body>
-                    ${excelHtml}
-                  </body>
-                </html>
-             `}
-                />
-              )}
-
-              {isVideo && (
-                <video className="preview-image" controls>
-                  <source src={fileUrl} />
-                </video>
-              )}
-
-              {!isImage && !isPdf && !isExcel && !isVideo && (
-                <div className="unsupported-file">Unsupported File Type</div>
-              )}
+              {previewFileItems.map((i) => i.condition && i.element)}
             </div>
           </div>
           {showConfirmDelete && (

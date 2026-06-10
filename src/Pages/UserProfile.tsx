@@ -484,7 +484,7 @@ function UserProfile() {
     "CEO",
   ];
 
-  const handleRemoveFile = (index: number) => {
+  const handleRemovePreViewFile = (index: number) => {
     const updatedUsers = userProfiles.map((user) =>
       user.employeeId === previewImageUserProfileId
         ? {
@@ -836,7 +836,7 @@ function UserProfile() {
 
             <FileUpload
               label="Upload Image"
-              accept="image/*,.pdf,.xls,.xlsx,video/*"
+              accept="image/*,.pdf,.xls,.xlsx,video/*,.txt"
               required={true}
               multipleFile={true}
               onFileSelect={(files) => {
@@ -1148,7 +1148,7 @@ function UserProfile() {
             <FilePreview
               file={userProfileImagePreView}
               onClose={handleClosePreview}
-              handleRemoveFile={handleRemoveFile}
+              handleRemovePreViewFile={handleRemovePreViewFile}
             />
           )}
         </div>

@@ -37,6 +37,7 @@ export const CONSTANT = {
       "video/mkv",
       "video/matroska",
     ],
+    TXT: "text/plain",
   },
   VALIDATION: {
     EMAIL: "Email is required!",
