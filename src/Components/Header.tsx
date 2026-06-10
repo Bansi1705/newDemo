@@ -20,6 +20,7 @@ import {
 } from "@headlessui/react";
 import Toaster from "../Services/CommonService/ToasterHelper";
 import { CONSTANT } from "../Services/Constant";
+import { useLocation } from "react-router-dom";
 
 type HeaderProps = {
   searchTerm?: string;
@@ -30,9 +31,9 @@ type HeaderProps = {
 function Header({ searchTerm, setSearchTerm, showSearchInput }: HeaderProps) {
   const { theme, toggleTheme } = useTheme();
   const [showLogOutCofirm, setShowLogOutConfirm] = useState<boolean>(false);
-  const [selectedNavTab, setSelectedNavTab] = useState("Pages");
   const navigate = useNavigate();
   const [selectedTabIndex, setSelectedTabIndex] = useState<number>(0);
+  const location = useLocation();
 
   const handleUserLogout = () => {
     setShowLogOutConfirm(true);
@@ -47,7 +48,7 @@ function Header({ searchTerm, setSearchTerm, showSearchInput }: HeaderProps) {
   const handleUserLogOutConfirmCancel = () => {
     setShowLogOutConfirm(false);
   };
-  // console.log("header renders")
+
   const navLinkList = [
     { to: "/home", name: "Home" },
     { to: "/add-user", name: "+ User" },
@@ -57,6 +58,22 @@ function Header({ searchTerm, setSearchTerm, showSearchInput }: HeaderProps) {
     { to: "/propertyData", name: "Property Data" },
     { to: "/chartData", name: "Charts" },
   ];
+
+  const menuNavItems = [
+    { to: "/property", name: "Property" },
+    { to: "/propertyCard", name: "Property Card" },
+    { to: "/propertyWiseCard", name: "PropertyWise Card" },
+    { to: "/monthlyReport", name: "Monthly Report" },
+    { to: "/capitalExpense", name: "Capital Expense" },
+    { to: "/userProfile", name: "User Profile" },
+    { to: "/payRollData", name: "Pay Roll Data" },
+    { to: "/incidentreport", name: "Incident Report" },
+  ];
+  const currentItem = menuNavItems.find(
+    (item) => item.to === location.pathname,
+  );
+  const selectedNavTab = currentItem ? currentItem.name : "Pages";
+  
   return (
     <div className="navbar flex items-center justify-between px-[15px] py-[30px] bg-blue-500 text-white w-full">
       <div className="text-2xl font-bold">
@@ -85,88 +102,23 @@ function Header({ searchTerm, setSearchTerm, showSearchInput }: HeaderProps) {
             ))}
           </TabPanels>
         </TabGroup>
+
         <Menu as="div" className="relative inline-block text-left">
           <MenuButton className="flex items-center gap-1 text-white font-medium hover:text-gray-300 px-3 py-2 ml-2 whitespace-nowrap">
             {selectedNavTab}
             <FaChevronDown size={14} />
           </MenuButton>
-
           <MenuItems className="absolute right-0 mt-2 w-52 rounded-lg bg-white shadow-lg z-50 overflow-hidden">
-            <MenuItem>
-              <NavLink
-                to="/property"
-                onClick={() => setSelectedNavTab("Property")}
-                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-black"
-              >
-                Property
-              </NavLink>
-            </MenuItem>
-
-            <MenuItem>
-              <NavLink
-                to="/propertyCard"
-                onClick={() => setSelectedNavTab("Property Card")}
-                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-black"
-              >
-                Property Card
-              </NavLink>
-            </MenuItem>
-
-            <MenuItem>
-              <NavLink
-                to="/propertyWiseCard"
-                onClick={() => setSelectedNavTab("PropertyWise Card")}
-                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-black"
-              >
-                PropertyWise Card
-              </NavLink>
-            </MenuItem>
-            <MenuItem>
-              <NavLink
-                to="/monthlyReport"
-                onClick={() => setSelectedNavTab("MonthlyReport")}
-                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-black"
-              >
-                Monthly Report
-              </NavLink>
-            </MenuItem>
-            <MenuItem>
-              <NavLink
-                to="/capitalExpense"
-                onClick={() => setSelectedNavTab("Capital Expense")}
-                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-black"
-              >
-                Capital Expense
-              </NavLink>
-            </MenuItem>
-
-            <MenuItem>
-              <NavLink
-                to="/userProfile"
-                onClick={() => setSelectedNavTab("User Profile")}
-                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-black"
-              >
-                User Profile
-              </NavLink>
-            </MenuItem>
-            <MenuItem>
-              <NavLink
-                to="/payRollData"
-                onClick={() => setSelectedNavTab("Pay Roll Data")}
-                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-black"
-              >
-                Pay Roll Data
-              </NavLink>
-            </MenuItem>
-            <MenuItem>
-              <NavLink
-                to="/incidentreport"
-                onClick={() => setSelectedNavTab("Pay Roll Data")}
-                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-black"
-              >
-                Incident Report
-              </NavLink>
-            </MenuItem>
+            {menuNavItems.map((item) => (
+              <MenuItem key={item.to}>
+                <NavLink
+                  to={item.to}
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-black"
+                >
+                  {item.name}
+                </NavLink>
+              </MenuItem>
+            ))}
           </MenuItems>
         </Menu>
 
