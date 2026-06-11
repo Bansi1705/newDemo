@@ -6,9 +6,9 @@ type Props = {
   selectedDate?: Date | null;
   onChange?: (date: Date | null) => void;
   placeholder?: string;
-  maxDate?:Date;
-  minDate?:Date;
-  className?:string;
+  maxDate?: Date;
+  minDate?: Date;
+  className?: string;
 };
 
 export function ReactDatePicker({
@@ -18,7 +18,7 @@ export function ReactDatePicker({
   placeholder,
   maxDate,
   minDate,
-  className
+  className,
 }: Props) {
   return (
     <div>
@@ -27,11 +27,16 @@ export function ReactDatePicker({
         toggleCalendarOnIconClick
         selected={selectedDate}
         onChange={onChange}
-        maxDate={maxDate??new Date()}
+        maxDate={maxDate ?? new Date()}
         minDate={minDate}
         className={className}
         placeholderText={placeholder}
         name="datePicker"
+        peekNextMonth
+        showMonthDropdown
+        showYearDropdown
+        dropdownMode="select"
+        dateFormat="dd/MMMM/yyyy"
       />
       {error && <span className="error-message">{error}</span>}
     </div>

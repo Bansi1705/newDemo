@@ -23,6 +23,10 @@ import { startOfWeek } from "date-fns";
 import Loader from "../Components/CommonComponents/Loader";
 import Toaster from "../Services/CommonService/ToasterHelper";
 import { CONSTANT } from "../Services/Constant";
+import MultipleMonthPicker from "../Components/CommonComponents/MultipleMonthPicker";
+import "react-datepicker/dist/react-datepicker.css";
+import YearPicker from "../Components/CommonComponents/YearPicker";
+import SingleMonthPicker from "../Components/CommonComponents/SingleMonthSelect";
 
 const Home = () => {
   const [users, setUsers] = useState<User[]>([]);
@@ -44,6 +48,15 @@ const Home = () => {
   const [weeks, setWeeks] = useState<Date[]>([
     startOfWeek(new Date(), { weekStartsOn: 1 }),
   ]);
+  const currentYear = new Date().getFullYear();
+  const [selectedMultipleMonths, setSelectedMultipleMonths] = useState<
+    [Date | null, Date | null]
+  >([new Date(currentYear, 0, 1), new Date(currentYear, 0, 31)]);
+  const [selectedSingleMonth, setSelectedSingleMonth] = useState<Date | null>(
+    new Date(currentYear, 0, 1),
+  );
+
+  const [selectedYear, setSelectedYear] = useState<Date | null>(new Date());
 
   const [currentPage, setCurrentPage] = useState<number>(1);
   const itemsPerPage = 5;
@@ -192,7 +205,7 @@ const Home = () => {
     setSelectedDropDownMonth(value);
   };
 
-  console.log(selectedDropDownMonth);
+  // console.log(selectedDropDownMonth);
 
   const [showItems, setShowItems] = useState([
     { label: "BCA", value: "bca" },
@@ -225,7 +238,17 @@ const Home = () => {
       ? setIsShowConfirmModel(true)
       : Toaster.error(CONSTANT.TOAST_ERROR_MSG.DATA_NOT_SELECTED);
 
-  // console.log(weeks);
+  const monthName = COMMON_SERVICES.nextMonth();
+
+  const multipleMonths = selectedMultipleMonths?.map(
+    (i) => i && monthName[i?.getMonth() + 1],
+  );
+  console.log("Multiple Month", multipleMonths);
+  console.log("Selcted Year", selectedYear?.getFullYear());
+  console.log(
+    "single ",
+    selectedSingleMonth && monthName[selectedSingleMonth?.getMonth() + 1],
+  );
   return (
     <>
       <>
@@ -291,6 +314,23 @@ const Home = () => {
               />
 
               <MultipleWeekPicker selectedWeeks={weeks} onChange={setWeeks} />
+            </div>
+
+            <div className="month-picker-section flex align-center justify-center gap-3 p-2 bg-slate-800">
+              <MultipleMonthPicker
+                setSelectedMultipleMonths={setSelectedMultipleMonths}
+                selectedMultipleMonths={selectedMultipleMonths}
+              />
+
+              <SingleMonthPicker
+                selectSingleMonth={selectedSingleMonth}
+                setSelectSingleMonth={setSelectedSingleMonth}
+              />
+
+              <YearPicker
+                selectedYear={selectedYear}
+                setSelectedYear={setSelectedYear}
+              />
             </div>
 
             <h2 className="main-title">Users List</h2>

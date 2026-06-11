@@ -117,16 +117,16 @@ const Form = () => {
     try {
       if (id) {
         await Apiservice.put<ApiResponse<User>>(`/users/${id}`, payLoad);
-        Toaster.success(CONSTANT.TOAST_SUCCESS_MSG.UPDATE)
+        Toaster.success(CONSTANT.TOAST_SUCCESS_MSG.UPDATE);
       } else {
         await Apiservice.post<ApiResponse<User>>(`/users`, payLoad);
-        Toaster.success(CONSTANT.TOAST_SUCCESS_MSG.CREATE)
+        Toaster.success(CONSTANT.TOAST_SUCCESS_MSG.CREATE);
       }
 
       navigate("/home");
     } catch (error) {
       console.error("Error saving user:", error);
-      Toaster.error(CONSTANT.TOAST_ERROR_MSG.COMMON)
+      Toaster.error(CONSTANT.TOAST_ERROR_MSG.COMMON);
     }
   };
 

@@ -73,7 +73,7 @@ function Header({ searchTerm, setSearchTerm, showSearchInput }: HeaderProps) {
     (item) => item.to === location.pathname,
   );
   const selectedNavTab = currentItem ? currentItem.name : "Pages";
-  
+
   return (
     <div className="navbar flex items-center justify-between px-[15px] py-[30px] bg-blue-500 text-white w-full">
       <div className="text-2xl font-bold">
