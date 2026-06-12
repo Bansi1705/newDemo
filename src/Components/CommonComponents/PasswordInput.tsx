@@ -2,18 +2,18 @@ import { FaEye, FaEyeSlash } from "react-icons/fa6";
 
 interface PasswordInputProps {
   label?: string;
-  name: string;
-  value: string;
+  name?: string;
+  value?: string;
   placeholder?: string;
-  showPassword: boolean;
-  setShowPassword: React.Dispatch<React.SetStateAction<boolean>>;
-  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  showPassword?: boolean;
+  setShowPassword?: React.Dispatch<React.SetStateAction<boolean>>;
+  handleChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   required?: boolean;
-  classname?:string;
+  classname?: string;
 }
 
 function PasswordInput({
-  label ,
+  label,
   name,
   value,
   placeholder = "********",
@@ -21,7 +21,7 @@ function PasswordInput({
   setShowPassword,
   handleChange,
   required = false,
-  classname
+  classname,
 }: PasswordInputProps) {
   return (
     <div className="mb-4 flex flex-col">
@@ -45,7 +45,8 @@ function PasswordInput({
 
         <span
           className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-lg text-gray-500"
-          onClick={() => setShowPassword(!showPassword)}
+          onClick={() => setShowPassword && setShowPassword(!showPassword)}
+          aria-label="toggle password visibility"
         >
           {showPassword ? <FaEyeSlash /> : <FaEye />}
         </span>

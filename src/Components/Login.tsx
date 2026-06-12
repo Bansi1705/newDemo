@@ -8,7 +8,7 @@ import PasswordInput from "./CommonComponents/PasswordInput";
 import Toaster from "../Services/CommonService/ToasterHelper";
 import { CONSTANT } from "../Services/Constant";
 
- interface FormError {
+interface FormError {
   email?: string;
   password?: string;
   otp?: string;
@@ -91,7 +91,9 @@ const Login: React.FC = () => {
   const navigate = useNavigate();
   const [loginState, dispatch] = useReducer(reducer, initialState);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleLoginUserInputChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     const { name, value } = e.target;
     dispatch({
       type: "HANDLE_CHANGE",
@@ -99,10 +101,10 @@ const Login: React.FC = () => {
     });
   };
 
-  const handleOtp = () => {
+  const handleLoginUserOtp = () => {
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
     localStorage.setItem("loginOtp", otp);
-    Toaster.success(`OTP Generated ${otp}`)
+    Toaster.success(`OTP Generated ${otp}`);
   };
 
   const validate = (): boolean => {
@@ -130,24 +132,24 @@ const Login: React.FC = () => {
     return Object.keys(newError).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleLoginUserSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (validate()) {
       sessionStorage.setItem(
         "LoginUser",
         JSON.stringify({ ...loginState.data, token: "123abc" }),
       );
-      Toaster.success(CONSTANT.TOAST_SUCCESS_MSG.LOGIN)
+      Toaster.success(CONSTANT.TOAST_SUCCESS_MSG.LOGIN);
       navigate("/home");
     } else {
-      Toaster.error(CONSTANT.TOAST_ERROR_MSG.COMMON)
+      Toaster.error(CONSTANT.TOAST_ERROR_MSG.COMMON);
     }
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="w-full max-w-md p-8 bg-white rounded-xl shadow-md">
-        <form className="flex flex-col" onSubmit={handleSubmit}>
+        <form className="flex flex-col">
           <h2 className="text-center mb-6 text-2xl text-gray-800 font-bold">
             Login
           </h2>
@@ -161,7 +163,7 @@ const Login: React.FC = () => {
               name="email"
               id="email"
               value={loginState.data.email}
-              onChange={handleChange}
+              onChange={handleLoginUserInputChange}
               placeholder="bansi@gmail.com"
               error={loginState.error.email}
               classname="px-3 py-2 border border-gray-300 rounded-lg text-base outline-none focus:border-blue-600 transition-colors duration-200"
@@ -175,7 +177,7 @@ const Login: React.FC = () => {
             <PasswordInput
               name="password"
               value={loginState.data.password}
-              handleChange={handleChange}
+              handleChange={handleLoginUserInputChange}
               showPassword={loginState.showPassword}
               setShowPassword={() => dispatch({ type: "TOGGLE_PASSWORD" })}
               classname="px-3 py-2 border border-gray-300 rounded-lg text-base outline-none focus:border-blue-600 transition-colors duration-200"
@@ -183,30 +185,6 @@ const Login: React.FC = () => {
             {loginState.error.password && (
               <span className="error-message">{loginState.error.password}</span>
             )}
-            {/* <div className="relative flex items-center">
-              <InputField
-                id="password"
-                type={state.showPassword ? "text" : "password"}
-                name="password"
-                value={state.data.password}
-                onChange={handleChange}
-                placeholder="********"
-                error={state.error.password}
-                classname="px-3 py-2 pr-10 border border-gray-300 rounded-lg text-base outline-none focus:border-blue-600 transition-colors duration-200"
-              />
-              <span
-                className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-lg text-gray-500 flex items-center justify-center"
-                onClick={() => dispatch({ type: "TOGGLE_PASSWORD" })}
-              >
-                {state.showPassword ? <FaEyeSlash /> : <FaEye />}
-              </span>
-            </div> */}
-
-            {/* {state.error.password && (
-              <p className="mt-1 text-red-600 text-sm">
-                {state.error.password}
-              </p>
-            )} */}
           </div>
           <div className="mb-4 flex flex-col">
             <label
@@ -231,13 +209,14 @@ const Login: React.FC = () => {
             <Buttons
               label="Login"
               type="submit"
+              onClick={handleLoginUserSubmit}
               className="flex-1 px-4 py-3 bg-blue-600 text-white border-none rounded-lg text-base cursor-pointer hover:bg-blue-800 transition-colors duration-200 font-medium"
             />
             <Buttons
               label="Generate Otp"
               type="button"
               className="flex-1 px-4 py-3 bg-blue-600 text-white border-none rounded-lg text-base cursor-pointer hover:bg-blue-800 transition-colors duration-200 font-medium"
-              onClick={handleOtp}
+              onClick={handleLoginUserOtp}
             />
           </div>
         </form>
