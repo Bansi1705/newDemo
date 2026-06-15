@@ -55,7 +55,7 @@ const Form = () => {
     } else if (data.birthdate > new Date()) {
       newError.birthdate = "Birthdate cannot be in future";
     }
-    if (!data.uploadFile) {
+    if (data.uploadFile.length === 0) {
       newError.uploadFile = "UploadFile is required.";
     }
 
@@ -219,6 +219,9 @@ const Form = () => {
                 reader.readAsDataURL(selectedFile);
               }}
             />
+            {error.uploadFile && (
+              <span className="error-message">{error.uploadFile}</span>
+            )}
           </div>
 
           <Buttons

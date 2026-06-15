@@ -74,6 +74,7 @@ const FileUpload = ({
       <label className="custom-file-upload">
         Choose Files
         <input
+          data-testid="file-input"
           type="file"
           accept={accept}
           onChange={handleChange}

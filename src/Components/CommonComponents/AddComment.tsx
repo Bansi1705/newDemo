@@ -46,15 +46,14 @@ const AddComment = ({
   const handleDeletePayRollCommentConfirm = () => {
     if (selectedCommentIndex === null) return;
     handleDeleteComment(selectedCommentIndex);
-        setIsShowConfimModel(false);
-
+    setIsShowConfimModel(false);
   };
   const handleDeletePayRollCommentCancel = () => {
     setIsShowConfimModel(false);
   };
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-      <div className="w-full max-w-lg rounded-lg bg-white p-6 shadow-xl">
+      <div className="w-full max-w-lg rounded-lg bg-black/70 p-6 shadow-xl">
         <h2 className="mb-4 text-xl font-semibold">Add Comment</h2>
 
         <h3 className="mb-3 rounded bg-gray-400 p-2 font-medium text-gray-700">
