@@ -22,7 +22,7 @@ import Toaster from "../Services/CommonService/ToasterHelper";
 import { CONSTANT } from "../Services/Constant";
 import { useLocation } from "react-router-dom";
 
-type HeaderProps = {
+export type HeaderProps = {
   searchTerm?: string;
   setSearchTerm?: React.Dispatch<React.SetStateAction<string>>;
   showSearchInput?: boolean;

@@ -6,6 +6,7 @@ export const Buttons: React.FC<buttonProps> = ({
   label,
   className,
   disabled,
+  dataTestid,
 }) => {
   return (
     <button
@@ -14,6 +15,7 @@ export const Buttons: React.FC<buttonProps> = ({
       disabled={disabled}
       name="commonButton"
       type={type}
+      data-testid={dataTestid}
     >
       {label}
     </button>

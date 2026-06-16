@@ -19,6 +19,7 @@ const YearPicker: React.FC<YearPickerProps> = ({
       dateFormat="yyyy"
       showIcon
       className="input-field"
+      placeholderText="Select Year"
     />
   );
 };

@@ -15,7 +15,7 @@ import CommonMultiSelect from "../Components/CommonComponents/MultipleDropDowm";
 import FilePreview from "../Components/CommonComponents/FilePreview";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-import CustomDateRangePicker from "../Components/CommonComponents/DatePickerBasic";
+import CustomDateRangePicker from "../Components/CommonComponents/CustomDateRangePicker";
 import WeekPicker from "../Components/CommonComponents/WeekPicker";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { MultipleWeekPicker } from "../Components/CommonComponents/MultiWeekSelect";
@@ -333,7 +333,7 @@ const Home = () => {
               />
             </div>
 
-            <h2 className="main-title">Users List</h2>
+            <h1 className="main-title">Users List</h1>
 
             <div className="table-wrapper">
               <table border={2} className="data-table">
@@ -383,6 +383,7 @@ const Home = () => {
                         <td className="action-buttons">
                           <Menu
                             as="div"
+                            data-testid="action-menu"
                             className="relative inline-block text-left"
                           >
                             <MenuButton className="bg-blue-500 px-3 py-2 rounded cursor-pointer">

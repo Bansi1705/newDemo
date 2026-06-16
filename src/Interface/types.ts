@@ -42,6 +42,7 @@ export interface buttonProps {
   className?: string;
   disabled?: boolean;
   type?: "button" | "submit" | "reset";
+  dataTestid?:string;
 }
 export interface inputProps {
   type: string;

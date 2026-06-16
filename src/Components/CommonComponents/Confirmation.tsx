@@ -17,6 +17,7 @@ function Confirmation({ confirm, cancel, message, type }: props) {
           <div className="confirm-actions flex justify-center gap-4">
             <>
               <Buttons
+              dataTestid="confirm-delete-btn"
                 label={
                   type == "edit"
                     ? "Yes"
