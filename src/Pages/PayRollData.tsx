@@ -248,13 +248,15 @@ const PayRollData: React.FC = () => {
           <thead>
             <tr className="bg-blue-400 text-white p-4">
               {payRollTableHeader.map((i) => (
-                <th key={i.key} className="p-4">
-                  <div className="flex items-center gap-1">
+                <th
+                  key={i.key}
+                  className="p-4"
+                  onClick={() => handlePayrollDataSort(i.key)}
+                >
+                  <div className="flex items-center gap-1 cursor-pointer">
+                    {i.header}
                     {i.header !== "Sr No" && (
-                      <div
-                        className="cursor-pointer"
-                        onClick={() => handlePayrollDataSort(i.key)}
-                      >
+                      <div>
                         {sortByPayRollDataKey === i.key ? (
                           payRollDataSortOrder === "asc" ? (
                             <FaArrowDown size={15} />
@@ -266,7 +268,6 @@ const PayRollData: React.FC = () => {
                         )}
                       </div>
                     )}
-                    {i.header}
                   </div>
                 </th>
               ))}

@@ -56,7 +56,7 @@ const RoomData = () => {
           await Apiservice.get("/dataRoom");
         setRoomsData(res.data);
       } catch {
-        Toaster.error(CONSTANT.TOAST_ERROR_MSG.NOT_FOUND)
+        Toaster.error(CONSTANT.TOAST_ERROR_MSG.NOT_FOUND);
       } finally {
         setLoadRoomData(false);
       }
@@ -121,7 +121,7 @@ const RoomData = () => {
     setRoomsData(newData);
     setShowConfirm(false);
     setConfirmMsg("");
-    Toaster.success(CONSTANT.TOAST_SUCCESS_MSG.DELETE)
+    Toaster.success(CONSTANT.TOAST_SUCCESS_MSG.DELETE);
   };
 
   const handleCheckBoxDeleteChange = (index: number, subIndex?: number) => {
@@ -166,7 +166,7 @@ const RoomData = () => {
 
   const handleCheckedDelete = () => {
     if (checkedDelete.index.length == 0 && checkedDelete.subIndex.length == 0)
-      return Toaster.error(CONSTANT.TOAST_ERROR_MSG.DATA_NOT_SELECTED)
+      return Toaster.error(CONSTANT.TOAST_ERROR_MSG.DATA_NOT_SELECTED);
     const roomCounts = checkedDelete.index.map(
       (index) => roomData[index].roomsCount,
     );
@@ -225,11 +225,12 @@ const RoomData = () => {
                     <thead>
                       <tr>
                         {tableHeader.map((head, index) => (
-                          <th key={index}>
-                            <div className="flex items-center gap-1">
+                          <th key={index} onClick={() => handleSorting(head.key)}>
+                            <div className="flex items-center gap-1 cursor-pointer">
+                              {head.label}
                               {head.label !== "Actions" &&
                                 head.label !== "Sr NO." && (
-                                  <div onClick={() => handleSorting(head.key)}>
+                                  <div>
                                     {sortKey === head.key ? (
                                       sortOrder === "asc" ? (
                                         <FaArrowDown size={15} />
@@ -241,7 +242,6 @@ const RoomData = () => {
                                     )}
                                   </div>
                                 )}
-                              {head.label}
                             </div>
                           </th>
                         ))}

@@ -4,7 +4,7 @@ export const Buttons: React.FC<buttonProps> = ({
   type = "button",
   onClick,
   label,
-  className,
+  className="cursor-pointer",
   disabled,
   dataTestid,
 }) => {

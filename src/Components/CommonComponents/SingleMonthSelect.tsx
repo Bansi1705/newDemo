@@ -21,7 +21,7 @@ const SingleMonthPicker: React.FC<singleMonthPickerProps> = ({
       showMonthYearPicker
       onChange={onMonthChange}
       shouldCloseOnSelect={false}
-      className="input-field"
+      className="input-field cursor-pointer"
       placeholderText="Select Month"
       showIcon
       dateFormat="MM/dd/yyyy"

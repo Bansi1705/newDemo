@@ -129,10 +129,11 @@ const CapitalExpense = () => {
                   <thead>
                     <tr>
                       {capExTableHeaders.map((head) => (
-                        <th key={head.key}>
-                          <div className="flex items-center gap-1">
+                        <th key={head.key} onClick={() => handleCapExSorting(head.key)}>
+                          <div className="flex items-center gap-1 cursor-pointer">
+                             {head.label}
                             {head.label !== "Sr No." && (
-                              <div onClick={() => handleCapExSorting(head.key)}>
+                              <div >
                                 {sortKey === head.key ? (
                                   sortOrder === "asc" ? (
                                     <FaArrowDown size={15} />
@@ -144,7 +145,7 @@ const CapitalExpense = () => {
                                 )}
                               </div>
                             )}
-                            {head.label}
+                           
                           </div>
                         </th>
                       ))}

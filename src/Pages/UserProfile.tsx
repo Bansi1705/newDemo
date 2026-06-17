@@ -543,7 +543,7 @@ function UserProfile() {
                 setIsEditAbleUser(true);
               }
             }}
-            className="px-3 py-2 bg-blue-600 text-white rounded hover:bg-blue-800 transition-colors whitespace-nowrap my-auto"
+            className="cursor-pointer px-3 py-2 bg-blue-600 text-white rounded hover:bg-blue-800 transition-colors whitespace-nowrap my-auto"
           />
         </div>
 
@@ -967,7 +967,7 @@ function UserProfile() {
             <div className="form-buttons flex gap-4 mt-4">
               <Buttons
                 label={!editUserProfileId ? "Add User" : "Edit User"}
-                className="submit-btn"
+                className="submit-btn cursor-pointer"
                 onClick={handleUserProfileFormSubmit}
               />
 
@@ -975,7 +975,7 @@ function UserProfile() {
                 label="Cancel"
                 type="button"
                 onClick={resetUserProfileForm}
-                className="cancel-btn"
+                className="cancel-btn cursor-pointer"
               />
             </div>
           </form>
@@ -1072,7 +1072,7 @@ function UserProfile() {
                     <td>{user.status}</td>
 
                     <td>
-                      <div className="imagePreviewIcon">
+                      <div className="imagePreviewIcon cursor-pointer">
                         <MdOutlinePreview
                           size={30}
                           onClick={() =>
@@ -1095,7 +1095,7 @@ function UserProfile() {
                         as="div"
                         className="relative inline-block text-left"
                       >
-                        <MenuButton className="inline-flex items-center rounded bg-blue-500 px-3 py-2 text-sm font-medium text-white hover:bg-blue-600">
+                        <MenuButton className=" cursor-pointer inline-flex items-center rounded bg-blue-500 px-3 py-2 text-sm font-medium text-white hover:bg-blue-600">
                           Actions
                           <FaChevronDown />
                         </MenuButton>
@@ -1113,7 +1113,7 @@ function UserProfile() {
                                     Edit
                                   </>
                                 }
-                                className="flex w-full items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                className="cursor-pointer flex w-full items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                               />
                             )}
                           </MenuItem>

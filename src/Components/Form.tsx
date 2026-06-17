@@ -227,7 +227,7 @@ const Form = () => {
           <Buttons
             label={`${id ? "Update" : "Add"} User`}
             type="submit"
-            className="submit-btn w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-800 transition-colors mt-4"
+            className="submit-btn w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-800 transition-colors mt-4 cursor-pointer"
           />
         </form>
       </div>

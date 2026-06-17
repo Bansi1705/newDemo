@@ -35,6 +35,7 @@ function Data() {
   const sortedUsers = () => {
     if (!sortKey) return filteredUsers;
     const onlyRows = filteredUsers.filter((row) => !row.isHeader);
+    console.log(onlyRows);
     return COMMON_SERVICES.sortData(onlyRows, sortOrder, sortKey);
   };
 
@@ -162,7 +163,7 @@ function Data() {
                           key={index}
                           onClick={() => handleSortClick(head.key)}
                         >
-                          <div className="flex items-center gap-1">
+                          <div className="flex items-center gap-1 cursor-pointer">
                             {head.header}
                             {sortKey === head.key ? (
                               sortOrder === "asc" ? (

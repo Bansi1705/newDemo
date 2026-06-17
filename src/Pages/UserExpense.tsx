@@ -439,13 +439,13 @@ const UserExpense = () => {
             <Buttons
               label={editExpense ? "Update" : "Save"}
               type="submit"
-              className="submit-btn bg-blue-600 text-white p-2 rounded hover:bg-blue-800 transition-colors"
+              className="submit-btn cursor-pointer bg-blue-600 text-white p-2 rounded hover:bg-blue-800 transition-colors"
             />
             <Buttons
               label="Cancel"
               type="button"
               onClick={resetForm}
-              className="cancel-btn bg-gray-600 text-white p-2 rounded hover:bg-gray-800 transition-colors"
+              className="cancel-btn cursor-pointer bg-gray-600 text-white p-2 rounded hover:bg-gray-800 transition-colors"
             />
           </div>
         </form>

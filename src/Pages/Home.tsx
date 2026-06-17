@@ -373,7 +373,7 @@ const Home = () => {
                         <td>{user.age}</td>
                         <td>{user.birthdate}</td>
                         <td>
-                          <div className="imagePreviewIcon">
+                          <div className="imagePreviewIcon cursor-pointer">
                             <MdOutlinePreview
                               size={30}
                               onClick={() => handleShowPreview(user.uploadFile)}

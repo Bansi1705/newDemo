@@ -242,7 +242,7 @@ describe("Home Component", () => {
         <Home />
       </MemoryRouter>,
     );
-    
+
     await waitFor(() => {
       expect(screen.getByText("Bansi")).toBeInTheDocument();
     });

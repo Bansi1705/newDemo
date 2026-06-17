@@ -89,7 +89,7 @@ function Header({ searchTerm, setSearchTerm, showSearchInput }: HeaderProps) {
               <Tab
                 key={item.to}
                 onClick={() => navigate(item.to)}
-                className="nav-item text-white font-medium hover:text-gray-300 px-3 py-2 ml-2 whitespace-nowrap"
+                className="nav-item cursor-pointer text-white font-medium hover:text-gray-300 px-3 py-2 ml-2 whitespace-nowrap"
               >
                 {item.name}
               </Tab>
@@ -104,7 +104,7 @@ function Header({ searchTerm, setSearchTerm, showSearchInput }: HeaderProps) {
         </TabGroup>
 
         <Menu as="div" className="relative inline-block text-left">
-          <MenuButton className="flex items-center gap-1 text-white font-medium hover:text-gray-300 px-3 py-2 ml-2 whitespace-nowrap">
+          <MenuButton className="cursor-pointer flex items-center gap-1 text-white font-medium hover:text-gray-300 px-3 py-2 ml-2 whitespace-nowrap">
             {selectedNavTab}
             <FaChevronDown size={14} />
           </MenuButton>
@@ -126,7 +126,7 @@ function Header({ searchTerm, setSearchTerm, showSearchInput }: HeaderProps) {
           onClick={handleUserLogout}
           label="LogOut"
           type="button"
-          className="px-3 py-2 bg-blue-600 text-white rounded hover:bg-blue-800 transition-colors whitespace-nowrap"
+          className="cursor-pointer px-3 py-2 bg-blue-600 text-white rounded hover:bg-blue-800 transition-colors whitespace-nowrap"
         />
       </div>
 
@@ -143,7 +143,7 @@ function Header({ searchTerm, setSearchTerm, showSearchInput }: HeaderProps) {
           </div>
         )}
         <div
-          className="theme-toggle ml-2 rounded-full p-2 hover:bg-white hover:bg-opacity-10 text-xl cursor-pointer transition-colors"
+          className="theme-toggle ml-2 rounded-full p-2 hover:bg-white hover:text-black text-xl cursor-pointer transition-colors"
           onClick={toggleTheme}
         >
           {theme === "dark" ? <FaRegSun /> : <FaRegMoon />}

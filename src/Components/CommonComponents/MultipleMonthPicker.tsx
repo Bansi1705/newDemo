@@ -27,7 +27,7 @@ const MultipleMonthPicker: React.FC<MultipleMonthPickerProps> = ({
         setSelectedMultipleMonths(dates as [Date | null, Date | null])
       }
       shouldCloseOnSelect={false}
-      className="input-field"
+      className="input-field cursor-pointer"
       placeholderText={"Select Multiple Months"}
       showIcon
       dateFormat="MM/dd/yyyy"

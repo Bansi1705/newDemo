@@ -3,7 +3,7 @@ import DatePicker from "react-datepicker";
 import "../../Styles/MultiWeekSelect.css";
 import "react-datepicker/dist/react-datepicker.css";
 
-type Props = {
+export type MultipleWeekPickerProps = {
   placeholder?: string;
   selectedWeeks: Date[];
   onChange: (weeks: Date[]) => void;
@@ -13,7 +13,7 @@ export function MultipleWeekPicker({
   placeholder,
   selectedWeeks = [],
   onChange,
-}: Props) {
+}: MultipleWeekPickerProps) {
   const handleWeekSelect = (date: Date | null) => {
     if (!date) return;
 
@@ -56,8 +56,8 @@ export function MultipleWeekPicker({
         }
         onChange={handleWeekSelect}
         showWeekPicker
-        className="input-field"
-        placeholderText={placeholder}
+        className="input-field cursor-pointer"
+        placeholderText={placeholder ?? "Select Multiple Weeks"}
         name="datePicker"
         value={getWeekRange(selectedWeeks)}
         shouldCloseOnSelect={false}
