@@ -145,6 +145,7 @@ function Header({ searchTerm, setSearchTerm, showSearchInput }: HeaderProps) {
         <div
           className="theme-toggle ml-2 rounded-full p-2 hover:bg-white hover:text-black text-xl cursor-pointer transition-colors"
           onClick={toggleTheme}
+          data-testid="theme-testing"
         >
           {theme === "dark" ? <FaRegSun /> : <FaRegMoon />}
         </div>

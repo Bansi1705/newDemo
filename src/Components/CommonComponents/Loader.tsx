@@ -13,7 +13,7 @@ const Loader = ({
 }: LoaderProps) => {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-      <ClipLoader loading={loading} color={color} size={size} />
+      <ClipLoader loading={loading} color={color} size={size} data-testid="loading-spinner" />
     </div>
   );
 };

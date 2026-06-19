@@ -123,7 +123,7 @@ const MonthlyReports = () => {
 
                 <div className="report-status-filter">
                   <div className="form-status-filter">
-                    <Menu as="div" className="menu-container">
+                    <Menu as="div" className="menu-container" data-testid="formStatus-menu">
                       <MenuButton className="menu-button flex items-center gap-8">
                         {formStatusFilter}
 
@@ -156,7 +156,7 @@ const MonthlyReports = () => {
                   </div>
 
                   <div className="status-filter">
-                    <Menu as="div" className="status-menu-container">
+                    <Menu as="div" className="status-menu-container" data-testid="status-menu">
                       <MenuButton className="status-menu-button flex items-center gap-16">
                         {statusFilter}
 

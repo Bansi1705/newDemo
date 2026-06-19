@@ -71,6 +71,22 @@ describe("Home Component", () => {
     expect(screen.getByText("25")).toBeInTheDocument();
   });
 
+   test("shows spinner when data is loading", async () => {
+    const mockResponse: ApiResponse<User[]> = {
+      data: [],
+    };
+
+    vi.mocked(Apiservice.get as Mock).mockResolvedValue(mockResponse);
+
+    render(
+      <MemoryRouter>
+        <Home />
+      </MemoryRouter>,
+    );
+
+    expect(screen.getByTestId("loading-spinner")).toBeInTheDocument();
+  });
+
   test("after clicking on edit navigate to form page", async () => {
     const mockResponse: ApiResponse<User[]> = {
       data: [

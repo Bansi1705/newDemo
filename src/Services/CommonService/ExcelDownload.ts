@@ -11,10 +11,13 @@ export const ExcelDownload = async ({
   fileName,
 }: excelDownloadProps) => {
   const buffer = await workBook.xlsx.writeBuffer();
+  // console.log(buffer)
   const blob = new Blob([buffer], {
     type: CONSTANT.MIME_TYPES.EXCEL[0],
   });
+  // console.log(blob)
   const url = URL.createObjectURL(blob);
+  // console.log(url)
   const a = document.createElement("a");
   a.href = url;
   a.download = fileName;

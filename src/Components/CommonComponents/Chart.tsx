@@ -28,6 +28,7 @@ const CommonChart: React.FC<CommonChartProps> = ({
       type={type}
       height={height}
       width={width}
+      data-testid="common-charts"
     />
   );
 };

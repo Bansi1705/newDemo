@@ -4,7 +4,6 @@ import { Apiservice } from "../Services/ApiService";
 import type { ApiResponse } from "../Interface/types";
 import type { ApexOptions } from "apexcharts";
 import "../Styles/ApexChart.css";
-import PropertyChart from "./PropertyChart";
 import CommonChart from "../Components/CommonComponents/Chart";
 import Loader from "../Components/CommonComponents/Loader";
 import Toaster from "../Services/CommonService/ToasterHelper";
@@ -325,7 +324,7 @@ const ApexChart: React.FC = () => {
   } as ApexOptions;
 
   return (
-    <div className="chart-page">
+    <div className="chart-page" data-testid="chart-data">
       <div>
         <Header />
         <section className="barChart-card">
@@ -353,7 +352,6 @@ const ApexChart: React.FC = () => {
             />
           </section>
 
-          <PropertyChart />
 
           <section className="chart-card">
             <CommonChart

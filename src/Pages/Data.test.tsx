@@ -22,7 +22,7 @@ vi.mock("../Components/Header", () => ({
   ),
 }));
 
-const mockResponse = {
+const mockDataPageResponse = {
   data: {
     categories: {
       sourceOfRevenue: [
@@ -68,7 +68,7 @@ const mockResponse = {
 describe("Data Component", () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    vi.mocked(Apiservice.get as Mock).mockResolvedValue(mockResponse);
+    vi.mocked(Apiservice.get as Mock).mockResolvedValue(mockDataPageResponse);
     render(
       <MemoryRouter>
         <Data />
