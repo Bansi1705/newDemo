@@ -19,7 +19,7 @@ import {
   PropertyWiseCard,
   RoomData,
   UserExpense,
-  UserProfile,
+  UserProfilePage,
 } from "./LazyLoading";
 
 const routingPages = [
@@ -37,7 +37,7 @@ const routingPages = [
   { path: "/propertyWiseCard", component: PropertyWiseCard, required: true },
   { path: "/monthlyReport", component: MonthlyReports, required: true },
   { path: "/capitalExpense", component: CapitalExpense, required: true },
-  { path: "/userProfile", component: UserProfile, required: true },
+  { path: "/userProfile", component: UserProfilePage , required: true },
   { path: "/payRollData", component: PayRollData, required: true },
   {path:"/incidentReport" ,component:IncidentReport , required:true}
 ];

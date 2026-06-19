@@ -260,6 +260,7 @@ const RoomData = () => {
                                       onClick={() =>
                                         setShowSubArray(!showSubArray)
                                       }
+                                      data-testid="expand-btn"
                                     >
                                       {showSubArray ? (
                                         <FaMinus className="text-base font-bold scale-110" />
@@ -319,6 +320,7 @@ const RoomData = () => {
                                   onClick={() => handleDelete(originalIndex)}
                                   label={<MdDeleteOutline />}
                                   className="deleteRoom-btn"
+                                  dataTestid="parentDltBtn"
                                 />
                               </td>
                             </tr>
@@ -330,6 +332,7 @@ const RoomData = () => {
                                     <tr
                                       key={subIndex}
                                       className="sub-row text-red-300"
+                                      data-testid="sub-row"
                                     >
                                       <td>
                                         <FormControlLabel
@@ -372,6 +375,7 @@ const RoomData = () => {
                                           }
                                           label={<MdDeleteOutline />}
                                           className="deleteRoom-btn"
+                                          dataTestid="subDataDleBtn"
                                         />
                                       </td>
                                     </tr>

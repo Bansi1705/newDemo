@@ -3,16 +3,25 @@ import { describe, expect, test, vi } from "vitest";
 import Header from "./Header";
 import { MemoryRouter } from "react-router-dom";
 
-const mockNavigateToLogin = vi.fn();
+const mockNavigate = vi.fn();
 
 vi.mock("react-router-dom", async () => {
   const actual = await vi.importActual("react-router-dom");
 
   return {
     ...actual,
-    useNavigate: () => mockNavigateToLogin,
+    useNavigate: () => mockNavigate,
   };
 });
+
+const mockToggleTheme = vi.fn();
+
+vi.mock("../Context/ThemeContext", () => ({
+  useTheme: () => ({
+    theme: "light",
+    toggleTheme: mockToggleTheme,
+  }),
+}));
 
 const renderHome = () =>
   render(
@@ -33,11 +42,8 @@ describe("Header Component", () => {
   test("theme toggle renders", () => {
     renderHome();
 
-    const toggleIcon = screen.getByTestId("theme-testing");
-    fireEvent.click(toggleIcon);
-    expect(localStorage.setItem("theme", "dark"));
-    fireEvent.click(toggleIcon);
-    expect(localStorage.setItem("theme", "light"));
+    fireEvent.click(screen.getByTestId("theme-testing"));
+    expect(mockToggleTheme).toHaveBeenCalledTimes(1);
   });
 
   test("when click on logout user navigate to login", () => {
@@ -46,6 +52,27 @@ describe("Header Component", () => {
     fireEvent.click(screen.getByText("LogOut"));
     fireEvent.click(screen.getByText("Logout"));
 
-    expect(mockNavigateToLogin).toHaveBeenCalled();
+    expect(sessionStorage.removeItem("LoginUser"));
+    expect(mockNavigate).toHaveBeenCalledWith("/");
+  });
+
+  test("while passing showSearchInput true it show a serch bar", () => {
+    render(
+      <MemoryRouter>
+        <Header
+          searchTerm={""}
+          setSearchTerm={vi.fn()}
+          showSearchInput={true}
+        />
+      </MemoryRouter>,
+    );
+
+    expect(screen.getByPlaceholderText("Search....")).toBeInTheDocument();
+  });
+
+  test("navigate to home tab", () => {
+    renderHome();
+    fireEvent.click(screen.getByRole("tab", { name: "Home" }));
+    expect(mockNavigate).toHaveBeenCalledWith("/home");
   });
 });

@@ -19,7 +19,7 @@ import PasswordInput from "../Components/CommonComponents/PasswordInput";
 import Toaster from "../Services/CommonService/ToasterHelper";
 // import InfiniteScroll from "react-infinite-scroll-component";
 
-function UserProfile() {
+const UserProfilePage = () => {
   const initialUserProfileState: UserProfile = {
     firstName: "",
     lastName: "",
@@ -535,6 +535,7 @@ function UserProfile() {
         <div className="flex align-center justify-between">
           <h1 className="userProfile-title">User Records</h1>
           <Buttons
+            data-testid="addUserProfile"
             label="Add User"
             onClick={() => {
               if (IsEditAbleUser) {
@@ -1028,7 +1029,7 @@ function UserProfile() {
                     <td>{user.phoneNumber}</td>
 
                     <td>
-                      {user.alternatePhoneNumber.length === 0
+                      {user.alternatePhoneNumber?.length === 0
                         ? "-"
                         : user.alternatePhoneNumber}
                     </td>
@@ -1163,6 +1164,6 @@ function UserProfile() {
       )}
     </>
   );
-}
+};
 
-export default UserProfile;
+export default UserProfilePage;

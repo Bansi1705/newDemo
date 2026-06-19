@@ -19,7 +19,7 @@ export const PropertyWiseCard = React.lazy(
   () => import("../Pages/PropertWiseCard"),
 );
 export const ApexChart = React.lazy(() => import("../Pages/ApexChart"));
-export const UserProfile = React.lazy(() => import("../Pages/UserProfile"));
+export const UserProfilePage = React.lazy(() => import("../Pages/UserProfile"));
 export const PayRollData = React.lazy(() => import("../Pages/PayRollData"));
 export const IncidentReport =React.lazy(()=>import("../Pages/IncidentReport"))
 
