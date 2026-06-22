@@ -386,10 +386,10 @@ const Home = () => {
                             data-testid="action-menu"
                             className="relative inline-block text-left"
                           >
-                            <MenuButton className="bg-blue-500 px-3 py-2 rounded cursor-pointer">
+                            <MenuButton className="inline-flex item-center bg-blue-500 px-3 py-2 rounded cursor-pointer">
                               Actions
                             </MenuButton>
-                            <MenuItems className="absolute right-0 mb-2 w-40 bg-white border rounded shadow-lg z-50">
+                            <MenuItems className="absolute bottom-full right-0 mb-2 w-40 overflow-hidden bg-white border rounded shadow-lg z-50">
                               <MenuItem>
                                 {() => (
                                   <Buttons

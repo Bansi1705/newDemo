@@ -1096,12 +1096,12 @@ const UserProfilePage = () => {
                         as="div"
                         className="relative inline-block text-left"
                       >
-                        <MenuButton className=" cursor-pointer inline-flex items-center rounded bg-blue-500 px-3 py-2 text-sm font-medium text-white hover:bg-blue-600">
+                        <MenuButton className="cursor-pointer inline-flex items-center rounded bg-blue-500 px-3 py-2 text-sm font-medium text-white hover:bg-blue-600">
                           Actions
                           <FaChevronDown />
                         </MenuButton>
 
-                        <MenuItems className="absolute bottom-full right-0 mb-2 w-40 overflow-hidden rounded-md border border-gray-200 bg-white shadow-lg z-50">
+                        <MenuItems className="absolute bottom-full top-2 right-0 mb-2 w-40 overflow-hidden rounded-md border border-gray-200 bg-white shadow-lg z-50">
                           <MenuItem>
                             {() => (
                               <Buttons

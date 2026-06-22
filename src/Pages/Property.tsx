@@ -79,7 +79,7 @@ const Property: React.FC = () => {
       ) : (
         <>
           <Header />
-          <div className="p-4 bg-gray-100 min-h-screen">
+          <div className="p-4 bg-gray-100 min-h-screen" data-testid="propertyData">
             {data.map((item) => (
               <div
                 key={item.id}

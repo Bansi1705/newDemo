@@ -154,6 +154,10 @@
   color: #f8fafc;
 }
 
+[data-theme="dark"] .expense-table-title {
+  color: #f8fafc;
+}
+
 [data-theme="dark"] .expense-data-table th {
   background-color: #2563eb;
   color: #f8fafc;

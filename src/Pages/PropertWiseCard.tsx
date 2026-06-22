@@ -155,7 +155,7 @@ const PropertyWiseCard = () => {
               </div>
 
               <div className="selectProperty w-1/4">
-                <Menu as="div" className="absolute right-35">
+                <Menu as="div" className="absolute right-35" data-testid="propertyFilterMenu">
                   <MenuButton className="bg-blue-500 px-3 py-2 rounded cursor-pointer text-white min-w-[160px] break-words whitespace-normal text-left">
                     {propertyNames.find((i) => i === selectProperty) ||
                       "All Property"}

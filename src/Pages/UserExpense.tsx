@@ -13,7 +13,6 @@ import Header from "../Components/Header";
 import { Apiservice } from "../Services/ApiService";
 import Pagination from "../Components/CommonComponents/Pagination";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
-import { toast } from "react-toastify";
 import Toaster from "../Services/CommonService/ToasterHelper";
 import { CONSTANT } from "../Services/Constant";
 interface StatusChangeData {
@@ -167,7 +166,7 @@ const UserExpense = () => {
           : [...prev, savedExpense],
       );
     } catch (error) {
-      toast.error(
+      Toaster.error(
         `Error saving expense: ${error instanceof Error ? error.message : "Unknown error"} `,
       );
     }
@@ -225,7 +224,7 @@ const UserExpense = () => {
       (current?.status === "Approved" || current?.status === "Rejected") &&
       newStatus === "Pending"
     ) {
-      toast.error("Cannot change back to Pending status");
+      Toaster.error("Cannot change back to Pending status");
       return;
     }
     setStatusChangeData({ id, newStatus, showConfirm: true });
@@ -452,7 +451,7 @@ const UserExpense = () => {
 
         {expenses.length > 0 && (
           <div className="expense-user-data">
-            <h2>Expenses List</h2>
+            <h2 className="expense-table-title">Expenses List</h2>
             <div className="search-wrapper">
               <SearchBar
                 searchTerm={searchTerm}
@@ -510,7 +509,7 @@ const UserExpense = () => {
                       <td>
                         <Menu
                           as="div"
-                          className="relative inline-block text-left"
+                          className="relative text-left flex"
                         >
                           <MenuButton className="bg-blue-500 px-3 py-2 rounded cursor-pointer">
                             Actions
@@ -530,7 +529,6 @@ const UserExpense = () => {
                                 />
                               )}
                             </MenuItem>
-
                             <MenuItem>
                               {() => (
                                 <Buttons

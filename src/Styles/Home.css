@@ -69,12 +69,6 @@
   background-color: #f1f1f1;
 }
 
-.action-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-}
-
 .edit-btn,
 .delete-btn {
   border: none;

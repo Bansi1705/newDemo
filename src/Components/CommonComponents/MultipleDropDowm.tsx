@@ -60,9 +60,9 @@ const CommonMultiSelect: React.FC<Props> = ({
   };
   return (
     <div className="relative w-56 text-black">
-      <div className="flex items-center justify-between px-3 py-2 border border-gray-300 bg-white cursor-pointer">
+      <div onClick={() => setOpenDropDown(!openDropDown)} data-testid="openDropDownIcon" className="flex items-center justify-between px-3 py-2 border border-gray-300 bg-white cursor-pointer">
         {placeHolder}
-        <GoTriangleDown onClick={() => setOpenDropDown(!openDropDown)} />
+        <GoTriangleDown />
       </div>
       {openDropDown && (
         <div className="absolute w-full mt-2 max-h-52 overflow-y-auto bg-white border border-gray-300 rounded-lg">
