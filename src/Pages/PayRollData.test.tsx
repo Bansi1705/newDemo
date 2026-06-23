@@ -93,6 +93,7 @@ describe("Pay roll data page test", () => {
     expect(
       await screen.findByText("Payroll & Related Expense"),
     ).toBeInTheDocument();
+    expect(screen.getByText("Employee Benefits")).toBeInTheDocument();
   });
 
   test("sort function called when table header clicked", async () => {
@@ -101,5 +102,28 @@ describe("Pay roll data page test", () => {
     const spyfn = vi.spyOn(COMMON_SERVICES, "sortData");
     fireEvent.click(await screen.findByText("Category Name"));
     expect(spyfn).toHaveBeenCalled();
+  });
+
+  test("Add Comment model Renders", async () => {
+    getPayRollData();
+    renderPayrollPage();
+    expect(
+      await screen.findByText("Payroll & Related Expense"),
+    ).toBeInTheDocument();
+    const commentIcons = screen.getAllByTestId("openAddCommentModelTest");
+
+    fireEvent.click(commentIcons[0]);
+    expect(screen.getByText("Add Comment")).toBeInTheDocument();
+  });
+
+  test("sub Account details show when click on expand btn", async () => {
+    getPayRollData();
+    renderPayrollPage();
+    expect(
+      await screen.findByText("Payroll & Related Expense"),
+    ).toBeInTheDocument();
+
+    fireEvent.click(screen.getByTestId("expand-btn"));
+    expect(screen.getByTestId("sub-row")).toBeInTheDocument();
   });
 });

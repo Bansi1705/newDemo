@@ -431,6 +431,7 @@ const UserProfilePage = () => {
     setConfirmModelMsg(`Do You Want To Delete ${name} User`);
     setShowConfirmModel(true);
     setDeletingUserProfileId(id);
+    setEditUserProfileId(null);
   };
 
   const handleConfirmDeleteOrEdit = () => {
@@ -1076,6 +1077,7 @@ const UserProfilePage = () => {
                       <div className="imagePreviewIcon cursor-pointer">
                         <MdOutlinePreview
                           size={30}
+                          data-testid="testImagePreview"
                           onClick={() =>
                             handleShowUserProfilePreview(
                               user.profileImage,
@@ -1101,7 +1103,7 @@ const UserProfilePage = () => {
                           <FaChevronDown />
                         </MenuButton>
 
-                        <MenuItems className="absolute bottom-full top-2 right-0 mb-2 w-40 overflow-hidden rounded-md border border-gray-200 bg-white shadow-lg z-50">
+                        <MenuItems className="absolute bottom-full right-0 mb-2 w-40 overflow-hidden rounded-md border border-gray-200 bg-white shadow-lg z-50">
                           <MenuItem>
                             {() => (
                               <Buttons

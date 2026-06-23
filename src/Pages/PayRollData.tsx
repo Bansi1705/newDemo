@@ -297,6 +297,7 @@ const PayRollData: React.FC = () => {
                               <div className="flex justify-center items-center gap-2">
                                 <span
                                   className="cursor-pointer"
+                                  data-testid="expand-btn"
                                   onClick={() =>
                                     setShowPayRollSubAccount(
                                       !showPayRollSubAccount,
@@ -349,6 +350,7 @@ const PayRollData: React.FC = () => {
                                 display: "inline-block",
                                 cursor: "pointer",
                               }}
+                              data-testid="openAddCommentModelTest"
                               onClick={() => {
                                 setShowAddCommentModel(true);
                                 setSelectedCommentItem(item);
@@ -368,6 +370,7 @@ const PayRollData: React.FC = () => {
                             <tr
                               key={`${item.categoryName}-sub-${subIndex}`}
                               className="text-center text-pink-300"
+                              data-testid="sub-row"
                             >
                               <td>
                                 {srNo - 1}.{subIndex + 1}
@@ -431,13 +434,13 @@ const PayRollData: React.FC = () => {
       </div>
       {showAddCommentModel && selectedCommentItem && (
         <AddComment
-          commentText={payRollCommentText}
-          setCommentText={setPayRollCommentText}
-          handleAddComment={handleAddCommentConfirm}
+          payRollCommentText={payRollCommentText}
+          setpayRollCommentText={setPayRollCommentText}
+          handlePayRollAddComment={handleAddCommentConfirm}
           handleCancelPayRollAddComment={hadlePayRollAddCommentCancel}
-          handleDeleteComment={handleDeleteComment}
-          commentCategoryName={selectedCommentItem?.categoryName}
-          commentsList={selectedCommentItem?.comments ?? null}
+          handlePayRollDeleteComment={handleDeleteComment}
+          payRollCommentCategoryName={selectedCommentItem?.categoryName}
+          payRollCommentsList={selectedCommentItem?.comments ?? null}
         />
       )}
     </div>

@@ -10,7 +10,7 @@ export const SearchBar: React.FC<searchBarProps> = ({
     <div className="search-bar">
       <input
         type="text"
-        placeholder={searchPlaceholder}
+        placeholder={searchPlaceholder ?? "Search"}
         value={searchTerm}
         onChange={searchOnChange}
         className={searchClssName}

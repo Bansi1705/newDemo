@@ -42,6 +42,44 @@ interface PaymentDetails {
   totals: PaymentTotals;
 }
 
+interface PmFormItem {
+  id: number;
+  propertyId: number;
+  formId: number;
+  formStatus: string;
+}
+
+interface PmForms {
+  formId: number;
+  formName: string;
+  formType: string;
+  pmForms: PmFormItem[];
+  stats: any;
+  formStatus: string;
+  isExcludeFromNotify: boolean;
+}
+
+interface PropertyStatistics {
+  propertyName: string;
+  pmForms: PmForms[];
+}
+
+interface TotalStatistics {
+  total: number;
+  APPROVED: number;
+  PENDING: number;
+  REJECTED: number;
+  EARLY: number;
+  ON_TIME: number;
+  LATE: number;
+  formStatus: Record<string, number>;
+}
+
+interface NextData {
+  propertyStatistics: PropertyStatistics[];
+  totalStatistics: TotalStatistics;
+}
+
 const ApexChart: React.FC = () => {
   const [chartData, setChartData] = useState<chartDataInterface>({
     distributionAnalysis: [],
@@ -60,7 +98,7 @@ const ApexChart: React.FC = () => {
         totalInvoiceAmount: 0,
       },
     });
-
+  const [propertyData, setPropertyData] = useState<NextData | null>(null);
   const [loadingChart, setLoadingChart] = useState<boolean>(true);
 
   useEffect(() => {
@@ -73,8 +111,11 @@ const ApexChart: React.FC = () => {
           await Apiservice.get("/paymentDetails");
         setPaymentDetailsChartData(paymentRes.data);
         setChartData(res.data);
+        const nextDataRes: ApiResponse<NextData> =
+          await Apiservice.get("/NextData");
+        setPropertyData(nextDataRes.data);
       } catch {
-        Toaster.error(CONSTANT.TOAST_ERROR_MSG.NOT_FOUND)
+        Toaster.error(CONSTANT.TOAST_ERROR_MSG.NOT_FOUND);
       } finally {
         setTimeout(() => {
           setLoadingChart(false);
@@ -323,6 +364,94 @@ const ApexChart: React.FC = () => {
     },
   } as ApexOptions;
 
+  const statusData = propertyData?.totalStatistics;
+
+  const formStatusPieSeries = [
+    statusData?.APPROVED || 0,
+    statusData?.PENDING || 0,
+    statusData?.REJECTED || 0,
+    statusData?.EARLY || 0,
+    statusData?.ON_TIME || 0,
+    statusData?.LATE || 0,
+  ];
+
+  const formStatusPieOptions = {
+    labels: ["Approved", "Pending", "Rejected", "Early", "ON_Time", "Late"],
+    title: {
+      text: "Overall Form Status",
+      align: "center",
+    },
+    legend: {
+      position: "bottom",
+    },
+  } as ApexOptions;
+
+  const formStatusBarSeries = [
+    {
+      name: "Total Forms",
+      data: propertyData?.propertyStatistics.map(
+        (property) => property.pmForms.length,
+      ),
+    },
+    {
+      name: "Pending Forms",
+      data: propertyData?.propertyStatistics.map(
+        (property) =>
+          property.pmForms.filter((form) => form.formStatus === "PENDING")
+            .length,
+      ),
+    },
+    {
+      name: "Approved Forms",
+      data: propertyData?.propertyStatistics.map(
+        (property) =>
+          property.pmForms.filter((form) => form.formStatus === "APPROVED")
+            .length,
+      ),
+    },
+  ];
+
+  const formStatusBarOptions = {
+    chart: {
+      type: "bar",
+      toolbar: {
+        show: false,
+      },
+    },
+
+    tooltip: {
+      enabled: true,
+    },
+
+    dataLabels: {
+      enabled: false,
+    },
+
+    xaxis: {
+      categories: propertyData?.propertyStatistics.map(
+        (property) => property.propertyName,
+      ),
+      labels: {
+        rotate: -40,
+        trim: true,
+        hideOverlappingLabels: true,
+        style: {
+          fontSize: "7px",
+        },
+      },
+    },
+
+    yaxis: {
+      labels: {
+        show: true,
+      },
+    },
+
+    title: {
+      text: "Form Status by Property",
+      align: "center",
+    },
+  } as ApexOptions;
   return (
     <div className="chart-page" data-testid="chart-data">
       <div>
@@ -352,6 +481,21 @@ const ApexChart: React.FC = () => {
             />
           </section>
 
+          <section className="chart-card">
+            <CommonChart
+              type="bar"
+              series={formStatusBarSeries}
+              options={formStatusBarOptions}
+            />
+          </section>
+
+          <section className="chart-card">
+            <CommonChart
+              type="pie"
+              series={formStatusPieSeries}
+              options={formStatusPieOptions}
+            />
+          </section>
 
           <section className="chart-card">
             <CommonChart

@@ -5,23 +5,23 @@ import { MdCancel } from "react-icons/md";
 import Confirmation from "./Confirmation";
 
 interface addCommentProps {
-  commentText: string;
-  setCommentText: React.Dispatch<React.SetStateAction<string>>;
-  handleAddComment: () => void;
+  payRollCommentText: string;
+  setpayRollCommentText: React.Dispatch<React.SetStateAction<string>>;
+  handlePayRollAddComment: () => void;
   handleCancelPayRollAddComment: () => void;
-  commentCategoryName: string | undefined;
-  commentsList: string[] | null;
-  handleDeleteComment: (commentIndex: number) => void;
+  payRollCommentCategoryName: string | undefined;
+  payRollCommentsList: string[] | null;
+  handlePayRollDeleteComment: (commentIndex: number) => void;
 }
 
 const AddComment = ({
-  commentText,
-  setCommentText,
-  handleAddComment,
+  payRollCommentText,
+  setpayRollCommentText,
+  handlePayRollAddComment,
   handleCancelPayRollAddComment,
-  commentCategoryName,
-  commentsList,
-  handleDeleteComment,
+  payRollCommentCategoryName,
+  payRollCommentsList,
+  handlePayRollDeleteComment,
 }: addCommentProps) => {
   const [commentError, setCommentError] = useState<string>("");
   const [IsShowConfirmModel, setIsShowConfimModel] = useState<boolean>(false);
@@ -30,12 +30,12 @@ const AddComment = ({
   >(null);
 
   const handlePayRollCommentAddSubmit = () => {
-    if (!commentText.trim()) {
+    if (!payRollCommentText.trim()) {
       setCommentError("Please Enter a Comment First");
       return;
     }
     setCommentError("");
-    handleAddComment();
+    handlePayRollAddComment();
   };
 
   const handleDeletePayRollComment = (index: number) => {
@@ -45,7 +45,7 @@ const AddComment = ({
 
   const handleDeletePayRollCommentConfirm = () => {
     if (selectedCommentIndex === null) return;
-    handleDeleteComment(selectedCommentIndex);
+    handlePayRollDeleteComment(selectedCommentIndex);
     setIsShowConfimModel(false);
   };
   const handleDeletePayRollCommentCancel = () => {
@@ -57,12 +57,12 @@ const AddComment = ({
         <h2 className="mb-4 text-xl font-semibold">Add Comment</h2>
 
         <h3 className="mb-3 rounded bg-gray-400 p-2 font-medium text-gray-700">
-          {commentCategoryName}
+          {payRollCommentCategoryName}
         </h3>
 
-        {commentsList && commentsList.length > 0 && (
+        {payRollCommentsList && payRollCommentsList.length > 0 && (
           <ul className="list-disc pl-5 space-y-1">
-            {commentsList.map((comment, index) => (
+            {payRollCommentsList.map((comment, index) => (
               <li key={index} className="text-sm text-white">
                 <div className="flex align-left justify-between w-full">
                   {comment}
@@ -70,6 +70,7 @@ const AddComment = ({
                     <MdCancel
                       size="22"
                       onClick={() => handleDeletePayRollComment(index)}
+                      data-testid="deletePayRollIcon"
                     />
                   </span>
                 </div>
@@ -81,9 +82,9 @@ const AddComment = ({
         <div className="mb-6">
           <InputField
             type="text"
-            value={commentText}
+            value={payRollCommentText}
             onChange={(e) => {
-              setCommentText(e.target.value);
+              setpayRollCommentText(e.target.value);
               setCommentError("");
             }}
             name="addCommentText"
@@ -95,7 +96,7 @@ const AddComment = ({
 
         <div className="flex justify-center gap-3">
           <Buttons
-            label="Add Comment"
+            label="Add"
             onClick={handlePayRollCommentAddSubmit}
             className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 cursor-pointer"
           />
