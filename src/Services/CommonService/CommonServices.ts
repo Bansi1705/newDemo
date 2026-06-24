@@ -1,5 +1,5 @@
 import { format } from "date-fns";
-import { toast } from "react-toastify";
+import Toaster from "./ToasterHelper";
 
 export const COMMON_SERVICES = {
   getFiveYear() {
@@ -100,15 +100,8 @@ export const COMMON_SERVICES = {
 
   formatDate(dateString: string) {
     const date = new Date(dateString);
-
-    const day = String(date.getDate()).padStart(2, "0");
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const year = String(date.getFullYear()).slice(-2);
-
-    const hours = String(date.getHours()).padStart(2, "0");
-    const minutes = String(date.getMinutes()).padStart(2, "0");
-
-    return `${day}/${month}/${year}, ${hours}:${minutes}`;
+    const formattedDate = format(date, "dd/MM/yy, HH:mm");
+    return formattedDate;
   },
 
   formatCreateDate(date: string) {
@@ -150,11 +143,7 @@ export const COMMON_SERVICES = {
       if (digit[0] == "1") {
         formatted = `+${digit.slice(0, 1)}`;
       } else {
-        if (!toast.isActive("phone-error")) {
-          toast.error("Please Enter a Number Which Start with +1", {
-            toastId: "phone-error",
-          });
-        }
+        Toaster.error("Please Enter a Number Which Start with +1");
       }
     }
     if (digit.length > 1) {

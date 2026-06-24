@@ -9,6 +9,7 @@ import { FaRegCommentDots } from "react-icons/fa";
 import Loader from "../Components/CommonComponents/Loader";
 import ExcelJS from "exceljs";
 import { ExcelDownload } from "../Services/CommonService/ExcelDownload";
+import { CONSTANT } from "../Services/Constant";
 
 function Data() {
   const [data, setData] = useState<tableData[]>([]);
@@ -39,22 +40,11 @@ function Data() {
     return COMMON_SERVICES.sortData(onlyRows, sortOrder, sortKey);
   };
 
-  const dataListTableHeader = [
-    { header: "Name", key: "categoryName" },
-    { header: "ActualMTD", key: "actualMTD" },
-    { header: "BudgetMTD", key: "budgetMTD" },
-    { header: "Variance", key: "variance" },
-    { header: "CommentCount", key: "commentCounts" },
-    { header: "BudgetMTH", key: "budgetMTH" },
-    { header: "VarianceMTH", key: "varianceMTH" },
-    { header: "ForecastMTH", key: "forecastMTH" },
-  ];
-
   const downloadDataListExcel = async () => {
     const workBook = new ExcelJS.Workbook();
     const worksheets = workBook.addWorksheet("Data File Excel");
 
-    worksheets.columns = dataListTableHeader.map((i) => ({
+    worksheets.columns = CONSTANT.DATA_PAGE_TABLE_HEADER.map((i) => ({
       header: i.header,
       key: i.key,
     }));
@@ -158,7 +148,7 @@ function Data() {
                 <table border={2} className="data-table">
                   <thead>
                     <tr>
-                      {dataListTableHeader.map((head, index) => (
+                      {CONSTANT.DATA_PAGE_TABLE_HEADER.map((head, index) => (
                         <th
                           key={index}
                           onClick={() => handleSortClick(head.key)}

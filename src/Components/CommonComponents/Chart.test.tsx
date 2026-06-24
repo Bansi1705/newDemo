@@ -18,7 +18,6 @@ const series = [
 describe("Chart Common Component", () => {
   test("Chart Renders", () => {
     render(<CommonChart options={options} series={series} type="bar" />);
-
     expect(screen.getByTestId("common-charts")).toBeInTheDocument();
   });
 });

@@ -64,22 +64,6 @@ const CapitalExpense = () => {
     fetchCapEx();
   }, []);
 
-  const capExTableHeaders = [
-    { key: "srNo", label: "Sr No." },
-    { key: "propertyName", label: "Property Name" },
-    { key: "projectName", label: "Project Name" },
-    { key: "invoiceDate", label: "Expense Date" },
-    { key: "postDate", label: "Post Date" },
-    { key: "vendorName", label: "Vendor" },
-    { key: "invoiceNumber", label: "Invoice Number" },
-    { key: "invoiceType", label: "Type" },
-    { key: "invoiceAmount", label: "Cost" },
-    { key: "description", label: "Description" },
-    { key: "approverName", label: "Approver" },
-    { key: "approvalStatus", label: "Approval Status" },
-    { key: "expenseCommentCount", label: "Comment" },
-  ];
-
   const handleCapExSorting = (key: string) => {
     if (sortKey == key) {
       setSortOrder(sortOrder == "asc" ? "desc" : "asc");
@@ -128,7 +112,7 @@ const CapitalExpense = () => {
                 <table className="capital-expense-table">
                   <thead>
                     <tr>
-                      {capExTableHeaders.map((head) => (
+                      {CONSTANT.CAPEX_PAGE_TABLE_HEADER.map((head) => (
                         <th key={head.key} onClick={() => handleCapExSorting(head.key)}>
                           <div className="flex items-center gap-1 cursor-pointer">
                              {head.label}
@@ -156,7 +140,7 @@ const CapitalExpense = () => {
                       <tr>
                         <td
                           className="capital-expense-empty"
-                          colSpan={capExTableHeaders.length}
+                          colSpan={CONSTANT.CAPEX_PAGE_TABLE_HEADER.length}
                         >
                           No Data Found
                         </td>

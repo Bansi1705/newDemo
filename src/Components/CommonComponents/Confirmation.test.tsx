@@ -1,68 +1,39 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { describe, vi } from "vitest";
-import Confirmation from "./Confirmation";
+import Confirmation, { type confirmationProps } from "./Confirmation";
+
+const mockConfirmFunction = vi.fn();
+const mockconfirmCancelFunction = vi.fn();
+const mockConfirmationProps: confirmationProps = {
+  message: "Hello",
+  confirm: mockConfirmFunction,
+  cancel: mockconfirmCancelFunction,
+  type: "delete",
+};
 
 describe("confirmation Model component", () => {
-  test("Confirmation Model Renders", () => {
-    render(
-      <Confirmation
-        message="Hello"
-        type="delete"
-        confirm={vi.fn()}
-        cancel={vi.fn()}
-      />,
-    );
-
-    expect(screen.getByText("Hello")).toBeInTheDocument();
-    expect(screen.getByText("Delete")).toBeInTheDocument();
-    expect(screen.getByText("Cancel")).toBeInTheDocument();
+  beforeEach(() => {
+    vi.clearAllMocks();
   });
 
-  test("When Click on confirm button function called", () => {
-    const mockConfirmFunction = vi.fn();
-
-    render(
-      <Confirmation
-        message="Hello"
-        type="delete"
-        confirm={mockConfirmFunction}
-        cancel={vi.fn()}
-      />,
+  test("When type changes button label changes", () => {
+    const { rerender } = render(
+      <Confirmation {...mockConfirmationProps} type="Logout" />,
     );
-
-    fireEvent.click(screen.getByRole("button", { name: "Delete" }));
-    expect(screen.getByRole("button", { name: "Cancel" })).toBeInTheDocument();
-    expect(mockConfirmFunction).toHaveBeenCalled();
-  });
-
-  test("When Click on cancle button for edit function called", () => {
-    const mockConfirmFunction = vi.fn();
-
-    render(
-      <Confirmation
-        message="Hello"
-        type="edit"
-        cancel={mockConfirmFunction}
-        confirm={vi.fn()}
-      />,
-    );
-
-    fireEvent.click(screen.getByRole("button", { name: "NO" }));
-    expect(screen.getByRole("button", { name: "Yes" })).toBeInTheDocument();
-    expect(mockConfirmFunction).toHaveBeenCalled();
-  });
-
-  test("When type is Logout than button text will Be Logout", () => {
-    render(
-      <Confirmation
-        message="Hello"
-        type="Logout"
-        cancel={vi.fn()}
-        confirm={vi.fn()}
-      />,
-    );
-
     expect(screen.getByRole("button", { name: "Logout" })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Cancel" })).toBeInTheDocument();
+
+    rerender(<Confirmation {...mockConfirmationProps} type="edit" />);
+    expect(screen.getByRole("button", { name: "Yes" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "No" })).toBeInTheDocument();
+  });
+
+  test("Confirmation Model handler function called", () => {
+    render(<Confirmation {...mockConfirmationProps} />);
+    expect(screen.getByText("Cancel")).toBeInTheDocument();
+    fireEvent.click(screen.getByText("Delete"));
+    expect(mockConfirmFunction).toHaveBeenCalled();
+    fireEvent.click(screen.getByText("Cancel"));
+    expect(mockconfirmCancelFunction).toHaveBeenCalled();
   });
 });

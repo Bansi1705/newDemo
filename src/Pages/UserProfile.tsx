@@ -363,36 +363,6 @@ const UserProfilePage = () => {
     { key: "inactive", label: "Inactive" },
   ];
 
-  const userProfileTableHeader = [
-    { key: "srNo", label: "Sr No" },
-    { key: "firstName", label: "First Name" },
-    { key: "lastName", label: "Last Name" },
-    { key: "fullName", label: "Full Name" },
-    { key: "email", label: "Email" },
-    { key: "phoneNumber", label: "Phone Number" },
-    { key: "alternatePhoneNumber", label: "Alternate Phone Number" },
-    { key: "gender", label: "Gender" },
-    { key: "dateOfBirth", label: "Birth Date" },
-    { key: "companyName", label: "Company Name" },
-    { key: "department", label: "Department" },
-    { key: "designation", label: "Designation" },
-    { key: "employeeId", label: "Employee Id" },
-    { key: "city", label: "City" },
-    { key: "state", label: "State" },
-    { key: "country", label: "Country" },
-    { key: "zipcode", label: "Zipcode" },
-    { key: "district", label: "District" },
-    { key: "username", label: "Username" },
-    { key: "website", label: "Website" },
-    { key: "status", label: "Status" },
-    { key: "profileImage", label: "Profile Image" },
-    { key: "description", label: "Description" },
-    { key: "notes", label: "Notes" },
-    { key: "createdBy", label: "Created By" },
-    { key: "updatedBy", label: "Updated By" },
-    { key: "operations", label: "Operations" },
-  ];
-
   const handleShowUserProfilePreview = (
     image: { name: string; url: string }[],
     id: string,
@@ -1001,7 +971,7 @@ const UserProfilePage = () => {
           <table className="userProfileTable">
             <thead>
               <tr>
-                {userProfileTableHeader.map((head) => (
+                {CONSTANT.USER_PROFILE_PAGE_TABLE_HEADER.map((head) => (
                   <th key={head.key}>{head.label}</th>
                 ))}
               </tr>
@@ -1011,7 +981,7 @@ const UserProfilePage = () => {
               {visibleUsers.length === 0 ? (
                 <tr>
                   <td
-                    colSpan={userProfileTableHeader.length}
+                    colSpan={CONSTANT.USER_PROFILE_PAGE_TABLE_HEADER.length}
                     className="text-center"
                   >
                     No Data Found

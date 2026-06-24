@@ -17013,8 +17013,8 @@
           "invoiceTypeIncluded": false,
           "commentCount": 2,
           "comments": [
-            "new comment - 23 Jun 2026 11:23:55 am",
-            "latest comment - 23 Jun 2026 12:24:50 pm"
+            "latest comment - 23 Jun 2026 12:24:50 pm",
+            "new comment - 24 Jun 2026 3:23:55 pm"
           ],
           "expenseSyncEnabled": true,
           "softDelete": false,
@@ -17071,9 +17071,10 @@
           "budgetMTH": 375.89,
           "varianceMTH": 74.92,
           "invoiceTypeIncluded": false,
-          "commentCount": 1,
+          "commentCount": 2,
           "comments": [
-            "hello - 09 Jun 2026 3:31:19 pm"
+            "hello - 09 Jun 2026 3:31:19 pm",
+            "latest error - 24 Jun 2026 4:19:17 pm"
           ],
           "expenseSyncEnabled": true,
           "softDelete": false,

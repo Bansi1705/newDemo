@@ -1,7 +1,7 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, test, expect, vi } from "vitest";
 import ApprovalMenu from "./ApprovalMenu";
-const mockProps = {
+const mockApprovelMenuProps = {
   approverName: ["John", "Mike"],
   workflows: [
     {
@@ -17,7 +17,7 @@ const mockProps = {
 describe("ApprovalMenu", () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    render(<ApprovalMenu {...mockProps} />);
+    render(<ApprovalMenu {...mockApprovelMenuProps} />);
     fireEvent.click(screen.getByText("John/ Mike"));
   });
 
@@ -28,9 +28,6 @@ describe("ApprovalMenu", () => {
   test("opens menu on click", () => {
     expect(screen.getByText("Approved")).toBeInTheDocument();
     expect(screen.getByText("Pending")).toBeInTheDocument();
-  });
-
-  test("shows first character avatar", () => {
     expect(screen.getByText("J")).toBeInTheDocument();
   });
 });

@@ -74,20 +74,6 @@ const PayRollData: React.FC = () => {
   console.log("Selected Item", selectedCommentItem);
   console.log(PayRollData);
 
-  const payRollTableHeader = [
-    { key: "srNo", header: "Sr No" },
-    { key: "categoryName", header: "Category Name" },
-    { key: "accountNumber", header: "Account Number" },
-    { key: "departmentType", header: "Department Type" },
-    { key: "actualMTD", header: "ActualMTD" },
-    { key: "budgetMTD", header: "BudgetMTD" },
-    { key: "variance", header: "Varience" },
-    { key: "forecastMTH", header: "ForcastNTH" },
-    { key: "budgetMTH", header: "BudgetMTh" },
-    { key: "varianceMTH", header: "VarienceMTH" },
-    { key: "commentCount", header: "CommentCount" },
-  ];
-
   // console.log(Object.keys(PayRollData.data));
   // console.log(Object.values(PayRollData.data));
 
@@ -247,7 +233,7 @@ const PayRollData: React.FC = () => {
         <table className="payRollTable min-w-[1200px]">
           <thead>
             <tr className="bg-blue-400 text-white p-4">
-              {payRollTableHeader.map((i) => (
+              {CONSTANT.PAYROLL_PAGE_TABLE_HEADER.map((i) => (
                 <th
                   key={i.key}
                   className="p-4"
@@ -283,7 +269,10 @@ const PayRollData: React.FC = () => {
                   <React.Fragment key={name}>
                     {!isSorted && (
                       <tr className="text-center">
-                        <td colSpan={payRollTableHeader.length} className="p-2">
+                        <td
+                          colSpan={CONSTANT.PAYROLL_PAGE_TABLE_HEADER.length}
+                          className="p-2"
+                        >
                           {name}
                         </td>
                       </tr>

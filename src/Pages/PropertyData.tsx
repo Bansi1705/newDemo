@@ -25,12 +25,6 @@ const PropertyData: React.FC = () => {
   const [propertyData, setPropertyData] = useState<PropertyDataInterface[]>([]);
   const [loadData, setLoadData] = useState<boolean>(true);
 
-  const propertyColumnHeader = [
-    { label: "Budget", key: "departmentTotalBudget" },
-    { label: "A+B", key: "ab" },
-    { label: "TTM", key: "ttm" },
-  ];
-
   const getCategoryNames = () => {
     const categoryNames: string[] = [];
 
@@ -130,7 +124,7 @@ const PropertyData: React.FC = () => {
 
         setPropertyData(formattedData);
       } catch {
-        Toaster.error(CONSTANT.TOAST_ERROR_MSG.NOT_FOUND)
+        Toaster.error(CONSTANT.TOAST_ERROR_MSG.NOT_FOUND);
       } finally {
         setLoadData(false);
       }
@@ -152,14 +146,17 @@ const PropertyData: React.FC = () => {
                   <tr>
                     <th rowSpan={2}>Category</th>
                     {propertyData.map((property, index) => (
-                      <th key={index} colSpan={propertyColumnHeader.length}>
+                      <th
+                        key={index}
+                        colSpan={CONSTANT.PROPERTYDATA_PAGE_TABLE_HEADER.length}
+                      >
                         {property.propertyName}
                       </th>
                     ))}
                   </tr>
                   <tr>
                     {propertyData.map((property) =>
-                      propertyColumnHeader.map((header) => (
+                      CONSTANT.PROPERTYDATA_PAGE_TABLE_HEADER.map((header) => (
                         <th key={`${property.propertyName}-${header.key}`}>
                           {header.label}
                         </th>

@@ -1,14 +1,14 @@
 import "../../Styles/Confirmation.css";
 import { Buttons } from "./Buttons";
 
-type props = {
+export type confirmationProps = {
   confirm: () => void;
   cancel: () => void;
   message: string;
   type: "delete" | "edit" | "Logout";
 };
 
-function Confirmation({ confirm, cancel, message, type }: props) {
+function Confirmation({ confirm, cancel, message, type }: confirmationProps) {
   return (
     <>
       <div className="confirm-model">
@@ -30,7 +30,7 @@ function Confirmation({ confirm, cancel, message, type }: props) {
               />
 
               <Buttons
-                label={type == "edit" ? "NO" : "Cancel"}
+                label={type == "edit" ? "No" : "Cancel"}
                 onClick={cancel}
                 className="no-btn"
               />

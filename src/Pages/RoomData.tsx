@@ -38,16 +38,6 @@ const RoomData = () => {
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
   const [sortKey, setSortKey] = useState<string>("");
 
-  const tableHeader = [
-    { label: "Sr NO.", key: "srNo" },
-    { label: "Created Date", key: "isoDate" },
-    { label: "Room Counts", key: "roomsCount" },
-    { label: "Description", key: "description" },
-    { label: "Created By", key: "createdBy" },
-    { label: "Modified By", key: "modifiedBy" },
-    { label: "Actions", key: "actions" },
-  ];
-
   useEffect(() => {
     const fetchRoomData = async () => {
       try {
@@ -224,27 +214,32 @@ const RoomData = () => {
                   <table border={2} className="data-table">
                     <thead>
                       <tr>
-                        {tableHeader.map((head, index) => (
-                          <th key={index} onClick={() => handleSorting(head.key)}>
-                            <div className="flex items-center gap-1 cursor-pointer">
-                              {head.label}
-                              {head.label !== "Actions" &&
-                                head.label !== "Sr NO." && (
-                                  <div>
-                                    {sortKey === head.key ? (
-                                      sortOrder === "asc" ? (
-                                        <FaArrowDown size={15} />
+                        {CONSTANT.ROOMDATA_PAGE_TABLE_HEADER.map(
+                          (head, index) => (
+                            <th
+                              key={index}
+                              onClick={() => handleSorting(head.key)}
+                            >
+                              <div className="flex items-center gap-1 cursor-pointer">
+                                {head.label}
+                                {head.label !== "Actions" &&
+                                  head.label !== "Sr NO." && (
+                                    <div>
+                                      {sortKey === head.key ? (
+                                        sortOrder === "asc" ? (
+                                          <FaArrowDown size={15} />
+                                        ) : (
+                                          <FaArrowUp size={15} />
+                                        )
                                       ) : (
                                         <FaArrowUp size={15} />
-                                      )
-                                    ) : (
-                                      <FaArrowUp size={15} />
-                                    )}
-                                  </div>
-                                )}
-                            </div>
-                          </th>
-                        ))}
+                                      )}
+                                    </div>
+                                  )}
+                              </div>
+                            </th>
+                          ),
+                        )}
                       </tr>
                     </thead>
                     <tbody>

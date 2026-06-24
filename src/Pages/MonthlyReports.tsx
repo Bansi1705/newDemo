@@ -58,14 +58,6 @@ const MonthlyReports = () => {
     fetchReport();
   }, []);
 
-  const MonthTableHeader = [
-    { key: "Month", label: "Month" },
-    { key: "approverNames", label: "Approver" },
-    { key: "formStatus", label: "Form Status" },
-    { key: "status", label: "Status" },
-    { key: "commentCount", label: "Comment Count" },
-  ];
-
   const filteredFormStatsus: string[] = [];
 
   Object.entries(monthData).forEach(([_, data]) => {
@@ -192,7 +184,7 @@ const MonthlyReports = () => {
                 <table className="monthly-report-table">
                   <thead>
                     <tr>
-                      {MonthTableHeader.map((head) => (
+                      {CONSTANT.MONTHLY_REPORT_TABLE_HEADER.map((head) => (
                         <th key={head.key}>{head.label}</th>
                       ))}
                     </tr>

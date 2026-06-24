@@ -30,25 +30,17 @@ vi.mock("react-date-range", () => ({
 }));
 
 describe("CustomDateRangePicker Component", () => {
-  test("Date range Picker render", () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
     render(<CustomDateRangePicker />);
-
-    expect(
-      screen.getByPlaceholderText(/select date range/i),
-    ).toBeInTheDocument();
   });
-
   test("Date Range Picker Opens When On click in input", () => {
-    render(<CustomDateRangePicker />);
-
     fireEvent.click(screen.getByPlaceholderText(/select date range/i));
     expect(screen.getByText("Apply")).toBeInTheDocument();
     expect(screen.getByText("Cancel")).toBeInTheDocument();
   });
 
   test("Cancle button cliked", () => {
-    render(<CustomDateRangePicker />);
-
     fireEvent.click(screen.getByPlaceholderText(/select date range/i));
     expect(screen.getByText("Apply")).toBeInTheDocument();
     expect(screen.getByText("Cancel")).toBeInTheDocument();
@@ -59,18 +51,15 @@ describe("CustomDateRangePicker Component", () => {
     expect(screen.queryByText("Cancel")).not.toBeInTheDocument();
   });
 
- test("Date range updates after Apply is clicked", () => {
-  render(<CustomDateRangePicker />);
+  test("Date range updates after Apply is clicked", () => {
+    fireEvent.click(screen.getByPlaceholderText(/select date range/i));
+    fireEvent.click(screen.getByTestId("mock-date-change"));
+    fireEvent.click(screen.getByText("Apply"));
 
-  fireEvent.click(screen.getByPlaceholderText(/select date range/i));
-  fireEvent.click(screen.getByTestId("mock-date-change"));
-  fireEvent.click(screen.getByText("Apply"));
+    expect(
+      screen.getByDisplayValue("15/01/2025 - 25/01/2025"),
+    ).toBeInTheDocument();
 
-  expect(
-    screen.getByDisplayValue("15/01/2025 - 25/01/2025"),
-  ).toBeInTheDocument();
-
-  expect(screen.queryByText("Apply")).not.toBeInTheDocument();
-});
-
+    expect(screen.queryByText("Apply")).not.toBeInTheDocument();
+  });
 });

@@ -94,12 +94,12 @@ const Home = () => {
     setIsShowConfirmModel(true);
   };
 
-  // useEffect(() => {
-  //   const data = COMMON_SERVICES.getFiveYear();
-  //   const NextData = COMMON_SERVICES.nextFiveYear();
-  //   const NextMonths = COMMON_SERVICES.nextMonth();
-  //   // console.log(data, NextData, NextMonths);
-  // }, []);
+  useEffect(() => {
+    const data = COMMON_SERVICES.getFiveYear();
+    const NextData = COMMON_SERVICES.nextFiveYear();
+    const NextMonths = COMMON_SERVICES.nextMonth();
+    console.log(data, NextData, NextMonths);
+  }, []);
 
   const handleConfirmDeleteEditUser = async () => {
     if (deleteUserId !== undefined) {
@@ -145,15 +145,6 @@ const Home = () => {
     setIsShowConfirmModel(true);
     setEditUserID(id);
   };
-
-  const userTableTitle = [
-    "Sr.No",
-    "Name",
-    "Age",
-    "BirthDate",
-    "Image Preview",
-    "Operations",
-  ];
 
   const handleApiTest = async (
     method: "Get" | "Post" | "Put" | "Delete",
@@ -339,8 +330,8 @@ const Home = () => {
               <table border={2} className="data-table">
                 <thead>
                   <tr>
-                    {userTableTitle.map((head, index) => (
-                      <th key={index}>{head}</th>
+                    {CONSTANT.HOME_PAGE_TABLE_HEADER.map((head) => (
+                      <th key={head.key}>{head.label}</th>
                     ))}
                   </tr>
                 </thead>
@@ -348,7 +339,9 @@ const Home = () => {
                 <tbody>
                   {currentRecords.length === 0 ? (
                     <tr>
-                      <td colSpan={userTableTitle.length}>No Data Found</td>
+                      <td colSpan={CONSTANT.HOME_PAGE_TABLE_HEADER.length}>
+                        No Data Found
+                      </td>
                     </tr>
                   ) : (
                     currentRecords.map((user, index) => (

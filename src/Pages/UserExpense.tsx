@@ -267,18 +267,6 @@ const UserExpense = () => {
     { value: "Rejected", label: "Rejected", color: "#dc3545" },
   ];
 
-  const headings = [
-    { key: "employeeName", label: "Employee Name" },
-    { key: "category", label: "Category" },
-    { key: "subCategory", label: "SubCategory" },
-    { key: "amount", label: "Amount" },
-    { key: "paymentMethod", label: "Payment Method" },
-    { key: "expenseDate", label: "Expense Date" },
-    { key: "submissionDate", label: "Submission Date" },
-    { key: "status", label: "Status" },
-    { key: "actions", label: "Actions" },
-  ];
-
   return (
     <>
       <Header />
@@ -463,8 +451,8 @@ const UserExpense = () => {
             <table className="expense-data-table">
               <thead>
                 <tr>
-                  {headings.map((heading) => (
-                    <th key={heading.key}>{heading.label}</th>
+                  {CONSTANT.USER_EXPENSE_TABLE_HEADER.map((head) => (
+                    <th key={head.key}>{head.label}</th>
                   ))}
                 </tr>
               </thead>
@@ -507,10 +495,7 @@ const UserExpense = () => {
                         </select>
                       </td>
                       <td>
-                        <Menu
-                          as="div"
-                          className="relative text-left flex"
-                        >
+                        <Menu as="div" className="relative text-left flex">
                           <MenuButton className="bg-blue-500 px-3 py-2 rounded cursor-pointer">
                             Actions
                           </MenuButton>

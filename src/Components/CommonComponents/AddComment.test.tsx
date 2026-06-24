@@ -34,14 +34,10 @@ describe("AddComment Component", () => {
     ).toBeInTheDocument();
   });
 
-  test("calls handleAddComment when valid comment exists", () => {
+  test("calls handle function for add comment and cancel comment", () => {
     render(<AddComment {...mockProps} payRollCommentText="New Comment" />);
     fireEvent.click(screen.getByText("Add"));
     expect(mockProps.handlePayRollAddComment).toHaveBeenCalled();
-  });
-
-  test("calls cancel handler when Cancel button clicked", () => {
-    renderAddComment();
     fireEvent.click(screen.getByText("Cancel"));
     expect(mockProps.handleCancelPayRollAddComment).toHaveBeenCalled();
   });
