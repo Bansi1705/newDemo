@@ -37,6 +37,7 @@ export function ReactDatePicker({
         showYearDropdown
         dropdownMode="select"
         dateFormat="dd/MMMM/yyyy"
+        data-testid="date-picker"
       />
       {error && <span className="error-message">{error}</span>}
     </div>

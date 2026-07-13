@@ -3,18 +3,11 @@ import { describe, test, expect, vi } from "vitest";
 import { Otp } from "./Otp";
 
 describe("Otp Component", () => {
-  test("renders otp input", () => {
-    render(<Otp otpValue="" setOtpValue={vi.fn()} className="test-class" />);
-    expect(screen.getByPlaceholderText("Enter OTP")).toBeInTheDocument();
-  });
-
   test("calls setOtpValue on input change", () => {
     const mockSetOtpValue = vi.fn();
-
     render(
       <Otp otpValue="" setOtpValue={mockSetOtpValue} className="test-class" />,
     );
-
     const otpInput = screen.getByPlaceholderText(
       "Enter OTP",
     ) as HTMLInputElement;
@@ -24,7 +17,6 @@ describe("Otp Component", () => {
         value: "123456",
       },
     });
-
     expect(mockSetOtpValue).toHaveBeenCalledWith("123456");
   });
 
@@ -36,7 +28,6 @@ describe("Otp Component", () => {
     const otpInput = screen.getByPlaceholderText(
       "Enter OTP",
     ) as HTMLInputElement;
-
     expect(otpInput.value).toBe("654321");
   });
 });

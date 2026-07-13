@@ -145,7 +145,12 @@ function FilePreview({
     {
       condition: isPdf,
       element: (
-        <iframe src={fileUrl} title="PDF Preview" className="preview-frame" />
+        <iframe
+          src={fileUrl}
+          title="PDF Preview"
+          className="preview-frame"
+          data-testid="PDF-Preview"
+        />
       ),
     },
     {
@@ -154,6 +159,7 @@ function FilePreview({
         <iframe
           title="Excel Preview"
           className="preview-frame"
+          data-testid="Excel-Preview"
           srcDoc={`
                 <html>
                   <head>
@@ -187,7 +193,7 @@ function FilePreview({
     {
       condition: isVideo,
       element: (
-        <video className="preview-image" controls>
+        <video className="preview-image" controls data-testid="Video-preview">
           <source src={fileUrl} />
         </video>
       ),
@@ -225,6 +231,7 @@ function FilePreview({
                       setShowConfirmDelete(true);
                       setDeleteId(index);
                     }}
+                    data-testid="removeFilePreviewButton"
                   >
                     Remove
                   </button>
@@ -238,6 +245,7 @@ function FilePreview({
               <IoIosCloseCircleOutline
                 onClick={onClose}
                 className="close-btn"
+                data-testid="fileCloseIcon"
               />
             </div>
 

@@ -29,9 +29,6 @@ describe("InputField Component", () => {
     expect(screen.getByText("User Name")).toBeInTheDocument();
     expect(screen.getByText("*")).toBeInTheDocument();
     expect(screen.getByText("Name is required")).toBeInTheDocument();
-  });
-
-  test("calls onChange when input value changes", () => {
     fireEvent.change(screen.getByRole("textbox"), {
       target: { value: "Radha" },
     });

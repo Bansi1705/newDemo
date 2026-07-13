@@ -199,7 +199,7 @@ const Form = () => {
           <div className="form-group mb-4">
             <FileUpload
               label="Upload File"
-              accept="image/*,.pdf,.xls,.xlsx"
+              accept="image/*,.pdf,.xls,.xlsx,video/*"
               onFileSelect={(file) => {
                 const selectedFile = Array.isArray(file) ? file[0] : file;
 

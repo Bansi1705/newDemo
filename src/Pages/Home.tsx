@@ -240,6 +240,8 @@ const Home = () => {
     "single ",
     selectedSingleMonth && monthName[selectedSingleMonth?.getMonth() + 1],
   );
+
+  console.log(COMMON_SERVICES.isFutureQuarterSelection(3,2026))
   return (
     <>
       <>

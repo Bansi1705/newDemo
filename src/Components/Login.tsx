@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import React, { useEffect, useReducer } from "react";
 import { useNavigate } from "react-router-dom";
 import { Otp } from "./CommonComponents/Otp";
 import { Buttons } from "./CommonComponents/Buttons";
@@ -7,6 +7,7 @@ import type { LoginData } from "../Interface/types";
 import PasswordInput from "./CommonComponents/PasswordInput";
 import Toaster from "../Services/CommonService/ToasterHelper";
 import { CONSTANT } from "../Services/Constant";
+import { COMMON_SERVICES } from "../Services/CommonService/CommonServices";
 
 interface FormError {
   email?: string;
@@ -36,10 +37,13 @@ type Action =
   | {
       type: "TOGGLE_PASSWORD";
     };
+
 const initialState: State = {
   data: {
     email: "",
     password: "",
+    userIp: "",
+    userDevice: "",
   },
   error: {},
   otpValue: "",
@@ -87,9 +91,31 @@ const reducer = (state: State, action: Action): State => {
       return state;
   }
 };
+
 const Login: React.FC = () => {
   const navigate = useNavigate();
   const [loginState, dispatch] = useReducer(reducer, initialState);
+
+  useEffect(() => {
+    const getUseInfo = async () => {
+      const UserIPDetail = await COMMON_SERVICES.getUserIp();
+      dispatch({
+        type: "HANDLE_CHANGE",
+        payload: {
+          name: "userDevice",
+          value: COMMON_SERVICES.getDeviceType(),
+        },
+      });
+      dispatch({
+        type: "HANDLE_CHANGE",
+        payload: {
+          name: "userIp",
+          value: UserIPDetail,
+        },
+      });
+    };
+    getUseInfo();
+  }, []);
 
   const handleLoginUserInputChange = (
     e: React.ChangeEvent<HTMLInputElement>,

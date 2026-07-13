@@ -157,4 +157,43 @@ export const COMMON_SERVICES = {
     }
     return formatted;
   },
+
+  isFutureQuarterSelection(quarterValue?: number, yearValue?: number): boolean {
+    if (!quarterValue || !yearValue) return false;
+
+    const quarter = Number(quarterValue);
+    const year = Number(yearValue);
+
+    const now = new Date();
+    const currentYear = now.getFullYear();
+    const currentQuarter = Math.floor(now.getMonth() / 3) + 1;
+
+    return (
+      year > currentYear || (year === currentYear && quarter > currentQuarter)
+    );
+  },
+
+  getDeviceType() {
+    const userDevice = navigator.userAgent.toLowerCase();
+    console.log(navigator);
+    console.log(navigator.userAgent)
+    if (userDevice.includes("mobi")) {
+      return "Mobile";
+    } else if (userDevice.includes("tablet")) {
+      return "Tablet";
+    }
+    return "Desktop";
+  },
+
+  async getUserIp() {
+    try {
+      const response = await fetch("https://api.ipify.org?format=json");
+      const data = await response.json();
+
+      return data.ip;
+    } catch (error) {
+      console.error("Failed to fetch IP:", error);
+      return "";
+    }
+  },
 };

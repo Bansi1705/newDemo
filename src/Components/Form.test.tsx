@@ -1,17 +1,16 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import { BrowserRouter, MemoryRouter, Route, Routes } from "react-router-dom";
-import { describe, test, expect, vi, beforeEach, type Mock } from "vitest";
+import { MemoryRouter, Route, Routes } from "react-router-dom";
+import { describe, test, expect, type Mock, vi } from "vitest";
 import Form from "./Form";
 import { Apiservice } from "../Services/ApiService";
 
 vi.mock("../Services/ApiService", () => ({
   Apiservice: {
     get: vi.fn(),
-    post: vi.fn(),
     put: vi.fn(),
+    post: vi.fn(),
   },
 }));
-
 vi.mock("./CommonComponents/DatePicker", () => ({
   ReactDatePicker: ({ onChange, error }: any) => (
     <>
@@ -61,9 +60,9 @@ describe("Form Component", () => {
 
   test("Empty Field Validation in Add User Form", () => {
     render(
-      <BrowserRouter>
+      <MemoryRouter>
         <Form />
-      </BrowserRouter>,
+      </MemoryRouter>,
     );
 
     fireEvent.click(
@@ -77,7 +76,6 @@ describe("Form Component", () => {
     expect(screen.getByText("Enter Valid Age")).toBeInTheDocument();
     expect(screen.getByText("UploadFile is required.")).toBeInTheDocument();
   });
-
   test("should create a new user", async () => {
     (Apiservice.post as Mock).mockResolvedValue({
       data: {},

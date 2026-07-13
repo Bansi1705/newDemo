@@ -20,29 +20,25 @@ describe("DropDown Component", () => {
     expect(screen.getByRole("combobox")).toBeInTheDocument();
   });
 
-  test("renders all options", () => {
-    render(<DropDown {...defaultProps} />);
+  test("renders all options and calls dropDownChnage on selection chnage and reauired mark when required is true", () => {
+    const mockChange = vi.fn();
+
+    render(
+      <DropDown
+        {...defaultProps}
+        dropDownChange={mockChange}
+        required={true}
+      />,
+    );
 
     expect(screen.getByRole("option", { name: "India" })).toBeInTheDocument();
     expect(screen.getByRole("option", { name: "USA" })).toBeInTheDocument();
     expect(screen.getByRole("option", { name: "Canada" })).toBeInTheDocument();
-  });
-
-  test("calls dropDownChange on selection change", () => {
-    const mockChange = vi.fn();
-
-    render(<DropDown {...defaultProps} dropDownChange={mockChange} />);
+    expect(screen.getByText("*")).toBeInTheDocument();
 
     fireEvent.change(screen.getByRole("combobox"), {
       target: { value: "India" },
     });
-
     expect(mockChange).toHaveBeenCalledTimes(1);
-  });
-
-  test("renders required mark when required is true", () => {
-    render(<DropDown {...defaultProps} required={true} />);
-
-    expect(screen.getByText("*")).toBeInTheDocument();
   });
 });

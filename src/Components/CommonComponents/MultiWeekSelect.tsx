@@ -18,7 +18,6 @@ export function MultipleWeekPicker({
     if (!date) return;
 
     const weekStart = startOfWeek(date, { weekStartsOn: 0 });
-
     const exists = selectedWeeks.find(
       (week) => week.getTime() === weekStart.getTime(),
     );
@@ -32,9 +31,7 @@ export function MultipleWeekPicker({
 
   const getWeekRange = (weeks: Date[]) => {
     if (!weeks.length) return "";
-
     const sortedWeeks = [...weeks].sort((a, b) => a.getTime() - b.getTime());
-
     const start = startOfWeek(sortedWeeks[0], {
       weekStartsOn: 0,
     });

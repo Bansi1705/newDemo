@@ -28,11 +28,8 @@ describe("PasswordInput", () => {
     );
 
     fireEvent.click(toggleButton);
-
     expect(passwordInput.type).toBe("text");
-
     fireEvent.click(toggleButton);
-
     expect(passwordInput.type).toBe("password");
   });
 });

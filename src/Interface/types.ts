@@ -30,6 +30,8 @@ export interface ExpenseData {
 export interface LoginData {
   email: string;
   password: string;
+  userDevice?: string;
+  userIp: string;
 }
 export interface OtpProps {
   otpValue: string;

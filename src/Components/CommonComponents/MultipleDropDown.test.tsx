@@ -9,21 +9,15 @@ const options = [
 const mockSetOption = vi.fn();
 
 const renderMultiSelectDropDown = () =>
-  render(<CommonMultiSelect options={options} setOption={mockSetOption} />);
+  render(
+    <CommonMultiSelect
+      options={options}
+      setOption={mockSetOption}
+      placeHolder="Select Item"
+    />,
+  );
 
 describe("CommonMultiSelect", () => {
-  test("renders placeholder", () => {
-    render(
-      <CommonMultiSelect
-        options={options}
-        setOption={mockSetOption}
-        placeHolder="Select Skill"
-      />,
-    );
-
-    expect(screen.getByText("Select Skill")).toBeInTheDocument();
-  });
-
   test("opens dropdown on click", async () => {
     renderMultiSelectDropDown();
     fireEvent.click(screen.getByTestId("openDropDownIcon"));
@@ -32,20 +26,15 @@ describe("CommonMultiSelect", () => {
     expect(screen.getByText("Angular")).toBeInTheDocument();
   });
 
-  test("selects checkbox", () => {
-    renderMultiSelectDropDown();
-    fireEvent.click(screen.getByTestId("openDropDownIcon"));
-    const checkbox = screen.getAllByRole("checkbox")[0];
-    fireEvent.click(checkbox);
-    expect(checkbox).toBeChecked();
-  });
-
-  test("shows send button when onSend is true", () => {
+  test("shows send button when onSend is true and mrak checked on selected item", () => {
     render(
       <CommonMultiSelect options={options} setOption={mockSetOption} onSend />,
     );
 
     fireEvent.click(screen.getByTestId("openDropDownIcon"));
+    const checkbox = screen.getAllByRole("checkbox")[0];
+    fireEvent.click(checkbox);
+    expect(checkbox).toBeChecked();
     expect(screen.getByText("Send")).toBeInTheDocument();
   });
 });
